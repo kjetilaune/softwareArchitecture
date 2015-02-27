@@ -1,3 +1,5 @@
 \chapter{Architectural and Design Patterns}
-In this chapter, you should discuss the results you have obtained from your implementation.
-These can be correctness results, i.e whether the implementation behaved as expected, or numerical results that express runtime or energy measurements.
+Our game will be implemented using the architectural pattern known as MVC (Model-View-Controller). In the Model we are going to have the behavior of the application. The model manages the logic, rules and data of our game. The model updates the View; which is the visual output of information. We’re going to have several views, e.g. one for each player. The users of our application uses the Controller. The controller takes the input and converts it to commands for the model.
+
+
+The design pattern we will utilize is the Singleton pattern. The Singleton pattern is used to restrict instantiation of a class to one single object. By using the Singleton pattern we make sure that we have one global instance. In our game, we intend to implement the Singleton pattern on the settings of the game and the screen size. We intend to use Singleton as little as possible as it makes testing more difficult. This is noticeable when it comes to unit testing. Unit tests are supposed to be repeatable, but since singleton have a state, the changes need to be rolled back when the test is complete. 

@@ -1,5 +1,23 @@
 \chapter{Architectural Tactics}
-This chapter should be a look back at the entire report and summarizing the problem, the solution and the obtained results.
+The two main quality attributes we have chosen are modifiability and testability. To this end, we have focused on choosing tactics to ensure these two (mostly modifiability).
 
-\section{Evaluation of the Assignment}
-You can include comments about the assignment itself here. While this part is not obligatory and not graded, it is valuable feedback to the course staff that can be used to improve the exercises in the future.
+As we have decided to use the MVC architectural pattern, there are some modifiability tactics we must apply. These are:
+
+\begin{itemize}
+	\item{Encapsulation - This tactic is used on a high level, with the model part of MVC encapsulating the functional core data and functionality, and on a low level, within the model, where different data and function are encapsulated into Vehicle, Ammunition, Inventory, etc. (see logic view).}
+	\item{Use an Intermediate - The controller part of MVC works as an intermediate between the input given in the view(s) and the data in the model. Another is the view, which is an intermediate between the data in the model and the device the view is shown on.}
+	\item{Increase Semantic Coherence - By the definition of MVC, the model should contain everything we need to run the software (i. e. our game), demanding that all the necessary data and functions are present in the model. This is also used by separating Vehicle, with functionality to operate a vehicle, and Inventory, with functionality to keep track of the items and upgradres, from Player (see logic view).}
+	\item{Use Runtime Binding - Views are bound at runtime, as different view can be bound to the data in the model at different times during execution. The views can also be opened and closed dynamically.}
+
+\end{itemize}
+
+Other modifiability tactics we have used are:
+
+\begin{itemize}
+	\item{Raise the abstraction levels - The two abstract classes Ammunition and Vehicle (see logic view) are meant to making changes, especially additions of new types of ammunition or different vehicles, easier after the game has been fully implemented.}
+	\item{Isolate the expected change - Several parts of the game are more prone to changes than the other, e. g. the store, which can be modified to contain new types of ammunition og upgrades or other items that are conceived after the game is completed. An example of a fixed part would be the game settings.}
+\end{itemize}
+
+Another tactic we have utilized is I/O-management. This is a testability tactic and is achieved through the use of MVC. The view manages the output to the user, and the input is managed by the controller. This way, we separate the interface from the implementation.
+
+We have no specific tactics for ensuring performance or availability, as these are not deemed important to our game. This is because it runs locally for a small number of players, meaning an implementation with low resource-use and proper testing will suffice for performance and availability. Security is not an issue for this game, as no information is sent beyond the device we are using and no sensitive data is being stored.

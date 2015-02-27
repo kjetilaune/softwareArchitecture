@@ -1,11 +1,38 @@
 \chapter{Architectural drivers}
-\cite{adams1995hitchhiker}
-\section{Functional requirements}
+
+\section{Functional Requirements}
 \begin{itemize}
-	\item{Playable as an offline multiplayer game}
+	\item{Playable as an offline multiplayer game - The game should be a turn-based multiplayer game. As a start, there will be a maximum of two players, but it should also be easy to extend with more players. There will be no need for an internet connection since the game is played locally on the phone.}
 \end{itemize}
 
-\section{Non-functional requirements}
+\section{Non-functional Requirements}
 \begin{itemize}
 	\item{Support rapid design changes}
+\end{itemize}
+
+\section{Technical Constraints}
+
+\begin{itemize}
+	\item{Must be run on android - The game will initially be developed for Android devices only, using the Android SDK. Since many Android devices have a fairly small screen size, the game should be simple and easy to play on small screens. It should still run well on larger screens, in example tablets.}
+	\item{Must use libGDX - LibGDX is the chosen development framework, and the game must then be implemented using the functionality of this framework.}
+\end{itemize}
+
+\section{Quality Requirements}
+
+\begin{itemize}
+\item{Testability - must be divided into small modules for easy testing}
+	\begin{itemize}
+		\item{To ensure that the game is testable, it must be divided into as small modules as possible. This will make the game easier to test, which is our secondary focus attribute.}
+	\end{itemize}
+	\item{Modifiability - need to be easy to add new features}
+	\begin{itemize}
+	\item{The game needs to be easily modifiable, meaning that it should not take a long time to extend the game with new features, in example new ammunition and teams. The MVC pattern will be utilized to increase the modifiability of the game.}
+	\end{itemize}
+\end{itemize}
+
+\section{Business constraints}
+
+\begin{itemize}
+\item{Short development time - The game must be completed in 9 weeks. This is a short amount of time, and we therefore need to keep the game simple and easy to implement.}
+\item{Developer inexperience - Since none of the developers have any experience with the libGDX framework, and only little experience with Android development in general, we will need to spend time learning how to use the development tools.}
 \end{itemize}

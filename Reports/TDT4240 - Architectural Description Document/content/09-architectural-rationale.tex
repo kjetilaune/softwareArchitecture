@@ -1,3 +1,4 @@
 \chapter{Architectural Rationale}
-In this chapter, you should discuss the results you have obtained from your implementation.
-These can be correctness results, i.e whether the implementation behaved as expected, or numerical results that express runtime or energy measurements.
+We have chosen the Model View Controller as our architectural pattern. The MVC pattern separates the data from the display, which allows each to change without the other changing. This increases our primary focus attribute, modifiability, because it keeps the various pieces separate and easy to modify independently. The pattern also enhances or secondary focus attribute; testability. It naturally separates different application concerns into different, independent software pieces, which makes unit testing of the individual pieces a lot easier.
+
+As for design patterns, we want to use the Singleton Pattern. This is a good way to store the game settings, since they will be used across multiple components. A drawback with this pattern is that it may make the game less testable. Therefore we will only use this pattern in a limited way.
