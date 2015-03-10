@@ -11,6 +11,25 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class MainScreen implements Screen {
     private Stage stage = new Stage();
 
+    /*
+    * What we need to implement
+    *
+    * Buttons:
+    * - One Fire-button
+    * - One Ammo changer-button
+    * - Two movement arrow (one in either direction)
+    *
+    * Information showing:
+    * - Current ammo chosen
+    * - Current stockpile of chosen ammo
+    * - Amount of health
+    * - Amount of fuel
+    * - Amount of armor
+    * - Power bar (fluctuates when Fire-button is pressed)
+    * - Angle crosshair
+    *
+    * */
+
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
