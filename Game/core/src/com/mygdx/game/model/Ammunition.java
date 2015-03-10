@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 public abstract class Ammunition {
 
     private int initialDamage;
-    private int cluserCount;
-    private int blastRadious;
+    private int clusterCount;
+    private int blastRadius;
     private int weight;
 
     private Texture image;
@@ -22,20 +22,20 @@ public abstract class Ammunition {
         this.initialDamage = initialDamage;
     }
 
-    public int getCluserCount() {
-        return cluserCount;
+    public int getClusterCount() {
+        return clusterCount;
     }
 
-    public void setCluserCount(int cluserCount) {
-        this.cluserCount = cluserCount;
+    public void setClusterCount(int clusterCount) {
+        this.clusterCount = clusterCount;
     }
 
-    public int getBlastRadious() {
-        return blastRadious;
+    public int getBlastRadius() {
+        return blastRadius;
     }
 
-    public void setBlastRadious(int blastRadious) {
-        this.blastRadious = blastRadious;
+    public void setBlastRadius(int blastRadius) {
+        this.blastRadius = blastRadius;
     }
 
     public int getWeight() {
