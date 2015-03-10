@@ -1,5 +1,7 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.graphics.Texture;
+
 /**
  * Created by annieaa on 10/03/15.
  */
@@ -10,9 +12,12 @@ public abstract class Vehicle {
     private float angle;
     private float power;
 
-    public Vehicle() {
+    private Texture image;
+
+    public Vehicle(Texture image) {
         health = 100;
         fuel = 100;
+        this.image = image;
     }
 
     public int getHealth() {
@@ -45,6 +50,14 @@ public abstract class Vehicle {
 
     public void setPower(float power) {
         this.power = power;
+    }
+
+    public Texture getImage() {
+        return image;
+    }
+
+    public void setImage(Texture image) {
+        this.image = image;
     }
 
 }
