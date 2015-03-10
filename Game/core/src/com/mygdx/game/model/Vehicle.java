@@ -8,7 +8,12 @@ public abstract class Vehicle {
     private int health;
     private int fuel;
     private float angle;
-    private float bulletSpeed;
+    private float power;
+
+    public Vehicle() {
+        health = 100;
+        fuel = 100;
+    }
 
     public int getHealth() {
         return health;
@@ -34,12 +39,12 @@ public abstract class Vehicle {
         this.angle = angle;
     }
 
-    public float getBulletSpeed() {
-        return bulletSpeed;
+    public float getPower() {
+        return power;
     }
 
-    public void setBulletSpeed(float bulletSpeed) {
-        this.bulletSpeed = bulletSpeed;
+    public void setPower(float power) {
+        this.power = power;
     }
 
 }
