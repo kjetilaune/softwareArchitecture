@@ -25,6 +25,11 @@ public class Store {
     public void setUpgradePrices(HashMap<String, Integer> upgradePrices) {
         this.upgradePrices = upgradePrices;
     }
-    
+
+    public boolean buyAmmunition(Player player, Ammunition ammo, int n) {
+
+        return false;
+
+    }
 
 }
