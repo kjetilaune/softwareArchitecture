@@ -53,5 +53,5 @@ public abstract class Ammunition {
     public void setImage(Texture image) {
         this.image = image;
     }
-    
+
 }

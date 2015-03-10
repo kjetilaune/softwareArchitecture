@@ -14,6 +14,7 @@ public abstract class Vehicle {
 
     private Texture image;
 
+
     public Vehicle(Texture image) {
         health = 100;
         fuel = 100;
