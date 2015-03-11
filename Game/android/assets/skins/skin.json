@@ -1,0 +1,9 @@
+{
+	"com.badlogic.gdx.graphics.g2d.BitMapFont": {
+		"text": {"file" : "fonts/eras.fnt"},
+	},
+
+	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+		"eras" : { "font" : text},
+	},
+}
