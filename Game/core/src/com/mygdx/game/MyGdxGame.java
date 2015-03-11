@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.gui.GameView;
 import com.badlogic.gdx.Game;
 import com.mygdx.game.gui.MainMenu;
+import com.mygdx.game.model.GameSettings;
 
 public class MyGdxGame extends Game implements ApplicationListener{
 	SpriteBatch batch;
@@ -16,6 +17,10 @@ public class MyGdxGame extends Game implements ApplicationListener{
 
 	@Override
 	public void create () {
+
+        GameSettings.getInstance().height = Gdx.graphics.getHeight();
+        GameSettings.getInstance().width = Gdx.graphics.getWidth();
+
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
         setScreen(new MainMenu(this));

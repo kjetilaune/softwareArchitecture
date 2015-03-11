@@ -8,6 +8,10 @@ import java.util.ArrayList;
 public class GameSettings {
 
     private static GameSettings instance;
+
+    public int width;
+    public int height;
+
     public int maxPlayers;
     public ArrayList<Player> players;
 
