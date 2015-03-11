@@ -1,9 +1,13 @@
 {
-	"com.badlogic.gdx.graphics.g2d.BitMapFont": {
-		"text": {"file" : "fonts/eras.fnt"},
+	"com.badlogic.gdx.graphics.g2d.BitmapFont": {
+		"font": {"file" : "font/eras.fnt"},
+	},
+
+	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+	    "default": {"up": "buttonsOn" , "down": "buttonsOff", "font": font}
 	},
 
 	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
-		"eras" : { "font" : text},
+		"default" : { "font" : font},
 	},
 }

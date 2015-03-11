@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.gui.GameView;
 import com.badlogic.gdx.Game;
+import com.mygdx.game.gui.MainMenu;
 
 public class MyGdxGame extends Game implements ApplicationListener{
 	SpriteBatch batch;
@@ -17,7 +18,7 @@ public class MyGdxGame extends Game implements ApplicationListener{
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-        setScreen(new GameView(this));
+        setScreen(new MainMenu(this));
 	}
 
 	/*@Override
@@ -31,8 +32,4 @@ public class MyGdxGame extends Game implements ApplicationListener{
 	}
 */
 
-    //Copied from GameView
-    public void generateBackground(){
-        Gdx.gl.glClearColor((float)(198.0/255.0), (float)(226.0/255.0), 1, 1);
-    }
 }

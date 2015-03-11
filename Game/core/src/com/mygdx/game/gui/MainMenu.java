@@ -3,6 +3,7 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -36,7 +37,8 @@ public class MainMenu implements Screen {
         stage = new Stage();
         table = new Table();
 
-        skin = new Skin(Gdx.files.internal("skins/menuSkin.json"));
+        skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
+        skin.getFont("font").scale(1);
 
         title = new Label("Food Frenzy", skin);
 
@@ -73,15 +75,15 @@ public class MainMenu implements Screen {
         buttonAbout.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                game.setScreen(new AboutView(game));
             }
         });
 
 
         table.add(title).padBottom(40).row();
-        table.add(buttonNewGame).size(150, 60).padBottom(20).row();
-        table.add(buttonSettings).size(150, 60).padBottom(20).row();
-        table.add(buttonAbout).size(150, 60).padBottom(20).row();
+        table.add(buttonNewGame).size(300, 120).padBottom(20).row();
+        table.add(buttonSettings).size(300, 120).padBottom(20).row();
+        table.add(buttonAbout).size(300, 120).padBottom(20).row();
 
         table.setFillParent(true);
         stage.addActor(table);

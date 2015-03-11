@@ -3,6 +3,7 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -34,7 +35,8 @@ public class SettingsView implements Screen {
         stage = new Stage();
         table = new Table();
 
-        skin = new Skin(Gdx.files.internal("skins/menuSkin.json"));
+        skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
+        skin.getFont("font").scale(1);
 
         title = new Label("Settings", skin);
 
@@ -63,8 +65,8 @@ public class SettingsView implements Screen {
             }
         });
 
-        table.add(title);
-        table.add(buttonMainMenu);
+        table.add(title).padBottom(20).row();
+        table.add(buttonMainMenu).size(300, 120).padBottom(20).row();
 
         table.setFillParent(true);
         stage.addActor(table);
