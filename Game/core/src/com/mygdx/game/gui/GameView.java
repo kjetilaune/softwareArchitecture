@@ -49,13 +49,10 @@ public class GameView implements Screen{
         Gdx.gl20.glLineWidth(2);
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-
-        shapeRenderer.setColor(0, 0, 0, 1);
-        shapeRenderer.rect(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 200);
         shapeRenderer.setColor((float)(160.0/255.0), (float)(219.0/255.0), (float)(142.0/255.0), 1);
 
         for (int i = 0; i < Gdx.graphics.getWidth() - 1; i++){
-            shapeRenderer.line(i, Gdx.graphics.getHeight() - 200, i, Gdx.graphics.getHeight() - Math.round(i*0.1) - 200);
+            shapeRenderer.line(i, Gdx.graphics.getHeight(), i, Gdx.graphics.getHeight() - Math.round(i*0.1) - 400);
         }
         shapeRenderer.end();
     }
