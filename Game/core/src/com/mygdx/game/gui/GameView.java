@@ -7,6 +7,7 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
@@ -19,6 +20,7 @@ import com.mygdx.game.MyGdxGame;
 
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.model.GameSettings;
 
 public class GameView implements Screen{
     private Stage stage;
@@ -27,6 +29,8 @@ public class GameView implements Screen{
     ShapeRenderer shapeRenderer = new ShapeRenderer();
 
 
+    private OrthographicCamera camera;
+
     int height = Gdx.graphics.getHeight();
 
     public GameView(MyGdxGame game){
@@ -34,22 +38,36 @@ public class GameView implements Screen{
         this.game = game;
         batch = new SpriteBatch();
 
+        camera= new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.update();
+
     }
 
 
-    public void generateBackground(){
-        Gdx.gl.glClearColor((float)(198.0/255.0), (float)(226.0/255.0), 1, 1);
+    private void generateBackground(){
+        Gdx.gl20.glLineWidth(2);
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(50, 50, 50, 50);
+        shapeRenderer.setColor(0, 0, 0, 1);
+        shapeRenderer.rect(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 200);
+        shapeRenderer.setColor((float)(160.0/255.0), (float)(219.0/255.0), (float)(142.0/255.0), 1);
+
         for (int i = 0; i < Gdx.graphics.getWidth() - 1; i++){
-
-            shapeRenderer.setColor((float)(160.0/255.0), (float)(219.0/255.0), (float)(142.0/255.0), 1);
-            shapeRenderer.rect(i, 50, 50, 50);
-
+            shapeRenderer.line(i, Gdx.graphics.getHeight() - 200, i, Gdx.graphics.getHeight() - Math.round(i*0.1) - 200);
         }
         shapeRenderer.end();
+    }
+
+    // fix this later if time
+    private void generateHill(int width, int height, int startX) {
+
+        for (int i = startX ; i < width ; i++) {
+            if (i < width/5) {
+                shapeRenderer.line(i, Gdx.graphics.getHeight(), i, Gdx.graphics.getHeight() - height/5);
+            }
+        }
 
     }
 
@@ -60,14 +78,29 @@ public class GameView implements Screen{
 
     @Override
     public void render(float delta) {
+
+        Gdx.gl.glClearColor((float)(198.0/255.0), (float)(226.0/255.0), 1, 1);
+        //Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act();
+        stage.draw();
+
+
+
         batch.begin();
         generateBackground();
         batch.end();
 
+        //Gdx.gl.glClearColor((float)(198.0/255.0), (float)(226.0/255.0), 1, 1);
+
+
+/*
+        batch.begin();
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
-        stage.draw();
+        stage.draw();*/
     }
 
     @Override
