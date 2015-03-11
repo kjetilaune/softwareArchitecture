@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by annieaa on 10/03/15.
  */
-public abstract class Ammunition {
+public abstract class Ammunition extends GameObject {
 
     private int initialDamage;
     private int clusterCount;

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by annieaa on 10/03/15.
  */
-public abstract class Vehicle {
+public abstract class Vehicle extends GameObject {
 
     private int health;
     private int fuel;
