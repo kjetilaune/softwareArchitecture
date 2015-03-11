@@ -39,7 +39,6 @@ public class AboutView implements Screen {
         skin.getFont("font").scale(1);
 
         title = new Label("Settings", skin);
-
         buttonMainMenu = new TextButton("Main Menu", skin);
 
     }

@@ -6,21 +6,13 @@ package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.PolygonRegion;
-import com.badlogic.gdx.graphics.g2d.PolygonSprite;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
 
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.model.GameSettings;
 
 public class GameView implements Screen{
     private Stage stage;
@@ -30,8 +22,6 @@ public class GameView implements Screen{
 
 
     private OrthographicCamera camera;
-
-    int height = Gdx.graphics.getHeight();
 
     public GameView(MyGdxGame game){
         stage = new Stage();
@@ -82,22 +72,10 @@ public class GameView implements Screen{
         stage.act();
         stage.draw();
 
-
-
         batch.begin();
         generateBackground();
         batch.end();
 
-        //Gdx.gl.glClearColor((float)(198.0/255.0), (float)(226.0/255.0), 1, 1);
-
-
-/*
-        batch.begin();
-
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.act();
-        stage.draw();*/
     }
 
     @Override
