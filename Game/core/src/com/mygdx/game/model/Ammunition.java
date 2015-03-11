@@ -54,4 +54,6 @@ public abstract class Ammunition extends GameObject {
         this.image = image;
     }
 
+
+
 }
