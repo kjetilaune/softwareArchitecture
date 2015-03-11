@@ -7,13 +7,17 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.model.Game;
+import com.badlogic.gdx.graphics.GL20;
 
 public class GameView implements Screen{
     private Stage stage;
+    MyGdxGame game;
 
-    public GameView(){
+    public GameView(MyGdxGame game){
         stage = new Stage();
+        this.game = game;
 
     }
 
@@ -29,6 +33,7 @@ public class GameView implements Screen{
     @Override
     public void render(float delta) {
         generateBackground();
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();
     }
