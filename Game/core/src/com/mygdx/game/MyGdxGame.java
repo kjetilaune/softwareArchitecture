@@ -19,8 +19,8 @@ public class MyGdxGame extends Game implements ApplicationListener{
 	@Override
 	public void create () {
 
-        HEIGHT = GameSettings.getInstance().height = Gdx.graphics.getHeight();
-        WIDTH = GameSettings.getInstance().width = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
+        WIDTH = Gdx.graphics.getWidth();
 
 		batch = new SpriteBatch();
         setScreen(new MainMenu(this));
