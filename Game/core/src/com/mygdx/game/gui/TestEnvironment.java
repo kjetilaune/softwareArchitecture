@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class TestEnvironment {
 
-    //test
+    //just a class for testing random environment
 
     private World world = new World(new Vector2(0, 10), true);
     private int worldScale = 30;
