@@ -1,9 +1,11 @@
 package com.mygdx.game.controller;
 
 import com.mygdx.game.model.AbstractModel;
+
+import org.w3c.dom.views.AbstractView;
+
 import java.beans.PropertyChangeListener;
 
-import sun.plugin.dom.views.AbstractView;
 
 /**
  * Created by Jonathan on 10.03.2015.

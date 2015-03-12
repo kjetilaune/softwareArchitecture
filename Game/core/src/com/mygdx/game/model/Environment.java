@@ -1,9 +1,9 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
-import java.awt.Polygon;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +49,7 @@ public class Environment {
 
             for (int j = 0 ; j < hillSliceWidth ; j++) {
 
-                hillVector = new Vector2[3];
+                hillVector = new Vector2[4];
                 hillVector[0] = new Vector2((float)(j*pixelStep+hillWidth*i)/worldScale, 480/worldScale);
                 hillVector[1] = new Vector2((float)(j*pixelStep+hillWidth*i)/worldScale, (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*j))/worldScale);
                 hillVector[2] = new Vector2((float)((j+1)*pixelStep+hillWidth*i)/worldScale, (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*(j+1))/worldScale));
@@ -61,10 +61,14 @@ public class Environment {
                     hillVector[z].sub(centre);
                 }
 
-                Polygon poly = new Polygon();
-                for (int z = 0 ; z < hillVector.length; z++) {
-                    poly.addPoint((int)hillVector[z].x, (int)hillVector[z].y);
-                }
+
+
+                float[] vertices = {hillVector[0].x, hillVector[0].y,
+                                    hillVector[1].x, hillVector[1].y,
+                                    hillVector[2].x, hillVector[2].y,
+                                    hillVector[3].x, hillVector[3].y};
+
+                Polygon poly = new Polygon(vertices);
 
                 polygons.add(poly);
 

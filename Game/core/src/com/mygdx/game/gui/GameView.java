@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
@@ -22,13 +23,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.model.Environment;
 
-import java.awt.Polygon;
 import java.util.ArrayList;
 
 public class GameView implements Screen{
 
     MyGdxGame game;
     private Stage stage;
+
+    Environment environment;
 
     private PolygonSprite ground;
     PolygonSpriteBatch polyBatch;
@@ -49,6 +51,7 @@ public class GameView implements Screen{
         polyBatch = new PolygonSpriteBatch();
 
         textureGround = new Texture("grasstexture.png");
+        environment = new Environment(2, 10);
 
         setupCamera();
 
@@ -115,24 +118,13 @@ public class GameView implements Screen{
 
         polyBatch.begin();
 
+        ArrayList<Polygon> polys = environment.getPolygons();
 
-
-        Environment env = new Environment(2, 10);
-        ArrayList<Polygon> polys = env.getPolygons();
 
         for (Polygon p : polys) {
 
-            float[] vecs = new float[7];
-            int counter = 0;
-            for (int i = 0 ; i < p.npoints ; i ++) {
-                if (i % 2 == 0) {
-                    vecs[i] = p.xpoints[counter];
-                }
-                else {
-                    vecs[i] = p.ypoints[counter];
-                    counter ++;
-                }
-            }
+
+            float[] vecs = p.getVertices();
 
             short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
             PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
@@ -140,14 +132,14 @@ public class GameView implements Screen{
             ground.draw(polyBatch);
         }
 
-
+        /*
         float[] vecs = {0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth()/2, 0, 0, 0};
 
 
         short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
         PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
         ground = new PolygonSprite(region);
-        ground.draw(polyBatch);
+        ground.draw(polyBatch);*/
 
         polyBatch.end();
 
