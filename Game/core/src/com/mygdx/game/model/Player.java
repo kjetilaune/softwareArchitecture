@@ -8,6 +8,7 @@ public class Player {
     private Vehicle vehicle;
     private Inventory inventory;
     private Ammunition chosenAmmo;
+    private Team team;
 
     public Player() {
         vehicle = new Tank();
@@ -37,5 +38,13 @@ public class Player {
 
     public void setChosenAmmo(Ammunition chosenAmmo) {
         this.chosenAmmo = chosenAmmo;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

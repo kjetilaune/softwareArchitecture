@@ -1,6 +1,7 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.AmmoTypes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.Ammunition;
 
 /**
  * Created by Mikal on 12.03.2015.
@@ -11,7 +12,7 @@ public class Instakill extends Ammunition {
         //does something
     }
 
-    public Instakill(Integer initialDamage, Integer clusterCount, Integer blastRadius, Integer weight) {
-        super("Instakill", initialDamage, clusterCount, blastRadius, weight);
+    public Instakill() {
+        super("Instakill", 100, 1, 100, 10);
     }
 }

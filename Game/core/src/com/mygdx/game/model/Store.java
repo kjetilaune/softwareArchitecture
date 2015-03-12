@@ -1,5 +1,9 @@
 package com.mygdx.game.model;
 
+import com.mygdx.game.model.AmmoTypes.Bullet;
+import com.mygdx.game.model.AmmoTypes.F_Bomb;
+import com.mygdx.game.model.AmmoTypes.Instakill;
+
 import java.util.HashMap;
 
 /**
@@ -8,6 +12,8 @@ import java.util.HashMap;
 public class Store {
 
     //need to add something to the hashmaps.
+
+    private static Store storeInstance;
 
     // Maps name of the Ammunition to the actual object
     private static  HashMap<String, Ammunition> allAmmunition;
@@ -25,9 +31,9 @@ public class Store {
         upgradePrices = new HashMap<String, Integer>();
 
         // instantiates and adds all existing ammunition types
-        allAmmunition.put("Bullet", new Bullet(1, 1, 10, 1));
-        allAmmunition.put("F-Bomb", new F_Bomb(10, 1, 25, 3));
-        allAmmunition.put("Instakill", new Instakill(100, 1, 100, 10));
+        allAmmunition.put("Bullet", new Bullet());
+        allAmmunition.put("F-Bomb", new F_Bomb());
+        allAmmunition.put("Instakill", new Instakill());
 
         // adds all ammunition available for purchase
         ammunitionPrices.put("F-Bomb", 1000);
@@ -37,6 +43,13 @@ public class Store {
         upgradePrices.put("Health", 1500);
         upgradePrices.put("Fuel", 500);
 
+    }
+
+    public static Store getInstance() {
+        if (storeInstance == null) {
+            storeInstance = new Store();
+        }
+        return storeInstance;
     }
 
     public HashMap<String, Ammunition> getAllAmmunition() {
