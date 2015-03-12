@@ -20,6 +20,10 @@ import com.mygdx.game.MyGdxGame;
 
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.model.Environment;
+
+import java.awt.Polygon;
+import java.util.ArrayList;
 
 public class GameView implements Screen{
 
@@ -70,10 +74,10 @@ public class GameView implements Screen{
         stage.act();
         stage.draw();
 
-        polyBatch.begin();
+        //polyBatch.begin();
         generateGround();
-        ground.draw(polyBatch);
-        polyBatch.end();
+        //ground.draw(polyBatch);
+        //polyBatch.end();
 
         batch.begin();
         //generateBackground();
@@ -109,10 +113,43 @@ public class GameView implements Screen{
 
     private void generateGround() {
 
+        polyBatch.begin();
+
+
+
+        Environment env = new Environment(2, 10);
+        ArrayList<Polygon> polys = env.getPolygons();
+
+        for (Polygon p : polys) {
+
+            float[] vecs = new float[7];
+            int counter = 0;
+            for (int i = 0 ; i < p.npoints ; i ++) {
+                if (i % 2 == 0) {
+                    vecs[i] = p.xpoints[counter];
+                }
+                else {
+                    vecs[i] = p.ypoints[counter];
+                    counter ++;
+                }
+            }
+
+            short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
+            PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
+            ground = new PolygonSprite(region);
+            ground.draw(polyBatch);
+        }
+
+
         float[] vecs = {0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth()/2, 0, 0, 0};
+
+
         short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
         PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
         ground = new PolygonSprite(region);
+        ground.draw(polyBatch);
+
+        polyBatch.end();
 
     }
 
