@@ -7,7 +7,14 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGdxGame;
 
@@ -19,21 +26,25 @@ public class GameView implements Screen{
     MyGdxGame game;
     private Stage stage;
 
+    private PolygonSprite ground;
+    PolygonSpriteBatch polyBatch;
+    Texture textureGround;
+
     SpriteBatch batch;
 
     ShapeRenderer shapeRenderer = new ShapeRenderer();
 
 
     private OrthographicCamera camera;
-
-
-
     public GameView(MyGdxGame game){
 
         this.game = game;
 
         stage = new Stage();
         batch = new SpriteBatch();
+        polyBatch = new PolygonSpriteBatch();
+
+        textureGround = new Texture("grasstexture.png");
 
         setupCamera();
 
@@ -59,8 +70,13 @@ public class GameView implements Screen{
         stage.act();
         stage.draw();
 
+        polyBatch.begin();
+        generateGround();
+        ground.draw(polyBatch);
+        polyBatch.end();
+
         batch.begin();
-        generateBackground();
+        //generateBackground();
         //batch.draw(ground, ground.getX(), ground.getY());
         batch.end();
 
@@ -91,15 +107,29 @@ public class GameView implements Screen{
 
     }
 
+    private void generateGround() {
+
+        float[] vecs = {0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth()/2, 0, 0, 0};
+        short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
+        PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
+        ground = new PolygonSprite(region);
+
+    }
+
     private void generateBackground(){
         Gdx.gl20.glLineWidth(2);
+
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor((float)(160.0/255.0), (float)(219.0/255.0), (float)(142.0/255.0), 1);
 
-        for (int i = 0; i < Gdx.graphics.getWidth() - 1; i++){
+        float[] v = {0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth()/2, 0, 0, 0};
+
+        shapeRenderer.polygon(v);
+
+        /*for (int i = 0; i < Gdx.graphics.getWidth() - 1; i++){
             shapeRenderer.line(i, Gdx.graphics.getHeight(), i, Gdx.graphics.getHeight() - Math.round(i*0.1) - 400);
-        }
+        }*/
         shapeRenderer.end();
     }
 
