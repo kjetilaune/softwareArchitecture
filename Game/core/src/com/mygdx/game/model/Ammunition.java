@@ -7,12 +7,21 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public abstract class Ammunition extends GameObject {
 
+    private String name;
     private int initialDamage;
     private int clusterCount;
     private int blastRadius;
     private int weight;
 
     private Texture image;
+
+    public Ammunition(String name, Integer initialDamage, Integer clusterCount, Integer blastRadius, Integer weight) {
+        this.name = name;
+        this.initialDamage = initialDamage;
+        this.clusterCount = clusterCount;
+        this.blastRadius = blastRadius;
+        this.weight = weight;
+    }
 
     public int getInitialDamage() {
         return initialDamage;

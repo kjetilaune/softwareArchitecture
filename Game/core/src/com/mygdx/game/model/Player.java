@@ -5,33 +5,13 @@ package com.mygdx.game.model;
  */
 public class Player {
 
-    private int score;
-    private int money;
     private Vehicle vehicle;
     private Inventory inventory;
     private Ammunition chosenAmmo;
 
     public Player() {
-        score = 0;
-        money = 0;
         vehicle = new Tank();
         inventory = new Inventory();
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
     }
 
     public Vehicle getVehicle() {
