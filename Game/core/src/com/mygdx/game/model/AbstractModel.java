@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Json; //don't know if we should use this or the ja
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class AbstractModel implements Json.Serializable{
+public abstract class AbstractModel {
 
     protected PropertyChangeSupport propChangeSupport;
 

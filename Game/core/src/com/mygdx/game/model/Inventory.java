@@ -12,6 +12,8 @@ public class Inventory {
 
     // Maps name of the Ammunition to the inventory amount
     private HashMap<String, Integer> upgrades;
+
+    // keeps track of the player's score
     private int score;
 
     public Inventory() {

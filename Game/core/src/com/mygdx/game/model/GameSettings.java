@@ -1,29 +1,46 @@
 package com.mygdx.game.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by annieaa on 10/03/15.
  */
 public class GameSettings {
 
-    private static GameSettings instance;
+    private static GameSettings settingsInstance;
 
-    public int width;
-    public int height;
-
-    public int maxPlayers;
-    public ArrayList<Player> players;
+    private int maxPlayers, roundTime, numberOfRounds;
 
     private GameSettings() {
-
+        this.maxPlayers = 2;
     }
 
     public static GameSettings getInstance() {
-        if (instance == null) {
-            instance = new GameSettings();
+        if (settingsInstance == null) {
+            settingsInstance = new GameSettings();
         }
-        return instance;
+        return settingsInstance;
     }
 
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public int getRoundTime() {
+        return roundTime;
+    }
+
+    public int getNumberOfRounds() {
+        return numberOfRounds;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public void setRoundTime(int roundTime) {
+        this.roundTime = roundTime;
+    }
+
+    public void setNumberOfRounds(int numberOfRounds) {
+        this.numberOfRounds = numberOfRounds;
+    }
 }
