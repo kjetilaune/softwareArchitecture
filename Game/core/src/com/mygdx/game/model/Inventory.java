@@ -8,13 +8,16 @@ import java.util.HashMap;
 public class Inventory {
 
     // Maps name of the Ammunition to the inventory amount
-    private HashMap<String, Integer> ammunitions;
+    private HashMap<Ammunition, Integer> ammunitions;
 
     // Maps name of the Ammunition to the inventory amount
     private HashMap<String, Integer> upgrades;
     private int score;
 
     public Inventory() {
+        ammunitions = new HashMap<Ammunition, Integer>();
+        upgrades = new HashMap<String, Integer>();
+
         score = 0;
 
         // set default upgrades
@@ -23,9 +26,9 @@ public class Inventory {
         upgrades.put("Fuel", 0);
 
         // set default ammunition
-        ammunitions.put("Bullet", 50);
-        ammunitions.put("F-Bomb", 5);
-        ammunitions.put("Instakill", 1);
+        ammunitions.put(Store.getAmmunition("Bullet"), 50);
+        ammunitions.put(Store.getAmmunition("F-Bomb"), 5);
+        ammunitions.put(Store.getAmmunition("Instakill"), 1);
 
     }
 
@@ -37,7 +40,7 @@ public class Inventory {
         this.score = score;
     }
 
-    public HashMap<String, Integer> getAmmunitions() {
+    public HashMap<Ammunition, Integer> getAmmunitions() {
         return ammunitions;
     }
 
@@ -45,7 +48,7 @@ public class Inventory {
         return upgrades;
     }
 
-    public void increaseAmmo(String ammo, int amount) {
+    public void increaseAmmo(Ammunition ammo, int amount) {
         if (!ammunitions.containsKey(ammo)) {
             ammunitions.put(ammo, amount);
         }
@@ -55,7 +58,7 @@ public class Inventory {
         }
     }
 
-    public boolean decreaseAmmo(String ammo, int amount) {
+    public boolean decreaseAmmo(Ammunition ammo, int amount) {
         if (!ammunitions.containsKey(ammo)) {
             return false;
         }
@@ -82,8 +85,8 @@ public class Inventory {
         return true;
     }
 
-    public boolean buyAmmunition(String ammo, Integer amount) {
-        int cost = Store.getAmmunitionPrice(ammo) * amount;
+    public boolean buyAmmunition(String ammoName, Integer amount) {
+        int cost = Store.getAmmunitionPrice(ammoName) * amount;
 
         if (cost > score) {
             System.out.println("Player does not have the score to purchase this item!");
@@ -91,7 +94,7 @@ public class Inventory {
         }
 
         score -= cost;
-        increaseAmmo(ammo, amount);
+        increaseAmmo(Store.getAmmunition(ammoName), amount);
         return true;
     }
 

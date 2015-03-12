@@ -23,6 +23,10 @@ public abstract class Ammunition extends GameObject {
         this.weight = weight;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getInitialDamage() {
         return initialDamage;
     }

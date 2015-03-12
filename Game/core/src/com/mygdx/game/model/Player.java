@@ -12,6 +12,7 @@ public class Player {
     public Player() {
         vehicle = new Tank();
         inventory = new Inventory();
+        chosenAmmo = Store.getAmmunition("Bullet");
     }
 
     public Vehicle getVehicle() {
