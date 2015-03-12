@@ -9,11 +9,13 @@ public class Player {
     private Inventory inventory;
     private Ammunition chosenAmmo;
     private Team team;
+    private float timeLeft;
 
-    public Player() {
+    public Player(float timeAtStart) {
         vehicle = new Tank();
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
+        timeLeft = timeAtStart;
     }
 
     public Vehicle getVehicle() {
@@ -46,5 +48,13 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public float getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void reduceTimeLeft(float reducedTime) {
+        timeLeft -= reducedTime;
     }
 }

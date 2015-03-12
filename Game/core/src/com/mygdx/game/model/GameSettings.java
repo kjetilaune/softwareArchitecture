@@ -7,7 +7,8 @@ public class GameSettings {
 
     private static GameSettings settingsInstance;
 
-    private int maxPlayers, roundTime, numberOfRounds;
+    private int maxPlayers, numberOfRounds;
+    private float roundTime;
 
     private GameSettings() {
         this.maxPlayers = 2;
@@ -24,7 +25,7 @@ public class GameSettings {
         return maxPlayers;
     }
 
-    public int getRoundTime() {
+    public float getRoundTime() {
         return roundTime;
     }
 
