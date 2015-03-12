@@ -12,11 +12,17 @@ import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 
 import com.badlogic.gdx.graphics.GL20;
@@ -40,10 +46,17 @@ public class GameView implements Screen{
 
     ShapeRenderer shapeRenderer = new ShapeRenderer();
 
+    private Table table;
+    private Skin menuSkin;
+    private Skin fireSkin;
+    private Skin ammoSkin;
+    private TextButton buttonMainMenu;
+    private TextButton buttonFire;
+    private TextButton buttonAmmo;
+
 
     private OrthographicCamera camera;
     public GameView(MyGdxGame game){
-
 
 
         this.game = game;
@@ -55,6 +68,19 @@ public class GameView implements Screen{
         textureGround = new Texture("grasstexture.png");
         //environment = new Environment(2, 10);
         environment = new Environment();
+
+        table = new Table();
+
+        menuSkin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
+        menuSkin.getFont("font").scale(1);
+        buttonMainMenu = new TextButton("To Main Menu", menuSkin);
+        fireSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
+        fireSkin.getFont("font").scale(1);
+        buttonFire = new TextButton("Fire", fireSkin);
+        ammoSkin = new Skin(Gdx.files.internal("skins/ammo.json"), new TextureAtlas(Gdx.files.internal("skins/ammo.pack")));
+        ammoSkin.getFont("font").scale(1);
+        buttonAmmo = new TextButton("Change ammo", ammoSkin);
+
 
         setupCamera();
 
@@ -68,6 +94,36 @@ public class GameView implements Screen{
 
     @Override
     public void show() {
+
+        buttonMainMenu.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new MainMenu(game));
+            }
+        });
+
+        buttonFire.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("FIRE");
+            }
+        });
+
+        buttonAmmo.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Change ammunition");
+            }
+        });
+
+        table.top();
+        table.add(buttonMainMenu).size(300, 120).padBottom(20).row();
+        table.add(buttonFire).size(300, 120).padBottom(20).row();
+        table.add(buttonAmmo).size(300, 120).padBottom(20).row();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        Gdx.input.setInputProcessor(stage);
 
     }
 
