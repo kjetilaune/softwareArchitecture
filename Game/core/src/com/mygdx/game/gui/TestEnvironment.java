@@ -3,6 +3,7 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -13,12 +14,15 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class TestEnvironment {
 
+    //test
+
     private World world = new World(new Vector2(0, 10), true);
     private int worldScale = 30;
 
     private Box2DDebugRenderer debugRenderer;
 
     public TestEnvironment() {
+        Box2D.init();
         debugDraw();
         drawHills(2, 10);
     }
