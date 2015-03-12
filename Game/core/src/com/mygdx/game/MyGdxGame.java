@@ -14,15 +14,15 @@ import com.mygdx.game.model.GameSettings;
 public class MyGdxGame extends Game implements ApplicationListener{
 	SpriteBatch batch;
 	Texture img;
+    public static int HEIGHT, WIDTH;
 
 	@Override
 	public void create () {
 
-        GameSettings.getInstance().height = Gdx.graphics.getHeight();
-        GameSettings.getInstance().width = Gdx.graphics.getWidth();
+        HEIGHT = GameSettings.getInstance().height = Gdx.graphics.getHeight();
+        WIDTH = GameSettings.getInstance().width = Gdx.graphics.getWidth();
 
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
         setScreen(new MainMenu(this));
 	}
 
