@@ -19,9 +19,11 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 
@@ -46,7 +48,10 @@ public class GameView implements Screen{
 
     ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private Table table;
+    //private Table table;
+    private HorizontalGroup groupTop;
+    private HorizontalGroup groupBottom;
+
     private Skin menuSkin;
     private Skin fireSkin;
     private Skin ammoSkin;
@@ -69,7 +74,9 @@ public class GameView implements Screen{
         //environment = new Environment(2, 10);
         environment = new Environment();
 
-        table = new Table();
+        //table = new Table();
+        groupTop  = new HorizontalGroup();
+        groupBottom = new HorizontalGroup();
 
         menuSkin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         menuSkin.getFont("font").scale(1);
@@ -116,12 +123,25 @@ public class GameView implements Screen{
             }
         });
 
-        table.top();
+        /*table.top();
         table.add(buttonMainMenu).size(300, 120).padBottom(20).row();
         table.add(buttonFire).size(300, 120).padBottom(20).row();
         table.add(buttonAmmo).size(300, 120).padBottom(20).row();
         table.setFillParent(true);
-        stage.addActor(table);
+        stage.addActor(table);*/
+
+        groupTop.top();
+        groupTop.addActor(buttonMainMenu);
+        groupTop.setFillParent(true);
+        groupBottom.toFront();
+        groupBottom.center();
+        groupBottom.addActor(buttonAmmo);
+        groupBottom.addActor(buttonFire);
+        groupBottom.setFillParent(true);
+
+
+        stage.addActor(groupTop);
+        stage.addActor(groupBottom);
 
         Gdx.input.setInputProcessor(stage);
 
