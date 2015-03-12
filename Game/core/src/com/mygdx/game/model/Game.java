@@ -38,6 +38,7 @@ public class Game extends AbstractModel {
         while (roundsLeft > 0) {
             roundsLeft--;
 
+            /*
             currentPlayer = players.get(random.nextInt(2));
             while (currentPlayer.getTimeLeft() > 0) {
                 alternatePlayers(currentPlayer);
@@ -50,6 +51,11 @@ public class Game extends AbstractModel {
                 endTime = System.nanoTime();
                 elapsedTime = (float)((endTime - startTime)/1000000000);
                 currentPlayer.reduceTimeLeft(elapsedTime);
+            }
+            */
+
+            while (System.nanoTime() <= timeLeft) {
+                //decrease time
             }
 
         }
