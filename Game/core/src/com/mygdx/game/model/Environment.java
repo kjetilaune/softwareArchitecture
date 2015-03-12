@@ -20,12 +20,22 @@ public class Environment {
     private double hillWidth;
     private int hillSliceWidth;
 
+    public Environment() {
+
+        polygons = new ArrayList<Polygon>();
+
+        drawBoringHills();
+    }
+
+
     public Environment(int numberOfHills, int pixelStep) {
 
         this.numberOfHills = numberOfHills;
         this.pixelStep = pixelStep;
 
-        hillStartY = (140 + Math.random() * 200); // should be randomized properly
+
+        hillStartY = Gdx.graphics.getHeight() / 2;
+        //hillStartY = (140 + Math.random() * 200); // should be randomized properly
         hillWidth = Gdx.graphics.getWidth() / numberOfHills;
         hillSliceWidth = (int)hillWidth / pixelStep;
 
@@ -35,13 +45,24 @@ public class Environment {
 
     }
 
+    private void drawBoringHills() {
+
+        float[] vecs1 = {0, 0, Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth()/4, 400, 0, Gdx.graphics.getHeight() - 400};
+        polygons.add(new Polygon(vecs1));
+        float[] vecs2 = {Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 400, Gdx.graphics.getWidth()/4, 400};
+        polygons.add(new Polygon(vecs2));
+        float[] vecs3 = {3*Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 500, 3*Gdx.graphics.getWidth()/4,  400};
+        polygons.add(new Polygon(vecs3));
+
+    }
+
     private void drawHills() {
 
         Vector2[] hillVector;
-        int worldScale = 30;
+        //int worldScale = 30;
 
         for (int i = 0 ; i < numberOfHills ; i++) {
-            double randomHeight = Math.random() * 100; // should be randomized properly
+            double randomHeight = Math.random() * 1000; // should be randomized properly
 
             if (i != 0) {
                 hillStartY = randomHeight;
@@ -50,10 +71,15 @@ public class Environment {
             for (int j = 0 ; j < hillSliceWidth ; j++) {
 
                 hillVector = new Vector2[4];
-                hillVector[0] = new Vector2((float)(j*pixelStep+hillWidth*i)/worldScale, 480/worldScale);
+                /*hillVector[0] = new Vector2((float)(j*pixelStep+hillWidth*i)/worldScale, 480/worldScale);
                 hillVector[1] = new Vector2((float)(j*pixelStep+hillWidth*i)/worldScale, (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*j))/worldScale);
                 hillVector[2] = new Vector2((float)((j+1)*pixelStep+hillWidth*i)/worldScale, (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*(j+1))/worldScale));
-                hillVector[3] = new Vector2((float)((j+1)*pixelStep+hillWidth*i)/worldScale, 480/worldScale);
+                hillVector[3] = new Vector2((float)((j+1)*pixelStep+hillWidth*i)/worldScale, 480/worldScale);*/
+
+                hillVector[0] = new Vector2((float)(j*pixelStep+hillWidth*i), 0);
+                hillVector[1] = new Vector2((float)(j*pixelStep+hillWidth*i), (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*j)));
+                hillVector[2] = new Vector2((float)((j+1)*pixelStep+hillWidth*i), (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*(j+1))));
+                hillVector[3] = new Vector2((float)((j+1)*pixelStep+hillWidth*i), 0);
 
                 Vector2 centre = findCentroid(hillVector, hillVector.length);
 

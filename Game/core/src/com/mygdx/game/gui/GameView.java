@@ -44,6 +44,8 @@ public class GameView implements Screen{
     private OrthographicCamera camera;
     public GameView(MyGdxGame game){
 
+
+
         this.game = game;
 
         stage = new Stage();
@@ -51,7 +53,8 @@ public class GameView implements Screen{
         polyBatch = new PolygonSpriteBatch();
 
         textureGround = new Texture("grasstexture.png");
-        environment = new Environment(2, 10);
+        //environment = new Environment(2, 10);
+        environment = new Environment();
 
         setupCamera();
 
@@ -122,8 +125,6 @@ public class GameView implements Screen{
 
 
         for (Polygon p : polys) {
-
-
             float[] vecs = p.getVertices();
 
             short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
@@ -131,6 +132,24 @@ public class GameView implements Screen{
             ground = new PolygonSprite(region);
             ground.draw(polyBatch);
         }
+
+        /*float[] vecs1 = {0, 0, Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth()/4, 400, 0, Gdx.graphics.getHeight() - 400};
+        short[] triangles = new EarClippingTriangulator().computeTriangles(vecs1).toArray();
+        PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs1, triangles);
+        ground = new PolygonSprite(region);
+        ground.draw(polyBatch);
+
+        float[] vecs2 = {Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 400, Gdx.graphics.getWidth()/4, 400};
+        triangles = new EarClippingTriangulator().computeTriangles(vecs2).toArray();
+        region = new PolygonRegion(new TextureRegion(textureGround), vecs2, triangles);
+        ground = new PolygonSprite(region);
+        ground.draw(polyBatch);
+
+        float[] vecs3 = {3*Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 500, 3*Gdx.graphics.getWidth()/4,  400};
+        triangles = new EarClippingTriangulator().computeTriangles(vecs3).toArray();
+        region = new PolygonRegion(new TextureRegion(textureGround), vecs3, triangles);
+        ground = new PolygonSprite(region);
+        ground.draw(polyBatch);*/
 
         /*
         float[] vecs = {0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth()/2, 0, 0, 0};
