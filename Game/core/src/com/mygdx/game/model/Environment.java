@@ -20,26 +20,27 @@ public class Environment {
     private double hillWidth;
     private int numberOfSlices;
 
+
+    // for creating a simple environment
     public Environment() {
-
         polygons = new ArrayList<Polygon>();
-
         drawBoringHills();
     }
 
-
+    // for creating an environment with a certain number of hills
+    // pixelStep is the width of each polygon that makes up the ground
     public Environment(int numberOfHills, int pixelStep) {
 
         this.numberOfHills = numberOfHills;
         this.pixelStep = pixelStep;
 
-
-        hillStartY = Gdx.graphics.getHeight() / 2;
-        //hillStartY = (140 + Math.random() * 200); // should be randomized properly
+        // where the hill should start, will randomize this properly
+        hillStartY = 500;
+        //hillStartY = (140 + Math.random() * 200);
         hillWidth = Gdx.graphics.getWidth() / numberOfHills;
-        numberOfSlices = (int)hillWidth / pixelStep;
+        numberOfSlices = (int)Math.round(hillWidth / pixelStep); // this really is number of polygon slices per hill
 
-        polygons = new ArrayList<Polygon>();
+        polygons = new ArrayList<Polygon>(); // an array containing all polygons used for drawing ground
 
         drawHills();
 
@@ -79,82 +80,40 @@ public class Environment {
 
     }
 
+    // draws hills with random heights
     private void drawHills() {
 
-        Vector2[] hillVector;
-        //int worldScale = 30;
+        float[] vertices;
 
         for (int i = 0 ; i < numberOfHills ; i++) {
-            double randomHeight = Math.random() * 1000; // should be randomized properly
+
+            // decides the random height of each hill
+            double randomHeight = Math.random() * 400; // should be randomized properly
 
             if (i != 0) {
-                hillStartY = randomHeight;
+                hillStartY -= randomHeight; // to make sure the next hill starts when the last ended
             }
 
+            // create a polygon for each slice of hill
             for (int j = 0 ; j < numberOfSlices ; j++) {
 
-                hillVector = new Vector2[4];
-                /*hillVector[0] = new Vector2((float)(j*pixelStep+hillWidth*i)/worldScale, 480/worldScale);
-                hillVector[1] = new Vector2((float)(j*pixelStep+hillWidth*i)/worldScale, (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*j))/worldScale);
-                hillVector[2] = new Vector2((float)((j+1)*pixelStep+hillWidth*i)/worldScale, (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/hillSliceWidth*(j+1))/worldScale));
-                hillVector[3] = new Vector2((float)((j+1)*pixelStep+hillWidth*i)/worldScale, 480/worldScale);*/
+                // use some cosine magic to create the rounded appearance of the hill
+                vertices = new float[8];
+                vertices[0] = (float)(j*pixelStep+hillWidth*i);
+                vertices[1] = 0;
+                vertices[2] = (float)(j*pixelStep+hillWidth*i);
+                vertices[3] = (float)(hillStartY+randomHeight*Math.cos(2*(Math.PI/numberOfSlices)*j));
+                vertices[4] = (float)((j+1)*pixelStep+hillWidth*i);
+                vertices[5] = (float)(hillStartY+randomHeight*Math.cos(2*(Math.PI/numberOfSlices)*(j+1)));
+                vertices[6] = (float)((j+1)*pixelStep+hillWidth*i);
+                vertices[7] = 0;
 
-                hillVector[0] = new Vector2((float)(j*pixelStep+hillWidth*i), 0);
-                hillVector[1] = new Vector2((float)(j*pixelStep+hillWidth*i), (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/numberOfSlices*j)));
-                hillVector[2] = new Vector2((float)((j+1)*pixelStep+hillWidth*i), (float)(hillStartY+randomHeight*Math.cos(2*Math.PI/numberOfSlices*(j+1))));
-                hillVector[3] = new Vector2((float)((j+1)*pixelStep+hillWidth*i), 0);
-
-                Vector2 centre = findCentroid(hillVector, hillVector.length);
-
-                for (int z = 0 ; z < hillVector.length; z++) {
-                    hillVector[z].sub(centre);
-                }
-
-
-
-                float[] vertices = {hillVector[0].x, hillVector[0].y,
-                                    hillVector[1].x, hillVector[1].y,
-                                    hillVector[2].x, hillVector[2].y,
-                                    hillVector[3].x, hillVector[3].y};
-
-                Polygon poly = new Polygon(vertices);
-
+                Polygon poly = new Polygon(vertices); // create a polygon based on these coordinates
                 polygons.add(poly);
 
             }
-            hillStartY = hillStartY + randomHeight;
+            hillStartY = hillStartY + randomHeight; // to make sure the next hill starts at the right place
         }
-
-
-
-    }
-
-    private Vector2 findCentroid(Vector2[] vs, int count) {
-
-        Vector2 c = new Vector2();
-        double area = 0.0;
-        double p1X = 0.0;
-        double p1Y = 0.0;
-        double inv3 = 1.0/3.0;
-
-        for(int i = 0 ; i < count ; i++) {
-            Vector2 p2 = vs[i];
-            Vector2 p3 = i+1 < count? vs[i+1] : vs[0];
-            double e1X = p2.x - p1X;
-            double e1Y = p2.y - p1Y;
-            double e2X = p3.x - p1X;
-            double e2Y = p3.x - p1Y;
-            double D = e1X * e2Y - e1Y * e2X;
-            double triangleArea = 0.5 * D;
-            area += triangleArea;
-            c.x += triangleArea * inv3 * (p1X + p2.x + p3.x);
-            c.y += triangleArea * inv3 * (p1Y + p2.y + p3.y);
-        }
-
-        c.x *= 1.0/area;
-        c.y *= 1.0/area;
-
-        return c;
 
     }
 

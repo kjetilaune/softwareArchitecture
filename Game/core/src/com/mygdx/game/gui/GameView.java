@@ -69,8 +69,8 @@ public class GameView implements Screen{
         polyBatch = new PolygonSpriteBatch();
 
         textureGround = TextureManager.grass;
-        //environment = new Environment(2, 10);
-        environment = new Environment();
+        environment = new Environment(2, 10);
+        //environment = new Environment();
         tank = new Tank();
         tank.setPosition(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
 
