@@ -45,15 +45,27 @@ public class Environment {
 
     }
 
-    public int getGroundHeight(int xPos) {
+    public int[] getGroundHeight(int xPos) {
 
         int numberOfPolygons = polygons.size();
 
         for (int i = 0 ; i < numberOfPolygons ; i++) {
 
-            //if (polygons.get(i).
+            float[] vertices = polygons.get(i).getVertices();
+
+
         }
-        return 0;
+        return null;
+    }
+
+    private float[] getVerticesX (float[] vertices) {
+
+        float[] verticesX = new float[vertices.length / 2];
+
+        for (int i = 0; i < vertices.length; i++ ) {
+
+        }
+        return null;
     }
 
     private void drawBoringHills() {
