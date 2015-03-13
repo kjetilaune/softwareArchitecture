@@ -1,5 +1,6 @@
 package com.mygdx.game.controller;
 
+
 import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.model.AbstractModel;
 
@@ -7,6 +8,7 @@ import com.mygdx.game.model.AbstractModel;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Method;
 
 
 /**
@@ -46,5 +48,16 @@ public abstract class AbstractController implements PropertyChangeListener{
 
     public void propertyChange(PropertyChangeEvent evt){
         registeredView.modelPropertyChange(evt);
+    }
+
+    protected void setModelProperty(String propertyName, Object newValue){
+        AbstractModel model = registeredModel;
+        try{
+            Method method = model.getClass().getMethod("set" + propertyName, new Class[]{
+                    newValue.getClass()
+            });
+        }catch (Exception e){
+
+        }
     }
 }
