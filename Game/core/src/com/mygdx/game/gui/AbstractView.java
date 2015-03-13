@@ -1,9 +1,12 @@
 package com.mygdx.game.gui;
 
+
+import java.beans.PropertyChangeEvent;
+
 /**
- * Created by Eplemaskin on 13/03/15.
+ * Created by Jonathan on 13.03.2015.
  */
-public class AbstractView {
+public interface AbstractView {
 
-
+    public void modelPropertyChange(PropertyChangeEvent evt);
 }

@@ -22,7 +22,7 @@ public class AmmoChangeController extends AbstractController implements EventLis
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        
+
     }
 
     public void touchUp(InputEvent event, float x, float y,
