@@ -132,13 +132,13 @@ public class Inventory {
         return true;
     }
 
-    public Ammunition getNextAmmo(Ammunition ammo) {
+    public Ammunition getNextAmmo(Ammunition currentAmmo) {
         // if we have reached the end of the list, get the first element
-        if (ammunitions.indexOf(ammo) + 1 >= ammunitions.size()) {
+        if (ammunitions.indexOf(currentAmmo) + 1 >= ammunitions.size()) {
             return ammunitions.get(0);
         }
         // else, get next in list
-        return ammunitions.get(ammunitions.indexOf(ammo) + 1);
+        return ammunitions.get(ammunitions.indexOf(currentAmmo) + 1);
     }
 
 }
