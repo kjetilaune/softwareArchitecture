@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
@@ -38,15 +39,15 @@ public class GameView implements Screen{
     MyGdxGame game;
     private Stage stage;
 
-    Environment environment;
+    private Environment environment;
 
     private PolygonSprite ground;
-    PolygonSpriteBatch polyBatch;
-    Texture textureGround;
+    private PolygonSpriteBatch polyBatch;
+    private Texture textureGround;
 
-    SpriteBatch batch;
+    private SpriteBatch batch;
 
-    ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     //private Table table;
     private HorizontalGroup groupTop;
@@ -86,7 +87,7 @@ public class GameView implements Screen{
         buttonFire = new TextButton("Fire", fireSkin);
         ammoSkin = new Skin(Gdx.files.internal("skins/ammo.json"), new TextureAtlas(Gdx.files.internal("skins/ammo.pack")));
         ammoSkin.getFont("font").scale(1);
-        buttonAmmo = new TextButton("Change ammo", ammoSkin);
+        buttonAmmo = new TextButton("Ammo", ammoSkin);
 
 
         setupCamera();
@@ -123,25 +124,20 @@ public class GameView implements Screen{
             }
         });
 
-        /*table.top();
-        table.add(buttonMainMenu).size(300, 120).padBottom(20).row();
-        table.add(buttonFire).size(300, 120).padBottom(20).row();
-        table.add(buttonAmmo).size(300, 120).padBottom(20).row();
-        table.setFillParent(true);
-        stage.addActor(table);*/
-
         groupTop.top();
         groupTop.addActor(buttonMainMenu);
+        groupTop.addActor(buttonAmmo);
+        groupTop.addActor(buttonFire);
         groupTop.setFillParent(true);
-        groupBottom.toFront();
+        /*
         groupBottom.center();
         groupBottom.addActor(buttonAmmo);
         groupBottom.addActor(buttonFire);
-        groupBottom.setFillParent(true);
+        groupBottom.setFillParent(true);*/
 
 
         stage.addActor(groupTop);
-        stage.addActor(groupBottom);
+        //stage.addActor(groupBottom);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -150,21 +146,14 @@ public class GameView implements Screen{
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor((float)(198.0/255.0), (float)(226.0/255.0), 1, 1);
-        //Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor((float) (198.0 / 255.0), (float) (226.0 / 255.0), 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();
 
-        //polyBatch.begin();
         generateGround();
-        //ground.draw(polyBatch);
-        //polyBatch.end();
+        show();
 
-        batch.begin();
-        //generateBackground();
-        //batch.draw(ground, ground.getX(), ground.getY());
-        batch.end();
 
     }
 
@@ -206,35 +195,10 @@ public class GameView implements Screen{
             short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
             PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
             ground = new PolygonSprite(region);
+
             ground.draw(polyBatch);
+
         }
-
-        /*float[] vecs1 = {0, 0, Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth()/4, 400, 0, Gdx.graphics.getHeight() - 400};
-        short[] triangles = new EarClippingTriangulator().computeTriangles(vecs1).toArray();
-        PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs1, triangles);
-        ground = new PolygonSprite(region);
-        ground.draw(polyBatch);
-
-        float[] vecs2 = {Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 400, Gdx.graphics.getWidth()/4, 400};
-        triangles = new EarClippingTriangulator().computeTriangles(vecs2).toArray();
-        region = new PolygonRegion(new TextureRegion(textureGround), vecs2, triangles);
-        ground = new PolygonSprite(region);
-        ground.draw(polyBatch);
-
-        float[] vecs3 = {3*Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 500, 3*Gdx.graphics.getWidth()/4,  400};
-        triangles = new EarClippingTriangulator().computeTriangles(vecs3).toArray();
-        region = new PolygonRegion(new TextureRegion(textureGround), vecs3, triangles);
-        ground = new PolygonSprite(region);
-        ground.draw(polyBatch);*/
-
-        /*
-        float[] vecs = {0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth()/2, 0, 0, 0};
-
-
-        short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
-        PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
-        ground = new PolygonSprite(region);
-        ground.draw(polyBatch);*/
 
         polyBatch.end();
 
