@@ -1,8 +1,9 @@
 package com.mygdx.game.controller;
 
+import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.model.AbstractModel;
 
-import org.w3c.dom.views.AbstractView;
+
 
 import java.beans.PropertyChangeListener;
 
@@ -17,6 +18,10 @@ public abstract class AbstractController implements PropertyChangeListener{
 
     public AbstractController(){
 
+    }
+
+    public AbstractController(AbstractView view){
+        this.registeredView = view;
     }
 
     public void addModel(AbstractModel model){

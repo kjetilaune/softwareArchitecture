@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,7 +34,7 @@ import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
 
-public class GameView implements Screen{
+public class GameView extends AbstractView implements Screen{
 
     MyGdxGame game;
     private Stage stage;
@@ -121,7 +122,7 @@ public class GameView implements Screen{
                 System.out.println("Change ammunition");
 
             }
-        });*/
+        });
         buttonAmmo.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y,
@@ -140,7 +141,8 @@ public class GameView implements Screen{
                 return true;
             }
 
-        });
+        });*/
+
 
         groupTop.top();
         groupTop.addActor(buttonMainMenu);
@@ -157,6 +159,10 @@ public class GameView implements Screen{
 
         Gdx.input.setInputProcessor(stage);
 
+    }
+
+    public void addController(EventListener controller){
+        buttonAmmo.addListener(controller);
     }
 
     @Override

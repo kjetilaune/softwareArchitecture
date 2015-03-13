@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.controller.AmmoChangeController;
 
 /**
  * Created by Jonathan on 10.03.2015.
@@ -30,10 +31,15 @@ public class MainMenu implements Screen {
     private TextButton buttonSettings;
     private TextButton buttonAbout;
 
+    public GameView gameView;
+    public AmmoChangeController ammoChangeController;
+
     public MainMenu(MyGdxGame game) {
 
         this.game = game;
-
+        this.gameView = new GameView(game);
+        this.ammoChangeController = new AmmoChangeController(gameView);
+        gameView.addController(ammoChangeController);
         stage = new Stage();
         table = new Table();
 
@@ -61,7 +67,7 @@ public class MainMenu implements Screen {
         buttonNewGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameView(game));
+                game.setScreen(gameView);
             }
         });
 
