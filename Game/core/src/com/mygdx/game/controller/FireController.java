@@ -41,4 +41,41 @@ public class FireController {
     }*/
 
 
+
+
+    // Mikal's attempt at power-fluctuation
+
+    /*
+    private int power;
+    private boolean countUp;
+
+    // touchDown starts power-fluctuation
+    @Override
+    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+        power = 0;
+        countUp = true;
+
+        // while finger is on Fire-button, fluctuate power
+        while (isOver()) {
+            if (power == 100) {
+                countUp = false;
+            }
+            else if (power == 0) {
+                countUp = true;
+            }
+
+            if (countUp) {
+                power++;
+            }
+            else {
+                power--;
+            }
+
+        }
+
+    }
+    */
+
+
 }
