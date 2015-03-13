@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Tank extends Vehicle {
 
     public Tank() {
-        super(new Texture("badlogic.jpg"));
+        super(TextureManager.tank);
     }
 
     @Override
     public void render(SpriteBatch batch) {
+
+        batch.draw(getTexture(), position.x, position.y, (float) TextureManager.barrel.getWidth()/10, (float) TextureManager.barrel.getHeight()/10);
 
     }
 

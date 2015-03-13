@@ -12,13 +12,13 @@ public abstract class Vehicle extends GameObject {
     private float angle;
     private float power;
 
-    private Texture image;
+    private Texture texture;
 
 
-    public Vehicle(Texture image) {
+    public Vehicle(Texture texture) {
         health = 100;
         fuel = 100;
-        this.image = image;
+        this.texture = texture;
     }
 
     public int getHealth() {
@@ -53,12 +53,12 @@ public abstract class Vehicle extends GameObject {
         this.power = power;
     }
 
-    public Texture getImage() {
-        return image;
+    public Texture getTexture() {
+        return texture;
     }
 
-    public void setImage(Texture image) {
-        this.image = image;
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 
 }

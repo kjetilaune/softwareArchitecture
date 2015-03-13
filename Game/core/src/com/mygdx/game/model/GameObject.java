@@ -22,6 +22,15 @@ public abstract class GameObject {
         rotation = 0;
     }
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+
     public void update(float deltaTime) {
 
     }

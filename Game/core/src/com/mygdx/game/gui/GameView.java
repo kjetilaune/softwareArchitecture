@@ -17,20 +17,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.model.Environment;
+import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
@@ -41,6 +38,7 @@ public class GameView implements Screen{
     private Stage stage;
 
     private Environment environment;
+    private Tank tank;
 
     private PolygonSprite ground;
     private PolygonSpriteBatch polyBatch;
@@ -48,9 +46,6 @@ public class GameView implements Screen{
 
     private SpriteBatch batch;
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
-
-    //private Table table;
     private HorizontalGroup groupTop;
     private HorizontalGroup groupBottom;
 
@@ -75,8 +70,9 @@ public class GameView implements Screen{
         textureGround = TextureManager.grass;
         //environment = new Environment(2, 10);
         environment = new Environment();
+        tank = new Tank();
+        tank.setPosition(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
 
-        //table = new Table();
         groupTop  = new HorizontalGroup();
         groupBottom = new HorizontalGroup();
 
@@ -127,18 +123,16 @@ public class GameView implements Screen{
 
         groupTop.top();
         groupTop.addActor(buttonMainMenu);
-        groupTop.addActor(buttonAmmo);
-        groupTop.addActor(buttonFire);
         groupTop.setFillParent(true);
-        /*
-        groupBottom.center();
+
+        groupBottom.bottom();
         groupBottom.addActor(buttonAmmo);
         groupBottom.addActor(buttonFire);
-        groupBottom.setFillParent(true);*/
+        groupBottom.setFillParent(true);
 
 
         stage.addActor(groupTop);
-        //stage.addActor(groupBottom);
+        stage.addActor(groupBottom);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -149,10 +143,16 @@ public class GameView implements Screen{
 
         Gdx.gl.glClearColor((float) (198.0 / 255.0), (float) (226.0 / 255.0), 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
-        stage.draw();
+
 
         generateGround();
+
+        batch.begin();
+        batch.draw(tank.getTexture(), tank.getPosition().x, tank.getPosition().y);
+        batch.end();
+
+        stage.act();
+        stage.draw();
 
 
     }
@@ -204,31 +204,4 @@ public class GameView implements Screen{
 
     }
 
-    private void generateBackground(){
-        Gdx.gl20.glLineWidth(2);
-
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor((float)(160.0/255.0), (float)(219.0/255.0), (float)(142.0/255.0), 1);
-
-        float[] v = {0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth()/2, 0, 0, 0};
-
-        shapeRenderer.polygon(v);
-
-        /*for (int i = 0; i < Gdx.graphics.getWidth() - 1; i++){
-            shapeRenderer.line(i, Gdx.graphics.getHeight(), i, Gdx.graphics.getHeight() - Math.round(i*0.1) - 400);
-        }*/
-        shapeRenderer.end();
-    }
-
-    // fix this later if time
-    private void generateHill(int width, int height, int startX) {
-
-        for (int i = startX ; i < width ; i++) {
-            if (i < width/5) {
-                shapeRenderer.line(i, Gdx.graphics.getHeight(), i, Gdx.graphics.getHeight() - height/5);
-            }
-        }
-
-    }
 }
