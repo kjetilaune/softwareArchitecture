@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -114,11 +115,31 @@ public class GameView implements Screen{
             }
         });
 
-        buttonAmmo.addListener(new ClickListener() {
+        /*buttonAmmo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Change ammunition");
+
             }
+        });*/
+        buttonAmmo.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y,
+                                int pointer, int button) {
+                boolean touchdown=true;
+                //do your stuff
+                //it will work when finger is released..
+                System.out.println("Change ammunition");
+
+            }
+
+            public boolean touchDown(InputEvent event, float x, float y,
+                                     int pointer, int button) {
+                boolean touchdown=false;
+                //do your stuff it will work when u touched your actor
+                return true;
+            }
+
         });
 
         groupTop.top();
