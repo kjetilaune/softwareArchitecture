@@ -31,6 +31,7 @@ import com.mygdx.game.MyGdxGame;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.model.Environment;
+import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
 
@@ -71,7 +72,7 @@ public class GameView implements Screen{
         batch = new SpriteBatch();
         polyBatch = new PolygonSpriteBatch();
 
-        textureGround = new Texture("grasstexture.png");
+        textureGround = TextureManager.grass;
         //environment = new Environment(2, 10);
         environment = new Environment();
 
