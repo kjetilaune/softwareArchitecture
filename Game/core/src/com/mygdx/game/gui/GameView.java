@@ -153,7 +153,6 @@ public class GameView implements Screen{
         stage.draw();
 
         generateGround();
-        show();
 
 
     }
