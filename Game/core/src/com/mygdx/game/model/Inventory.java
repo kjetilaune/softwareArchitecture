@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -7,8 +8,9 @@ import java.util.HashMap;
  */
 public class Inventory {
 
-    // Maps name of the Ammunition to the inventory amount
-    private HashMap<Ammunition, Integer> ammunitions;
+    // Two lists, one with available Ammunition and the other with the amount, with corresponding placement.
+    private ArrayList<Ammunition> ammunitions;
+    private ArrayList<Integer> ammoAmount;
 
     // Maps name of the Ammunition to the inventory amount
     private HashMap<String, Integer> upgrades;
@@ -17,7 +19,8 @@ public class Inventory {
     private int score;
 
     public Inventory() {
-        ammunitions = new HashMap<Ammunition, Integer>();
+        ammunitions = new ArrayList<Ammunition>();
+        ammoAmount = new ArrayList<Integer>();
         upgrades = new HashMap<String, Integer>();
 
         score = 0;
@@ -28,9 +31,12 @@ public class Inventory {
         upgrades.put("Fuel", 0);
 
         // set default ammunition
-        ammunitions.put(Store.getAmmunition("Bullet"), 50);
-        ammunitions.put(Store.getAmmunition("F-Bomb"), 5);
-        ammunitions.put(Store.getAmmunition("Instakill"), 1);
+        ammunitions.add(Store.getAmmunition("Bullet"));
+        ammoAmount.add(50);
+        ammunitions.add(Store.getAmmunition("F-Bomb"));
+        ammoAmount.add(5);
+        ammunitions.add(Store.getAmmunition("Instakill"));
+        ammoAmount.add(1);
 
     }
 
@@ -42,8 +48,12 @@ public class Inventory {
         this.score = score;
     }
 
-    public HashMap<Ammunition, Integer> getAmmunitions() {
+    public ArrayList<Ammunition> getAmmunitions() {
         return ammunitions;
+    }
+
+    public ArrayList<Integer> getAmmoAmount() {
+        return ammoAmount;
     }
 
     public HashMap<String, Integer> getUpgrades() {
@@ -51,25 +61,34 @@ public class Inventory {
     }
 
     public void increaseAmmo(Ammunition ammo, int amount) {
-        if (!ammunitions.containsKey(ammo)) {
-            ammunitions.put(ammo, amount);
+        if (!ammunitions.contains(ammo)) {
+            ammunitions.add(ammo);
+            ammoAmount.add(amount);
         }
         else {
-            int currentAmount = ammunitions.get(ammo);
-            ammunitions.put(ammo, currentAmount + amount);
+            int ammoIndex = ammunitions.indexOf(ammo);
+            int currentAmount = ammoAmount.get(ammoIndex);
+            ammunitions.remove(ammoIndex);
+            ammoAmount.add(ammoIndex, currentAmount + amount);
         }
     }
 
     public boolean decreaseAmmo(Ammunition ammo, int amount) {
-        if (!ammunitions.containsKey(ammo)) {
+        if (!ammunitions.contains(ammo)) {
             return false;
         }
 
-        int currentAmount = ammunitions.get(ammo);
+        int ammoIndex = ammunitions.indexOf(ammo);
+        int currentAmount = ammoAmount.get(ammoIndex);
         if (currentAmount - amount <= 0) {
+            // if ammo is 0, remove from inventory
+            ammunitions.remove(ammoIndex);
+            ammoAmount.remove(ammoIndex);
             return false;
         }
-        ammunitions.put(ammo, currentAmount - amount);
+
+        ammunitions.remove(ammoIndex);
+        ammoAmount.add(ammoIndex, currentAmount - amount);
         return true;
     }
 
@@ -111,6 +130,15 @@ public class Inventory {
         score -= cost;
         increaseUpgrade(upgrade, amount);
         return true;
+    }
+
+    public Ammunition getNextAmmo(Ammunition ammo) {
+        // if we have reached the end of the list, get the first element
+        if (ammunitions.indexOf(ammo) + 1 >= ammunitions.size()) {
+            return ammunitions.get(0);
+        }
+        // else, get next in list
+        return ammunitions.get(ammunitions.indexOf(ammo) + 1);
     }
 
 }
