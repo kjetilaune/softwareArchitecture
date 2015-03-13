@@ -54,9 +54,9 @@ public class Game extends AbstractModel {
             }
             */
 
-            while (System.nanoTime() <= timeLeft) {
+            /*while (System.nanoTime() <= timeLeft) {
                 //decrease time
-            }
+            }*/
 
         }
         
