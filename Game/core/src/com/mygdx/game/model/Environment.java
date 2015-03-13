@@ -46,28 +46,67 @@ public class Environment {
 
     }
 
-    public int[] getGroundHeight(int xPos) {
+    // returns the height of the ground at the given x-position
+    public float getGroundHeight(float xPos) {
 
-        int numberOfPolygons = polygons.size();
+        float y = 0;
 
-        for (int i = 0 ; i < numberOfPolygons ; i++) {
+        for (Polygon poly : polygons) {
 
-            float[] vertices = polygons.get(i).getVertices();
+            if (poly.contains(xPos, 0)) {
+                float[] vertices = poly.getVertices();
+                float[] verticesY = getVerticesY(vertices);
+                float[] verticesX = getVerticesX(vertices);
 
+                float y1 = verticesY[1];
+                float y2 = verticesY[2];
+
+                y = ((y1/y2) * (xPos - verticesX[0])) + y1; // y = ax + b
+            }
 
         }
-        return null;
+
+        return y;
     }
+
+    public float getAngle(float xStart, float xStop) {
+
+        float y1 = getGroundHeight(xStart);
+        float y2 = getGroundHeight(xStop);
+
+        float adjacent = xStop - xStart;
+        float opposite = y1 - y2;
+
+        System.out.println("x1: " + xStart + ", x2: " + xStop);
+        System.out.println("y1: " + y1 + ", y2: " + y2);
+
+        float angle = (float)Math.atan(opposite/adjacent);
+
+        System.out.println("angle: " + Math.toDegrees(angle));
+
+        return angle;
+    }
+
 
     private float[] getVerticesX (float[] vertices) {
 
         float[] verticesX = new float[vertices.length / 2];
-
-        for (int i = 0; i < vertices.length; i++ ) {
-
+        for (int i = 0; i < vertices.length/2; i++ ) {
+            verticesX[i] = vertices[2*i];
         }
-        return null;
+        return verticesX;
     }
+
+
+    private float[] getVerticesY (float[] vertices) {
+
+        float[] verticesY = new float[vertices.length / 2];
+        for (int i = 0; i < vertices.length/2; i++ ) {
+            verticesY[i] = vertices[(2*i)+1];
+        }
+        return verticesY;
+    }
+
 
     private void drawBoringHills() {
 
@@ -79,6 +118,7 @@ public class Environment {
         polygons.add(new Polygon(vecs3));
 
     }
+
 
     // draws hills with random heights
     private void drawHills() {
@@ -116,6 +156,7 @@ public class Environment {
         }
 
     }
+
 
     public ArrayList<Polygon> getPolygons() {
         return polygons;
