@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Tank extends Vehicle {
 
     private Environment environment;
-
+    
     public Tank(Environment environment) {
         super(TextureManager.tank);
         this.environment = environment;

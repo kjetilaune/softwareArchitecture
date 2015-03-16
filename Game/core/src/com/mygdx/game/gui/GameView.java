@@ -31,6 +31,7 @@ import com.mygdx.game.MyGdxGame;
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.controller.AmmoChangeController;
 import com.mygdx.game.controller.FireController;
+import com.mygdx.game.controller.MovementController;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.TextureManager;
@@ -42,8 +43,8 @@ public class GameView extends AbstractView implements Screen{
     MyGdxGame game;
     private Stage stage;
 
-    private Environment environment;
-    private Tank tank;
+    public Environment environment;
+    public Tank tank;
 
     private PolygonSprite ground;
     private PolygonSpriteBatch polyBatch;
@@ -96,9 +97,11 @@ public class GameView extends AbstractView implements Screen{
         ammoSkin.getFont("font").scale(1);
         buttonAmmo = new TextButton("Ammo", ammoSkin);
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
-        arrowLeft = new ImageButton(arrowLeftSkin, "arrowLeft");
+        arrowLeft = new ImageButton(arrowLeftSkin);
+        arrowLeft.setName("arrowLeft");
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
-        arrowRight = new ImageButton(arrowRightSkin, "arrowRight");
+        arrowRight = new ImageButton(arrowRightSkin);
+        arrowRight.setName("arrowRight");
         setupCamera();
 
     }
@@ -122,6 +125,7 @@ public class GameView extends AbstractView implements Screen{
         });
 
         buttonFire.addListener(new FireController(this));
+        arrowLeft.addListener(new MovementController(this));
 
         /*buttonAmmo.addListener(new ClickListener() {
             @Override
