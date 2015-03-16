@@ -37,14 +37,17 @@ import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class GameView extends AbstractView implements Screen{
+public class GameView extends AbstractView implements Screen, Observer{
 
     MyGdxGame game;
     private Stage stage;
 
     public Environment environment;
     public Tank tank;
+    private MovementController moveCtrl;
 
     private PolygonSprite ground;
     private PolygonSpriteBatch polyBatch;
@@ -82,7 +85,9 @@ public class GameView extends AbstractView implements Screen{
 
         tank = new Tank(environment);
         tank.setPosition(new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
+        tank.addObserver(this);
 
+        moveCtrl = new MovementController(this);
 
         groupTop  = new HorizontalGroup();
         groupBottom = new HorizontalGroup();
@@ -125,8 +130,8 @@ public class GameView extends AbstractView implements Screen{
         });
 
         buttonFire.addListener(new FireController(this));
-        arrowLeft.addListener(new MovementController(this));
-
+        arrowLeft.addListener(moveCtrl);
+        arrowRight.addListener(moveCtrl);
         /*buttonAmmo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -182,10 +187,12 @@ public class GameView extends AbstractView implements Screen{
 
         generateGround();
 
+
         batch.begin();
         batch.draw(tank.getTexture(), tank.getPosition().x, tank.getPosition().y);
         tank.render(batch);
         batch.end();
+
 
         stage.act();
         stage.draw();
@@ -236,6 +243,9 @@ public class GameView extends AbstractView implements Screen{
 
         polyBatch.end();
 
+    }
+    public void update(Observable o, Object arg){
+        System.out.println("IT CHANGED");
     }
 
 }

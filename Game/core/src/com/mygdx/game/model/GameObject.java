@@ -3,10 +3,12 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Observable;
+
 /**
  * Created by annieaa on 11/03/15.
  */
-public abstract class GameObject {
+public abstract class GameObject extends Observable{
 
     public Vector2 position;
     public Vector2 dimension;
@@ -24,6 +26,8 @@ public abstract class GameObject {
 
     public void setPosition(Vector2 position) {
         this.position = position;
+        this.setChanged();
+        this.notifyObservers(position);
     }
 
     public Vector2 getPosition() {
