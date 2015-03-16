@@ -51,9 +51,9 @@ public abstract class AbstractController implements PropertyChangeListener{
         return registeredView;
     }
 
-    public void propertyChange(PropertyChangeEvent evt){
+    /*public void propertyChange(PropertyChangeEvent evt){
         registeredView.modelPropertyChange(evt);
-    }
+    }*/
 
     protected void setModelProperty(String propertyName, Object newValue){
         AbstractModel model = registeredModel;

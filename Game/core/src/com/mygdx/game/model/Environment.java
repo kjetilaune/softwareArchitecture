@@ -77,12 +77,12 @@ public class Environment {
         float adjacent = xStop - xStart;
         float opposite = y1 - y2;
 
-        System.out.println("x1: " + xStart + ", x2: " + xStop);
-        System.out.println("y1: " + y1 + ", y2: " + y2);
+        //System.out.println("x1: " + xStart + ", x2: " + xStop);
+        //System.out.println("y1: " + y1 + ", y2: " + y2);
 
         float angle = (float)Math.atan(opposite/adjacent);
 
-        System.out.println("angle: " + Math.toDegrees(angle));
+        //System.out.println("angle: " + Math.toDegrees(angle));
 
         return angle;
     }

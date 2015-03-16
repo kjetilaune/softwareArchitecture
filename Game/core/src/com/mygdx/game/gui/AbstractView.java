@@ -6,7 +6,7 @@ import java.beans.PropertyChangeEvent;
 /**
  * Created by Jonathan on 13.03.2015.
  */
-public interface AbstractView {
+public class AbstractView {
 
-    public void modelPropertyChange(PropertyChangeEvent evt);
+    //public void modelPropertyChange(PropertyChangeEvent evt);
 }
