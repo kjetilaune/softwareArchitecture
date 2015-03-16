@@ -70,10 +70,11 @@ public class GameView extends AbstractView implements Screen{
         polyBatch = new PolygonSpriteBatch();
 
         textureGround = TextureManager.grass;
-        //environment = new Environment(2, 10);
-        environment = new Environment();
-        tank = new Tank();
-        tank.setPosition(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+        environment = new Environment(2, 10);
+
+        tank = new Tank(environment);
+        tank.setPosition(new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
+
 
         groupTop  = new HorizontalGroup();
         groupBottom = new HorizontalGroup();
@@ -87,7 +88,6 @@ public class GameView extends AbstractView implements Screen{
         ammoSkin = new Skin(Gdx.files.internal("skins/ammo.json"), new TextureAtlas(Gdx.files.internal("skins/ammo.pack")));
         ammoSkin.getFont("font").scale(1);
         buttonAmmo = new TextButton("Ammo", ammoSkin);
-
 
         setupCamera();
 
@@ -147,12 +147,10 @@ public class GameView extends AbstractView implements Screen{
         groupTop.top();
         groupTop.addActor(buttonMainMenu);
         groupTop.setFillParent(true);
-
         groupBottom.bottom();
         groupBottom.addActor(buttonAmmo);
         groupBottom.addActor(buttonFire);
         groupBottom.setFillParent(true);
-
 
         stage.addActor(groupTop);
         stage.addActor(groupBottom);
@@ -171,11 +169,11 @@ public class GameView extends AbstractView implements Screen{
         Gdx.gl.glClearColor((float) (198.0 / 255.0), (float) (226.0 / 255.0), 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
         generateGround();
 
         batch.begin();
         batch.draw(tank.getTexture(), tank.getPosition().x, tank.getPosition().y);
+        tank.render(batch);
         batch.end();
 
         stage.act();
@@ -215,7 +213,6 @@ public class GameView extends AbstractView implements Screen{
 
         ArrayList<Polygon> polys = environment.getPolygons();
 
-
         for (Polygon p : polys) {
             float[] vecs = p.getVertices();
 
@@ -224,7 +221,6 @@ public class GameView extends AbstractView implements Screen{
             ground = new PolygonSprite(region);
 
             ground.draw(polyBatch);
-
         }
 
         polyBatch.end();

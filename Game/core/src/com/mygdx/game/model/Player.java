@@ -12,7 +12,7 @@ public class Player {
     private float timeLeft;
 
     public Player(float timeAtStart) {
-        vehicle = new Tank();
+        //vehicle = new Tank();
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
         timeLeft = timeAtStart;
