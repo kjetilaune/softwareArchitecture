@@ -1,0 +1,19 @@
+
+rightArrow.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrowRight
+  rotate: false
+  xy: 1, 1
+  size: 29, 27
+  orig: 29, 27
+  offset: 0, 0
+  index: -1
+arrowRightDown
+  rotate: false
+  xy: 32, 1
+  size: 29, 27
+  orig: 29, 27
+  offset: 0, 0
+  index: -1

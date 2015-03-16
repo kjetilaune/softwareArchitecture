@@ -1,0 +1,19 @@
+
+leftArrow.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrowLeft
+  rotate: false
+  xy: 1, 1
+  size: 29, 27
+  orig: 29, 27
+  offset: 0, 0
+  index: -1
+arrowLeftDown
+  rotate: false
+  xy: 32, 1
+  size: 29, 27
+  orig: 29, 27
+  offset: 0, 0
+  index: -1

@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -56,9 +57,13 @@ public class GameView extends AbstractView implements Screen{
     private Skin menuSkin;
     private Skin fireSkin;
     private Skin ammoSkin;
+    private Skin arrowLeftSkin;
+    private Skin arrowRightSkin;
     private TextButton buttonMainMenu;
     private TextButton buttonFire;
     private TextButton buttonAmmo;
+    private ImageButton arrowLeft;
+    private ImageButton arrowRight;
 
 
     private OrthographicCamera camera;
@@ -90,7 +95,10 @@ public class GameView extends AbstractView implements Screen{
         ammoSkin = new Skin(Gdx.files.internal("skins/ammo.json"), new TextureAtlas(Gdx.files.internal("skins/ammo.pack")));
         ammoSkin.getFont("font").scale(1);
         buttonAmmo = new TextButton("Ammo", ammoSkin);
-
+        arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
+        arrowLeft = new ImageButton(arrowLeftSkin);
+        arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
+        arrowRight = new ImageButton(arrowRightSkin);
         setupCamera();
 
     }
@@ -149,6 +157,8 @@ public class GameView extends AbstractView implements Screen{
         groupBottom.bottom();
         groupBottom.addActor(buttonAmmo);
         groupBottom.addActor(buttonFire);
+        groupBottom.addActor(arrowLeft);
+        groupBottom.addActor(arrowRight);
         groupBottom.setFillParent(true);
 
         stage.addActor(groupTop);
