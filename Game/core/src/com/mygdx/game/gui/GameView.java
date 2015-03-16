@@ -96,9 +96,9 @@ public class GameView extends AbstractView implements Screen{
         ammoSkin.getFont("font").scale(1);
         buttonAmmo = new TextButton("Ammo", ammoSkin);
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
-        arrowLeft = new ImageButton(arrowLeftSkin);
+        arrowLeft = new ImageButton(arrowLeftSkin, "arrowLeft");
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
-        arrowRight = new ImageButton(arrowRightSkin);
+        arrowRight = new ImageButton(arrowRightSkin, "arrowRight");
         setupCamera();
 
     }
