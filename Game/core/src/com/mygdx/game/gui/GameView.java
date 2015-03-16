@@ -28,6 +28,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.game.controller.AmmoChangeController;
+import com.mygdx.game.controller.FireController;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.TextureManager;
@@ -102,6 +104,8 @@ public class GameView extends AbstractView implements Screen{
     @Override
     public void show() {
 
+        buttonAmmo.addListener(new AmmoChangeController(this));
+
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -109,12 +113,7 @@ public class GameView extends AbstractView implements Screen{
             }
         });
 
-        buttonFire.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("FIRE");
-            }
-        });
+        buttonFire.addListener(new FireController(this));
 
         /*buttonAmmo.addListener(new ClickListener() {
             @Override
@@ -159,9 +158,7 @@ public class GameView extends AbstractView implements Screen{
 
     }
 
-    public void addController(EventListener controller){
-        buttonAmmo.addListener(controller);
-    }
+
 
     @Override
     public void render(float delta) {

@@ -2,11 +2,17 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.mygdx.game.gui.AbstractView;
+
+import java.beans.PropertyChangeEvent;
 
 /**
  * Created by Jonathan on 10.03.2015.
  */
-public class FireController {
+public class FireController extends AbstractController implements EventListener{
     public float power;
     public float angle;
     public boolean fixedHorizontalDistance = true;
@@ -16,6 +22,10 @@ public class FireController {
     final Vector2 pressedPosition = new Vector2();
     final Vector2 currentPosition = new Vector2();
     final Vector2 tmp = new Vector2();
+
+    public FireController(AbstractView view){
+        super(view);
+    }
 
     public FireController(FireController controller, Vector2 position){
         this.controller = controller;
@@ -77,5 +87,34 @@ public class FireController {
     }
     */
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
+
+    public void touchUp(InputEvent event, float x, float y,
+                        int pointer, int button) {
+        boolean touchdown=true;
+
+        //do your stuff
+        //it will work when finger is released..
+        System.out.println("FIRE" + " X:" + x + " Y:" + y);
+
+    }
+
+    public boolean touchDown(InputEvent event, float x, float y,
+                             int pointer, int button) {
+        boolean touchdown=false;
+        //do your stuff it will work when u touched your actor
+        return true;
+    }
+
+    public boolean handle (Event event){
+
+        if (event.toString() == "touchUp"){
+            touchUp((InputEvent)event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+        }
+        return true;
+    }
 
 }

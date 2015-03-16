@@ -31,15 +31,14 @@ public class MainMenu implements Screen {
     private TextButton buttonSettings;
     private TextButton buttonAbout;
 
-    public GameView gameView;
-    public AmmoChangeController ammoChangeController;
+
 
     public MainMenu(MyGdxGame game) {
 
         this.game = game;
-        this.gameView = new GameView(game);
-        this.ammoChangeController = new AmmoChangeController(gameView);
-        gameView.addController(ammoChangeController);
+
+
+
         stage = new Stage();
         table = new Table();
 
@@ -67,7 +66,7 @@ public class MainMenu implements Screen {
         buttonNewGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(gameView);
+                game.setScreen(new GameView(game));
             }
         });
 
