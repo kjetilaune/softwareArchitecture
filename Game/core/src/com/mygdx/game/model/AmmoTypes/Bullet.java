@@ -12,6 +12,6 @@ public class Bullet extends Ammunition {
         //does something
     }
     public Bullet() {
-        super("Bullet", 1, 1, 10, 1);
+        super("Bullet", 1, 1, 10, 1, 100);
     }
 }
