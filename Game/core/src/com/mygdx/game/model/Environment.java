@@ -69,6 +69,7 @@ public class Environment {
         return y;
     }
 
+    // returns the angle of the ground at the given start and stop x-position
     public float getAngle(float xStart, float xStop) {
 
         float y1 = getGroundHeight(xStart);
@@ -77,15 +78,10 @@ public class Environment {
         float adjacent = xStop - xStart;
         float opposite = y1 - y2;
 
-        //System.out.println("x1: " + xStart + ", x2: " + xStop);
-        //System.out.println("y1: " + y1 + ", y2: " + y2);
-
         float angle = (float)Math.atan(opposite/adjacent);
 
-        System.out.println("angle: " + Math.toDegrees(angle));
 
         return -1 * (float)Math.toDegrees(angle);
-        //return 360 - (float)Math.toDegrees(angle);
     }
 
 

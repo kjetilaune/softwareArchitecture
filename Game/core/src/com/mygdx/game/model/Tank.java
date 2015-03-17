@@ -11,12 +11,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Tank extends Vehicle {
 
     private Environment environment;
-    private int a;
+    private Barrel barrel;
 
     public Tank(Environment environment) {
         super(TextureManager.tank);
         this.environment = environment;
-        a = 0;
+        barrel = new Barrel(new Vector2(getPosition().x + TextureManager.tank.getWidth()/2, getPosition().y + TextureManager.tank.getHeight()/2), 45);
     }
 
 }

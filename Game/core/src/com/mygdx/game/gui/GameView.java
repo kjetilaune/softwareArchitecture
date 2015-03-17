@@ -17,9 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -71,6 +69,8 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
     private OrthographicCamera camera;
+
+
     public GameView(MyGdxGame game){
 
 
@@ -163,10 +163,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         batch.begin();
-        System.out.println("angle: " + environment.getAngle(tank.getPosition().x, tank.getPosition().x+TextureManager.tank.getWidth()));
         batch.draw(new TextureRegion(tank.getTexture()), tank.getPosition().x, tank.getPosition().y, 0, 0, (float) TextureManager.tank.getWidth(), (float) TextureManager.tank.getHeight(), 1, 1, environment.getAngle(tank.getPosition().x, tank.getPosition().x+TextureManager.tank.getWidth()));
-        //batch.draw(tank.getTexture(), tank.getPosition().x, tank.getPosition().y);
-        //tank.render(batch);
         batch.end();
 
 
