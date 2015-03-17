@@ -39,7 +39,6 @@ public abstract class GameObject extends Observable{
 
     }
 
-    public abstract void render (SpriteBatch batch);
 
 
 }

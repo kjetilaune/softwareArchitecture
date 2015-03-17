@@ -19,17 +19,4 @@ public class Tank extends Vehicle {
         a = 0;
     }
 
-
-
-    @Override
-    public void render(SpriteBatch batch) {
-
-        float y = environment.getGroundHeight(position.x);
-
-
-        batch.draw(new TextureRegion(getTexture()), position.x, position.y, position.x, position.y, (float) TextureManager.tank.getWidth(), (float) TextureManager.tank.getHeight(), 1, 1, environment.getAngle(position.x, position.x+TextureManager.tank.getWidth()));
-
-
-    }
-
 }
