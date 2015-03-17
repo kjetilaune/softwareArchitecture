@@ -49,18 +49,24 @@ public class MovementController extends AbstractController implements EventListe
     }
     public boolean handle (Event event){
 
-        System.out.println(event.toString());
+        String e = event.toString();
 
+        int i = 15;
+        while (i < 0) {
+            i--;
+            System.out.println(event.toString());
+        }
+
+
+        /*
         if (event.toString() == "touchUp"){
 
             touchUp(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
         }
         else if (event.toString() == "touchDown"){
-            while (event.toString() == "enter") {
-                touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
-            }
-            //touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+            touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
         }
+        */
         return true;
     }
 
