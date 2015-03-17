@@ -54,7 +54,10 @@ public class MovementController extends AbstractController implements EventListe
             touchUp(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
         }
         else if (event.toString() == "touchDown"){
-            touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+            while (event.toString() == "enter") {
+                touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+            }
+            //touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
         }
         return true;
     }
