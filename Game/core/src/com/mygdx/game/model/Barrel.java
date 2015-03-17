@@ -18,7 +18,7 @@ public class Barrel extends GameObject {
         tr = new TextureRegion(TextureManager.barrel);
     }
 
-    @Override
+    //@Override
     public void render(SpriteBatch batch) {
         batch.draw(tr, position.x, position.y, position.x, position.y, (float) TextureManager.barrel.getWidth(), (float) TextureManager.barrel.getHeight(), 1, 1, angle);
     }

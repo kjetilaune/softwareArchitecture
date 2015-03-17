@@ -132,32 +132,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonFire.addListener(new FireController(this));
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
-        /*buttonAmmo.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Change ammunition");
-
-            }
-        });
-        buttonAmmo.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y,
-                                int pointer, int button) {
-                boolean touchdown=true;
-                //do your stuff
-                //it will work when finger is released..
-                System.out.println("Change ammunition");
-
-            }
-
-            public boolean touchDown(InputEvent event, float x, float y,
-                                     int pointer, int button) {
-                boolean touchdown=false;
-                //do your stuff it will work when u touched your actor
-                return true;
-            }
-
-        });*/
 
 
         groupTop.top();
