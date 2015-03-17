@@ -82,9 +82,10 @@ public class Environment {
 
         float angle = (float)Math.atan(opposite/adjacent);
 
-        //System.out.println("angle: " + Math.toDegrees(angle));
+        System.out.println("angle: " + Math.toDegrees(angle));
 
-        return angle;
+        return -1 * (float)Math.toDegrees(angle);
+        //return 360 - (float)Math.toDegrees(angle);
     }
 
 

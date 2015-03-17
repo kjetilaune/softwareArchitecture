@@ -163,7 +163,8 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         batch.begin();
-        batch.draw(new TextureRegion(tank.getTexture()), tank.getPosition().x, tank.getPosition().y, tank.getPosition().x, tank.getPosition().y, (float) TextureManager.tank.getWidth(), (float) TextureManager.tank.getHeight(), 1, 1, environment.getAngle(tank.getPosition().x, tank.getPosition().x+TextureManager.tank.getWidth()));
+        System.out.println("angle: " + environment.getAngle(tank.getPosition().x, tank.getPosition().x+TextureManager.tank.getWidth()));
+        batch.draw(new TextureRegion(tank.getTexture()), tank.getPosition().x, tank.getPosition().y, 0, 0, (float) TextureManager.tank.getWidth(), (float) TextureManager.tank.getHeight(), 1, 1, environment.getAngle(tank.getPosition().x, tank.getPosition().x+TextureManager.tank.getWidth()));
         //batch.draw(tank.getTexture(), tank.getPosition().x, tank.getPosition().y);
         //tank.render(batch);
         batch.end();
