@@ -11,57 +11,29 @@ public class Game extends AbstractModel {
     private Player player1, player2, currentPlayer;
     private ArrayList<Player> players;
     private Environment environment;
-    private GameSettings settings;
     private Store store;
-    private int roundsLeft;
+    private int numberOfRounds, roundsLeft;
+    private float roundTime;
     private long startTime, endTime;
     private float elapsedTime;
     private Random random;
 
     public Game() {
 
-        settings = GameSettings.getInstance();
         store = Store.getInstance();
         random = new Random();
 
-        player1 = new Player(settings.getRoundTime());
-        player2 = new Player(settings.getRoundTime());
+        player1 = new Player();
+        player2 = new Player();
 
         players = new ArrayList<Player>();
         players.add(player1);
         players.add(player2);
 
-        //environment = new Environment();
-
-
-        roundsLeft = settings.getNumberOfRounds();
-        while (roundsLeft > 0) {
-            roundsLeft--;
-
-            /*
-            currentPlayer = players.get(random.nextInt(2));
-            while (currentPlayer.getTimeLeft() > 0) {
-                alternatePlayers(currentPlayer);
-                startTime = System.nanoTime();
-
-
-                // THE GAME HAPPENS
-
-
-                endTime = System.nanoTime();
-                elapsedTime = (float)((endTime - startTime)/1000000000);
-                currentPlayer.reduceTimeLeft(elapsedTime);
-            }
-            */
-
-            /*while (System.nanoTime() <= timeLeft) {
-                //decrease time
-            }*/
-
-        }
         
     }
 
+    // må gjøre en hel masse sjekker her
     public void alternatePlayers(Player currentPlayer) {
         if (currentPlayer == player1) {
             this.currentPlayer = player2;
