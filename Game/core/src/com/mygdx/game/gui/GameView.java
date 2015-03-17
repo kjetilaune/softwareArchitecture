@@ -189,7 +189,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         batch.begin();
-        batch.draw(tank.getTexture(), tank.getPosition().x, tank.getPosition().y);
+        //batch.draw(tank.getTexture(), tank.getPosition().x, tank.getPosition().y);
         tank.render(batch);
         batch.end();
 
