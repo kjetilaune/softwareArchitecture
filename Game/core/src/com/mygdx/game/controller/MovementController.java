@@ -47,6 +47,8 @@ public class MovementController extends AbstractController implements EventListe
     }
     public boolean handle (Event event){
 
+        System.out.println(event.toString());
+
         if (event.toString() == "touchUp"){
 
             touchUp(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);

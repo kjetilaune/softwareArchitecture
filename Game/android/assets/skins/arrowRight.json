@@ -1,7 +1,7 @@
 {
 
 	"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
-	    "default": {"up": "arrowRight" , "down": "arrowRightDown"}
+	    "default": {"up": "arrowRight" , "down": "arrowRightdown"}
 	},
 
 }
