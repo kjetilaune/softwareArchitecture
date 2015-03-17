@@ -5,6 +5,9 @@ package com.mygdx.game.model;
  */
 public class GameSettings {
 
+
+    // this class is deprecated
+
     private static GameSettings settingsInstance;
 
     private int maxPlayers, numberOfRounds;
