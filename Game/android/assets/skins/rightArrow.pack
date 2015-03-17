@@ -6,14 +6,28 @@ repeat: none
 arrowRight
   rotate: false
   xy: 1, 1
-  size: 29, 27
-  orig: 29, 27
+  size: 107, 100
+  orig: 107, 100
   offset: 0, 0
   index: -1
-arrowRightDown
+arrowRight
   rotate: false
-  xy: 32, 1
-  size: 29, 27
-  orig: 29, 27
+  xy: 1, 1
+  size: 107, 100
+  orig: 107, 100
+  offset: 0, 0
+  index: -1
+arrowRightdown
+  rotate: false
+  xy: 110, 1
+  size: 107, 100
+  orig: 107, 100
+  offset: 0, 0
+  index: -1
+arrowRightdown
+  rotate: false
+  xy: 110, 1
+  size: 107, 100
+  orig: 107, 100
   offset: 0, 0
   index: -1
