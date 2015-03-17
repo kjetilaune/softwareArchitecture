@@ -30,6 +30,14 @@ public abstract class GameObject extends Observable{
         this.notifyObservers(position);
     }
 
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
     public Vector2 getPosition() {
         return position;
     }

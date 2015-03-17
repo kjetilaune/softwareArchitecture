@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.gui.GameView;
+import com.mygdx.game.model.TextureManager;
 
 import java.beans.PropertyChangeEvent;
 
@@ -29,6 +30,7 @@ public class MovementController extends AbstractController implements EventListe
     public void touchUp(Event event, float x, float y,
                         int pointer, int button) {
         touchdown=false;
+        this.view.tank.setRotation(view.environment.getAngle(view.tank.getPosition().x, view.tank.getPosition().x + TextureManager.tank.getWidth()));
         if (event.getTarget().toString().equals("arrowLeft")){
             this.view.tank.setPosition(new Vector2(view.tank.getPosition().x - 10,view.environment.getGroundHeight(view.tank.getPosition().x - 10)));
         }

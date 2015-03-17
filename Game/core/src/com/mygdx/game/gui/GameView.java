@@ -85,6 +85,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         tank = new Tank(environment);
         tank.setPosition(new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
+        tank.setRotation(environment.getAngle(tank.getPosition().x, tank.getPosition().x + TextureManager.tank.getWidth()));
         tank.addObserver(this);
 
         moveCtrl = new MovementController(this);
@@ -163,7 +164,8 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         batch.begin();
-        batch.draw(new TextureRegion(tank.getTexture()), tank.getPosition().x, tank.getPosition().y, 0, 0, (float) TextureManager.tank.getWidth(), (float) TextureManager.tank.getHeight(), 1, 1, environment.getAngle(tank.getPosition().x, tank.getPosition().x+TextureManager.tank.getWidth()));
+        batch.draw(new TextureRegion(tank.getTexture()), tank.getPosition().x, tank.getPosition().y, 0, 0, (float)TextureManager.tank.getWidth(), (float)TextureManager.tank.getHeight(), 1, 1, tank.getRotation());
+        batch.draw(new TextureRegion(TextureManager.barrel), tank.getBarrelPosition().x, tank.getBarrelPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, tank.getBarrel().getRotation() + tank.getBarrel().getAngle());
         batch.end();
 
 
