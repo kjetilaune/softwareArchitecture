@@ -42,7 +42,7 @@ public class Tank extends Vehicle {
         float newBarrelY = (float)(Math.sin(Math.toRadians(getRotation())) * (barrel.getPosition().x - getPosition().x) - Math.cos(Math.toRadians(getRotation())) * (barrel.getPosition().y - getPosition().y) + getPosition().y);
 
         //System.out.println("old position: " + barrelX + ", " + barrelY);
-        System.out.println("new position: " + newBarrelX + ", " + newBarrelY);
+        //System.out.println("new position: " + newBarrelX + ", " + newBarrelY);
 
         return new Vector2(newBarrelX, newBarrelY);
     }

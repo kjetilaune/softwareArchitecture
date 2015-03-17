@@ -17,6 +17,7 @@ import java.beans.PropertyChangeEvent;
 public class MovementController extends AbstractController implements EventListener{
     GameView view;
     boolean touchdown;
+    MoveThread m;
     public MovementController(GameView view){
         super(view);
         this.view = view;
@@ -30,19 +31,17 @@ public class MovementController extends AbstractController implements EventListe
     public void touchUp(Event event, float x, float y,
                         int pointer, int button) {
         touchdown=false;
-        this.view.tank.setRotation(view.environment.getAngle(view.tank.getPosition().x, view.tank.getPosition().x + TextureManager.tank.getWidth()));
-        if (event.getTarget().toString().equals("arrowLeft")){
-            this.view.tank.setPosition(new Vector2(view.tank.getPosition().x - 10,view.environment.getGroundHeight(view.tank.getPosition().x - 10)));
-        }
-        else if (event.getTarget().toString().equals("arrowRight")){
-            this.view.tank.setPosition(new Vector2(view.tank.getPosition().x + 10,view.environment.getGroundHeight(view.tank.getPosition().x + 10)));
-        }
 
     }
 
     public boolean touchDown(Event event, float x, float y,
                              int pointer, int button) {
         touchdown=true;
+
+
+
+        m = new MoveThread(event.getTarget().toString(), x, y, view);
+        m.start();
         //System.out.println("TOUCH DOWN");
         //do your stuff it will work when u touched your actor
         return true;
@@ -51,11 +50,13 @@ public class MovementController extends AbstractController implements EventListe
 
 
         if (event.toString() == "touchUp"){
-
             touchUp(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
         }
         else if (event.toString() == "touchDown"){
             touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+        }
+        else if (event.toString() == "exit") {
+            m.end();
         }
 
         return true;
