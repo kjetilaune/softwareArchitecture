@@ -11,71 +11,39 @@ import com.mygdx.game.controller.FireController;
  * Created by Jonathan on 12.03.2015.
  */
 public class BulletPhysics {
-    public static class Equation {
-        public float gravity;
-        public Vector2 startVelocity = new Vector2();
-        public Vector2 startPoint = new Vector2();
+    //Draw should be done in ammunition
+    public int weight;
+    public Vector2 startVelocity;
+    public Vector2 startDirection;
+    public Vector2 startPosition;
+    public int power;
+    public float speed;
+    public float gravity = -0.9f;
+    public Vector2 position = new Vector2();
 
-        public float getX(float t){
-            return startVelocity.x*t + startPoint.x;
-        }
-        public float getY(float t){
-            return 0.5f * gravity * t * t + startVelocity.y*t + startPoint.y;
-        }
-
-        public float getTforGivenX(float x){
-            return (x- startPoint.x) / (startVelocity.x);
-        }
+    public float speed(){
+        return speed = power*weight;
     }
-    public static class BulletActor extends Actor{
-        private FireController controller;
-        private Equation equation;
-        private Sprite bulletSprite;
-
-        public int bulletPointCount = 50;
-        public float timeSeparation = 1f;
-
-        public BulletActor(FireController controller, float gravity, Sprite bulletSprite){
-            this.controller = controller;
-            this.bulletSprite = bulletSprite;
-            this.equation = new Equation();
-            this.equation.gravity = gravity;
-        }
-        public void act(float delta){
-            super.act(delta);
-            equation.startVelocity.set(controller.power, 0f);
-            equation.startVelocity.rotate(controller.angle);
-        }
-
-        public void draw(SpriteBatch batch, float parent){
-            float t = 0f;
-            float a = 1f;
-            float adiff = a/bulletPointCount;
-            float width = this.getWidth();
-            float height = this.getHeight();
-            float widthDiff = width / bulletPointCount;
-            float heightDiff = height / bulletPointCount;
-
-            float timeSeparation = this.timeSeparation;
-            if (controller.fixedHorizontalDistance)
-                timeSeparation = equation.getTforGivenX(15f);
-
-            for (int i = 0; i < bulletPointCount; i++){
-                float x = this.getX() + equation.getX(t);
-                float y = this.getY() + equation.getY(t);
-
-                batch.draw(bulletSprite, x, y, width, height);
-
-                a -= adiff;
-                t += timeSeparation;
-
-                width -= widthDiff;
-                height -= heightDiff;
-            }
-
-        }
-
-
+    public Vector2 setStartDirection(double angle){
+        startDirection = new Vector2((float)Math.cos(angle), (float)Math.sin(angle)); //can't cast it to float
+        return startDirection;
+    }
+    public Vector2 initialSpeed(){
+        startVelocity = new Vector2(startDirection.x*speed, startDirection.y*speed);
+        return startVelocity;
+    }
+    public float getX(float t){
+        return startVelocity.x*t + startPosition.x;
+    }
+    public float getY(float t){
+        return 0.5f * gravity * t * t + startVelocity.y*t + startPosition.y;
+    }
+    public Vector2 getPosition(float t){
+        position.add(startPosition).add(startVelocity.scl(t)).add(0, gravity*t*t/2);
+        return position;
+    }
+    public float getTforGivenX(float x){
+        return (x- startPosition.x) / (startVelocity.x);
     }
 
 
