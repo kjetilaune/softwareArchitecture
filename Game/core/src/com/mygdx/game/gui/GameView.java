@@ -32,6 +32,7 @@ import com.mygdx.game.controller.FireController;
 import com.mygdx.game.controller.MovementController;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
+import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.TextureManager;
 import com.mygdx.game.model.Vehicle;
@@ -45,8 +46,6 @@ public class GameView extends AbstractView implements Screen, Observer{
     MyGdxGame game;
     private Stage stage;
 
-    //public Environment environment;
-    //public Tank tank;
     private MovementController moveCtrl;
 
     private PolygonSprite ground;
@@ -70,7 +69,8 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private Game gameInstance;
     public Environment environment;
-    public Tank currentTank;
+    public Player currentPlayer; // current player
+    public Vehicle currentVehicle; // current player's vehicle
 
 
     private OrthographicCamera camera;
@@ -81,19 +81,13 @@ public class GameView extends AbstractView implements Screen, Observer{
         this.game = game;
 
         this.gameInstance = gameInstance;
-        this.environment = gameInstance.getEnvironment();
-        this.currentTank = gameInstance.getCurrentPlayer().getVehicle();
+        environment = gameInstance.getEnvironment();
+        currentPlayer = gameInstance.getCurrentPlayer();
+        currentVehicle = currentPlayer.getVehicle();
 
         stage = new Stage();
         batch = new SpriteBatch();
         polyBatch = new PolygonSpriteBatch();
-
-        //environment = new Environment(2, 10);
-
-        //tank = new Tank(environment);
-        //tank.setPosition(new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
-        //tank.setRotation(environment.getAngle(tank.getPosition().x, tank.getPosition().x + TextureManager.tank.getWidth()));
-        //tank.addObserver(this);
 
         moveCtrl = new MovementController(this);
 
@@ -169,11 +163,9 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         generateGround();
 
-        currentTank = gameInstance.getCurrentPlayer().getVehicle();
-
         batch.begin();
-        batch.draw(new TextureRegion(currentTank.getTexture()), currentTank.getPosition().x, currentTank.getPosition().y, 0, 0, (float)TextureManager.tank.getWidth(), (float)TextureManager.tank.getHeight(), 1, 1, currentTank.getRotation());
-        batch.draw(new TextureRegion(currentTank.getBarrel().getTexture()), currentTank.getBarrelPosition().x, currentTank.getBarrelPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, currentTank.getBarrel().getRotation() + currentTank.getBarrel().getAngle());
+        batch.draw(new TextureRegion(currentVehicle.getTexture()), currentVehicle.getPosition().x, currentVehicle.getPosition().y, 0, 0, (float)TextureManager.tank.getWidth(), (float)TextureManager.tank.getHeight(), 1, 1, currentVehicle.getRotation());
+        batch.draw(new TextureRegion(((Tank)currentVehicle).getBarrel().getTexture()), ((Tank)currentVehicle).getBarrelPosition().x, ((Tank)currentVehicle).getBarrelPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, ((Tank)currentVehicle).getBarrel().getRotation() + ((Tank)currentVehicle).getBarrel().getAngle());
         batch.end();
 
 
@@ -228,7 +220,9 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     }
     public void update(Observable o, Object arg){
-        System.out.println("IT CHANGED");
+
+        //System.out.println("IT CHANGED");
+        arg.toString();
     }
 
 }

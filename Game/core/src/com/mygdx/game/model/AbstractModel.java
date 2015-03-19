@@ -8,8 +8,9 @@ import com.badlogic.gdx.utils.Json; //don't know if we should use this or the ja
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Observable;
 
-public abstract class AbstractModel {
+public abstract class AbstractModel extends Observable {
 
     protected PropertyChangeSupport propChangeSupport;
 

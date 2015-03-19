@@ -35,23 +35,17 @@ public class Game extends AbstractModel {
         
     }
 
-    // må gjøre en hel masse sjekker her
-    public void alternatePlayers(Player currentPlayer) {
-        if (currentPlayer == player1) {
-            this.currentPlayer = player2;
-        }
-        else {
-            this.currentPlayer = player1;
-        }
-    }
 
     public void changePlayer() {
         if (currentPlayer == player1) {
-            this.currentPlayer = player2;
+            currentPlayer = player2;
         }
         else {
             this.currentPlayer = player1;
         }
+        this.setChanged();
+        this.notifyObservers(currentPlayer);
+        this.firePropertyChange("Player changed", null, getCurrentPlayer());
     }
 
     public Environment getEnvironment() {

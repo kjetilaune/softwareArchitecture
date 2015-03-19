@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Player {
 
-    //private Vehicle vehicle;
-    private Tank vehicle;
+    private Vehicle vehicle;
+    //private Tank vehicle;
     private Inventory inventory;
     private Ammunition chosenAmmo;
     private Team team;
@@ -19,7 +19,6 @@ public class Player {
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
         vehicle = new Tank(environment, new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
-        //vehicle = new Tank(environment, new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
 
     }
 
@@ -31,17 +30,13 @@ public class Player {
         chosenAmmo = inventory.getNextAmmo(chosenAmmo);
     }
 
-    public Tank getVehicle() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
 
-    /*public Vehicle getVehicle() {
-        return vehicle;
-    }*/
-
-    /*public void setVehicle(Vehicle vehicle) {
+    public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
-    }*/
+    }
 
     public Inventory getInventory() {
         return inventory;
