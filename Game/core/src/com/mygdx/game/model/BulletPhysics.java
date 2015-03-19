@@ -42,7 +42,9 @@ public class BulletPhysics {
         position.add(startPosition).add(startVelocity.scl(t)).add(0, gravity*t*t/2);
         return position;
     }
-
+    public float getTforGivenX(float x){
+        return (x- startPosition.x) / (startVelocity.x);
+    }
 
 
 }
