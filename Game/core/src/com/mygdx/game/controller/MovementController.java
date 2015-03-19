@@ -2,6 +2,7 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.gui.GameView;
 
 import java.beans.PropertyChangeEvent;
@@ -12,14 +13,14 @@ import java.beans.PropertyChangeEvent;
 public class MovementController extends AbstractController implements EventListener{
 
     // the view the controller listens to
-    GameView view;
+    private GameView view;
 
     // the thread used for continuous movement
-    MoveThread movement;
+    private MoveThread movement;
 
-    public MovementController(GameView view){
+    public MovementController(AbstractView view){
         super(view);
-        this.view = view;
+        this.view = (GameView)view;
         movement = new MoveThread();
     }
 
@@ -30,8 +31,11 @@ public class MovementController extends AbstractController implements EventListe
 
     public boolean handle (Event event){
 
+        if (!event.toString().equals("touchDragged"))
+            System.out.println(event.toString());
+
         // if button is pressed
-        if (event.toString().equals("touchDown")){
+        if (event.toString().equals("enter")){
             // update the thread with the current direction, tank, and environment to initiate movement
             movement.move(event.getTarget().toString(), view.currentVehicle, view.environment);
         }
