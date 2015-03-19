@@ -13,13 +13,13 @@ public abstract class Vehicle extends GameObject {
     private float power;
     private Location vehicleLocation;
 
-    private Texture texture;
+
 
 
     public Vehicle(Texture texture) {
+        super(texture);
         health = 100;
         fuel = 100;
-        this.texture = texture;
     }
 
     public void fire(Ammunition ammo) {
@@ -56,14 +56,6 @@ public abstract class Vehicle extends GameObject {
 
     public void setPower(float power) {
         this.power = power;
-    }
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
     }
 
 }

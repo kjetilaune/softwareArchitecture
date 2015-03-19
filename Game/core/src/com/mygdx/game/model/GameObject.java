@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,12 +17,24 @@ public abstract class GameObject extends Observable{
     public Vector2 scale;
     public float rotation;
 
+    private Texture texture;
+
     public GameObject() {
         position = new Vector2();
         dimension = new Vector2(1, 1);
         origin = new Vector2();
         scale = new Vector2(1, 1);
         rotation = 0;
+        texture = null;
+    }
+
+    public GameObject(Texture texture) {
+        position = new Vector2();
+        dimension = new Vector2(1, 1);
+        origin = new Vector2();
+        scale = new Vector2(1, 1);
+        rotation = 0;
+        this.texture = texture;
     }
 
     public void setPosition(Vector2 position) {
@@ -43,8 +56,8 @@ public abstract class GameObject extends Observable{
     }
 
 
-    public void update(float deltaTime) {
-
+    public Texture getTexture() {
+        return texture;
     }
 
 
