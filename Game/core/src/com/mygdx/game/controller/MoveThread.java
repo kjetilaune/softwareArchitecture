@@ -1,9 +1,9 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.mygdx.game.gui.GameView;
+import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.TextureManager;
+import com.mygdx.game.model.Vehicle;
 
 /**
  * Created by Mikal on 17.03.2015.
@@ -12,15 +12,11 @@ public class MoveThread extends Thread {
 
     private String direction;
     private float x, y;
-    private GameView view;
+    private Vehicle vehicle;
+    private Environment environment;
     private boolean heldDown;
 
-    public MoveThread(String direction, float x, float y, GameView view) {
-        this.heldDown = true;
-        this.direction  = direction;
-        this.x = x;
-        this.y = y;
-        this.view = view;
+    public MoveThread() {
 
     }
 
@@ -28,22 +24,32 @@ public class MoveThread extends Thread {
         System.out.println("MoveThread started.");
         while (heldDown) {
 
-            this.view.currentTank.setRotation(view.environment.getAngle(view.currentTank.getPosition().x, view.currentTank.getPosition().x + TextureManager.tank.getWidth()));
+            vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + TextureManager.tank.getWidth()));
             if (direction.equals("arrowLeft")){
-                this.view.currentTank.setPosition(new Vector2(view.currentTank.getPosition().x - 10,view.environment.getGroundHeight(view.currentTank.getPosition().x - 10)));
+                vehicle.setPosition(new Vector2(vehicle.getPosition().x - 1, environment.getGroundHeight(vehicle.getPosition().x - 1)));
             }
             else if (direction.equals("arrowRight")){
-                this.view.currentTank.setPosition(new Vector2(view.currentTank.getPosition().x + 10,view.environment.getGroundHeight(view.currentTank.getPosition().x + 10)));
+                vehicle.setPosition(new Vector2(vehicle.getPosition().x + 1, environment.getGroundHeight(vehicle.getPosition().x + 1)));
             }
 
-            try { Thread.sleep(100); }
-            catch (InterruptedException e) {}
+            try { Thread.sleep(50); }
+            catch (InterruptedException e) {
+                System.err.println("Error in MoveThread: " + e.getMessage());
+            }
 
         }
     }
 
     public static void main(String args[]) {
 
+    }
+
+    public void move(String direction, Vehicle vehicle, Environment environment) {
+        this.heldDown = true;
+        this.direction  = direction;
+        this.vehicle = vehicle;
+        this.environment = environment;
+        this.start();
     }
 
     public void end() {
