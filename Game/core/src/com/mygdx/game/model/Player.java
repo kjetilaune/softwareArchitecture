@@ -16,7 +16,8 @@ public class Player {
     private Team team;
     private float timeLeft;
 
-    public Player(Environment environment) {
+    public Player(Team team, Environment environment) {
+        this.team = team;
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
         vehicle = new Tank(environment, new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));

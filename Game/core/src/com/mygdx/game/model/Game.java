@@ -1,5 +1,7 @@
 package com.mygdx.game.model;
 
+import com.mygdx.game.model.Enums.Team;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,8 +26,8 @@ public class Game extends AbstractModel {
         environment = new Environment(2, 10);
         random = new Random();
 
-        player1 = new Player(environment);
-        player2 = new Player(environment);
+        player1 = new Player(Team.FAST_FOOD, environment);
+        player2 = new Player(Team.VEGAN, environment);
 
         players = new ArrayList<Player>();
         players.add(player1);
