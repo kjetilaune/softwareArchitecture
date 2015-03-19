@@ -49,7 +49,6 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private PolygonSprite ground;
     private PolygonSpriteBatch polyBatch;
-    private Texture textureGround;
 
     private SpriteBatch batch;
 
@@ -80,7 +79,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         batch = new SpriteBatch();
         polyBatch = new PolygonSpriteBatch();
 
-        textureGround = TextureManager.grass;
         environment = new Environment(2, 10);
 
         tank = new Tank(environment);
@@ -157,7 +155,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor((float) (198.0 / 255.0), (float) (226.0 / 255.0), 1, 1);
+        Gdx.gl.glClearColor(environment.getBgColors()[0], environment.getBgColors()[1], environment.getBgColors()[2], environment.getBgColors()[3]);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         generateGround();
@@ -210,7 +208,7 @@ public class GameView extends AbstractView implements Screen, Observer{
             float[] vecs = p.getVertices();
 
             short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
-            PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
+            PolygonRegion region = new PolygonRegion(new TextureRegion(environment.getTexture()), vecs, triangles);
             ground = new PolygonSprite(region);
 
             ground.draw(polyBatch);
