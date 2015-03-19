@@ -34,6 +34,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.controller.AmmoChangeController;
 import com.mygdx.game.controller.FireController;
 import com.mygdx.game.controller.MovementController;
+import com.mygdx.game.model.Enums.Team;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
@@ -75,6 +76,8 @@ public class GameView extends AbstractView implements Screen, Observer{
     public Environment environment;
     public Player currentPlayer; // current player
     public Vehicle currentVehicle; // current player's vehicle
+
+    public boolean isFiring = false;
 
 
 
@@ -157,9 +160,10 @@ public class GameView extends AbstractView implements Screen, Observer{
             }
         });
 
-
-
         buttonFire.addListener(new FireController(this));
+
+
+
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
 
@@ -188,6 +192,29 @@ public class GameView extends AbstractView implements Screen, Observer{
     @Override
     public void render(float delta) {
 
+        // Angle adjust on touch, should be moved to controller, i don't know how
+        // and current.vehicle.GetPosition() and setAngle should work then.. i hope..
+        Vector2 touch = new Vector2();
+        if (Gdx.input.isTouched()) {
+            touch = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        }
+        double opposite = currentVehicle.getPosition().y - touch.y;
+        double adjacent = touch.x - currentVehicle.getPosition().x;
+        double tan = opposite / adjacent;
+        double degrees = Math.toDegrees(Math.atan(tan));    // I quadrant
+        if (touch.y <= currentVehicle.getPosition().y) {
+            if (touch.x < currentVehicle.getPosition().x) // IL quadrant
+                degrees += 180;
+        }
+        else{
+            if (touch.x < currentVehicle.getPosition().x)  //  III quadrant
+                degrees += 180;
+            else        // IV quadrant
+                degrees = 360 + degrees;
+        }
+        currentVehicle.setAngle((float)degrees);
+        // end
+
         Gdx.gl.glClearColor(environment.getBgColors()[0], environment.getBgColors()[1], environment.getBgColors()[2], environment.getBgColors()[3]);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -198,6 +225,14 @@ public class GameView extends AbstractView implements Screen, Observer{
         batch.draw(new TextureRegion(((Tank)currentVehicle).getBarrel().getTexture()), ((Tank)currentVehicle).getBarrelPosition().x, ((Tank)currentVehicle).getBarrelPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, ((Tank)currentVehicle).getBarrel().getRotation() + ((Tank)currentVehicle).getBarrel().getAngle());
 
         generateMenu();
+
+
+        if (currentPlayer.getChosenAmmo().getPosition() != null) {
+
+            Texture ammoTexture = currentPlayer.getTeam().getAmmunitionTexture(currentPlayer.getChosenAmmo().getName());
+            batch.draw(new TextureRegion(ammoTexture), currentPlayer.getChosenAmmo().getPosition().x, currentPlayer.getChosenAmmo().getPosition().y);
+
+        }
 
         batch.end();
 
@@ -260,10 +295,13 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         String textCurrentPlayer = currentPlayer.getTeam().getName();
         String textChosenAmmo = "Chosen ammo: " + currentPlayer.getChosenAmmo().getName();
+        String textLeftAmmo = "Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName());
 
         font.setScale(4f);
         font.draw(batch, textCurrentPlayer, 0, Gdx.graphics.getHeight());
-        font.draw(batch, textChosenAmmo, font.getBounds(textCurrentPlayer).width, Gdx.graphics.getHeight());
+        font.setScale(3.5f);
+        font.draw(batch, textChosenAmmo + "\t" + textLeftAmmo, 0, Gdx.graphics.getHeight() - font.getBounds(textCurrentPlayer).height - 10);
+
 
 
     }

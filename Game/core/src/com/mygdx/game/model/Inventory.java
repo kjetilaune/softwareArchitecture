@@ -141,4 +141,14 @@ public class Inventory {
         return ammunitions.get(ammunitions.indexOf(currentAmmo) + 1);
     }
 
+    public int getAmmoLeft(String ammoName) {
+
+        for (int i = 0 ; i < ammunitions.size() -1 ; i++) {
+            if (ammoName.equals(ammunitions.get(i).getName())) {
+                return ammoAmount.get(i);
+            }
+        }
+        return 0;
+    }
+
 }

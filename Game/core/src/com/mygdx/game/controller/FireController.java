@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.gui.AbstractView;
+import com.mygdx.game.gui.GameView;
 
 import java.beans.PropertyChangeEvent;
 
@@ -13,9 +14,8 @@ import java.beans.PropertyChangeEvent;
  * Created by Jonathan on 10.03.2015.
  */
 public class FireController extends AbstractController implements EventListener{
-    public float power;
-    public float angle;
-    public boolean fixedHorizontalDistance = true;
+
+    private GameView view;
     boolean wasPressed;
     FireController controller;
 
@@ -25,6 +25,7 @@ public class FireController extends AbstractController implements EventListener{
 
     public FireController(AbstractView view){
         super(view);
+        this.view = (GameView)(view);
     }
 
     public FireController(FireController controller, Vector2 position){
@@ -99,6 +100,7 @@ public class FireController extends AbstractController implements EventListener{
         //do your stuff
         //it will work when finger is released..
         System.out.println("FIRE" + " X:" + x + " Y:" + y);
+        this.view.isFiring = true;
 
     }
 
