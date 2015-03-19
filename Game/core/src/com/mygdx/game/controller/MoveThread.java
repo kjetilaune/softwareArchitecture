@@ -8,53 +8,94 @@ import com.mygdx.game.model.Vehicle;
 /**
  * Created by Mikal on 17.03.2015.
  */
+
 public class MoveThread extends Thread {
 
+    // use blinker to safely replace Thread.stop()
+    private boolean blinker;
+
+    // holds direction of movement (either "arrowLeft" or "arrowRight")
     private String direction;
-    private float x, y;
+
+    // holds the vehicle to be moved
     private Vehicle vehicle;
+
+    // holds the environment to move according to
     private Environment environment;
+
+    // true if a move-button is held down, else false
+    // used to decide whether to move or not
     private boolean heldDown;
 
     public MoveThread() {
-
+        blinker = true;
+        this.start();
     }
 
     public void run() {
         System.out.println("MoveThread started.");
-        while (heldDown) {
 
-            vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + TextureManager.tank.getWidth()));
-            if (direction.equals("arrowLeft")){
-                vehicle.setPosition(new Vector2(vehicle.getPosition().x - 1, environment.getGroundHeight(vehicle.getPosition().x - 1)));
-            }
-            else if (direction.equals("arrowRight")){
-                vehicle.setPosition(new Vector2(vehicle.getPosition().x + 1, environment.getGroundHeight(vehicle.getPosition().x + 1)));
-            }
+        // should run until killThread() is called
+        while (blinker) {
 
-            try { Thread.sleep(50); }
+            try {
+
+                // checks if the button is held down
+                if (heldDown) {
+
+                    // unsure about the necessity of synchronized
+                    // enables only this thread to have access to the vehicle during movement
+                    synchronized (vehicle) {
+
+
+
+                        // moves the tank by updating its position according to the direction-input and environment
+                        // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
+                        if (direction.equals("arrowLeft")){
+                            vehicle.setPosition(new Vector2(vehicle.getPosition().x - 10, environment.getGroundHeight(vehicle.getPosition().x - 10)));
+                        }
+                        else if (direction.equals("arrowRight")){
+                            vehicle.setPosition(new Vector2(vehicle.getPosition().x + 10, environment.getGroundHeight(vehicle.getPosition().x + 10)));
+                        }
+
+                        // rotates the vehicle according to the environment
+                        vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + TextureManager.tank.getWidth()));
+                    }
+
+                    // cause the thread to halt for 50 ms to prevent from moving to fast
+                    sleep(50);
+                }
+
+                else {
+                    // cause the thread to halt for 200 ms before checking again for movement
+                    // probably not very effective
+                    sleep(200);
+                }
+            }
             catch (InterruptedException e) {
                 System.err.println("Error in MoveThread: " + e.getMessage());
             }
-
         }
+
+        System.out.println("Thread died.");
     }
 
-    public static void main(String args[]) {
-
-    }
-
+    // enables the if-clause in run() and updates information about how and what to move
     public void move(String direction, Vehicle vehicle, Environment environment) {
         this.heldDown = true;
         this.direction  = direction;
         this.vehicle = vehicle;
         this.environment = environment;
-        this.start();
     }
 
-    public void end() {
+    // causes the the else-clause in run() to be triggered, effectively ending movement
+    public void endMovement() {
         heldDown = false;
     }
 
+    // calling this ends the while-loop in run(), stopping the thread from doing anything
+    public void killThread() {
+        blinker = false;
+    }
 
 }
