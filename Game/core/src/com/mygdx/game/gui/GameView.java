@@ -49,7 +49,6 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private PolygonSprite ground;
     private PolygonSpriteBatch polyBatch;
-    private Texture textureGround;
 
     private SpriteBatch batch;
 
@@ -80,11 +79,11 @@ public class GameView extends AbstractView implements Screen, Observer{
         batch = new SpriteBatch();
         polyBatch = new PolygonSpriteBatch();
 
-        textureGround = TextureManager.grass;
         environment = new Environment(2, 10);
 
         tank = new Tank(environment);
         tank.setPosition(new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
+        tank.setRotation(environment.getAngle(tank.getPosition().x, tank.getPosition().x + TextureManager.tank.getWidth()));
         tank.addObserver(this);
 
         moveCtrl = new MovementController(this);
@@ -156,14 +155,15 @@ public class GameView extends AbstractView implements Screen, Observer{
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor((float) (198.0 / 255.0), (float) (226.0 / 255.0), 1, 1);
+        Gdx.gl.glClearColor(environment.getBgColors()[0], environment.getBgColors()[1], environment.getBgColors()[2], environment.getBgColors()[3]);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         generateGround();
 
 
         batch.begin();
-        batch.draw(new TextureRegion(tank.getTexture()), tank.getPosition().x, tank.getPosition().y, 0, 0, (float) TextureManager.tank.getWidth(), (float) TextureManager.tank.getHeight(), 1, 1, environment.getAngle(tank.getPosition().x, tank.getPosition().x+TextureManager.tank.getWidth()));
+        batch.draw(new TextureRegion(tank.getTexture()), tank.getPosition().x, tank.getPosition().y, 0, 0, (float)TextureManager.tank.getWidth(), (float)TextureManager.tank.getHeight(), 1, 1, tank.getRotation());
+        batch.draw(new TextureRegion(tank.getBarrel().getTexture()), tank.getBarrelPosition().x, tank.getBarrelPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, tank.getBarrel().getRotation() + tank.getBarrel().getAngle());
         batch.end();
 
 
@@ -208,7 +208,7 @@ public class GameView extends AbstractView implements Screen, Observer{
             float[] vecs = p.getVertices();
 
             short[] triangles = new EarClippingTriangulator().computeTriangles(vecs).toArray();
-            PolygonRegion region = new PolygonRegion(new TextureRegion(textureGround), vecs, triangles);
+            PolygonRegion region = new PolygonRegion(new TextureRegion(environment.getTexture()), vecs, triangles);
             ground = new PolygonSprite(region);
 
             ground.draw(polyBatch);

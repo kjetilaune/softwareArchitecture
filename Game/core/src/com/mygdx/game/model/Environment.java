@@ -1,10 +1,14 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Created by annieaa on 10/03/15.
@@ -19,6 +23,9 @@ public class Environment {
     private double hillStartY;
     private double hillWidth;
     private int numberOfSlices;
+
+    private EnvironmentEnum appearance;
+
 
 
     // for creating a simple environment
@@ -43,8 +50,10 @@ public class Environment {
         polygons = new ArrayList<Polygon>(); // an array containing all polygons used for drawing ground
 
         drawHills();
+        setRandomAppearance();
 
     }
+
 
     // returns the height of the ground at the given x-position
     public float getGroundHeight(float xPos) {
@@ -69,6 +78,7 @@ public class Environment {
         return y;
     }
 
+
     // returns the angle of the ground at the given start and stop x-position
     public float getAngle(float xStart, float xStop) {
 
@@ -85,6 +95,7 @@ public class Environment {
     }
 
 
+    // help function for getting all x-coordinates of a polygon given its array of points
     private float[] getVerticesX (float[] vertices) {
 
         float[] verticesX = new float[vertices.length / 2];
@@ -95,6 +106,7 @@ public class Environment {
     }
 
 
+    // help function for getting all y-coordinates of a polygon given its array of points
     private float[] getVerticesY (float[] vertices) {
 
         float[] verticesY = new float[vertices.length / 2];
@@ -105,6 +117,7 @@ public class Environment {
     }
 
 
+    // for testing purposes. will probably be deleted soon.
     private void drawBoringHills() {
 
         float[] vecs1 = {0, 0, Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth()/4, 400, 0, Gdx.graphics.getHeight() - 400};
@@ -155,11 +168,26 @@ public class Environment {
     }
 
 
+    // sets random appearance of the environment, ex. grass, snow, rock etc.
+    private void setRandomAppearance() {
+        int pick = new Random().nextInt(EnvironmentEnum.values().length);
+        appearance = EnvironmentEnum.values()[pick];
+    }
+
+
     public ArrayList<Polygon> getPolygons() {
         return polygons;
     }
 
 
+    public Texture getTexture() {
+        return appearance.getTexture();
+    }
+
+
+    public float[] getBgColors() {
+        return appearance.getBackground();
+    }
 
 
 }
