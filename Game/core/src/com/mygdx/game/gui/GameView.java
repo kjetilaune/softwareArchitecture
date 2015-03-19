@@ -6,8 +6,11 @@ package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
@@ -21,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -73,7 +77,12 @@ public class GameView extends AbstractView implements Screen, Observer{
     public Vehicle currentVehicle; // current player's vehicle
 
 
+
     private OrthographicCamera camera;
+
+
+    Label labelCurrentPlayer;
+    Label labelChosenAmmo;
 
 
     public GameView(MyGdxGame game, Game gameInstance){
@@ -111,7 +120,24 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRight.setName("arrowRight");
         setupCamera();
 
+
+        testGUI();
+
     }
+
+    public void testGUI() {
+
+        menuSkin.getFont("font").setScale(2f);
+        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), fireSkin);
+        labelChosenAmmo = new Label("Chosen\n ammo:", fireSkin);
+
+
+
+    }
+
+
+
+
 
     private void setupCamera() {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -131,13 +157,17 @@ public class GameView extends AbstractView implements Screen, Observer{
             }
         });
 
+
+
         buttonFire.addListener(new FireController(this));
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
 
 
         groupTop.top();
-        groupTop.addActor(buttonMainMenu);
+        //groupTop.addActor(buttonMainMenu);
+        //groupTop.addActor(labelCurrentPlayer);
+        //groupTop.addActor(labelChosenAmmo);
         groupTop.setFillParent(true);
         groupBottom.bottom();
         groupBottom.addActor(buttonAmmo);
@@ -166,6 +196,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         batch.begin();
         batch.draw(new TextureRegion(currentVehicle.getTexture()), currentVehicle.getPosition().x, currentVehicle.getPosition().y, 0, 0, (float)TextureManager.tank.getWidth(), (float)TextureManager.tank.getHeight(), 1, 1, currentVehicle.getRotation());
         batch.draw(new TextureRegion(((Tank)currentVehicle).getBarrel().getTexture()), ((Tank)currentVehicle).getBarrelPosition().x, ((Tank)currentVehicle).getBarrelPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, ((Tank)currentVehicle).getBarrel().getRotation() + ((Tank)currentVehicle).getBarrel().getAngle());
+
+        generateMenu();
+
         batch.end();
 
 
@@ -219,6 +252,22 @@ public class GameView extends AbstractView implements Screen, Observer{
         polyBatch.end();
 
     }
+
+    private void generateMenu() {
+
+        BitmapFont font = new BitmapFont();
+        batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight()/7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        String textCurrentPlayer = currentPlayer.getTeam().getName();
+        String textChosenAmmo = "Chosen ammo: " + currentPlayer.getChosenAmmo().getName();
+
+        font.setScale(4f);
+        font.draw(batch, textCurrentPlayer, 0, Gdx.graphics.getHeight());
+        font.draw(batch, textChosenAmmo, font.getBounds(textCurrentPlayer).width, Gdx.graphics.getHeight());
+
+
+    }
+
     public void update(Observable o, Object arg){
 
         //System.out.println("IT CHANGED");
