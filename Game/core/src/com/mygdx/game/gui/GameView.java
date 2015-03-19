@@ -32,6 +32,7 @@ import com.mygdx.game.MyGdxGame;
 
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.controller.AmmoChangeController;
+import com.mygdx.game.controller.AngleController;
 import com.mygdx.game.controller.FireController;
 import com.mygdx.game.controller.MovementController;
 import com.mygdx.game.model.Enums.Team;
@@ -163,6 +164,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonFire.addListener(new FireController(this));
 
 
+        stage.addListener(new AngleController(this));
 
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
@@ -192,28 +194,6 @@ public class GameView extends AbstractView implements Screen, Observer{
     @Override
     public void render(float delta) {
 
-        // Angle adjust on touch, should be moved to controller, i don't know how
-        // and current.vehicle.GetPosition() and setAngle should work then.. i hope..
-        Vector2 touch = new Vector2();
-        if (Gdx.input.isTouched()) {
-            touch = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-        }
-        double opposite = currentVehicle.getPosition().y - touch.y;
-        double adjacent = touch.x - currentVehicle.getPosition().x;
-        double tan = opposite / adjacent;
-        double degrees = Math.toDegrees(Math.atan(tan));    // I quadrant
-        if (touch.y <= currentVehicle.getPosition().y) {
-            if (touch.x < currentVehicle.getPosition().x) // IL quadrant
-                degrees += 180;
-        }
-        else{
-            if (touch.x < currentVehicle.getPosition().x)  //  III quadrant
-                degrees += 180;
-            else        // IV quadrant
-                degrees = 360 + degrees;
-        }
-        currentVehicle.setAngle((float)degrees);
-        // end
 
         Gdx.gl.glClearColor(environment.getBgColors()[0], environment.getBgColors()[1], environment.getBgColors()[2], environment.getBgColors()[3]);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -291,7 +271,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     private void generateMenu() {
 
         BitmapFont font = new BitmapFont();
-        batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight()/7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         String textCurrentPlayer = currentPlayer.getTeam().getName();
         String textChosenAmmo = "Chosen ammo: " + currentPlayer.getChosenAmmo().getName();
@@ -311,5 +291,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         //System.out.println("IT CHANGED");
         arg.toString();
     }
+
 
 }

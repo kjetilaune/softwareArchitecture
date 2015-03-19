@@ -18,7 +18,42 @@ public class Barrel extends GameObject {
     }
 
     public void setAngle(float angle) {
-        this.angle = angle;
+
+        if (angle < 0) {
+            this.angle = 0;
+        }
+        else if (angle > 180) {
+            this.angle = 180;
+        }
+        else {
+            this.angle = angle;
+        }
+
+    }
+
+    public float getAngle(float touchX, float touchY) {
+
+        double opposite = getPosition().y - touchY;
+        double adjacent = touchX - getPosition().x;
+        double tan = opposite / adjacent;
+        double degrees = Math.toDegrees(Math.atan(tan)); // I quadrant
+
+        if (touchY <= getPosition().y) {
+            if (touchX < getPosition().x) { // IL quadrant
+                degrees += 180;
+            }
+        }
+        else {
+            if (touchX < getPosition().x) { //  III quadrant
+                degrees += 180;
+            }
+            else { // IV quadrant
+                degrees = 360 + degrees;
+            }
+        }
+
+        return((float)degrees);
+
     }
 
 
