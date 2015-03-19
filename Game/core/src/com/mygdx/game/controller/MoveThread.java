@@ -47,8 +47,6 @@ public class MoveThread extends Thread {
                     // enables only this thread to have access to the vehicle during movement
                     synchronized (vehicle) {
 
-
-
                         // moves the tank by updating its position according to the direction-input and environment
                         // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
                         if (direction.equals("arrowLeft")){
