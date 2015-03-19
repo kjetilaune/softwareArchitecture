@@ -21,11 +21,8 @@ public enum Team {
 
     public Texture getAmmunitionTexture(String ammoName) {
 
-        switch (ammoName) {
-
-            case "Bullet":
-                return bulletTexture;
-
+        if (ammoName.equals("Bullet")) {
+            return bulletTexture;
         }
 
        return null;
