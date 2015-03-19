@@ -3,6 +3,8 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
+
+
 
 /**
  * Created by annieaa on 11/03/15.
@@ -23,9 +27,13 @@ public class AboutView implements Screen {
     private Stage stage;
     private Table table;
 
+    private BitmapFont font;
+
+    private SpriteBatch batch;
+
     private Skin skin;
 
-    private Label title;
+    private Label title, aboutText;
     private TextButton buttonMainMenu;
 
     public AboutView(MyGdxGame game) {
@@ -38,7 +46,16 @@ public class AboutView implements Screen {
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
 
-        title = new Label("Settings", skin);
+        font = new BitmapFont();
+        batch = new SpriteBatch();
+
+        title = new Label("About", skin);
+        /*aboutText = new Label("- Move your tank with the arrows to the left or the right.\n" +
+                "- Change the angle of the barrel using the up and down buttons.\n" +
+                "- Toggle your ammo with the 'Change Ammo' button.\n" +
+                "- Fire when you're ready.\n" +
+                "- After each round you can buy new ammo and upgrades. ", skin);
+        aboutText.setFontScale((float)0.99, (float)0.99);*/
         buttonMainMenu = new TextButton("Main Menu", skin);
 
     }
@@ -46,8 +63,25 @@ public class AboutView implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor((float)(255/255.0), (float)(195/255.0), (float)(160/255.0), 1);
+        //Gdx.gl.glClearColor(255, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        font.setColor((float)(178/255.0), (float)(136/255.0), (float)(112/255.0), 1);
+        font.setScale((float)5);
+        font.draw(batch, "About", stage.getWidth()/2 - 50,stage.getHeight() - 100);
+        batch.end();
+
+        batch.begin();
+        font.setScale((float)3);
+        font.draw(batch, "- Move your tank with the arrows to the left or the right.", 200, stage.getHeight() - 200);
+        font.draw(batch, "- Change the angle of the barrel using the up and down buttons.", 200, stage.getHeight() - 250);
+        font.draw(batch, "- Toggle your ammo with the 'Change Ammo' button.", 200, stage.getHeight() - 300);
+        font.draw(batch, "- Fire when you're ready.", 200, stage.getHeight() - 350);
+        font.draw(batch, "- After each round you can buy new ammo and upgrades.", 200, stage.getHeight() - 400);
+        batch.end();
+
         stage.act();
         stage.draw();
 
@@ -63,10 +97,10 @@ public class AboutView implements Screen {
             }
         });
 
-        table.add(title).padBottom(20).row();
+        table.add(title).padBottom(stage.getHeight() - 200).row();
         table.add(buttonMainMenu).size(300, 120).padBottom(20).row();
-
-        table.setFillParent(true);
+        table.setPosition(stage.getWidth()/2,stage.getHeight() - 250);
+        table.setFillParent(false);
         stage.addActor(table);
 
         Gdx.input.setInputProcessor(stage);
