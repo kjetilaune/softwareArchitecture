@@ -19,7 +19,15 @@ public enum Team {
         this.bulletTexture = bulletTexture;
     }
 
-    public Texture getBulletTexture() {
-        return bulletTexture;
+    public Texture getAmmunitionTexture(String ammoName) {
+
+        switch (ammoName) {
+
+            case "Bullet":
+                return bulletTexture;
+
+        }
+
+       return null;
     }
 }

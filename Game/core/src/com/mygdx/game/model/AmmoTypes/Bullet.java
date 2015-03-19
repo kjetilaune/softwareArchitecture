@@ -8,10 +8,10 @@ import com.mygdx.game.model.Ammunition;
  */
 public class Bullet extends Ammunition {
 
-    public void render(SpriteBatch batch) {
-        //does something
-    }
     public Bullet() {
         super("Bullet", 1, 1, 10, 1, 100);
+
     }
+
+
 }
