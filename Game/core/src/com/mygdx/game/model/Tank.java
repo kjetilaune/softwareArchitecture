@@ -13,9 +13,11 @@ public class Tank extends Vehicle {
     private Environment environment;
     private Barrel barrel;
 
-    public Tank(Environment environment) {
+    public Tank(Environment environment, Vector2 position) {
         super(TextureManager.tank);
         this.environment = environment;
+        super.setPosition(position);
+        setRotation(environment.getAngle(getPosition().x, getPosition().x + TextureManager.tank.getWidth()));
         barrel = new Barrel(getBarrelPosition(), 45);
         //barrel = new Barrel(new Vector2(getPosition().x + TextureManager.tank.getWidth()/2, getPosition().y + TextureManager.tank.getHeight()/2 - TextureManager.barrel.getHeight()/2), 45);
         barrel.setRotation(getRotation());

@@ -21,15 +21,17 @@ public class Game extends AbstractModel {
     public Game() {
 
         store = Store.getInstance();
+        environment = new Environment(2, 10);
         random = new Random();
 
-        player1 = new Player();
-        player2 = new Player();
+        player1 = new Player(environment);
+        player2 = new Player(environment);
 
         players = new ArrayList<Player>();
         players.add(player1);
         players.add(player2);
 
+        currentPlayer = player1;
         
     }
 
@@ -41,6 +43,27 @@ public class Game extends AbstractModel {
         else {
             this.currentPlayer = player1;
         }
+    }
+
+    public void changePlayer() {
+        if (currentPlayer == player1) {
+            this.currentPlayer = player2;
+        }
+        else {
+            this.currentPlayer = player1;
+        }
+    }
+
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
 }

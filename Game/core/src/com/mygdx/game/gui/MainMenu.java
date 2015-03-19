@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.controller.AmmoChangeController;
+import com.mygdx.game.model.Game;
 
 /**
  * Created by Jonathan on 10.03.2015.
@@ -66,7 +67,7 @@ public class MainMenu implements Screen {
         buttonNewGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameView(game));
+                game.setScreen(new GameView(game, new Game()));
             }
         });
 

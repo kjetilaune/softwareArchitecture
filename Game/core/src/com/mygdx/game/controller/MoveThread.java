@@ -28,12 +28,12 @@ public class MoveThread extends Thread {
         System.out.println("MoveThread started.");
         while (heldDown) {
 
-            this.view.tank.setRotation(view.environment.getAngle(view.tank.getPosition().x, view.tank.getPosition().x + TextureManager.tank.getWidth()));
+            this.view.currentTank.setRotation(view.environment.getAngle(view.currentTank.getPosition().x, view.currentTank.getPosition().x + TextureManager.tank.getWidth()));
             if (direction.equals("arrowLeft")){
-                this.view.tank.setPosition(new Vector2(view.tank.getPosition().x - 10,view.environment.getGroundHeight(view.tank.getPosition().x - 10)));
+                this.view.currentTank.setPosition(new Vector2(view.currentTank.getPosition().x - 10,view.environment.getGroundHeight(view.currentTank.getPosition().x - 10)));
             }
             else if (direction.equals("arrowRight")){
-                this.view.tank.setPosition(new Vector2(view.tank.getPosition().x + 10,view.environment.getGroundHeight(view.tank.getPosition().x + 10)));
+                this.view.currentTank.setPosition(new Vector2(view.currentTank.getPosition().x + 10,view.environment.getGroundHeight(view.currentTank.getPosition().x + 10)));
             }
 
             try { Thread.sleep(100); }
