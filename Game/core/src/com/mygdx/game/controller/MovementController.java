@@ -10,9 +10,13 @@ import java.beans.PropertyChangeEvent;
  * Created by Jonathan on 10.03.2015.
  */
 public class MovementController extends AbstractController implements EventListener{
+
+    // the view the controller listens to
     GameView view;
-    boolean touchdown;
+
+    // the thread used for continuous movement
     MoveThread movement;
+
     public MovementController(GameView view){
         super(view);
         this.view = view;
@@ -23,21 +27,20 @@ public class MovementController extends AbstractController implements EventListe
 
     }
 
-    public boolean touchDown(Event event, float x, float y,
-                             int pointer, int button) {
-        movement.move(event.getTarget().toString(), view.currentVehicle, view.environment);
-        return true;
-    }
-
     public boolean handle (Event event){
 
-        if (event.toString() == "touchDown"){
-            touchDown(event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+        // if button is pressed
+        if (event.toString().equals("touchDown")){
+            // update the thread with the current direction, tank, and environment to initiate movement
+            movement.move(event.getTarget().toString(), view.currentVehicle, view.environment);
         }
-        else if (event.toString() == "exit") {
-            movement.end();
+        // if the button is no longer pressed, either by lifting or moving the finger/cursor
+        else if (event.toString().equals("exit")) {
+            // end the movement
+            movement.endMovement();
         }
 
+        // has to return something
         return true;
     }
 
