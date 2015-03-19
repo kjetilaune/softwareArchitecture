@@ -1,6 +1,7 @@
-package com.mygdx.game.model;
+package com.mygdx.game.model.Enums;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.model.TextureManager;
 
 /**
  * Created by annieaa on 19/03/15.
