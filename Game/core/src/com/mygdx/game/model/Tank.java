@@ -19,7 +19,6 @@ public class Tank extends Vehicle {
         super.setPosition(position);
         setRotation(environment.getAngle(getPosition().x, getPosition().x + TextureManager.tank.getWidth()));
         barrel = new Barrel(getBarrelPosition(), 45);
-        //barrel = new Barrel(new Vector2(getPosition().x + TextureManager.tank.getWidth()/2, getPosition().y + TextureManager.tank.getHeight()/2 - TextureManager.barrel.getHeight()/2), 45);
         barrel.setRotation(getRotation());
     }
 
@@ -27,7 +26,6 @@ public class Tank extends Vehicle {
     public void setPosition(Vector2 position) {
         super.setPosition(position);
         barrel.setPosition(getBarrelPosition());
-        //barrel.setPosition(new Vector2(getPosition().x + TextureManager.tank.getWidth()/2, getPosition().y + TextureManager.tank.getHeight()/2 - TextureManager.barrel.getHeight()/2));
         barrel.setRotation(getRotation());
     }
 
@@ -36,8 +34,9 @@ public class Tank extends Vehicle {
     public Vector2 getBarrelPosition() {
 
         float barrelX = getPosition().x + TextureManager.tank.getWidth()/2;
+        //float barrelY = environment.getGroundHeight(getPosition().x + TextureManager.tank.getWidth()/2);
+
         float barrelY = getPosition().y + TextureManager.tank.getHeight()/2;
-        //float barrelY = getPosition().y + TextureManager.tank.getHeight()/2 - TextureManager.barrel.getHeight()/2;
 
         float newBarrelX = (float)(Math.cos(Math.toRadians(getRotation())) * (barrelX - getPosition().x) - Math.sin(Math.toRadians(getRotation())) * (barrelY - getPosition().y) + getPosition().x);
         float newBarrelY = (float)(Math.sin(Math.toRadians(getRotation())) * (barrelX - getPosition().x) - Math.cos(Math.toRadians(getRotation())) * (barrelY - getPosition().y) + getPosition().y);

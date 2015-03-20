@@ -19,15 +19,16 @@ public class Barrel extends GameObject {
 
     public void setAngle(float angle) {
 
-        if (angle < 0) {
+        // need some restrictions here, but this will be wrong ex. when on a mountain top
+        /*if (angle < 0) {
             this.angle = 0;
         }
         else if (angle > 180) {
             this.angle = 180;
         }
-        else {
+        else {*/
             this.angle = angle;
-        }
+        //}
 
     }
 
@@ -37,6 +38,7 @@ public class Barrel extends GameObject {
         double adjacent = touchX - getPosition().x;
         double tan = opposite / adjacent;
         double degrees = Math.toDegrees(Math.atan(tan)); // I quadrant
+
 
         if (touchY <= getPosition().y) {
             if (touchX < getPosition().x) { // IL quadrant
