@@ -14,9 +14,14 @@ import java.beans.PropertyChangeEvent;
  * Created by Jonathan on 19.03.2015.
  */
 public class AngleController extends AbstractController implements EventListener{
+
+    // the view the controller listens to
     GameView view;
+
     Vector2 lastVector = new Vector2();
+
     public boolean touchdown;
+
 
     public AngleController(GameView view){
         super(view);
@@ -24,9 +29,13 @@ public class AngleController extends AbstractController implements EventListener
         touchdown = false;
     }
 
+
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
     }
+
+
     public void touchUp(Event event, float x, float y, int pointer, int button){
         boolean touchdown = true;
 
@@ -38,11 +47,15 @@ public class AngleController extends AbstractController implements EventListener
         }
 
     }
+
+
     public boolean touchDown(Event event, float x, float y, int pointer, int button){
         boolean touchdown = false;
 
         return true;
     }
+
+
     public boolean touchDragged(Event event, float x, float y, int pointer, int button){
         Vector2 newVector = new Vector2(x, y);
         Vector2 delta = newVector.cpy().sub(lastVector);
@@ -50,6 +63,8 @@ public class AngleController extends AbstractController implements EventListener
         return true;
 
     }
+
+
     public boolean handle(Event event){
         if (event.toString() == "touchUp"){
             touchUp(event, ((InputEvent)event).getStageX(), ((InputEvent)event).getStageY(), 0, 0);

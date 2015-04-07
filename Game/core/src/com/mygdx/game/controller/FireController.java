@@ -7,6 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.gui.GameView;
+import com.mygdx.game.model.BulletPhysics;
+import com.mygdx.game.model.Tank;
+import com.mygdx.game.model.Vehicle;
 
 import java.beans.PropertyChangeEvent;
 
@@ -15,7 +18,15 @@ import java.beans.PropertyChangeEvent;
  */
 public class FireController extends AbstractController implements EventListener{
 
-    private GameView view;
+    // the view the controller listens to
+    GameView view;
+
+    // the thread used for continuous movement
+    FireThread firing;
+
+    BulletPhysics physics;
+
+
     boolean wasPressed;
     FireController controller;
 
@@ -23,17 +34,19 @@ public class FireController extends AbstractController implements EventListener{
     final Vector2 currentPosition = new Vector2();
     final Vector2 tmp = new Vector2();
 
-    public FireController(AbstractView view){
+    public FireController(GameView view){
         super(view);
-        this.view = (GameView)(view);
+        this.view = view;
+        firing = new FireThread();
     }
 
     public FireController(FireController controller, Vector2 position){
         this.controller = controller;
         wasPressed = false;
         this.pressedPosition.set(position);
-
     }
+
+
     /* Updates in controller?
     public void update(float delta){
         if (Gdx.input.isTouched()){ //isButtonPressed (?)
@@ -93,29 +106,39 @@ public class FireController extends AbstractController implements EventListener{
 
     }
 
-    public void touchUp(InputEvent event, float x, float y,
-                        int pointer, int button) {
+    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+
         boolean touchdown=true;
 
         //do your stuff
         //it will work when finger is released..
         System.out.println("FIRE" + " X:" + x + " Y:" + y);
         this.view.isFiring = true;
+        view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getPosition());
+        firing.move(view.currentVehicle, view.currentPlayer.getChosenAmmo(), view.environment);
+
 
     }
 
-    public boolean touchDown(InputEvent event, float x, float y,
-                             int pointer, int button) {
+    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
         boolean touchdown=false;
+
         //do your stuff it will work when u touched your actor
+
         return true;
     }
 
     public boolean handle (Event event){
 
-        if (event.toString() == "touchUp"){
+        if (event.toString().equals("touchDown")) {
+            touchDown((InputEvent)event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+
+        }
+        else if (event.toString().equals("touchUp")) {
             touchUp((InputEvent)event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
         }
+
         return true;
     }
 

@@ -9,11 +9,8 @@ public abstract class Vehicle extends GameObject {
 
     private int health;
     private int fuel;
-    private float angle;
     private float power;
     private Location vehicleLocation;
-
-
 
 
     public Vehicle(Texture texture) {
@@ -40,14 +37,6 @@ public abstract class Vehicle extends GameObject {
 
     public void setFuel(int fuel) {
         this.fuel = fuel;
-    }
-
-    public float getAngle() {
-        return angle;
-    }
-
-    public void setAngle(float angle) {
-        this.angle = angle;
     }
 
     public float getPower() {

@@ -22,6 +22,7 @@ public class MovementController extends AbstractController implements EventListe
         this.view = view;
         movement = new MoveThread();
     }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 

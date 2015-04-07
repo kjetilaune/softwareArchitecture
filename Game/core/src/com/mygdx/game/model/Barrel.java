@@ -20,7 +20,7 @@ public class Barrel extends GameObject {
     public void setAngle(float angle) {
 
         // need to fix restrictions, they work most of the time, but not all of the time..
-        
+
         /*System.out.println("want to set angle to: " + angle);
         System.out.println("rotation of barrel is: " + getRotation());*/
 

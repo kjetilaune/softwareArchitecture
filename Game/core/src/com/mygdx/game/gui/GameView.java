@@ -168,7 +168,6 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         buttonFire.addListener(new FireController(this));
 
-
         stage.addListener(new AngleController(this));
 
         arrowLeft.addListener(moveCtrl);
@@ -215,7 +214,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         generateMenu();
 
         // NOT FINISHED: should draw the bullet if a tank is firing
+
         if (currentPlayer.getChosenAmmo().getPosition() != null) {
+
+            System.out.println("drawing bullet...");
 
             Texture ammoTexture = currentPlayer.getTeam().getAmmunitionTexture(currentPlayer.getChosenAmmo().getName());
             batch.draw(new TextureRegion(ammoTexture), currentPlayer.getChosenAmmo().getPosition().x, currentPlayer.getChosenAmmo().getPosition().y);
