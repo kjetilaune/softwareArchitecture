@@ -52,16 +52,17 @@ public class GameView extends AbstractView implements Screen, Observer{
     MyGdxGame game;
     private Stage stage;
 
-    private MovementController moveCtrl;
+    private MovementController moveCtrl; // controls the left/right-movement of the tank
 
-    private PolygonSprite ground;
-    private PolygonSpriteBatch polyBatch;
+    private PolygonSprite ground; // ground is made up of polygons
+    private PolygonSpriteBatch polyBatch; // to draw the ground
 
-    private SpriteBatch batch;
+    private SpriteBatch batch; // to draw sprites: ex. tanks and barrels
 
-    private HorizontalGroup groupTop;
-    private HorizontalGroup groupBottom;
+    private HorizontalGroup groupTop; // the top menu
+    private HorizontalGroup groupBottom; // the button at the bottom: fire, change ammmo etc
 
+    // for menu and buttons
     private Skin menuSkin;
     private Skin fireSkin;
     private Skin ammoSkin;
@@ -74,11 +75,11 @@ public class GameView extends AbstractView implements Screen, Observer{
     private ImageButton arrowRight;
 
     private Game gameInstance;
-    public Environment environment;
+    public Environment environment; // the current environment of the game
     public Player currentPlayer; // current player
     public Vehicle currentVehicle; // current player's vehicle
 
-    public boolean isFiring = false;
+    public boolean isFiring = false; // is a bullet being fired?
 
 
 
@@ -91,19 +92,23 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     public GameView(MyGdxGame game, Game gameInstance){
 
-        this.game = game;
+        this.game = game; // the application launcher
 
-        this.gameInstance = gameInstance;
+        // store the needed variables
+        this.gameInstance = gameInstance; // the current game
         environment = gameInstance.getEnvironment();
         currentPlayer = gameInstance.getCurrentPlayer();
         currentVehicle = currentPlayer.getVehicle();
 
+        // instantiate what is used to draw
         stage = new Stage();
         batch = new SpriteBatch();
         polyBatch = new PolygonSpriteBatch();
 
+        // instantiate controllers
         moveCtrl = new MovementController(this);
 
+        // instantiate menu stuff
         groupTop  = new HorizontalGroup();
         groupBottom = new HorizontalGroup();
 
@@ -122,10 +127,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
         arrowRight = new ImageButton(arrowRightSkin);
         arrowRight.setName("arrowRight");
-        setupCamera();
 
 
-        testGUI();
+        setupCamera(); // set up the camera
+        testGUI(); // just testing out stuff for menu
 
     }
 
@@ -141,14 +146,14 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
 
-
-
     private void setupCamera() {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
     }
 
+
+    // is called once in the beginning. creates the menu and buttons, and adds listeners to buttons.
     @Override
     public void show() {
 
@@ -190,23 +195,26 @@ public class GameView extends AbstractView implements Screen, Observer{
     }
 
 
-
+    // is called all the time. draws the game with different positions and values for tanks etc.
     @Override
     public void render(float delta) {
 
-
+        // set background
         Gdx.gl.glClearColor(environment.getBgColors()[0], environment.getBgColors()[1], environment.getBgColors()[2], environment.getBgColors()[3]);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // draw the ground using the set environment
         generateGround();
 
+        // draws the sprites, ex vehicles etc.
         batch.begin();
         batch.draw(new TextureRegion(currentVehicle.getTexture()), currentVehicle.getPosition().x, currentVehicle.getPosition().y, 0, 0, (float)TextureManager.tank.getWidth(), (float)TextureManager.tank.getHeight(), 1, 1, currentVehicle.getRotation());
-        batch.draw(new TextureRegion(((Tank)currentVehicle).getBarrel().getTexture()), ((Tank)currentVehicle).getBarrelPosition().x, ((Tank)currentVehicle).getBarrelPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, ((Tank)currentVehicle).getBarrel().getRotation() + ((Tank)currentVehicle).getBarrel().getAngle());
+        batch.draw(new TextureRegion(((Tank)currentVehicle).getBarrel().getTexture()), ((Tank)currentVehicle).getBarrel().getPosition().x, ((Tank)currentVehicle).getBarrel().getPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, ((Tank)currentVehicle).getBarrel().getRotation() + ((Tank)currentVehicle).getBarrel().getAngle());
 
+        // generates the menu
         generateMenu();
 
-
+        // NOT FINISHED: should draw the bullet if a tank is firing
         if (currentPlayer.getChosenAmmo().getPosition() != null) {
 
             Texture ammoTexture = currentPlayer.getTeam().getAmmunitionTexture(currentPlayer.getChosenAmmo().getName());
@@ -248,6 +256,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     }
 
+    // draws the ground from the set environment
     private void generateGround() {
 
         polyBatch.begin();
@@ -268,6 +277,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     }
 
+    // generates the menu
     private void generateMenu() {
 
         BitmapFont font = new BitmapFont();

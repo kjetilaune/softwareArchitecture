@@ -33,15 +33,27 @@ public class Tank extends Vehicle {
 
     public Vector2 getBarrelPosition() {
 
-        float barrelX = getPosition().x + TextureManager.tank.getWidth()/2;
-        //float barrelY = environment.getGroundHeight(getPosition().x + TextureManager.tank.getWidth()/2);
+        float tankLeftX = getPosition().x;
+        float tankLeftY = getPosition().y;
+        float barrelX = tankLeftX + TextureManager.tank.getWidth()/2;
+        float barrelY = tankLeftY;
 
-        float barrelY = getPosition().y + TextureManager.tank.getHeight()/2;
+        float s = (float)Math.sin(getRotation() * Math.PI / 180);
+        float c = (float)Math.cos(getRotation() * Math.PI / 180);
 
-        float newBarrelX = (float)(Math.cos(Math.toRadians(getRotation())) * (barrelX - getPosition().x) - Math.sin(Math.toRadians(getRotation())) * (barrelY - getPosition().y) + getPosition().x);
-        float newBarrelY = (float)(Math.sin(Math.toRadians(getRotation())) * (barrelX - getPosition().x) - Math.cos(Math.toRadians(getRotation())) * (barrelY - getPosition().y) + getPosition().y);
+        // translate point back to origin
+        barrelX -= tankLeftX;
+        barrelY -= tankLeftY;
 
-        return new Vector2(newBarrelX, newBarrelY);
+        // rotate point
+        float xNewBarrel = barrelX * c - barrelY * s;
+        float yNewBarrel = barrelX * s + barrelY * c;
+
+        // translate point back
+        barrelX = xNewBarrel + tankLeftX;
+        barrelY = yNewBarrel + tankLeftY;
+
+        return new Vector2(barrelX, barrelY);
     }
 
 
