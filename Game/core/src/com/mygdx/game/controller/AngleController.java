@@ -30,14 +30,13 @@ public class AngleController extends AbstractController implements EventListener
     public void touchUp(Event event, float x, float y, int pointer, int button){
         boolean touchdown = true;
 
-        float newAngle = ((Tank)this.view.currentVehicle).getBarrel().getAngle(x, y) * -1 - this.view.currentVehicle.getRotation() + 360;
+        if (y > 200 && y < 935) { // deadzone at bottom and top where buttons are. should be properly generalized
 
-        System.out.println(newAngle);
+            float newAngle = ((Tank)this.view.currentVehicle).getBarrel().getAngle(x, y) * -1 - this.view.currentVehicle.getRotation() + 360;
+            ((Tank)this.view.currentVehicle).getBarrel().setAngle(newAngle);
 
-        ((Tank)this.view.currentVehicle).getBarrel().setAngle(newAngle);
+        }
 
-        System.out.println("touched at x: " + x + " and y: " + y + " ");
-        System.out.println("set rotation to: " + ((Tank)this.view.currentVehicle).getBarrel().getAngle());
     }
     public boolean touchDown(Event event, float x, float y, int pointer, int button){
         boolean touchdown = false;

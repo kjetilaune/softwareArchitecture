@@ -19,16 +19,20 @@ public class Barrel extends GameObject {
 
     public void setAngle(float angle) {
 
-        // need some restrictions here, but this will be wrong ex. when on a mountain top
-        /*if (angle < 0) {
+        // need to fix restrictions, they work most of the time, but not all of the time..
+        
+        /*System.out.println("want to set angle to: " + angle);
+        System.out.println("rotation of barrel is: " + getRotation());*/
+
+        if (angle < 0) {
             this.angle = 0;
         }
         else if (angle > 180) {
             this.angle = 180;
         }
-        else {*/
+        else {
             this.angle = angle;
-        //}
+        }
 
     }
 
