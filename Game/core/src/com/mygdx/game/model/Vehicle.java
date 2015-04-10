@@ -44,7 +44,15 @@ public abstract class Vehicle extends GameObject {
     }
 
     public void setPower(float power) {
-        this.power = power;
+        if (power > 100.0) {
+            this.power = 100.0f;
+        }
+        else if (power < 0.0) {
+            this.power = 0.0f;
+        }
+        else {
+            this.power = power;
+        }
     }
 
 }
