@@ -75,7 +75,7 @@ public class MoveThread extends Thread {
             }
         }
 
-        System.out.println("Thread died.");
+        System.out.println("MoveThread died.");
     }
 
     // enables the if-clause in run() and updates information about how and what to move
