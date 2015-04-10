@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.model.Enums.Team;
+import com.mygdx.game.model.Game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ public class SettingsView implements Screen {
     private ImageButton arrowRightTeam;
     private ImageButton arrowLeftPlayer;
     private ImageButton arrowRightPlayer;
+    private TextButton newGame;
 
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
@@ -109,6 +111,8 @@ public class SettingsView implements Screen {
         arrowRightPlayer = new ImageButton(arrowRightSkin);
         arrowRightPlayer.setName("arrowRightPlayer");
 
+
+
         //Get an array of team names
         teamNames = getTeamNames();
         currentTeam = 0;
@@ -145,6 +149,7 @@ public class SettingsView implements Screen {
         txtPlayer = new Label("" + currentPlayer, skin);
 
         buttonMainMenu = new TextButton("To Main Menu", skin);
+        newGame = new TextButton("New Game", skin);
 
 
 
@@ -177,7 +182,8 @@ public class SettingsView implements Screen {
         table.add(txtTeams).padRight(40);
         table.add(arrowRightTeam).row();
 
-        table.add(buttonMainMenu).size(900, 120).padBottom(20).row();
+        table.add(buttonMainMenu).size(400, 120).padBottom(20);
+        table.add(newGame).size(400, 120).padBottom(20).row();
     }
 
     //Returns the team names from the Team enum
@@ -211,6 +217,13 @@ public class SettingsView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new MainMenu(game));
+            }
+        });
+
+        newGame.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new GameView(game, new Game()));
             }
         });
 
