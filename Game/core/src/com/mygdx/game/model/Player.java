@@ -16,11 +16,11 @@ public class Player {
     private Team team;
     private float timeLeft;
 
-    public Player(Team team, Environment environment) {
+    public Player(Team team, Environment environment, Vector2 vehiclePosition) {
         this.team = team;
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
-        vehicle = new Tank(environment, new Vector2(Gdx.graphics.getWidth()/3, environment.getGroundHeight(Gdx.graphics.getWidth()/3)));
+        vehicle = new Tank(environment, vehiclePosition);
 
     }
 

@@ -13,6 +13,7 @@ import com.mygdx.game.gui.MainMenu;
 import com.mygdx.game.model.GameSettings;
 
 public class MyGdxGame extends Game implements ApplicationListener{
+
 	SpriteBatch batch;
 	Texture img;
     public static int HEIGHT, WIDTH;

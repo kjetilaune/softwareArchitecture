@@ -1,5 +1,7 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.Enums.Team;
 
 import java.util.ArrayList;
@@ -26,8 +28,11 @@ public class Game extends AbstractModel {
         environment = new Environment(2, 10);
         random = new Random();
 
-        player1 = new Player(Team.FAST_FOOD, environment);
-        player2 = new Player(Team.VEGAN, environment);
+        Vector2 position1 = new Vector2(Gdx.graphics.getWidth()/6, environment.getGroundHeight(Gdx.graphics.getWidth()/6));
+        Vector2 position2 = new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
+
+        player1 = new Player(Team.FAST_FOOD, environment, position1);
+        player2 = new Player(Team.VEGAN, environment, position2);
 
         players = new ArrayList<Player>();
         players.add(player1);
@@ -35,6 +40,18 @@ public class Game extends AbstractModel {
 
         currentPlayer = player1;
         
+    }
+
+    public void runGame() {
+
+        while (hasWinner() == null) {
+            // run game
+
+
+
+
+        }
+
     }
 
 
@@ -48,6 +65,24 @@ public class Game extends AbstractModel {
         this.setChanged();
         this.notifyObservers(currentPlayer);
         this.firePropertyChange("Player changed", null, getCurrentPlayer());
+    }
+
+    public Player hasWinner() {
+
+        /*for (Player p : players) {
+            if (p.getVehicle().getHealth() <= 0) {
+
+            }
+        }*/
+
+        if (player1.getVehicle().getHealth() <= 0) {
+            return player2;
+        }
+        else if (player2.getVehicle().getHealth() <= 0) {
+            return player1;
+        }
+
+        return null;
     }
 
     public Environment getEnvironment() {
