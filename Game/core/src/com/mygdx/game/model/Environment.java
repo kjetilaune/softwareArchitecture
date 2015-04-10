@@ -40,9 +40,13 @@ public class Environment {
         this.numberOfHills = numberOfHills;
         this.pixelStep = pixelStep;
 
+        System.out.println("Height: " + Gdx.graphics.getHeight() + ", Width: " + Gdx.graphics.getWidth());
+
         // where the hill should start, will randomize this properly
-        hillStartY = 500;
+        //hillStartY = 500;
         //hillStartY = (140 + Math.random() * 200);
+
+        hillStartY = (Gdx.graphics.getHeight()/3 + Math.random() * Gdx.graphics.getHeight()/3);
         hillWidth = Gdx.graphics.getWidth() / numberOfHills;
         numberOfSlices = (int)Math.round(hillWidth / pixelStep); // this really is number of polygon slices per hill
 
@@ -150,7 +154,8 @@ public class Environment {
         for (int i = 0 ; i < numberOfHills ; i++) {
 
             // decides the random height of each hill
-            double randomHeight = Math.random() * 400; // should be randomized properly
+            //double randomHeight = Math.random() * 400; // should be randomized properly
+            double randomHeight = Math.random() * Gdx.graphics.getHeight()/5;
 
             if (i != 0) {
                 hillStartY -= randomHeight; // to make sure the next hill starts when the last ended

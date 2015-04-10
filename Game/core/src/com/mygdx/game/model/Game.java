@@ -89,12 +89,33 @@ public class Game extends AbstractModel {
         return environment;
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public int getNumberOfRounds() {
+        return numberOfRounds;
+    }
+
+    public void setNumberOfRounds(int numberOfRounds) {
+        this.numberOfRounds = numberOfRounds;
+    }
+
+    public float getRoundTime() {
+        return roundTime;
+    }
+
+    public void setRoundTime(float roundTime) {
+        this.roundTime = roundTime;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 
 }

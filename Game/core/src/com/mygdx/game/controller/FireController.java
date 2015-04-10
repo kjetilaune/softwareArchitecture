@@ -17,50 +17,15 @@ import java.beans.PropertyChangeEvent;
 public class FireController extends AbstractController implements EventListener{
 
     // the view the controller listens to
-    GameView view;
+    private GameView view;
 
     // the thread used for continuous movement
-    FireThread fireThread;
+    private FireThread fireThread;
 
     public FireController(AbstractView view){
         super(view);
         this.view = (GameView)view;
     }
-
-
-    // Mikal's attempt at power-fluctuation
-
-    /*
-    private int power;
-    private boolean countUp;
-
-    // touchDown starts power-fluctuation
-    @Override
-    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-        power = 0;
-        countUp = true;
-
-        // while finger is on Fire-button, fluctuate power
-        while (isOver()) {
-            if (power == 100) {
-                countUp = false;
-            }
-            else if (power == 0) {
-                countUp = true;
-            }
-
-            if (countUp) {
-                power++;
-            }
-            else {
-                power--;
-            }
-
-        }
-
-    }
-    */
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -95,5 +60,41 @@ public class FireController extends AbstractController implements EventListener{
         // has to return something
         return true;
     }
+
+    // Mikal's attempt at power-fluctuation
+
+    /*
+    needs separate thread
+
+    private int power;
+    private boolean countUp;
+
+    // touchDown starts power-fluctuation
+    @Override
+    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+        power = 0;
+        countUp = true;
+
+        // while finger is on Fire-button, fluctuate power
+        while (isOver()) {
+            if (power == 100) {
+                countUp = false;
+            }
+            else if (power == 0) {
+                countUp = true;
+            }
+
+            if (countUp) {
+                power++;
+            }
+            else {
+                power--;
+            }
+
+        }
+
+    }
+    */
 
 }

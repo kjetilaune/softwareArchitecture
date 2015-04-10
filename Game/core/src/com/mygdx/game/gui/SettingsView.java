@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.Enums.Team;
 import com.mygdx.game.model.Game;
 
@@ -23,9 +24,9 @@ import java.util.Arrays;
 /**
  * Created by annieaa on 11/03/15.
  */
-public class SettingsView implements Screen {
+public class SettingsView extends AbstractView implements Screen {
 
-    MyGdxGame game;
+    public MyGdxGame game;
 
     private Stage stage;
     private Table table;
@@ -64,13 +65,13 @@ public class SettingsView implements Screen {
     private String[] teamNames;
     private int currentTeam;
 
-    private int numberOfPlayers;
-    private int numberOfRounds;
-    private int roundTime;
-    private int currentPlayer;
+    public int numberOfPlayers;
+    public int numberOfRounds;
+    public int roundTime;
+    public int currentPlayer;
 
     //An ArrayList where the index corresponds with the player's number (index 0 = Player 1) and the value is the team name.
-    private ArrayList players;
+    public ArrayList<String> players;
 
     private TextButton buttonMainMenu;
 
@@ -119,7 +120,6 @@ public class SettingsView implements Screen {
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale((float)0.5);
-
 
         numberOfPlayers = 2;
         currentPlayer = 1;
@@ -223,12 +223,13 @@ public class SettingsView implements Screen {
             }
         });
 
-        newGame.addListener(new ClickListener() {
+        newGame.addListener(new SettingsController(this));
+        /*newGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new GameView(game, new Game()));
             }
-        });
+        });*/
 
         arrowLeft.addListener(new ClickListener() {
             @Override
@@ -307,7 +308,7 @@ public class SettingsView implements Screen {
                     currentPlayer--;
                 }
                 txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(players.get(currentPlayer-1).toString());
+                txtTeams.setText(players.get(currentPlayer - 1).toString());
 
             }
         });
@@ -321,7 +322,7 @@ public class SettingsView implements Screen {
                     currentPlayer++;
                 }
                 txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(players.get(currentPlayer-1).toString());
+                txtTeams.setText(players.get(currentPlayer - 1).toString());
             }
         });
 

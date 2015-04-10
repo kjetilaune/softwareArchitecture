@@ -21,15 +21,17 @@ public class Barrel extends GameObject {
 
         // need to fix restrictions, they work most of the time, but not all of the time..
 
-        /*System.out.println("want to set angle to: " + angle);
-        System.out.println("rotation of barrel is: " + getRotation());*/
+        //System.out.println("want to set angle to: " + angle);
+        //System.out.println("rotation of barrel is: " + getRotation());
+
+        
 
         if (angle < 0) {
             this.angle = 0;
         }
-        else if (angle > 180) {
-            this.angle = 180;
-        }
+        /*else if (angle > 180) {
+            this.angle = 90;
+        }*/
         else {
             this.angle = angle;
         }
@@ -45,7 +47,7 @@ public class Barrel extends GameObject {
 
 
         if (touchY <= getPosition().y) {
-            if (touchX < getPosition().x) { // IL quadrant
+            if (touchX < getPosition().x) { // II quadrant
                 degrees += 180;
             }
         }
@@ -69,8 +71,8 @@ public class Barrel extends GameObject {
         float tipX = bottomX + TextureManager.barrel.getWidth();
         float tipY = bottomY + TextureManager.barrel.getHeight()/2;
 
-        float s = (float)Math.sin(getAngle() * Math.PI / 180);
-        float c = (float)Math.cos(getAngle() * Math.PI / 180);
+        float s = (float)Math.sin(getAngle() + getRotation() * Math.PI / 180);
+        float c = (float)Math.cos(getAngle() + getRotation() * Math.PI / 180);
 
         // translate point back to origin
         tipX -= bottomX;
