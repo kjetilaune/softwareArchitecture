@@ -178,21 +178,6 @@ public class SettingsView implements Screen {
         table.add(arrowRightTeam).row();
 
         table.add(buttonMainMenu).size(900, 120).padBottom(20).row();
-        /*table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(20).row();
-        table.add(new Label("LABEL", skin)).padBottom(200).row();*/
-
     }
 
     //Returns the team names from the Team enum
