@@ -116,7 +116,7 @@ public class FireController extends AbstractController implements EventListener{
         this.view.isFiring = true;
         view.currentPlayer.getChosenAmmo().setPosition(((Tank)view.currentVehicle).getBarrel().getTipOfBarrel());
         firing.move(view.currentVehicle, view.currentPlayer.getChosenAmmo(), view.environment);
-
+        view.gameInstance.changePlayer();
 
     }
 

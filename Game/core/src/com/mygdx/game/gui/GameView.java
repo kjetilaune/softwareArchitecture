@@ -74,7 +74,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     private ImageButton arrowLeft;
     private ImageButton arrowRight;
 
-    private Game gameInstance;
+    public Game gameInstance;
     public Environment environment; // the current environment of the game
     public Player currentPlayer; // current player
     public Vehicle currentVehicle; // current player's vehicle
@@ -199,6 +199,9 @@ public class GameView extends AbstractView implements Screen, Observer{
     // is called all the time. draws the game with different positions and values for tanks etc.
     @Override
     public void render(float delta) {
+
+        currentPlayer = gameInstance.getCurrentPlayer();
+        currentVehicle = currentPlayer.getVehicle();
 
         // set background
         Gdx.gl.glClearColor(environment.getBgColors()[0], environment.getBgColors()[1], environment.getBgColors()[2], environment.getBgColors()[3]);
