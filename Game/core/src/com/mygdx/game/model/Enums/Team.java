@@ -7,11 +7,10 @@ import com.mygdx.game.model.TextureManager;
  * Created by Jonathan on 12.03.2015.
  */
 public enum Team {
-    VEGAN(TextureManager.muffinBullet, "Team Vegan"),
+    SWEETS(TextureManager.muffinBullet, "Team Sweets"),
     FAST_FOOD(TextureManager.burgerBullet, "Team Fast Food");
-    //TAKEOUT,
-    //CANDY,
-    //FISH;
+    //VEGAN
+    //SEAFOOD
 
     private Texture bulletTexture;
     private String name;
