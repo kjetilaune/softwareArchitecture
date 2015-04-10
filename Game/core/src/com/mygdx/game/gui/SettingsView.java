@@ -84,7 +84,7 @@ public class SettingsView implements Screen {
         container = new Table();
         //stage.addActor(container);
         container.setFillParent(true);
-
+        //table.setDebug(true);
         //Makes a scroll pane to support scrolling
         scroll = new ScrollPane(table);
 
@@ -118,7 +118,7 @@ public class SettingsView implements Screen {
         currentTeam = 0;
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale(1);
+        skin.getFont("font").scale((float)0.5);
 
 
         numberOfPlayers = 2;
@@ -136,6 +136,7 @@ public class SettingsView implements Screen {
 
         //Labels
         title = new Label("Settings", skin);
+        title.setFontScale((float)2);
         labelNumberOfPlayers = new Label("Number of players: ", skin);
         labelNumberOfRounds = new Label("Number of rounds: ", skin);
         labelRoundTime = new Label("Round time: ", skin);
@@ -154,36 +155,38 @@ public class SettingsView implements Screen {
 
 
         scroll.layout();
-        table.setFillParent(true);
+        //table.setFillParent(true);
+
         stage.addActor(container);
-        container.add(scroll).fill();
+        container.add(scroll);
 
 
         //Add everything on the screen
         table.add(title).padBottom(20).row();
 
-        table.add(labelNumberOfRounds).padBottom(60).padRight(40);
+        table.add(labelNumberOfRounds);
         table.add(arrowLeft);
-        table.add(txtNumberOfRounds).padRight(40);
-        table.add(arrowRight).row();
+        table.add(txtNumberOfRounds).width(100);
+        table.add(arrowRight);
+        table.row().padTop(60);
 
-        table.add(labelRoundTime).padBottom(60).padRight(40);
+        table.add(labelRoundTime);
         table.add(arrowLeftRoundTime);
-        table.add(txtRoundTime).padRight(40);
-        table.add(arrowRightRoundTime).row();
-
-        table.add(labelPlayer).padBottom(60).padRight(40);
+        table.add(txtRoundTime).width(200).padLeft(50);
+        table.add(arrowRightRoundTime);
+        table.row().padTop(60);
+        table.add(labelPlayer);
         table.add(arrowLeftPlayer);
-        table.add(txtPlayer).padRight(40);
-        table.add(arrowRightPlayer).padRight(60);
+        table.add(txtPlayer).width(100);
+        table.add(arrowRightPlayer);
 
-        table.add(labelTeams).padBottom(60).padRight(40);
+        table.add(labelTeams);
         table.add(arrowLeftTeam);
-        table.add(txtTeams).padRight(40);
-        table.add(arrowRightTeam).row();
-
+        table.add(txtTeams).width(400);
+        table.add(arrowRightTeam);
+        table.row().padTop(60);
         table.add(buttonMainMenu).size(400, 120).padBottom(20);
-        table.add(newGame).size(400, 120).padBottom(20).row();
+        table.add(newGame).size(400, 120).padLeft(60).padBottom(20).colspan(3).row();
     }
 
     //Returns the team names from the Team enum
