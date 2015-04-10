@@ -52,6 +52,7 @@ public class FireThread extends Thread {
                     synchronized (ammo) {
 
                         ammo.setPosition(physics.getPosition(t));
+                        System.out.println("Setting ammo to " + ammo.getPosition().x + ", " + ammo.getPosition().y + " at time " + t);
                         t += 1;
 
                     }
@@ -80,12 +81,21 @@ public class FireThread extends Thread {
     // enables the if-clause in run() and updates information about how and what to move
     public void move(Vehicle vehicle, Ammunition ammo, Environment environment) {
         physics = new BulletPhysics(((Tank)vehicle).getBarrel().getAngle());
-        physics.startPosition = vehicle.getPosition();
+        physics.startPosition = ammo.getPosition();
         this.vehicle = vehicle;
         this.ammo = ammo;
         this.environment = environment;
 
-        this.start();
+        try {
+            this.start();
+        }
+        catch (IllegalThreadStateException e) {
+            FireThread newThread = new FireThread();
+            newThread.move(vehicle, ammo, environment);
+
+        }
+
+
     }
 
 

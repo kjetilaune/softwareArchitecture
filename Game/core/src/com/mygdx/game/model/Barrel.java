@@ -62,6 +62,31 @@ public class Barrel extends GameObject {
 
     }
 
+    public Vector2 getTipOfBarrel() {
+
+        float bottomX = getPosition().x;
+        float bottomY = getPosition().y;
+        float tipX = bottomX + TextureManager.barrel.getWidth();
+        float tipY = bottomY + TextureManager.barrel.getHeight()/2;
+
+        float s = (float)Math.sin(getAngle() * Math.PI / 180);
+        float c = (float)Math.cos(getAngle() * Math.PI / 180);
+
+        // translate point back to origin
+        tipX -= bottomX;
+        tipY -= bottomY;
+
+        // rotate point
+        float xNewBarrel = tipX * c - tipY * s;
+        float yNewBarrel = tipX * s + tipY * c;
+
+        // translate point back
+        tipX = xNewBarrel + bottomX;
+        tipY = yNewBarrel + bottomY;
+
+        return new Vector2(tipX, tipY);
+    }
+
 
     public float getAngle() {
         return angle;

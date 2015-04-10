@@ -57,8 +57,13 @@ public class BulletPhysics {
 
 
     public Vector2 getPosition(float t){
+        /*System.out.println("Start position: " + startPosition.x + ", " + startPosition.y);
+        System.out.println("Start velocity; " + startVelocity.x + ", " + startVelocity.y);
+        System.out.println("Gravity: " + gravity);
         position.add(startPosition).add(startVelocity.scl(t)).add(0, gravity*t*t/2);
-        return position;
+        return position;*/
+
+        return new Vector2(getX(t), getY(t));
     }
 
 

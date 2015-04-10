@@ -114,7 +114,7 @@ public class FireController extends AbstractController implements EventListener{
         //it will work when finger is released..
         System.out.println("FIRE" + " X:" + x + " Y:" + y);
         this.view.isFiring = true;
-        view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getPosition());
+        view.currentPlayer.getChosenAmmo().setPosition(((Tank)view.currentVehicle).getBarrel().getTipOfBarrel());
         firing.move(view.currentVehicle, view.currentPlayer.getChosenAmmo(), view.environment);
 
 
