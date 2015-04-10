@@ -1,6 +1,5 @@
 package com.mygdx.game.controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -9,7 +8,6 @@ import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.gui.GameView;
 import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Tank;
-import com.mygdx.game.model.Vehicle;
 
 import java.beans.PropertyChangeEvent;
 
@@ -22,49 +20,12 @@ public class FireController extends AbstractController implements EventListener{
     GameView view;
 
     // the thread used for continuous movement
-    FireThread firing;
+    FireThread fireThread;
 
-    BulletPhysics physics;
-
-
-    boolean wasPressed;
-    FireController controller;
-
-    final Vector2 pressedPosition = new Vector2();
-    final Vector2 currentPosition = new Vector2();
-    final Vector2 tmp = new Vector2();
-
-    public FireController(GameView view){
+    public FireController(AbstractView view){
         super(view);
-        this.view = view;
-        firing = new FireThread();
+        this.view = (GameView)view;
     }
-
-    public FireController(FireController controller, Vector2 position){
-        this.controller = controller;
-        wasPressed = false;
-        this.pressedPosition.set(position);
-    }
-
-
-    /* Updates in controller?
-    public void update(float delta){
-        if (Gdx.input.isTouched()){ //isButtonPressed (?)
-            if (!wasPressed)
-                wasPressed = true;
-            currentPosition.set(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-
-            tmp.set(currentPosition).sub(pressedPosition);
-            controller.angle = tmp.angle();
-        }
-        else{
-            if(wasPressed){
-                wasPressed = false;
-            }
-        }
-    }*/
-
-
 
 
     // Mikal's attempt at power-fluctuation
@@ -106,39 +67,32 @@ public class FireController extends AbstractController implements EventListener{
 
     }
 
-    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
-        boolean touchdown=true;
-
-        //do your stuff
-        //it will work when finger is released..
-        System.out.println("FIRE" + " X:" + x + " Y:" + y);
-        this.view.isFiring = true;
-        view.currentPlayer.getChosenAmmo().setPosition(((Tank)view.currentVehicle).getBarrel().getTipOfBarrel());
-        firing.move(view.currentVehicle, view.currentPlayer.getChosenAmmo(), view.environment);
-        view.gameInstance.changePlayer();
-
-    }
-
-    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-        boolean touchdown=false;
-
-        //do your stuff it will work when u touched your actor
-
-        return true;
-    }
 
     public boolean handle (Event event){
 
         if (event.toString().equals("touchDown")) {
-            touchDown((InputEvent)event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
-
+            fireThread = new FireThread();
         }
         else if (event.toString().equals("touchUp")) {
-            touchUp((InputEvent)event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+
+            System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
+            view.isFiring = true;
+            view.currentPlayer.getChosenAmmo().setPosition(((Tank)view.currentVehicle).getBarrel().getTipOfBarrel());
+            fireThread.fire(view.currentVehicle, view.currentPlayer.getChosenAmmo(), view.environment);
+            view.gameInstance.changePlayer();
+
+            // kill the power-fluctuation-thread
+
+        }
+        else if (event.toString().equals("enter")) {
+            // start/continue power-fluctuation
         }
 
+        else if (event.toString().equals("exit")) {
+            // end/halt power-fluctuation
+        }
+
+        // has to return something
         return true;
     }
 

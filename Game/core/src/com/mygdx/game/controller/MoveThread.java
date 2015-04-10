@@ -29,7 +29,7 @@ public class MoveThread extends Thread {
 
     public MoveThread() {
         blinker = true;
-        this.start();
+        start();
     }
 
     public void run() {
@@ -79,7 +79,7 @@ public class MoveThread extends Thread {
     }
 
     // enables the if-clause in run() and updates information about how and what to move
-    public void move(String direction, Vehicle vehicle, Environment environment) {
+    public void initiateMovement(String direction, Vehicle vehicle, Environment environment) {
         this.heldDown = true;
         this.direction  = direction;
         this.vehicle = vehicle;
