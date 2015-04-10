@@ -24,9 +24,9 @@ public class Player {
 
     }
 
-    public void fireShot() {
+    /*public void fireShot() {
         vehicle.fire(chosenAmmo);
-    }
+    }*/
 
     public void changeAmmo() {
         chosenAmmo = inventory.getNextAmmo(chosenAmmo);

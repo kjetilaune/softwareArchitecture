@@ -1,6 +1,8 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by annieaa on 10/03/15.
@@ -19,9 +21,6 @@ public abstract class Vehicle extends GameObject {
         fuel = 100;
     }
 
-    public void fire(Ammunition ammo) {
-
-    }
 
     public int getHealth() {
         return health;

@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,9 +25,23 @@ public class Tank extends Vehicle {
 
     @Override
     public void setPosition(Vector2 position) {
-        super.setPosition(position);
+
+        Vector2 oldPosition = getPosition();
+
+        // Makes sure that the tank does not escape the screen. Could use minor adjustments on the right side.
+        if (position.x < 0) {
+           super.setPosition(new Vector2(0, oldPosition.y));
+        }
+        else if (position.x + TextureManager.tank.getWidth() > Gdx.graphics.getWidth()) {
+            super.setPosition(new Vector2(Gdx.graphics.getWidth() - TextureManager.tank.getWidth(), oldPosition.y));
+        }
+        else {
+            super.setPosition(position);
+        }
+
         barrel.setPosition(getBarrelPosition());
         barrel.setRotation(getRotation());
+
     }
 
 
