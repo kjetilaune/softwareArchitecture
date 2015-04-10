@@ -44,6 +44,9 @@ public abstract class GameObject extends Observable{
     }
 
     public void setRotation(float rotation) {
+        if (rotation < 0) {
+            rotation += 360f;
+        }
         this.rotation = rotation;
     }
 
