@@ -29,9 +29,9 @@ public class Barrel extends GameObject {
         if (angle < 0) {
             this.angle = 0;
         }
-        /*else if (angle > 180) {
-            this.angle = 90;
-        }*/
+        else if (angle > 180) {
+            this.angle = 180;
+        }
         else {
             this.angle = angle;
         }
