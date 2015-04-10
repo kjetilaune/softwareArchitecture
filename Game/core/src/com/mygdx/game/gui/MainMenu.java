@@ -29,7 +29,7 @@ public class MainMenu implements Screen {
     private Skin skin;
     private Label title;
     private TextButton buttonNewGame;
-    private TextButton buttonSettings;
+    //private TextButton buttonSettings;
     private TextButton buttonAbout;
 
 
@@ -37,8 +37,6 @@ public class MainMenu implements Screen {
     public MainMenu(MyGdxGame game) {
 
         this.game = game;
-
-
 
         stage = new Stage();
         table = new Table();
@@ -49,7 +47,7 @@ public class MainMenu implements Screen {
         title = new Label("Food Frenzy", skin);
 
         buttonNewGame = new TextButton("New Game", skin);
-        buttonSettings = new TextButton("Settings", skin);
+        //buttonSettings = new TextButton("Settings", skin);
         buttonAbout = new TextButton("About", skin);
     }
 
@@ -64,19 +62,27 @@ public class MainMenu implements Screen {
 
     public void show(){
 
-        buttonNewGame.addListener(new ClickListener() {
+        /*buttonNewGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new GameView(game, new Game()));
             }
-        });
+        });*/
 
-        buttonSettings.addListener(new ClickListener() {
+        buttonNewGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new SettingsView(game));
             }
         });
+
+        /*
+        buttonSettings.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new SettingsView(game));
+            }
+        });*/
 
         buttonAbout.addListener(new ClickListener() {
             @Override
@@ -88,7 +94,7 @@ public class MainMenu implements Screen {
 
         table.add(title).padBottom(40).row();
         table.add(buttonNewGame).size(300, 120).padBottom(20).row();
-        table.add(buttonSettings).size(300, 120).padBottom(20).row();
+        //table.add(buttonSettings).size(300, 120).padBottom(20).row();
         table.add(buttonAbout).size(300, 120).padBottom(20).row();
 
         table.setFillParent(true);
