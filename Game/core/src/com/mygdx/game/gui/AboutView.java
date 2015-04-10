@@ -64,6 +64,7 @@ public class AboutView implements Screen {
     public void render(float delta) {
 
         Gdx.gl.glClearColor((float)(255/255.0), (float)(195/255.0), (float)(160/255.0), 1);
+        //Gdx.gl.glClearColor((float)(255/255.0), (float)(195/255.0), (float)(160/255.0), 1);
         //Gdx.gl.glClearColor(255, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
