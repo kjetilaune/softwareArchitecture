@@ -118,7 +118,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupBottom = new HorizontalGroup();
         groupRight = new HorizontalGroup();
 
-        menuSkin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
+        menuSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
         menuSkin.getFont("font").scale(1);
         buttonMainMenu = new TextButton("To Main Menu", menuSkin);
         fireSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
@@ -168,10 +168,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
 
-        menuSkin.getFont("font").setScale(0.2f);
-        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), fireSkin);
-        labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
-        labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
+        menuSkin.getFont("font").setScale(1f);
+        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), menuSkin);
+        labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), menuSkin);
+        labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), menuSkin);
 
 
         groupTop.left().top();
