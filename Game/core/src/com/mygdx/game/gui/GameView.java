@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
@@ -59,8 +60,9 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private SpriteBatch batch; // to draw sprites: ex. tanks and barrels
 
-    private HorizontalGroup groupTop; // the top menu
+    private Table groupTop;
     private HorizontalGroup groupBottom; // the button at the bottom: fire, change ammmo etc
+    private HorizontalGroup groupRight;
 
     // for menu and buttons
     private Skin menuSkin;
@@ -89,6 +91,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     Label labelCurrentPlayer;
     Label labelChosenAmmo;
+    Label labelLeftAmmo;
 
 
     public GameView(MyGdxGame game, Game gameInstance){
@@ -111,8 +114,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         moveCtrl = new MovementController(this);
 
         // instantiate menu stuff
-        groupTop  = new HorizontalGroup();
+        groupTop  = new Table();
         groupBottom = new HorizontalGroup();
+        groupRight = new HorizontalGroup();
 
         menuSkin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         menuSkin.getFont("font").scale(1);
@@ -132,17 +136,6 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         setupCamera(); // set up the camera
-        testGUI(); // just testing out stuff for menu
-
-    }
-
-    public void testGUI() {
-
-        menuSkin.getFont("font").setScale(2f);
-        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), fireSkin);
-        labelChosenAmmo = new Label("Chosen\n ammo:", fireSkin);
-
-
 
     }
 
@@ -175,21 +168,33 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
 
+        menuSkin.getFont("font").setScale(0.2f);
+        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), fireSkin);
+        labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
+        labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
 
-        groupTop.top();
-        //groupTop.addActor(buttonMainMenu);
-        //groupTop.addActor(labelCurrentPlayer);
-        //groupTop.addActor(labelChosenAmmo);
+
+        groupTop.left().top();
+        groupTop.add(labelCurrentPlayer).padBottom(10).row();
+        groupTop.add(labelChosenAmmo).padBottom(10).padLeft(100).row();
+        groupTop.add(labelLeftAmmo).padBottom(10).row();
         groupTop.setFillParent(true);
+
         groupBottom.bottom();
         groupBottom.addActor(buttonAmmo);
         groupBottom.addActor(buttonFire);
-        groupBottom.addActor(arrowLeft);
-        groupBottom.addActor(arrowRight);
+
+        groupRight.bottom();
+        groupRight.padLeft(1500);
+        groupRight.addActor(arrowLeft);
+        groupRight.addActor(arrowRight);
+
         groupBottom.setFillParent(true);
+        groupRight.setFillParent(true);
 
         stage.addActor(groupTop);
         stage.addActor(groupBottom);
+        stage.addActor(groupRight);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -221,8 +226,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         //batch.draw(new TextureRegion(currentVehicle.getTexture()), currentVehicle.getPosition().x, currentVehicle.getPosition().y, 0, 0, (float)TextureManager.tank.getWidth(), (float)TextureManager.tank.getHeight(), 1, 1, currentVehicle.getRotation());
         //batch.draw(new TextureRegion(((Tank)currentVehicle).getBarrel().getTexture()), ((Tank)currentVehicle).getBarrel().getPosition().x, ((Tank)currentVehicle).getBarrel().getPosition().y, 0, TextureManager.barrel.getHeight()/2, (float)TextureManager.barrel.getWidth(), (float)TextureManager.barrel.getHeight(), 1, 1, ((Tank)currentVehicle).getBarrel().getRotation() + ((Tank)currentVehicle).getBarrel().getAngle());
 
-        // generates the menu
-        generateMenu();
+
 
         // NOT FINISHED: should draw the bullet if a tank is firing
 
@@ -290,24 +294,6 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     }
 
-    // generates the menu
-    private void generateMenu() {
-
-        BitmapFont font = new BitmapFont();
-        batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        String textCurrentPlayer = currentPlayer.getTeam().getName();
-        String textChosenAmmo = "Chosen ammo: " + currentPlayer.getChosenAmmo().getName();
-        String textLeftAmmo = "Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName());
-
-        font.setScale(4f);
-        font.draw(batch, textCurrentPlayer, 0, Gdx.graphics.getHeight());
-        font.setScale(3.5f);
-        font.draw(batch, textChosenAmmo + "\t" + textLeftAmmo, 0, Gdx.graphics.getHeight() - font.getBounds(textCurrentPlayer).height - 10);
-
-
-
-    }
 
     public void update(Observable o, Object arg){
 
