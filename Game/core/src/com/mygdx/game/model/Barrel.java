@@ -21,15 +21,17 @@ public class Barrel extends GameObject {
 
         // need to fix restrictions, they work most of the time, but not all of the time..
 
-        /*System.out.println("want to set angle to: " + angle);
-        System.out.println("rotation of barrel is: " + getRotation());*/
+        //System.out.println("want to set angle to: " + angle);
+        //System.out.println("rotation of barrel is: " + getRotation());
+
+        
 
         if (angle < 0) {
             this.angle = 0;
         }
-        else if (angle > 180) {
-            this.angle = 180;
-        }
+        /*else if (angle > 180) {
+            this.angle = 90;
+        }*/
         else {
             this.angle = angle;
         }
@@ -45,7 +47,7 @@ public class Barrel extends GameObject {
 
 
         if (touchY <= getPosition().y) {
-            if (touchX < getPosition().x) { // IL quadrant
+            if (touchX < getPosition().x) { // II quadrant
                 degrees += 180;
             }
         }
