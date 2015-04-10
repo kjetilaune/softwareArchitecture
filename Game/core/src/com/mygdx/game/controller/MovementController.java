@@ -16,12 +16,11 @@ public class MovementController extends AbstractController implements EventListe
     private GameView view;
 
     // the thread used for continuous movement
-    private MoveThread movement;
+    private MoveThread moveThread;
 
     public MovementController(AbstractView view){
         super(view);
         this.view = (GameView)view;
-        movement = new MoveThread();
     }
 
     @Override
@@ -34,15 +33,21 @@ public class MovementController extends AbstractController implements EventListe
         if (!event.toString().equals("touchDragged"))
             System.out.println(event.toString());
 
+        if (event.toString().equals("touchDown")) {
+            moveThread = new MoveThread();
+        }
+        else if (event.toString().equals("touchUp")) {
+            moveThread.killThread();
+        }
         // if button is pressed
-        if (event.toString().equals("enter")){
+        else if (event.toString().equals("enter")){
             // update the thread with the current direction, tank, and environment to initiate movement
-            movement.move(event.getTarget().toString(), view.currentVehicle, view.environment);
+            moveThread.initiateMovement(event.getTarget().toString(), view.currentVehicle, view.environment);
         }
         // if the button is no longer pressed, either by lifting or moving the finger/cursor
         else if (event.toString().equals("exit")) {
             // end the movement
-            movement.endMovement();
+            moveThread.endMovement();
         }
 
         // has to return something
