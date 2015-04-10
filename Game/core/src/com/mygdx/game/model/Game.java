@@ -32,7 +32,7 @@ public class Game extends AbstractModel {
         Vector2 position2 = new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
 
         player1 = new Player(Team.FAST_FOOD, environment, position1);
-        player2 = new Player(Team.VEGAN, environment, position2);
+        player2 = new Player(Team.SWEETS, environment, position2);
 
         players = new ArrayList<Player>();
         players.add(player1);
