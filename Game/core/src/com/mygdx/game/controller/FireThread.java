@@ -10,7 +10,7 @@ import com.mygdx.game.model.Vehicle;
 /**
  * Created by annieaa on 07/04/15.
  */
-public class FireThread extends Thread {
+public class    FireThread extends Thread {
 
     // use blinker to safely replace Thread.stop()
     private boolean blinker;
