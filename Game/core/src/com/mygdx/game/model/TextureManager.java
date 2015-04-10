@@ -17,5 +17,10 @@ public class TextureManager {
     public static Texture sand = new Texture(Gdx.files.internal("textures/sand.png"));
     public static Texture ice = new Texture(Gdx.files.internal("textures/ice.png"));
     public static Texture rock = new Texture(Gdx.files.internal("textures/rock.png"));
+
     public static Texture menu = new Texture(Gdx.files.internal("textures/menu.png"));
+
+    public static Texture titleImage = new Texture(Gdx.files.internal("New design/Food-Frenzy-Logo.png"));
+    public static Texture menuImage = new Texture(Gdx.files.internal("New design/Food-Frenzy-Menu.png"));
+
 }

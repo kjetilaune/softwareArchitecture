@@ -3,6 +3,9 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.controller.AmmoChangeController;
 import com.mygdx.game.model.Game;
+import com.mygdx.game.model.TextureManager;
 
 /**
  * Created by Jonathan on 10.03.2015.
@@ -32,6 +36,11 @@ public class MainMenu implements Screen {
     //private TextButton buttonSettings;
     private TextButton buttonAbout;
 
+    private Sprite titleSprite;
+    private Sprite menuSprite;
+    private SpriteBatch batch;
+
+    private int clock;
 
 
     public MainMenu(MyGdxGame game) {
@@ -49,14 +58,38 @@ public class MainMenu implements Screen {
         buttonNewGame = new TextButton("New Game", skin);
         //buttonSettings = new TextButton("Settings", skin);
         buttonAbout = new TextButton("About", skin);
+
+        titleSprite = new Sprite(TextureManager.titleImage);
+        titleSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        menuSprite = new Sprite(TextureManager.menuImage);
+        menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        batch = new SpriteBatch();
+        clock = 0;
+
     }
 
     public void render(float delta){
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
-        stage.draw();
+
+        batch.begin();
+
+        if (clock < 100) {
+            titleSprite.draw(batch);
+            clock ++;
+            batch.end();
+        }
+        else {
+            menuSprite.draw(batch);
+            batch.end();
+            stage.act();
+            stage.draw();
+        }
+
+
+
 
     }
 

@@ -8,6 +8,7 @@ import com.mygdx.game.model.Enums.EnvironmentEnum;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 /**
  * Created by annieaa on 10/03/15.
@@ -68,6 +69,29 @@ public class Environment {
         }
 
         return false;
+    }
+
+    public boolean collide(Vector2 point) {
+
+
+        if (isColliding(point)) {
+
+            int collisionIndex = -1;
+
+            for (int i = 0 ; i < polygons.size() ; i++) {
+
+                if (polygons.get(i).contains(point.x, point.y)) {
+                    return true;
+                }
+
+            }
+
+
+        }
+
+
+        return false;
+
     }
 
 
