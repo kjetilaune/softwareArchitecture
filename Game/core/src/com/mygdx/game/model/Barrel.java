@@ -24,9 +24,21 @@ public class Barrel extends GameObject {
         //System.out.println("want to set angle to: " + angle);
         //System.out.println("rotation of barrel is: " + getRotation());
 
-        
+        float newAngle = angle;
 
-        if (angle < 0) {
+        while (newAngle > 360) {
+            newAngle -= 360;
+        }
+
+        while (newAngle < 0) {
+            newAngle += 360;
+        }
+
+        System.out.println("Setting angle of barrel to " + newAngle);
+
+        this.angle = newAngle;
+
+        /*if (angle < 0) {
             this.angle = 0;
         }
         else if (angle > 180) {
@@ -34,7 +46,7 @@ public class Barrel extends GameObject {
         }
         else {
             this.angle = angle;
-        }
+        }*/
 
     }
 

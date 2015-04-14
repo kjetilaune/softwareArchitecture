@@ -51,7 +51,7 @@ public class Tank extends Vehicle {
         float tankLeftX = getPosition().x;
         float tankLeftY = getPosition().y;
         float barrelX = tankLeftX + TextureManager.tank.getWidth()/2;
-        float barrelY = tankLeftY + 1;
+        float barrelY = tankLeftY; //should fix this..
 
         float s = (float)Math.sin(getRotation() * Math.PI / 180);
         float c = (float)Math.cos(getRotation() * Math.PI / 180);
