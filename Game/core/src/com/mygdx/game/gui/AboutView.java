@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
-
+import com.mygdx.game.model.TextureManager;
 
 
 /**
@@ -30,6 +31,7 @@ public class AboutView implements Screen {
     private BitmapFont font;
 
     private SpriteBatch batch;
+    private Sprite menuSprite;
 
     private Skin skin;
 
@@ -46,7 +48,7 @@ public class AboutView implements Screen {
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
 
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("font/rav.fnt"), Gdx.files.internal("font/rav.png"), false);
         batch = new SpriteBatch();
 
         title = new Label("About", skin);
@@ -58,29 +60,29 @@ public class AboutView implements Screen {
         aboutText.setFontScale((float)0.99, (float)0.99);*/
         buttonMainMenu = new TextButton("Main Menu", skin);
 
+        menuSprite = new Sprite(TextureManager.menuImage);
+        menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
     }
 
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor((float)(255/255.0), (float)(195/255.0), (float)(160/255.0), 1);
-        //Gdx.gl.glClearColor((float)(255/255.0), (float)(195/255.0), (float)(160/255.0), 1);
-        //Gdx.gl.glClearColor(255, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        font.setColor((float)(178/255.0), (float)(136/255.0), (float)(112/255.0), 1);
-        font.setScale((float)5);
-        font.draw(batch, "About", stage.getWidth()/2 - 50,stage.getHeight() - 100);
+        menuSprite.draw(batch);
         batch.end();
 
+
         batch.begin();
-        font.setScale((float)3);
-        font.draw(batch, "- Move your tank with the arrows to the left or the right.", 200, stage.getHeight() - 200);
-        font.draw(batch, "- Change the angle of the barrel using the up and down buttons.", 200, stage.getHeight() - 250);
-        font.draw(batch, "- Toggle your ammo with the 'Change Ammo' button.", 200, stage.getHeight() - 300);
-        font.draw(batch, "- Fire when you're ready.", 200, stage.getHeight() - 350);
-        font.draw(batch, "- After each round you can buy new ammo and upgrades.", 200, stage.getHeight() - 400);
+        font.setScale(1.2f);
+        font.draw(batch, "Move your tank with the arrows to the left or the right.", 250, stage.getHeight() - 390);
+        font.draw(batch, "Change the angle of the barrel by pressing the screen.", 250, stage.getHeight() - 470);
+        font.draw(batch, "Toggle your ammo with the 'Change Ammo' button.", 250, stage.getHeight() - 550);
+        font.draw(batch, "Fire when you're ready.", 250, stage.getHeight() - 630);
+        font.draw(batch, "After each round you can buy new ammo and upgrades.", 250, stage.getHeight() - 710);
         batch.end();
 
         stage.act();
@@ -99,8 +101,8 @@ public class AboutView implements Screen {
         });
 
         table.add(title).padBottom(stage.getHeight() - 200).row();
-        table.add(buttonMainMenu).size(300, 120).padBottom(20).row();
-        table.setPosition(stage.getWidth()/2,stage.getHeight() - 250);
+        table.add(buttonMainMenu).size(500, 120).padBottom(20).row();
+        table.setPosition(stage.getWidth()/2,stage.getHeight() - 400);
         table.setFillParent(false);
         stage.addActor(table);
 
