@@ -13,7 +13,7 @@ public class Barrel extends GameObject {
     private float angle;
 
     public Barrel(Team team, Vector2 rootPos, float angle) {
-        super(team.getTankTexture());
+        super(team.getBarrelTexture());
         this.position = rootPos;
         this.angle = angle;
     }

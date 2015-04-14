@@ -10,7 +10,7 @@ public enum Team {
     SWEETS(TextureManager.tankSweets, TextureManager.barrelSweets, TextureManager.muffinBullet, "Team Sweets"),
     FAST_FOOD(TextureManager.tankFastfood, TextureManager.barrelFastfood, TextureManager.burgerBullet, "Team Fast Food"),
     VEGAN(TextureManager.tankVegan, TextureManager.barrelVegan, TextureManager.burgerBullet, "Team Vegan"),
-    SEAFOOD(TextureManager.tankSeafood, TextureManager.barrelSeafood, TextureManager.burgerBullet, "Team Vegan");
+    SEAFOOD(TextureManager.tankSeafood, TextureManager.barrelSeafood, TextureManager.burgerBullet, "Team Seafood");
 
     private Texture tankTexture;
     private Texture barrelTexture;

@@ -33,8 +33,8 @@ public class Tank extends Vehicle {
         if (position.x < 0) {
            super.setPosition(new Vector2(0, oldPosition.y));
         }
-        else if (position.x + TextureManager.tank.getWidth() > Gdx.graphics.getWidth()) {
-            super.setPosition(new Vector2(Gdx.graphics.getWidth() - TextureManager.tank.getWidth(), oldPosition.y));
+        else if (position.x + getTexture().getWidth() > Gdx.graphics.getWidth()) {
+            super.setPosition(new Vector2(Gdx.graphics.getWidth() - getTexture().getWidth(), oldPosition.y));
         }
         else {
             super.setPosition(position);
@@ -51,7 +51,7 @@ public class Tank extends Vehicle {
 
         float tankLeftX = getPosition().x;
         float tankLeftY = getPosition().y;
-        float barrelX = tankLeftX + TextureManager.tank.getWidth()/2;
+        float barrelX = tankLeftX + getTexture().getWidth()/2;
         float barrelY = tankLeftY; //should fix this..
 
         float s = (float)Math.sin(getRotation() * Math.PI / 180);
