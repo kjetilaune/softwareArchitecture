@@ -186,10 +186,10 @@ public class SettingsView extends AbstractView implements Screen {
         table.add(arrowLeftPlayer);
         table.add(txtPlayer).width(100);
         table.add(arrowRightPlayer);
-
+        table.row().padTop(60);
         table.add(labelTeams);
         table.add(arrowLeftTeam);
-        table.add(txtTeams).width(400);
+        table.add(txtTeams).width(600).padLeft(40);
         table.add(arrowRightTeam);
         table.row().padTop(60);
         table.add(buttonMainMenu).size(400, 120).padBottom(20);
