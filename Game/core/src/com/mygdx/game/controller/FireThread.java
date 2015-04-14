@@ -1,5 +1,6 @@
 package com.mygdx.game.controller;
 
+import com.mygdx.game.gui.GameView;
 import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Environment;
@@ -13,6 +14,8 @@ public class FireThread extends Thread {
 
     // use blinker to safely replace Thread.stop()
     private boolean blinker;
+
+    private GameView view;
 
     // holds the ammo to be moved
     private Ammunition ammo;
@@ -60,6 +63,7 @@ public class FireThread extends Thread {
                 else {
 
                     ammo.setPosition(null);
+                    view.gameInstance.changePlayer();
                     killThread();
                 }
             }
@@ -73,11 +77,12 @@ public class FireThread extends Thread {
 
 
     // enables the if-clause in run() and updates information about how and what to move
-    public void fire(Vehicle vehicle, Ammunition ammo, Environment environment) {
+    public void fire(GameView view, Vehicle vehicle, Ammunition ammo, Environment environment) {
         physics = new BulletPhysics(((Tank)vehicle).getBarrel().getAngle());
         physics.startPosition = ammo.getPosition();
         this.ammo = ammo;
         this.environment = environment;
+        this.view = view;
 
         start();
 
