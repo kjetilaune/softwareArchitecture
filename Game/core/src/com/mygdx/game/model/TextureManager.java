@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
  * Created by Nixa on 3/12/2015.
  */
 public class TextureManager {
-    public static Texture barrel = new Texture(Gdx.files.internal("object/barrel.png"));
-    public static Texture tank = new Texture(Gdx.files.internal("object/tank.png"));
+    public static Texture barrelOld = new Texture(Gdx.files.internal("object/barrel.png"));
+    public static Texture tankOld = new Texture(Gdx.files.internal("object/tank.png"));
+
+    public static Texture barrel = new Texture(Gdx.files.internal("New design/Barrel_Vegan.png"));
+    public static Texture tank = new Texture(Gdx.files.internal("New design/Tank_Vegan.png"));
 
     public static Texture burgerBullet = new Texture(Gdx.files.internal("object/burgerBullet.png"));
     public static Texture muffinBullet = new Texture(Gdx.files.internal("object/muffinBullet.png"));
