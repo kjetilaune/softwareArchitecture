@@ -50,7 +50,7 @@ public class MainMenu implements Screen {
         stage = new Stage();
         table = new Table();
 
-        skin = new Skin(Gdx.files.internal("skins/newButtons.json"), new TextureAtlas(Gdx.files.internal("skins/newButtons.pack")));
+        skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
 
 

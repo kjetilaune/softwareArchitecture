@@ -35,7 +35,7 @@ public class BulletPhysics {
 
 
     public Vector2 setStartDirection(double angle){
-        startDirection = new Vector2((float)Math.cos(angle), (float)Math.sin(angle));
+        startDirection = new Vector2((float)Math.cos(angle * Math.PI / 180), (float)Math.sin(angle * Math.PI / 180));
         return startDirection;
     }
 
