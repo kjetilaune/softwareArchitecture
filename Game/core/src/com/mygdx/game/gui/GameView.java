@@ -93,6 +93,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     Label labelCurrentPlayer;
     Label labelChosenAmmo;
     Label labelLeftAmmo;
+    Label labelHealthLeft;
 
 
     public GameView(MyGdxGame game, Game gameInstance){
@@ -138,6 +139,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonStore.setName("Store");
 
 
+
         setupCamera(); // set up the camera
 
     }
@@ -178,16 +180,19 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
 
-        /*menuSkin.getFont("font").setScale(1f);
+        menuSkin.getFont("font").setScale(1.2f);
         labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), menuSkin);
+        menuSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), menuSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), menuSkin);
-
+        labelHealthLeft = new Label("Health left: " + currentPlayer.getHealth(), menuSkin);
 
         groupTop.left().top();
-        groupTop.add(labelCurrentPlayer).padBottom(10).row();
-        groupTop.add(labelChosenAmmo).padBottom(10).padLeft(100).row();
-        groupTop.add(labelLeftAmmo).padBottom(10).row();
+        groupTop.defaults();
+        groupTop.add(labelCurrentPlayer).padBottom(10).padTop(10).row();
+        groupTop.add(labelChosenAmmo).padLeft(40);
+        groupTop.add(labelLeftAmmo).padLeft(40);
+        groupTop.add(labelHealthLeft).padLeft(40);
         groupTop.setFillParent(true);
 
         groupBottom.bottom();
@@ -205,9 +210,9 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         stage.addActor(groupTop);
         stage.addActor(groupBottom);
-        stage.addActor(groupRight);*/
+        stage.addActor(groupRight);
 
-        generateTopMenu();
+
 
         Gdx.input.setInputProcessor(stage);
 
@@ -284,42 +289,14 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     }
 
-    private void generateTopMenu() {
-        menuSkin.getFont("font").setScale(1f);
-        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), menuSkin);
-        labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), menuSkin);
-        labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), menuSkin);
 
-
-        groupTop.left().top();
-        groupTop.add(labelCurrentPlayer).padBottom(10).row();
-        groupTop.add(labelChosenAmmo).padBottom(10).padLeft(100).row();
-        groupTop.add(labelLeftAmmo).padBottom(10).row();
-        groupTop.setFillParent(true);
-
-        groupBottom.bottom();
-        groupBottom.addActor(buttonAmmo);
-        groupBottom.addActor(buttonFire);
-        groupBottom.addActor(buttonStore);
-
-        groupRight.bottom();
-        groupRight.padLeft(1500);
-        groupRight.addActor(arrowLeft);
-        groupRight.addActor(arrowRight);
-
-        groupBottom.setFillParent(true);
-        groupRight.setFillParent(true);
-
-        stage.addActor(groupTop);
-        stage.addActor(groupBottom);
-        stage.addActor(groupRight);
-    }
 
     private void updateTopMenu() {
 
         labelCurrentPlayer.setText(currentPlayer.getTeam().getName());
         labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
+        labelHealthLeft.setText("Health left: " + currentPlayer.getHealth());
 
     }
 
