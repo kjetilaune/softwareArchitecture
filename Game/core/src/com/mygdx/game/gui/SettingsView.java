@@ -323,7 +323,7 @@ public class SettingsView extends AbstractView implements Screen {
                     currentPlayer--;
                 }
                 txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(teams.get(currentPlayer - 1).toString());
+                txtTeams.setText(teams.get(currentPlayer - 1).getName());
 
             }
         });
@@ -337,7 +337,7 @@ public class SettingsView extends AbstractView implements Screen {
                     currentPlayer++;
                 }
                 txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(teams.get(currentPlayer - 1).toString());
+                txtTeams.setText(teams.get(currentPlayer - 1).getName());
             }
         });
 
