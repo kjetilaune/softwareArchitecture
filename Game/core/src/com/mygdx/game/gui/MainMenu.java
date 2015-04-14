@@ -50,10 +50,10 @@ public class MainMenu implements Screen {
         stage = new Stage();
         table = new Table();
 
-        skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
+        skin = new Skin(Gdx.files.internal("skins/newButtons.json"), new TextureAtlas(Gdx.files.internal("skins/newButtons.pack")));
         skin.getFont("font").scale(1);
 
-        title = new Label("Food Frenzy", skin);
+
 
         buttonNewGame = new TextButton("New Game", skin);
         //buttonSettings = new TextButton("Settings", skin);
@@ -126,9 +126,9 @@ public class MainMenu implements Screen {
 
 
         table.add(title).padBottom(40).row();
-        table.add(buttonNewGame).size(300, 120).padBottom(20).row();
+        table.add(buttonNewGame).size(470, 120).padBottom(20).row();
         //table.add(buttonSettings).size(300, 120).padBottom(20).row();
-        table.add(buttonAbout).size(300, 120).padBottom(20).row();
+        table.add(buttonAbout).size(470, 120).padBottom(20).row();
 
         table.setFillParent(true);
         stage.addActor(table);
