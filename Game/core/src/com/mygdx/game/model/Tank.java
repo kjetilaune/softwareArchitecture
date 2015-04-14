@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.model.Enums.Team;
 
 /**
  * Created by annieaa on 10/03/15.
@@ -14,12 +15,12 @@ public class Tank extends Vehicle {
     private Environment environment;
     private Barrel barrel;
 
-    public Tank(Environment environment, Vector2 position) {
-        super(TextureManager.tank);
+    public Tank(Team team, Environment environment, Vector2 position) {
+        super(team.getTankTexture());
         this.environment = environment;
         super.setPosition(position);
         setRotation(environment.getAngle(getPosition().x, getPosition().x + TextureManager.tank.getWidth()));
-        barrel = new Barrel(getBarrelPosition(), 45);
+        barrel = new Barrel(team, getBarrelPosition(), 45);
         barrel.setRotation(getRotation());
     }
 
