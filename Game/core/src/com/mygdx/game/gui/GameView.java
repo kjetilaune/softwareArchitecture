@@ -73,6 +73,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     private TextButton buttonMainMenu;
     private TextButton buttonFire;
     private TextButton buttonAmmo;
+    private TextButton buttonStore;
     private ImageButton arrowLeft;
     private ImageButton arrowRight;
 
@@ -133,6 +134,8 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
         arrowRight = new ImageButton(arrowRightSkin);
         arrowRight.setName("arrowRight");
+        buttonStore = new TextButton("Store", ammoSkin);
+        buttonStore.setName("Store");
 
 
         setupCamera(); // set up the camera
@@ -161,6 +164,13 @@ public class GameView extends AbstractView implements Screen, Observer{
             }
         });
 
+        buttonStore.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new StoreView(game, gameInstance));
+            }
+        });
+
         buttonFire.addListener(new FireController(this));
 
         stage.addListener(new AngleController(this));
@@ -183,6 +193,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupBottom.bottom();
         groupBottom.addActor(buttonAmmo);
         groupBottom.addActor(buttonFire);
+        groupBottom.addActor(buttonStore);
 
         groupRight.bottom();
         groupRight.padLeft(1500);

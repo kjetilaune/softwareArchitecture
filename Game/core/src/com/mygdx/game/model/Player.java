@@ -15,12 +15,14 @@ public class Player {
     private Ammunition chosenAmmo;
     private Team team;
     private float timeLeft;
+    private int money;
 
     public Player(Team team, Environment environment, Vector2 vehiclePosition) {
         this.team = team;
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
         vehicle = new Tank(environment, vehiclePosition);
+        this.money = 1000;
 
     }
 
@@ -71,4 +73,8 @@ public class Player {
     public void reduceTimeLeft(float reducedTime) {
         timeLeft -= reducedTime;
     }
+
+    public void setMoney(int money){ this.money = money; }
+
+    public int getMoney(){ return this.money; }
 }
