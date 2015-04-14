@@ -27,7 +27,7 @@ public class MyGdxGame extends Game implements ApplicationListener{
         WIDTH = Gdx.graphics.getWidth();
 
 		batch = new SpriteBatch();
-        setScreen(new MainMenu(this));
+        setScreen(new MainMenu(this, 0));
 	}
 
 	/*@Override

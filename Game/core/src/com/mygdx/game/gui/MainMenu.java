@@ -43,7 +43,7 @@ public class MainMenu implements Screen {
     private int clock;
 
 
-    public MainMenu(MyGdxGame game) {
+    public MainMenu(MyGdxGame game, int clock) {
 
         this.game = game;
 
@@ -65,7 +65,7 @@ public class MainMenu implements Screen {
         menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
-        clock = 0;
+        this.clock = clock;
 
     }
 

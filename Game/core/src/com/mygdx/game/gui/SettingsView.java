@@ -3,6 +3,8 @@ package com.mygdx.game.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,6 +19,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.Enums.Team;
 import com.mygdx.game.model.Game;
+import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +49,9 @@ public class SettingsView extends AbstractView implements Screen {
     private ImageButton arrowRightPlayer;
     private TextButton newGame;
 
+    private Sprite menuSprite;
+    private SpriteBatch batch;
+
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
 
@@ -74,6 +80,7 @@ public class SettingsView extends AbstractView implements Screen {
     public ArrayList<String> players;
 
     private TextButton buttonMainMenu;
+
 
 
     public SettingsView(MyGdxGame game) {
@@ -187,6 +194,10 @@ public class SettingsView extends AbstractView implements Screen {
         table.row().padTop(60);
         table.add(buttonMainMenu).size(400, 120).padBottom(20);
         table.add(newGame).size(400, 120).padLeft(60).padBottom(20).colspan(3).row();
+
+        menuSprite = new Sprite(TextureManager.menuImage);
+        menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch = new SpriteBatch();
     }
 
     //Returns the team names from the Team enum
@@ -206,6 +217,10 @@ public class SettingsView extends AbstractView implements Screen {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        menuSprite.draw(batch);
+        batch.end();
         stage.act();
         stage.draw();
 
@@ -219,7 +234,7 @@ public class SettingsView extends AbstractView implements Screen {
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new MainMenu(game, 100));
             }
         });
 

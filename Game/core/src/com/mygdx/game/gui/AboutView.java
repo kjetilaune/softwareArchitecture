@@ -94,7 +94,7 @@ public class AboutView implements Screen {
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new MainMenu(game, 100));
             }
         });
 

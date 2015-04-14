@@ -157,7 +157,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new MainMenu(game, 0));
             }
         });
 
