@@ -16,11 +16,20 @@ import java.beans.PropertyChangeEvent;
  */
 public class FireController extends AbstractController implements EventListener{
 
+    // temporary storage for power, must be moved to a more appropriate class
+    int power;
+
+
+
+
     // the view the controller listens to
     private GameView view;
 
-    // the thread used for continuous movement
+    // the thread used for updating bullet position
     private FireThread fireThread;
+
+    // the thread used for continuous movement
+    private PowerThread powerThread;
 
     public FireController(AbstractView view){
         super(view);
@@ -37,63 +46,33 @@ public class FireController extends AbstractController implements EventListener{
 
         if (event.toString().equals("touchDown")) {
             fireThread = new FireThread();
+            powerThread = new PowerThread();
         }
         else if (event.toString().equals("touchUp")) {
 
+            // kills the power-fluctuation-thread and return the power
+            power = powerThread.getPower();
+
             System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
             view.isFiring = true;
-            view.currentPlayer.getChosenAmmo().setPosition(((Tank)view.currentVehicle).getBarrel().getTipOfBarrel());
+            view.currentPlayer.getChosenAmmo().setPosition(((Tank) view.currentVehicle).getBarrel().getTipOfBarrel());
             fireThread.fire(view, view.currentVehicle, view.currentPlayer.getChosenAmmo(), view.environment);
 
-            // kill the power-fluctuation-thread
+
 
         }
         else if (event.toString().equals("enter")) {
             // start/continue power-fluctuation
+            powerThread.initiateFluctuation();
         }
 
         else if (event.toString().equals("exit")) {
             // end/halt power-fluctuation
+            powerThread.endFluctuation();
         }
 
         // has to return something
         return true;
     }
-
-    // Mikal's attempt at power-fluctuation
-
-    /*
-    needs separate thread
-
-    private int power;
-    private boolean countUp;
-
-    // touchDown starts power-fluctuation
-    @Override
-    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-        power = 0;
-        countUp = true;
-
-        // while finger is on Fire-button, fluctuate power
-        while (isOver()) {
-            if (power == 100) {
-                countUp = false;
-            }
-            else if (power == 0) {
-                countUp = true;
-            }
-
-            if (countUp) {
-                power++;
-            }
-            else {
-                power--;
-            }
-
-        }
-
-    }
-    */
 
 }

@@ -76,7 +76,7 @@ public class FireThread extends Thread {
     }
 
 
-    // enables the if-clause in run() and updates information about how and what to move
+    // sets information about how firing should be done and start firing
     public void fire(GameView view, Vehicle vehicle, Ammunition ammo, Environment environment) {
         physics = new BulletPhysics(((Tank)vehicle).getBarrel().getAngle());
         physics.startPosition = ammo.getPosition();

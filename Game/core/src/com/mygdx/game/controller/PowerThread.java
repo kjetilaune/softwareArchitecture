@@ -10,17 +10,23 @@ import com.mygdx.game.model.Vehicle;
  */
 public class PowerThread extends Thread {
 
+
+
+    // THIS THREAD IS NOT FINISHED. IT SHOULD CALL A .setPower(power), this.getPower() should be removed and killing the thread should be done in FireController
+
     // use blinker to safely replace Thread.stop()
     private boolean blinker;
-
-    // holds the vehicle to be moved
-    private Vehicle vehicle;
 
     // true if a move-button is held down, else false
     // used to decide whether to move or not
     private boolean heldDown;
 
-    private float fluctuation = 1.5f;
+    // holds the power of which the bullet is to be fired
+    // ranges from 0 to 100
+    private int power;
+
+    // decides if power is to be increased or decreased
+    private boolean countUp;
 
     public PowerThread() {
         blinker = true;
@@ -29,6 +35,8 @@ public class PowerThread extends Thread {
 
     public void run() {
         System.out.println("PowerThread started.");
+
+        power = 0;
 
         // should run until killThread() is called
         while (blinker) {
@@ -39,46 +47,63 @@ public class PowerThread extends Thread {
                 if (heldDown) {
 
                     // unsure about the necessity of synchronized
-                    // enables only this thread to have access to the vehicle during movement
-                    synchronized (vehicle) {
+                    // enables only this thread to have access to the *** during fluctuation
+                    synchronized ("should be the class that holds power") {
 
-                        if ((vehicle.getPower() == 0.0) || (vehicle.getPower() == 100.0)) {
-                            fluctuation = -fluctuation;
+                        // decides if fluctuation should change direction
+                        if (power == 100) {
+                            countUp = false;
+                        }
+                        else if (power == 0) {
+                            countUp = true;
                         }
 
-                        vehicle.setPower(vehicle.getPower() + fluctuation);
 
-                        
+                        // fluctuates the power
+                        if (countUp) {
+                            power++;
+                        }
+                        else {
+                            power--;
+                        }
+
+                        System.out.println("Power: " + Integer.toString(power));
+
+                        // cause the thread to halt for 50 ms to prevent to rapid fluctuation
+                        sleep(50);
 
                     }
 
-                    // cause the thread to halt for 50 ms to prevent from moving to fast
-                    sleep(50);
                 }
 
                 else {
-                    // cause the thread to halt for 200 ms before checking again for movement
+                    // cause the thread to halt for 100 ms before checking again for movement
                     // probably not very effective
-                    sleep(200);
+                    sleep(100);
                 }
             }
             catch (InterruptedException e) {
-                System.err.println("Error in MoveThread: " + e.getMessage());
+                System.err.println("Error in PowerThread: " + e.getMessage());
             }
         }
 
-        System.out.println("Thread died.");
+        System.out.println("PowerThread died.");
     }
 
-    // enables the if-clause in run() and updates information about how and what to move
-    public void move(String direction, Vehicle vehicle, Environment environment) {
-        this.heldDown = true;
-        this.vehicle = vehicle;
+    // enables the if-clause in run() and starts fluctuation
+    public void initiateFluctuation() {
+        heldDown = true;
     }
 
-    // causes the the else-clause in run() to be triggered, effectively ending movement
+    // causes the the else-clause in run() to be triggered, effectively ending fluctuation
     public void endFluctuation() {
         heldDown = false;
+    }
+
+    //
+    public int getPower() {
+        killThread();
+        return power;
     }
 
     // calling this ends the while-loop in run(), stopping the thread from doing anything
