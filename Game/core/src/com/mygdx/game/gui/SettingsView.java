@@ -156,7 +156,7 @@ public class SettingsView extends AbstractView implements Screen {
         txtTeams = new Label("" + teamNames[0].getName(), skin);
         txtPlayer = new Label("" + currentPlayer, skin);
 
-        buttonMainMenu = new TextButton("To Main Menu", skin);
+        buttonMainMenu = new TextButton("Main Menu", skin);
         newGame = new TextButton("New Game", skin);
 
 
