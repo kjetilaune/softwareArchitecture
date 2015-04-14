@@ -16,6 +16,7 @@ public class Player {
     private Team team;
     private float timeLeft;
     private int money;
+    private int health;
 
     public Player(Team team, Environment environment, Vector2 vehiclePosition) {
         this.team = team;
@@ -77,4 +78,9 @@ public class Player {
     public void setMoney(int money){ this.money = money; }
 
     public int getMoney(){ return this.money; }
+
+    public void setHealth(int health){this.health = health;}
+
+    public int getHealth(){ return this.health;}
+
 }
