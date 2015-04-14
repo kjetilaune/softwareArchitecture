@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -30,10 +31,17 @@ public class StoreView implements Screen{
     //GUI
     private Stage stage;
     private Table container;
+    private Table ammoContainer;
+    private Table bottomContainer;
 
     private Skin skin;
-    private Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney;
+    private Skin arrowLeftSkin;
+    private Skin arrowRightSkin;
+
+    private Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel;
     private TextButton back;
+    private TextButton buy;
+    private ImageButton arrowLeft, arrowRight;
 
     public StoreView(MyGdxGame game, Game gameInstance){
         this.game = game;
@@ -45,36 +53,99 @@ public class StoreView implements Screen{
         //GUI
         stage = new Stage();
         container = new Table();
+        ammoContainer = new Table();
+        bottomContainer = new Table();
 
+        container.setFillParent(true);
+        ammoContainer.setFillParent(true);
+        bottomContainer.setFillParent(true);
+
+        stage.addActor(container);
+        stage.addActor(ammoContainer);
+        stage.addActor(bottomContainer);
+
+        System.out.println("" + stage.getHeight() + ", " + stage.getWidth());
+        container.setWidth(stage.getWidth());
+        container.setHeight(stage.getHeight()/10 * 2);
+        ammoContainer.setWidth(stage.getWidth());
+        ammoContainer.setHeight(stage.getHeight()/10 * 5);
+        bottomContainer.setWidth(stage.getWidth());
+        bottomContainer.setHeight(stage.getHeight()/10 * 3);
+
+        container.setDebug(false);
+        ammoContainer.setDebug(false);
+        bottomContainer.setDebug(true);
+
+        arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
+        arrowLeft = new ImageButton(arrowLeftSkin);
+        arrowLeft.setName("arrowLeft");
+        arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
+        arrowRight = new ImageButton(arrowRightSkin);
+        arrowRight.setName("arrowRight");
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale((float)0.5);
+        skin.getFont("font").scale((float)0.1);
 
-        this.back = new TextButton("Back to game", skin);
+        this.back = new TextButton("Next Player", skin);
+        this.buy = new TextButton("Buy", skin);
 
-        title = new Label("Store", skin);
-        currentPlayerLabel = new Label("Current Player: ", skin);
+        placeholderLabel = new Label("", skin);
+        currentPlayerLabel = new Label("Current Player:", skin);
         priceLabel = new Label("Price: ", skin);
         moneyLabel = new Label("Available Money: ", skin);
         txtPrice = new Label("", skin);
         txtCurrentPlayer = new Label("Player 1", skin);
+        txtCurrentPlayer.setFontScale(2);
         txtMoney = new Label("$" + currentPlayer.getMoney(), skin);
 
-        container.add(title).padBottom(40);
-        container.add(moneyLabel);
-        container.add(txtMoney);
-        container.row();
-        container.add(back);
+        /*
+        container.add(placeholderLabel).prefHeight(stage.getHeight()/10 * 2).prefWidth(stage.getWidth());
+        container.add(moneyLabel).expand().padTop(stage.getHeight()/10).top().right();
+        container.add(txtMoney).top().padTop(stage.getHeight()/10);
+        container.row().fillX();
+        ammoContainer.add(arrowLeft).prefHeight(stage.getHeight()/10 * 5).left().maxWidth(stage.getWidth()/20).padLeft(stage.getWidth()/10).padTop(stage.getHeight()/5);
+        ammoContainer.add(placeholderLabel).prefWidth(stage.getWidth());
+        ammoContainer.add(arrowRight).right().maxWidth(stage.getWidth()/20).padRight(stage.getWidth()/10).padTop(stage.getHeight()/5);
+        ammoContainer.row();
+        bottomContainer.add(back).prefHeight(stage.getHeight()/10 * 3).bottom();
+        */
+
+        container.add(placeholderLabel).prefWidth(stage.getWidth());
+        container.add(moneyLabel).expand().padTop(stage.getHeight()/10).top().right();
+        container.add(txtMoney).top().padTop(stage.getHeight()/10).padRight(stage.getWidth()/10);
+        container.row().fillX();
+
+        ammoContainer.add(arrowLeft).left().maxWidth(stage.getWidth()/20).padLeft(stage.getWidth()/10);
+        ammoContainer.add(placeholderLabel).prefWidth(stage.getWidth()).prefHeight(stage.getHeight()/10 * 5);
+        ammoContainer.add(arrowRight).right().maxWidth(stage.getWidth()/20).padRight(stage.getWidth()/10);
+
+        bottomContainer.row();
+        bottomContainer.add(currentPlayerLabel).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight()/10 * 7);
+        bottomContainer.row();
+        bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
+        bottomContainer.add(buy).prefWidth(stage.getWidth()/20 * 4);
+        bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth()/20).padRight(stage.getWidth()/20);
 
 
-        stage.addActor(container);
     }
 
     public void show (){
         back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenu(game, 100));
+                //game.setScreen(new MainMenu(game, 100));
+                if (currentPlayer == players.get(players.size()-2)){
+                    currentPlayer = players.get(players.size()-1);
+                    txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
+                    back.setText("New round");
+                }
+                else if (currentPlayer == players.get(players.size()-1)){
+                    game.setScreen(new MainMenu(game, 100));
+                }
+                else{
+                    currentPlayer = players.get(players.indexOf(currentPlayer));
+                    txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
+                }
             }
         });
 
