@@ -31,7 +31,7 @@ public class AboutView implements Screen {
     private BitmapFont font;
 
     private SpriteBatch batch;
-    private Sprite menuSprite;
+    private Sprite aboutSprite;
 
     private Skin skin;
 
@@ -60,8 +60,8 @@ public class AboutView implements Screen {
         aboutText.setFontScale((float)0.99, (float)0.99);*/
         buttonMainMenu = new TextButton("Main Menu", skin);
 
-        menuSprite = new Sprite(TextureManager.menuBackground);
-        menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        aboutSprite = new Sprite(TextureManager.aboutBackground);
+        aboutSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
     }
 
@@ -72,7 +72,7 @@ public class AboutView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        menuSprite.draw(batch);
+        aboutSprite.draw(batch);
         batch.end();
 
 

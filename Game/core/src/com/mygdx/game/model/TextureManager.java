@@ -30,6 +30,7 @@ public class TextureManager {
     public static Texture titleBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Logo.png"));
     public static Texture menuBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Menu.png"));
     public static Texture settingsBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Settings.png"));
+    public static Texture aboutBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-About.png"));
     public static Texture storeBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Store.png"));
 
 }

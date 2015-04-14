@@ -25,7 +25,7 @@ public class Game extends AbstractModel {
     public Game(GameSettings settings) {
 
         store = Store.getInstance();
-        environment = new Environment(2, 10);
+        environment = new Environment(4, 10);
         random = new Random();
 
         numberOfRounds = settings.getNumberOfRounds();
