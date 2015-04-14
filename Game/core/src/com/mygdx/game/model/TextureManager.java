@@ -27,9 +27,9 @@ public class TextureManager {
     public static Texture ice = new Texture(Gdx.files.internal("textures/ice.png"));
     public static Texture rock = new Texture(Gdx.files.internal("textures/rock.png"));
 
-    public static Texture menu = new Texture(Gdx.files.internal("textures/menu.png"));
-
-    public static Texture titleImage = new Texture(Gdx.files.internal("design/Food-Frenzy-Logo.png"));
-    public static Texture menuImage = new Texture(Gdx.files.internal("design/Food-Frenzy-Menu.png"));
+    public static Texture titleBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Logo.png"));
+    public static Texture menuBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Menu.png"));
+    public static Texture settingsBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Settings.png"));
+    public static Texture storeBackground = new Texture(Gdx.files.internal("design/Food-Frenzy-Store.png"));
 
 }

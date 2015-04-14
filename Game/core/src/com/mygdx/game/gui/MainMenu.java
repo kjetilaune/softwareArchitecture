@@ -59,9 +59,9 @@ public class MainMenu implements Screen {
         //buttonSettings = new TextButton("Settings", skin);
         buttonAbout = new TextButton("About", skin);
 
-        titleSprite = new Sprite(TextureManager.titleImage);
+        titleSprite = new Sprite(TextureManager.titleBackground);
         titleSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        menuSprite = new Sprite(TextureManager.menuImage);
+        menuSprite = new Sprite(TextureManager.menuBackground);
         menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();

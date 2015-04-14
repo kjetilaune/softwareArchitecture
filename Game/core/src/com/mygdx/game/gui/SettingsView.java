@@ -49,7 +49,7 @@ public class SettingsView extends AbstractView implements Screen {
     private ImageButton arrowRightPlayer;
     private TextButton newGame;
 
-    private Sprite menuSprite;
+    private Sprite settingsSprite;
     private SpriteBatch batch;
 
     private Skin arrowLeftSkin;
@@ -169,34 +169,36 @@ public class SettingsView extends AbstractView implements Screen {
 
 
         //Add everything on the screen
-        table.add(title).padBottom(20).row();
+        //table.add(title).padBottom(20).row();
+
+        table.row().padTop(300);
 
         table.add(labelNumberOfRounds);
         table.add(arrowLeft);
         table.add(txtNumberOfRounds).width(100);
         table.add(arrowRight);
-        table.row().padTop(60);
+        table.row().padTop(30);
 
         table.add(labelRoundTime);
         table.add(arrowLeftRoundTime);
         table.add(txtRoundTime).width(200).padLeft(50);
         table.add(arrowRightRoundTime);
-        table.row().padTop(60);
+        table.row().padTop(30);
         table.add(labelPlayer);
         table.add(arrowLeftPlayer);
         table.add(txtPlayer).width(100);
         table.add(arrowRightPlayer);
-        table.row().padTop(60);
+        table.row().padTop(30);
         table.add(labelTeams);
         table.add(arrowLeftTeam);
         table.add(txtTeams).width(600).padLeft(40);
         table.add(arrowRightTeam);
-        table.row().padTop(60);
-        table.add(buttonMainMenu).size(400, 120).padBottom(20);
-        table.add(newGame).size(400, 120).padLeft(60).padBottom(20).colspan(3).row();
+        table.row().padTop(40);
+        table.add(buttonMainMenu).size(400, 120).padBottom(5);
+        table.add(newGame).size(400, 120).padLeft(60).padBottom(5).colspan(3).row();
 
-        menuSprite = new Sprite(TextureManager.menuImage);
-        menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        settingsSprite = new Sprite(TextureManager.settingsBackground);
+        settingsSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch = new SpriteBatch();
     }
 
@@ -219,7 +221,7 @@ public class SettingsView extends AbstractView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        menuSprite.draw(batch);
+        settingsSprite.draw(batch);
         batch.end();
         stage.act();
         stage.draw();

@@ -60,7 +60,7 @@ public class AboutView implements Screen {
         aboutText.setFontScale((float)0.99, (float)0.99);*/
         buttonMainMenu = new TextButton("Main Menu", skin);
 
-        menuSprite = new Sprite(TextureManager.menuImage);
+        menuSprite = new Sprite(TextureManager.menuBackground);
         menuSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
     }
