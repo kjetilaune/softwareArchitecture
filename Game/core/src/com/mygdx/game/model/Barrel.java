@@ -19,7 +19,7 @@ public class Barrel extends GameObject {
 
     public void setAngle(float angle) {
 
-        // need to fix restrictions, they work most of the time, but not all of the time..
+        // works now I think!!
 
         //System.out.println("want to set angle to: " + angle);
         //System.out.println("rotation of barrel is: " + getRotation());
@@ -36,17 +36,15 @@ public class Barrel extends GameObject {
 
         System.out.println("Setting angle of barrel to " + newAngle);
 
-        this.angle = newAngle;
-
-        /*if (angle < 0) {
-            this.angle = 0;
-        }
-        else if (angle > 180) {
+        if (newAngle > 180 && newAngle < 270) {
             this.angle = 180;
         }
+        else if (newAngle > 270) {
+            this.angle = 0;
+        }
         else {
-            this.angle = angle;
-        }*/
+            this.angle = newAngle;
+        }
 
     }
 
@@ -97,6 +95,7 @@ public class Barrel extends GameObject {
         // translate point back
         tipX = xNewBarrel + bottomX;
         tipY = yNewBarrel + bottomY;
+        
 
         return new Vector2(tipX, tipY);
     }
