@@ -1,31 +1,27 @@
 package com.mygdx.game.model;
 
+import com.mygdx.game.model.Enums.Team;
+
+import java.util.ArrayList;
+
 /**
  * Created by annieaa on 10/03/15.
  */
 public class GameSettings {
 
 
-    // this class is deprecated
-
-    private static GameSettings settingsInstance;
-
-    private int maxPlayers, numberOfRounds;
+    private int nofPlayers, numberOfRounds;
     private float roundTime;
 
-    private GameSettings() {
-        this.maxPlayers = 2;
+    private ArrayList<Team> teams;
+
+    public GameSettings() {
+
     }
 
-    public static GameSettings getInstance() {
-        if (settingsInstance == null) {
-            settingsInstance = new GameSettings();
-        }
-        return settingsInstance;
-    }
 
-    public int getMaxPlayers() {
-        return maxPlayers;
+    public int getNofPlayers() {
+        return nofPlayers;
     }
 
     public float getRoundTime() {
@@ -36,8 +32,8 @@ public class GameSettings {
         return numberOfRounds;
     }
 
-    public void setMaxPlayers(int maxPlayers) {
-        this.maxPlayers = maxPlayers;
+    public void setNofPlayers(int nofPlayers) {
+        this.nofPlayers = nofPlayers;
     }
 
     public void setRoundTime(int roundTime) {
@@ -46,5 +42,13 @@ public class GameSettings {
 
     public void setNumberOfRounds(int numberOfRounds) {
         this.numberOfRounds = numberOfRounds;
+    }
+
+    public ArrayList<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(ArrayList<Team> teams) {
+        this.teams = teams;
     }
 }

@@ -22,50 +22,58 @@ public class Game extends AbstractModel {
     private float elapsedTime;
     private Random random;
 
-    public Game() {
+    public Game(GameSettings settings) {
 
         store = Store.getInstance();
         environment = new Environment(2, 10);
         random = new Random();
 
-        Vector2 position1 = new Vector2(Gdx.graphics.getWidth()/6, environment.getGroundHeight(Gdx.graphics.getWidth()/6));
-        Vector2 position2 = new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
-
-        player1 = new Player(Team.FAST_FOOD, environment, position1);
-        player2 = new Player(Team.SWEETS, environment, position2);
+        numberOfRounds = settings.getNumberOfRounds();
+        roundTime = settings.getRoundTime();
 
         players = new ArrayList<Player>();
-        players.add(player1);
-        players.add(player2);
 
-        currentPlayer = player1;
+        for (int i = 0 ; i < settings.getTeams().size() ; i ++) {
+            players.add(new Player(settings.getTeams().get(i), environment, getPosition(i, settings.getTeams().size())));
+        }
+
+        currentPlayer = players.get(0);
         
     }
 
-    public void runGame() {
 
-        while (hasWinner() == null) {
-            // run game
+    // should randomize this, so players are placed "randomly" on the environment
+    private Vector2 getPosition(int no, int totalNofPlayers) {
 
-
-
-
+        if (no == 0) {
+            return new Vector2(Gdx.graphics.getWidth()/6, environment.getGroundHeight(Gdx.graphics.getWidth()/6));
+        }
+        else if (no == 1) {
+            return new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
         }
 
+        return null;
     }
 
 
     public void changePlayer() {
-        if (currentPlayer == player1) {
-            currentPlayer = player2;
+
+        int nextPlayer = -1;
+
+        for (int i = 0 ; i < players.size() ; i ++) {
+            if (players.get(i) == currentPlayer) {
+                nextPlayer = i+1;
+
+                if (i == players.size()-1) {
+                    nextPlayer = 0;
+                }
+            }
         }
-        else {
-            this.currentPlayer = player1;
-        }
-        this.setChanged();
-        this.notifyObservers(currentPlayer);
-        this.firePropertyChange("Player changed", null, getCurrentPlayer());
+
+        currentPlayer = players.get(nextPlayer);
     }
+
+
 
     public Player hasWinner() {
 
@@ -75,15 +83,10 @@ public class Game extends AbstractModel {
             }
         }*/
 
-        if (player1.getVehicle().getHealth() <= 0) {
-            return player2;
-        }
-        else if (player2.getVehicle().getHealth() <= 0) {
-            return player1;
-        }
-
         return null;
     }
+
+    public void setEnvironment(Environment environment) {this.environment = environment;}
 
     public Environment getEnvironment() {
         return environment;

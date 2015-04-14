@@ -68,7 +68,7 @@ public class SettingsView extends AbstractView implements Screen {
     private Label txtPlayer;
     private Label txtTeams;
 
-    private String[] teamNames;
+    private Team[] teamNames;
     private int currentTeam;
 
     public int numberOfPlayers;
@@ -77,7 +77,7 @@ public class SettingsView extends AbstractView implements Screen {
     public int currentPlayer;
 
     //An ArrayList where the index corresponds with the player's number (index 0 = Player 1) and the value is the team name.
-    public ArrayList<String> players;
+    public ArrayList<Team> teams;
 
     private TextButton buttonMainMenu;
 
@@ -131,11 +131,11 @@ public class SettingsView extends AbstractView implements Screen {
         numberOfPlayers = 2;
         currentPlayer = 1;
 
-        players = new ArrayList<String>();
+        teams = new ArrayList<Team>();
 
         //Initiate all players as the same team
         for (int i = 0; i < numberOfPlayers; i++){
-            players.add(teamNames[0]);
+            teams.add(teamNames[0]);
         }
 
         numberOfRounds = 1;
@@ -153,7 +153,7 @@ public class SettingsView extends AbstractView implements Screen {
         txtNumberOfPlayers = new Label("" + numberOfPlayers, skin);
         txtNumberOfRounds = new Label("" + numberOfRounds, skin);
         txtRoundTime = new Label("" + roundTime + ":00", skin);
-        txtTeams = new Label("" + teamNames[0], skin);
+        txtTeams = new Label("" + teamNames[0].getName(), skin);
         txtPlayer = new Label("" + currentPlayer, skin);
 
         buttonMainMenu = new TextButton("To Main Menu", skin);
@@ -201,11 +201,11 @@ public class SettingsView extends AbstractView implements Screen {
     }
 
     //Returns the team names from the Team enum
-    private String[] getTeamNames(){
-        String[] s = new String[Team.values().length];
+    private Team[] getTeamNames(){
+        Team[] s = new Team[Team.values().length];
         int i  = 0;
         for (Team t : Team.values()){
-            s[i] = t.getName();
+            s[i] = t;
             i++;
 
         }
@@ -288,14 +288,14 @@ public class SettingsView extends AbstractView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //Check if the current player's team is the first in the teamNames array.
-                if (Arrays.asList(teamNames).indexOf(players.get(currentPlayer-1)) == 0){
+                if (Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) == 0){
                     //set the current player's team to be the last in the teamNames array
-                    players.set(currentPlayer - 1, teamNames[teamNames.length - 1]);
+                    teams.set(currentPlayer - 1, teamNames[teamNames.length - 1]);
                 }
                 else{
-                    players.set(currentPlayer - 1, teamNames[Arrays.asList(teamNames).indexOf(players.get(currentPlayer-1)) - 1]);
+                    teams.set(currentPlayer - 1, teamNames[Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) - 1]);
                 }
-                txtTeams.setText(players.get(currentPlayer - 1).toString());
+                txtTeams.setText(teams.get(currentPlayer - 1).getName());
             }
         });
 
@@ -303,13 +303,13 @@ public class SettingsView extends AbstractView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //Just the opposite of the corresponding left arrow
-                if (Arrays.asList(teamNames).indexOf(players.get(currentPlayer-1)) == teamNames.length - 1){
-                    players.set(currentPlayer - 1, teamNames[0]);
+                if (Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) == teamNames.length - 1){
+                    teams.set(currentPlayer - 1, teamNames[0]);
                 }
                 else{
-                    players.set(currentPlayer - 1, teamNames[Arrays.asList(teamNames).indexOf(players.get(currentPlayer-1)) + 1]);
+                    teams.set(currentPlayer - 1, teamNames[Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) + 1]);
                 }
-                txtTeams.setText(players.get(currentPlayer - 1).toString());
+                txtTeams.setText(teams.get(currentPlayer - 1).getName());
             }
         });
 
@@ -323,7 +323,7 @@ public class SettingsView extends AbstractView implements Screen {
                     currentPlayer--;
                 }
                 txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(players.get(currentPlayer - 1).toString());
+                txtTeams.setText(teams.get(currentPlayer - 1).toString());
 
             }
         });
@@ -337,7 +337,7 @@ public class SettingsView extends AbstractView implements Screen {
                     currentPlayer++;
                 }
                 txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(players.get(currentPlayer - 1).toString());
+                txtTeams.setText(teams.get(currentPlayer - 1).toString());
             }
         });
 
