@@ -22,10 +22,6 @@ public class PowerThread extends Thread {
     // used to decide whether to move or not
     private boolean heldDown;
 
-    // holds the power of which the bullet is to be fired
-    // ranges from 0.0 to 100.0
-    private float power;
-
     // decides if power is to be increased or decreased
     private boolean countUp;
 
@@ -38,11 +34,7 @@ public class PowerThread extends Thread {
     }
 
     public void run() {
-        System.out.println("PowerThread started.");
-
-
-
-
+        //System.out.println("PowerThread started.");
 
         // should run until killThread() is called
         while (blinker) {
@@ -73,8 +65,6 @@ public class PowerThread extends Thread {
                             vehicle.setPower(vehicle.getPower() - 1.0f);
                         }
 
-                        System.out.println("Power: " + Float.toString(power));
-
                         // cause the thread to halt for 25 ms to prevent to rapid fluctuation
                         sleep(25);
 
@@ -95,7 +85,7 @@ public class PowerThread extends Thread {
 
 
 
-        System.out.println("PowerThread died.");
+        //System.out.println("PowerThread died.");
     }
 
     // enables the if-clause in run() and starts fluctuation

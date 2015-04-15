@@ -341,5 +341,33 @@ public class GameView extends AbstractView implements Screen, Observer{
         arg.toString();
     }
 
+    public void setIsFiring(boolean isFiring) {
+        this.isFiring = isFiring;
+
+        System.out.println("isFiring set to " + Boolean.toString(isFiring));
+
+        if (isFiring == true) {
+            suspendButtons();
+        }
+        else {
+            resumeButtons();
+        }
+    }
+
+    public void suspendButtons() {
+        buttonAmmo.setVisible(false);
+        buttonStore.setVisible(false);
+        buttonFire.setVisible(false);
+        arrowLeft.setVisible(false);
+        arrowRight.setVisible(false);
+    }
+
+    public void resumeButtons() {
+        buttonAmmo.setVisible(true);
+        buttonStore.setVisible(true);
+        buttonFire.setVisible(true);
+        arrowLeft.setVisible(true);
+        arrowRight.setVisible(true);
+    }
 
 }

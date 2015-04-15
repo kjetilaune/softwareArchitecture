@@ -66,11 +66,13 @@ public class FireThread extends Thread {
                 else {
 
                     ammo.setPosition(null);
-                    view.gameInstance.changePlayer();
+                    view.setIsFiring(false);
 
                     synchronized (view.currentVehicle)  {
                         view.currentVehicle.setPower(0.0f);
                     }
+
+                    view.gameInstance.changePlayer();
 
                     killThread();
                 }
