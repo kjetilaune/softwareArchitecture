@@ -1,6 +1,7 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  * Created by annieaa on 10/03/15.
@@ -14,7 +15,7 @@ public abstract class Ammunition extends GameObject {
     private int weight;
     private int cost;
 
-    private Texture image;
+    private Sprite image;
 
     public Ammunition(String name, Integer initialDamage, Integer clusterCount, Integer blastRadius, Integer weight, Integer cost) {
         this.name = name;
@@ -61,11 +62,11 @@ public abstract class Ammunition extends GameObject {
         this.weight = weight;
     }
 
-    public Texture getImage() {
+    public Sprite getImage() {
         return image;
     }
 
-    public void setImage(Texture image) {
+    public void setImage(Sprite image) {
         this.image = image;
     }
 
