@@ -58,6 +58,10 @@ public abstract class Vehicle extends GameObject {
         return power;
     }
 
+    public void hit(Ammunition ammo) {
+        health -= ammo.getInitialDamage();
+    }
+
     public boolean isColliding(Vector2 point) {
 
         Polygon boundingBox;

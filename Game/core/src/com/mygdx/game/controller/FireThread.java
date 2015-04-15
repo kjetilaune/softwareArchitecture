@@ -4,6 +4,7 @@ import com.mygdx.game.gui.GameView;
 import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Environment;
+import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.Vehicle;
 
@@ -96,18 +97,40 @@ public class FireThread extends Thread {
     }
 
     public boolean hasStopped() {
+
+
+
         if (environment.isColliding(ammo.getPosition())) {
             return true;
         }
-        /*
-        else if (hits tank) {
+
+        else if (hitPlayer() != null) {
+            System.out.println("Vehicle has been hit!");
+
+            hitPlayer().getVehicle().hit(view.currentPlayer.getChosenAmmo());
+
             return true;
         }
+        /*
         else if (to the right, left or below screen) {
             return true;
         }
         */
         return false;
+    }
+
+    // returns the player hit by the bullet, if null then no tank has hit
+    private Player hitPlayer() {
+
+        Player hit = null;
+
+        for (Player p : view.gameInstance.getPlayers()) {
+            if (p != view.currentPlayer && p.getVehicle().isColliding(ammo.getPosition())) {
+                hit = p;
+            }
+        }
+
+        return hit;
     }
 
     // calling this ends the while-loop in run(), stopping the thread from doing anything
