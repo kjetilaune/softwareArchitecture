@@ -38,6 +38,8 @@ public class Inventory {
         ammunitions.add(Store.getAmmunition("Instakill"));
         ammoAmount.add(1);
 
+
+
     }
 
     public int getScore() {
@@ -61,6 +63,7 @@ public class Inventory {
     }
 
     public void increaseAmmo(Ammunition ammo, int amount) {
+
         if (!ammunitions.contains(ammo)) {
             ammunitions.add(ammo);
             ammoAmount.add(amount);
@@ -68,8 +71,7 @@ public class Inventory {
         else {
             int ammoIndex = ammunitions.indexOf(ammo);
             int currentAmount = ammoAmount.get(ammoIndex);
-            ammunitions.remove(ammoIndex);
-            ammoAmount.add(ammoIndex, currentAmount + amount);
+            ammoAmount.set(ammoIndex, currentAmount + amount);
         }
     }
 
@@ -143,7 +145,7 @@ public class Inventory {
 
     public int getAmmoLeft(String ammoName) {
 
-        for (int i = 0 ; i < ammunitions.size() -1 ; i++) {
+        for (int i = 0 ; i < ammunitions.size(); i++) {
             if (ammoName.equals(ammunitions.get(i).getName())) {
                 return ammoAmount.get(i);
             }
