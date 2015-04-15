@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class Game extends AbstractModel {
 
-    private Player player1, player2, currentPlayer;
+    private Player currentPlayer;
     private ArrayList<Player> players;
     private Environment environment;
     private Store store;
@@ -51,7 +51,6 @@ public class Game extends AbstractModel {
         else if (no == 1) {
             return new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
         }
-
         return null;
     }
 
@@ -59,28 +58,35 @@ public class Game extends AbstractModel {
     public void changePlayer() {
 
         int nextPlayer = -1;
-
         for (int i = 0 ; i < players.size() ; i ++) {
             if (players.get(i) == currentPlayer) {
                 nextPlayer = i+1;
-
                 if (i == players.size()-1) {
                     nextPlayer = 0;
                 }
             }
         }
-
         currentPlayer = players.get(nextPlayer);
     }
 
 
     public Player hasWinner() {
 
-        /*for (Player p : players) {
-            if (p.getVehicle().getHealth() <= 0) {
+        ArrayList<Player> alive = new ArrayList<Player>();
+        ArrayList<Player> dead = new ArrayList<Player>();
 
+        for (Player p : players) {
+            if (p.getVehicle().getHealth() <= 0) {
+                dead.add(p);
             }
-        }*/
+            else {
+               alive.add(p);
+            }
+        }
+
+        if (alive.size() == 1 && dead.size() > 0) {
+            return alive.get(0);
+        }
 
         return null;
     }
