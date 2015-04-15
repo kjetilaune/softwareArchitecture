@@ -12,7 +12,7 @@ public class Inventory {
     private ArrayList<Ammunition> ammunitions;
     private ArrayList<Integer> ammoAmount;
 
-    // Maps name of the Ammunition to the inventory amount
+    // Maps name of the upgrades to the inventory amount
     private HashMap<String, Integer> upgrades;
 
     // keeps track of the player's score

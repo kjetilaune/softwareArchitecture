@@ -53,10 +53,12 @@ public class FireController extends AbstractController implements EventListener{
             // kills the power-fluctuation-thread
             powerThread.killThread();
 
-            System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
-            view.isFiring = true;
+            //System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
+
             view.currentPlayer.getChosenAmmo().setPosition(((Tank) view.currentVehicle).getBarrel().getTipOfBarrel());
+            view.setIsFiring(true);
             fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
+
         }
 
         else if (event.toString().equals("enter")) {
