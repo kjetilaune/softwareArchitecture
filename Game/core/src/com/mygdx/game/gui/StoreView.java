@@ -205,7 +205,7 @@ public class StoreView implements Screen{
     }
 
     private Sprite getCurrentSprite(){
-        System.out.println("Sprite" + currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName()));
+        //System.out.println("Sprite" + currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName()));
         return currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
     }
 
