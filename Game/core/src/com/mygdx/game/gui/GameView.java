@@ -36,6 +36,8 @@ import com.mygdx.game.controller.AmmoChangeController;
 import com.mygdx.game.controller.AngleController;
 import com.mygdx.game.controller.FireController;
 import com.mygdx.game.controller.MovementController;
+import com.mygdx.game.model.AmmoTypes.Bullet;
+import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Enums.Team;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
@@ -94,6 +96,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     Label labelChosenAmmo;
     Label labelLeftAmmo;
     Label labelHealthLeft;
+    Label labelPower;
 
 
     public GameView(MyGdxGame game, Game gameInstance){
@@ -180,19 +183,23 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
 
+
+
         menuSkin.getFont("font").setScale(1.2f);
         labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), menuSkin);
         menuSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), menuSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), menuSkin);
         labelHealthLeft = new Label("Health left: " + currentPlayer.getHealth(), menuSkin);
+        labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), menuSkin);
 
         groupTop.left().top();
         groupTop.defaults();
-        groupTop.add(labelCurrentPlayer).padBottom(10).padTop(10).row();
-        groupTop.add(labelChosenAmmo).padLeft(40);
-        groupTop.add(labelLeftAmmo).padLeft(40);
-        groupTop.add(labelHealthLeft).padLeft(40);
+        groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX().row();
+        groupTop.add(labelChosenAmmo).padLeft(10).fillX();
+        groupTop.add(labelLeftAmmo).padLeft(40).fillX();
+        groupTop.add(labelHealthLeft).padLeft(40).fillX();
+        groupTop.add(labelPower).padLeft(40).fillX();
         groupTop.setFillParent(true);
 
         groupBottom.bottom();
@@ -233,8 +240,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         // draw the ground using the set environment
         generateGround();
 
+
         // draws the sprites, ex vehicles etc.
         batch.begin();
+        batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         for (Player p : players) {
             batch.draw(new TextureRegion(((Tank)p.getVehicle()).getBarrel().getTexture()), ((Tank)p.getVehicle()).getBarrel().getPosition().x, ((Tank)p.getVehicle()).getBarrel().getPosition().y, 0, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight()/2, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getWidth(), (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight(), 1, 1, ((Tank)p.getVehicle()).getBarrel().getRotation() + ((Tank)p.getVehicle()).getBarrel().getAngle());
@@ -294,6 +303,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
         labelHealthLeft.setText("Health left: " + currentPlayer.getHealth());
+        labelPower.setText("Power: " + currentPlayer.getVehicle().getPower());
 
     }
 
