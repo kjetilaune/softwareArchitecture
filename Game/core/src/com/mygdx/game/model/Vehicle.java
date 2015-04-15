@@ -94,7 +94,7 @@ public abstract class Vehicle extends GameObject {
         float heightX = leftX;
         float heightY = leftY + getTexture().getHeight();
 
-        return rotatePoint(new Vector2(leftX, leftY), new Vector2(heightX, heightY), getRotation()).y - leftY;
+        return Math.abs(rotatePoint(new Vector2(leftX, leftY), new Vector2(heightX, heightY), getRotation()).y - leftY);
     }
 
     public float getRelativeWidth() {
@@ -104,7 +104,7 @@ public abstract class Vehicle extends GameObject {
         float widthX = leftX + getTexture().getWidth();
         float widthY = getPosition().y;
 
-        return rotatePoint(new Vector2(leftX, leftY), new Vector2(widthX, widthY), getRotation()).x - leftX;
+        return Math.abs(rotatePoint(new Vector2(leftX, leftY), new Vector2(widthX, widthY), getRotation()).x - leftX);
     }
 
 
