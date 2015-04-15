@@ -63,8 +63,9 @@ public class GameView extends AbstractView implements Screen, Observer{
     private SpriteBatch batch; // to draw sprites: ex. tanks and barrels
 
     private Table groupTop;
-    private HorizontalGroup groupBottom; // the button at the bottom: fire, change ammmo etc
-    private HorizontalGroup groupRight;
+    private Table groupBottom; // the button at the bottom: fire, change ammmo etc
+    private Table groupRight;
+    private Table groupLeft;
 
     // for menu and buttons
     private Skin menuSkin;
@@ -120,8 +121,9 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         // instantiate menu stuff
         groupTop  = new Table();
-        groupBottom = new HorizontalGroup();
-        groupRight = new HorizontalGroup();
+        groupBottom = new Table();
+        groupRight = new Table();
+        groupLeft = new Table();
 
         menuSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
         menuSkin.getFont("font").scale(1);
@@ -203,21 +205,25 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupTop.setFillParent(true);
 
         groupBottom.bottom();
-        groupBottom.addActor(buttonAmmo);
-        groupBottom.addActor(buttonFire);
-        groupBottom.addActor(buttonStore);
+        groupBottom.add(buttonFire);
 
-        groupRight.bottom();
-        groupRight.padLeft(1500);
-        groupRight.addActor(arrowLeft);
-        groupRight.addActor(arrowRight);
+
+        groupLeft.bottom().left();
+        groupLeft.add(arrowLeft);
+        groupLeft.add(arrowRight);
+
+        groupRight.bottom().right();
+        groupRight.add(buttonAmmo);
+        groupRight.add(buttonStore);
 
         groupBottom.setFillParent(true);
         groupRight.setFillParent(true);
+        groupLeft.setFillParent(true);
 
         stage.addActor(groupTop);
         stage.addActor(groupBottom);
         stage.addActor(groupRight);
+        stage.addActor(groupLeft);
 
 
 
