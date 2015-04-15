@@ -20,7 +20,8 @@ public abstract class GameObject extends Observable{
     private Texture texture;
 
     public GameObject() {
-        position = new Vector2();
+        //position = new Vector2();
+        position = null;
         dimension = new Vector2(1, 1);
         origin = new Vector2();
         scale = new Vector2(1, 1);

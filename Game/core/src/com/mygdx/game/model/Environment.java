@@ -47,7 +47,7 @@ public class Environment {
         //hillStartY = 500;
         //hillStartY = (140 + Math.random() * 200);
 
-        hillStartY = (Gdx.graphics.getHeight()/3 + Math.random() * Gdx.graphics.getHeight()/3);
+        hillStartY = (Gdx.graphics.getHeight()/4 + Math.random() * Gdx.graphics.getHeight()/3);
         hillWidth = Gdx.graphics.getWidth() / numberOfHills;
         numberOfSlices = (int)Math.round(hillWidth / pixelStep); // this really is number of polygon slices per hill
 
@@ -71,26 +71,26 @@ public class Environment {
         return false;
     }
 
-    public boolean collide(Vector2 point) {
+    public void collide(Vector2 point) {
 
 
         if (isColliding(point)) {
 
             int collisionIndex = -1;
 
+            // get the polygon that collides
             for (int i = 0 ; i < polygons.size() ; i++) {
-
                 if (polygons.get(i).contains(point.x, point.y)) {
-                    return true;
+                    collisionIndex = i;
                 }
-
             }
+
+
 
 
         }
 
 
-        return false;
 
     }
 
