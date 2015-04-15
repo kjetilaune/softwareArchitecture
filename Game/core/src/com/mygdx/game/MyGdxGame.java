@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,11 +18,14 @@ public class MyGdxGame extends Game implements ApplicationListener{
 
 	SpriteBatch batch;
 	Texture img;
+    public Music introSong;
     public static int HEIGHT, WIDTH;
 
 
 	@Override
 	public void create () {
+
+        introSong = Gdx.audio.newMusic(Gdx.files.internal("Music/introSong.mp3"));
 
         HEIGHT = Gdx.graphics.getHeight();
         WIDTH = Gdx.graphics.getWidth();

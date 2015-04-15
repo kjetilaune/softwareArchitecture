@@ -2,6 +2,7 @@ package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -41,6 +42,7 @@ public class MainMenu implements Screen {
     private SpriteBatch batch;
 
     private int clock;
+    //public Music introSong;
 
 
     public MainMenu(MyGdxGame game, int clock) {
@@ -53,6 +55,7 @@ public class MainMenu implements Screen {
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
 
+        //introSong = Gdx.audio.newMusic(Gdx.files.internal("Music/introSong.mp3"));
 
 
         buttonNewGame = new TextButton("New Game", skin);
@@ -66,6 +69,11 @@ public class MainMenu implements Screen {
 
         batch = new SpriteBatch();
         this.clock = clock;
+
+        if (clock == 0) {
+            game.introSong.play();
+            game.introSong.setLooping(true);
+        }
 
     }
 
@@ -132,6 +140,7 @@ public class MainMenu implements Screen {
 
         table.setFillParent(true);
         stage.addActor(table);
+
 
         Gdx.input.setInputProcessor(stage);
 

@@ -2,6 +2,7 @@ package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -96,6 +97,7 @@ public class SettingsView extends AbstractView implements Screen {
         //Makes a scroll pane to support scrolling
         scroll = new ScrollPane(table);
 
+
         //Buttons
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
         arrowLeft = new ImageButton(arrowLeftSkin);
@@ -118,7 +120,6 @@ public class SettingsView extends AbstractView implements Screen {
         arrowLeftPlayer.setName("arrowLeftPlayer");
         arrowRightPlayer = new ImageButton(arrowRightSkin);
         arrowRightPlayer.setName("arrowRightPlayer");
-
 
 
         //Get an array of team names

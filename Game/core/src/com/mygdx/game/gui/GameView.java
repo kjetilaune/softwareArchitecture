@@ -106,6 +106,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     public GameView(MyGdxGame game, Game gameInstance){
 
         this.game = game; // the application launcher
+        game.introSong.stop();
 
         // store the needed variables
         this.gameInstance = gameInstance; // the current game
