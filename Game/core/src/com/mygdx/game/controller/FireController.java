@@ -45,8 +45,10 @@ public class FireController extends AbstractController implements EventListener{
     public boolean handle (Event event){
 
         if (event.toString().equals("touchDown")) {
+
             fireThread = new FireThread();
             powerThread = new PowerThread();
+
         }
         else if (event.toString().equals("touchUp")) {
 
@@ -70,6 +72,7 @@ public class FireController extends AbstractController implements EventListener{
             // end/halt power-fluctuation
             powerThread.endFluctuation();
         }
+
 
         // has to return something
         return true;

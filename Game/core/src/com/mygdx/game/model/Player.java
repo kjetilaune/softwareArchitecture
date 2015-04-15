@@ -55,6 +55,10 @@ public class Player {
         return chosenAmmo;
     }
 
+    public int getChosenAmmoAmount() {
+        return inventory.getAmmoLeft(chosenAmmo.getName());
+    }
+
     public void setChosenAmmo(Ammunition chosenAmmo) {
         this.chosenAmmo = chosenAmmo;
     }
