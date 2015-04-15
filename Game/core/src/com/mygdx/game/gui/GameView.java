@@ -192,7 +192,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         menuSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), menuSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), menuSkin);
-        labelHealthLeft = new Label("Health left: " + currentPlayer.getHealth(), menuSkin);
+        labelHealthLeft = new Label("Health left: " + currentPlayer.getVehicle().getHealth(), menuSkin);
         labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), menuSkin);
 
         groupTop.left().top();
@@ -308,7 +308,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelCurrentPlayer.setText(currentPlayer.getTeam().getName());
         labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
-        labelHealthLeft.setText("Health left: " + currentPlayer.getHealth());
+        labelHealthLeft.setText("Health left: " + currentPlayer.getVehicle().getHealth());
         labelPower.setText("Power: " + currentPlayer.getVehicle().getPower());
 
     }
