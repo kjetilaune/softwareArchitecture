@@ -46,6 +46,7 @@ import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.TextureManager;
 import com.mygdx.game.model.Vehicle;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -79,6 +80,8 @@ public class GameView extends AbstractView implements Screen, Observer{
     private TextButton buttonStore;
     private ImageButton arrowLeft;
     private ImageButton arrowRight;
+
+    private BitmapFont font;
 
     public Game gameInstance;
     public Environment environment; // the current environment of the game
@@ -142,7 +145,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonStore = new TextButton("Store", menuSkin);
         buttonStore.setName("Store");
 
-
+        font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
         setupCamera(); // set up the camera
 
@@ -253,6 +256,8 @@ public class GameView extends AbstractView implements Screen, Observer{
         for (Player p : players) {
             batch.draw(new TextureRegion(((Tank)p.getVehicle()).getBarrel().getTexture()), ((Tank)p.getVehicle()).getBarrel().getPosition().x, ((Tank)p.getVehicle()).getBarrel().getPosition().y, 0, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight()/2, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getWidth(), (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight(), 1, 1, ((Tank)p.getVehicle()).getBarrel().getRotation() + ((Tank)p.getVehicle()).getBarrel().getAngle());
             batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
+            font.setColor(Color.BLACK);
+            font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
         }
 
 
