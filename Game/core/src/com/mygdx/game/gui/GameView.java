@@ -129,9 +129,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         menuSkin.getFont("font").scale(1);
         buttonMainMenu = new TextButton("To Main Menu", menuSkin);
         fireSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
-        fireSkin.getFont("font").scale(2);
+        fireSkin.getFont("font").scale(1);
+        fireSkin.getFont("font").setScale(2);
         buttonFire = new TextButton("Fire", fireSkin);
-
         buttonAmmo = new TextButton("Ammo", menuSkin);
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
         arrowLeft = new ImageButton(arrowLeftSkin);
@@ -208,12 +208,12 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         groupLeft.bottom().left();
-        groupLeft.add(arrowLeft);
-        groupLeft.add(arrowRight);
+        groupLeft.add(arrowLeft).padLeft(20).padBottom(20);
+        groupLeft.add(arrowRight).padLeft(20).padBottom(20);
 
         groupRight.bottom().right();
-        groupRight.add(buttonAmmo);
-        groupRight.add(buttonStore);
+        groupRight.add(buttonAmmo).padBottom(20);
+        groupRight.add(buttonStore).padBottom(20);
 
         groupBottom.setFillParent(true);
         groupRight.setFillParent(true);
