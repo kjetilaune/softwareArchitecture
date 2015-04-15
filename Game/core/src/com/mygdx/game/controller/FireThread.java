@@ -127,7 +127,7 @@ public class FireThread extends Thread {
         Player hit = null;
 
         for (Player p : view.gameInstance.getPlayers()) {
-            if (p != view.currentPlayer && p.getVehicle().isColliding(ammo.getPosition())) {
+            if (p.getVehicle().isColliding(ammo.getPosition())) {
                 hit = p;
             }
         }
