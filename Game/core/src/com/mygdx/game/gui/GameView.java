@@ -70,7 +70,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     // for menu and buttons
     private Skin menuSkin;
     private Skin fireSkin;
-    private Skin ammoSkin;
+
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
     private TextButton buttonMainMenu;
@@ -125,22 +125,21 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupRight = new Table();
         groupLeft = new Table();
 
-        menuSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
+        menuSkin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         menuSkin.getFont("font").scale(1);
         buttonMainMenu = new TextButton("To Main Menu", menuSkin);
         fireSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
-        fireSkin.getFont("font").scale(1);
+        fireSkin.getFont("font").scale(2);
         buttonFire = new TextButton("Fire", fireSkin);
-        ammoSkin = new Skin(Gdx.files.internal("skins/ammo.json"), new TextureAtlas(Gdx.files.internal("skins/ammo.pack")));
-        ammoSkin.getFont("font").scale(1);
-        buttonAmmo = new TextButton("Ammo", ammoSkin);
+
+        buttonAmmo = new TextButton("Ammo", menuSkin);
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
         arrowLeft = new ImageButton(arrowLeftSkin);
         arrowLeft.setName("arrowLeft");
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
         arrowRight = new ImageButton(arrowRightSkin);
         arrowRight.setName("arrowRight");
-        buttonStore = new TextButton("Store", ammoSkin);
+        buttonStore = new TextButton("Store", menuSkin);
         buttonStore.setName("Store");
 
 
@@ -187,13 +186,13 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
 
-        menuSkin.getFont("font").setScale(1.2f);
-        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), menuSkin);
-        menuSkin.getFont("font").setScale(1f);
-        labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), menuSkin);
-        labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), menuSkin);
-        labelHealthLeft = new Label("Health left: " + currentPlayer.getVehicle().getHealth(), menuSkin);
-        labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), menuSkin);
+        fireSkin.getFont("font").setScale(1.2f);
+        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), fireSkin);
+        fireSkin.getFont("font").setScale(1f);
+        labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
+        labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
+        labelHealthLeft = new Label("Health left: " + currentPlayer.getVehicle().getHealth(), fireSkin);
+        labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), fireSkin);
 
         groupTop.left().top();
         groupTop.defaults();
