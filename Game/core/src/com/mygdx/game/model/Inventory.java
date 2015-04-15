@@ -32,7 +32,7 @@ public class Inventory {
 
         // set default ammunition
         ammunitions.add(Store.getAmmunition("Bullet"));
-        ammoAmount.add(50);
+        ammoAmount.add(15);
         ammunitions.add(Store.getAmmunition("F-Bomb"));
         ammoAmount.add(5);
         ammunitions.add(Store.getAmmunition("Instakill"));
@@ -89,8 +89,7 @@ public class Inventory {
             return false;
         }
 
-        ammunitions.remove(ammoIndex);
-        ammoAmount.add(ammoIndex, currentAmount - amount);
+        ammoAmount.set(ammoIndex, currentAmount - amount);
         return true;
     }
 
