@@ -31,9 +31,6 @@ public class FireController extends AbstractController implements EventListener{
     // the thread used for continuous movement
     private PowerThread powerThread;
 
-    // the laws of physics to determine the trajectory of a bullet
-    private BulletPhysics physics;
-
     public FireController(AbstractView view){
         super(view);
         this.view = (GameView)view;
@@ -50,7 +47,6 @@ public class FireController extends AbstractController implements EventListener{
         if (event.toString().equals("touchDown")) {
             fireThread = new FireThread();
             powerThread = new PowerThread();
-            physics = new BulletPhysics(((Tank)view.currentVehicle).getBarrel().getAngle());
         }
         else if (event.toString().equals("touchUp")) {
 
@@ -60,14 +56,12 @@ public class FireController extends AbstractController implements EventListener{
             System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
             view.isFiring = true;
             view.currentPlayer.getChosenAmmo().setPosition(((Tank) view.currentVehicle).getBarrel().getTipOfBarrel());
-            fireThread.fire(view, physics, view.currentPlayer.getChosenAmmo(), view.environment);
-
-
-
+            fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
         }
+
         else if (event.toString().equals("enter")) {
             // start/continue power-fluctuation
-            powerThread.initiateFluctuation(physics);
+            powerThread.initiateFluctuation(view.currentVehicle);
         }
 
         else if (event.toString().equals("exit")) {

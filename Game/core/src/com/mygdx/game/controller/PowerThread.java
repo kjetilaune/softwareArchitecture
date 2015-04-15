@@ -29,7 +29,8 @@ public class PowerThread extends Thread {
     // decides if power is to be increased or decreased
     private boolean countUp;
 
-    private BulletPhysics physics;
+    // the vehicle which power is changed in this thread
+    private Vehicle vehicle;
 
     public PowerThread() {
         blinker = true;
@@ -50,8 +51,8 @@ public class PowerThread extends Thread {
                 if (heldDown) {
 
                     // unsure about the necessity of synchronized
-                    // enables only this thread to have access to the *** during fluctuation
-                    synchronized (physics) {
+                    // enables only this thread to have access to the vehicle during fluctuation
+                    synchronized (vehicle) {
 
                         // decides if fluctuation should change direction
                         if (power == 100) {
@@ -64,10 +65,10 @@ public class PowerThread extends Thread {
 
                         // fluctuates the power
                         if (countUp) {
-                            physics.setPower(physics.getPower() + 1);
+                            vehicle.setPower(vehicle.getPower() + 1);
                         }
                         else {
-                            physics.setPower(physics.getPower() - 1);
+                            vehicle.setPower(vehicle.getPower() - 1);
                         }
 
                         System.out.println("Power: " + Integer.toString(power));
@@ -94,8 +95,8 @@ public class PowerThread extends Thread {
     }
 
     // enables the if-clause in run() and starts fluctuation
-    public void initiateFluctuation(BulletPhysics physics) {
-        this.physics = physics;
+    public void initiateFluctuation(Vehicle vehicle) {
+        this.vehicle = vehicle;
         heldDown = true;
     }
 

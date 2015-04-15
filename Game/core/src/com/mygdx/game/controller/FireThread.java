@@ -23,10 +23,10 @@ public class FireThread extends Thread {
     // holds the environment to move according to
     private Environment environment;
 
-    //
+    // step in animation
     private float step;
 
-    //
+    // the laws of physics to determine the trajectory of a bullet
     private BulletPhysics physics;
 
 
@@ -77,9 +77,9 @@ public class FireThread extends Thread {
 
 
     // sets information about how firing should be done and start firing
-    public void fire(GameView view, BulletPhysics physics, Ammunition ammo, Environment environment) {
-        this.physics = physics;
-        this.physics.startPosition = ammo.getPosition();
+    public void fire(GameView view, Ammunition ammo, Environment environment) {
+        physics = new BulletPhysics(((Tank)view.currentVehicle).getBarrel().getAngle(), view.currentVehicle.getPower());
+        physics.startPosition = ammo.getPosition();
         this.ammo = ammo;
         this.environment = environment;
         this.view = view;
