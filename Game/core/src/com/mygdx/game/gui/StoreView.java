@@ -146,12 +146,14 @@ public class StoreView implements Screen{
 
         batch = new SpriteBatch();
 
+
     }
 
     public void show (){
         back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("AMMOSIZE" + ammos.size());
                 //game.setScreen(new MainMenu(game, 100));
                 if (currentPlayer == players.get(players.size()-2)){
                     currentPlayer = players.get(players.size()-1);
@@ -173,9 +175,9 @@ public class StoreView implements Screen{
         arrowLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("AMMOSIZE" + ammos.size());
                 if (ammos.indexOf(currentAmmo) == 0){
                     currentAmmo = ammos.get(ammos.size() - 1);
-
                 }
                 else{
                     currentAmmo = ammos.get(ammos.indexOf(currentAmmo) - 1);
@@ -188,6 +190,7 @@ public class StoreView implements Screen{
         arrowRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("AMMOSIZE" + ammos.size());
                 if (ammos.indexOf(currentAmmo) == ammos.size()-1){
                     currentAmmo = ammos.get(0);
                 }
