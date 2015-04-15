@@ -74,7 +74,6 @@ public class Game extends AbstractModel {
     }
 
 
-
     public Player hasWinner() {
 
         /*for (Player p : players) {

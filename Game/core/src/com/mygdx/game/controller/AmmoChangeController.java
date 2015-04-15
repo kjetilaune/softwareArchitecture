@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.gui.AbstractView;
+import com.mygdx.game.gui.GameView;
 
 import java.beans.PropertyChangeEvent;
 
@@ -15,9 +16,11 @@ import java.beans.PropertyChangeEvent;
  */
 public class AmmoChangeController extends AbstractController implements EventListener{
 
+    private GameView view;
 
     public AmmoChangeController(AbstractView view){
         super(view);
+        this.view = (GameView)view;
     }
 
     @Override
@@ -25,26 +28,16 @@ public class AmmoChangeController extends AbstractController implements EventLis
 
     }
 
-    public void touchUp(InputEvent event, float x, float y,
-                        int pointer, int button) {
-        boolean touchdown=true;
+    public void touchUp(InputEvent event) {
 
-        //do your stuff
-        //it will work when finger is released..
-        System.out.println("Change ammunition");
+        view.currentPlayer.changeAmmo();
 
     }
 
-    public boolean touchDown(InputEvent event, float x, float y,
-                             int pointer, int button) {
-        boolean touchdown=false;
-        //do your stuff it will work when u touched your actor
-        return true;
-    }
     public boolean handle (Event event){
 
         if (event.toString() == "touchUp"){
-            touchUp((InputEvent)event, event.getTarget().getX(), event.getTarget().getY(), 0, 0);
+            touchUp((InputEvent)event);
         }
         return true;
     }
