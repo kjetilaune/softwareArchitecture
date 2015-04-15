@@ -23,8 +23,8 @@ public class PowerThread extends Thread {
     private boolean heldDown;
 
     // holds the power of which the bullet is to be fired
-    // ranges from 0 to 100
-    private int power;
+    // ranges from 0.0 to 100.0
+    private float power;
 
     // decides if power is to be increased or decreased
     private boolean countUp;
@@ -40,7 +40,9 @@ public class PowerThread extends Thread {
     public void run() {
         System.out.println("PowerThread started.");
 
-        power = 0;
+
+
+
 
         // should run until killThread() is called
         while (blinker) {
@@ -55,25 +57,25 @@ public class PowerThread extends Thread {
                     synchronized (vehicle) {
 
                         // decides if fluctuation should change direction
-                        if (power == 100) {
+                        if (vehicle.getPower() >= 100.0f) {
                             countUp = false;
                         }
-                        else if (power == 0) {
+                        else if (vehicle.getPower() <= 0.0f) {
                             countUp = true;
                         }
 
 
                         // fluctuates the power
                         if (countUp) {
-                            vehicle.setPower(vehicle.getPower() + 1);
+                            vehicle.setPower(vehicle.getPower() + 1.0f);
                         }
                         else {
-                            vehicle.setPower(vehicle.getPower() - 1);
+                            vehicle.setPower(vehicle.getPower() - 1.0f);
                         }
 
-                        System.out.println("Power: " + Integer.toString(power));
+                        System.out.println("Power: " + Float.toString(power));
 
-                        // cause the thread to halt for 50 ms to prevent to rapid fluctuation
+                        // cause the thread to halt for 25 ms to prevent to rapid fluctuation
                         sleep(25);
 
                     }
@@ -90,6 +92,8 @@ public class PowerThread extends Thread {
                 System.err.println("Error in PowerThread: " + e.getMessage());
             }
         }
+
+
 
         System.out.println("PowerThread died.");
     }

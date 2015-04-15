@@ -21,14 +21,15 @@ public class BulletPhysics {
     public float gravity = -0.9f;
     public Vector2 position = new Vector2();
 
-    public BulletPhysics(double angle, int power) {
+    public BulletPhysics(double angle, float power) {
         setStartDirection(angle);
         speed(power);
         initialSpeed();
     }
 
-    public float speed(int power){
-        speed = power * weight;
+    public float speed(float power){
+        // divided by 2 to match other calculations
+        speed = (power/2.0f) * weight;
         return speed;
     }
 

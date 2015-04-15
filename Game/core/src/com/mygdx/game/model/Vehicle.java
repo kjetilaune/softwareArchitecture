@@ -11,7 +11,7 @@ public abstract class Vehicle extends GameObject {
 
     private int health;
     private int fuel;
-    private int power;
+    private float power;
     private Location vehicleLocation;
 
 
@@ -39,12 +39,19 @@ public abstract class Vehicle extends GameObject {
     }
 
 
-    public void setPower(int power) {
-        // divided by 2 to match other calculations
-        this.power = power/2;
+    public void setPower(float power) {
+        if (power > 100.0f) {
+            this.power = 100.0f;
+        }
+        else if (power < 0.0f) {
+            this.power = 0.0f;
+        }
+        else {
+            this.power = power;
+        }
     }
 
-    public int getPower() {
+    public float getPower() {
         return power;
     }
 
