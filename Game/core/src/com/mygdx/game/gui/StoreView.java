@@ -18,9 +18,12 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.Store;
 import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Eplemaskin on 14/04/15.
@@ -29,8 +32,13 @@ public class StoreView implements Screen{
     private MyGdxGame game;
     private Game gameInstance;
     private Player currentPlayer;
+
     private ArrayList<Player> players;
     private ArrayList<Ammunition> ammos;
+    private ArrayList<String> ammoNames;
+
+    private HashMap<String, Ammunition> allAmmunition;
+
     private Ammunition currentAmmo;
     private int numberOfPlayers;
 
@@ -58,8 +66,16 @@ public class StoreView implements Screen{
         this.players = gameInstance.getPlayers();
         this.currentPlayer = players.get(0);
         numberOfPlayers = players.size();
-        ammos = currentPlayer.getInventory().getAmmunitions();
-        currentAmmo = currentPlayer.getChosenAmmo();
+        allAmmunition = Store.getInstance().getAllAmmunition();
+        for (Map.Entry<String, Ammunition> entry : allAmmunition.entrySet())
+        {
+            //System.out.println(entry.getKey() + "/" + entry.getValue().getName());
+            ammos.add(entry.getValue());
+            ammoNames.add(entry.getKey());
+        }
+        //ammos = currentPlayer.getInventory().getAmmunitions();
+        //currentAmmo = currentPlayer.getChosenAmmo();
+        currentAmmo = ammos.get(0);
 
         //GUI
         stage = new Stage();
@@ -147,6 +163,8 @@ public class StoreView implements Screen{
         batch = new SpriteBatch();
 
 
+
+
     }
 
     public void show (){
@@ -157,6 +175,7 @@ public class StoreView implements Screen{
                 //game.setScreen(new MainMenu(game, 100));
                 if (currentPlayer == players.get(players.size()-2)){
                     currentPlayer = players.get(players.size()-1);
+                    currentAmmo = ammos.get(0);
                     txtMoney.setText("" + currentPlayer.getMoney());
                     txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
                     back.setText("New round");
@@ -166,6 +185,7 @@ public class StoreView implements Screen{
                 }
                 else{
                     currentPlayer = players.get(players.indexOf(currentPlayer));
+                    currentAmmo = ammos.get(0);
                     txtMoney.setText("" + currentPlayer.getMoney());
                     txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
                 }
@@ -206,7 +226,7 @@ public class StoreView implements Screen{
 
     private Sprite getCurrentSprite(){
         //System.out.println("Sprite" + currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName()));
-        return currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
+        return currentPlayer.getTeam().getAmmunitionSprite(currentAmmo.getName());
     }
 
 
