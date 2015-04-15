@@ -12,7 +12,6 @@ public abstract class Vehicle extends GameObject {
     private int health;
     private int fuel;
     private float power;
-    private Location vehicleLocation;
 
 
     public Vehicle(Texture texture) {
@@ -55,4 +54,8 @@ public abstract class Vehicle extends GameObject {
         return power;
     }
 
+    public boolean isColliding(Vector2 point) {
+        // check if ammo hits tank
+        return true;
+    }
 }

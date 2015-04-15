@@ -44,11 +44,13 @@ public class FireThread extends Thread {
             try {
 
                 // checks if the ammunition has collided with the ground
-                if (!environment.isColliding(ammo.getPosition())) {
+                if (!hasStopped()) {
 
                     // unsure about the necessity of synchronized
                     // enables only this thread to have access to the ammo during fireThread
                     synchronized (ammo) {
+
+                        // NEED A CHECK AND RESPONSE TO THE BULLET GOING ABOVE THE SCREEN
 
                         ammo.setPosition(physics.getPosition(step));
                         //System.out.println("Setting ammo to " + ammo.getPosition().x + ", " + ammo.getPosition().y + " at step " + step);
@@ -93,6 +95,20 @@ public class FireThread extends Thread {
 
     }
 
+    public boolean hasStopped() {
+        if (environment.isColliding(ammo.getPosition())) {
+            return true;
+        }
+        /*
+        else if (hits tank) {
+            return true;
+        }
+        else if (to the right, left or below screen) {
+            return true;
+        }
+        */
+        return false;
+    }
 
     // calling this ends the while-loop in run(), stopping the thread from doing anything
     public void killThread() {
