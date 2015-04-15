@@ -33,7 +33,7 @@ public class MoveThread extends Thread {
     }
 
     public void run() {
-        System.out.println("MoveThread started.");
+        //System.out.println("MoveThread started.");
 
         // should run until killThread() is called
         while (blinker) {
@@ -75,7 +75,7 @@ public class MoveThread extends Thread {
             }
         }
 
-        System.out.println("MoveThread died.");
+        //System.out.println("MoveThread died.");
     }
 
     // enables the if-clause in run() and updates information about how and what to move

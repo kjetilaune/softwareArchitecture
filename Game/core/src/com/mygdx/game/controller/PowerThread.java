@@ -1,6 +1,7 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.TextureManager;
 import com.mygdx.game.model.Vehicle;
@@ -28,6 +29,8 @@ public class PowerThread extends Thread {
     // decides if power is to be increased or decreased
     private boolean countUp;
 
+    private BulletPhysics physics;
+
     public PowerThread() {
         blinker = true;
         this.start();
@@ -48,7 +51,7 @@ public class PowerThread extends Thread {
 
                     // unsure about the necessity of synchronized
                     // enables only this thread to have access to the *** during fluctuation
-                    synchronized ("should be the class that holds power") {
+                    synchronized (physics) {
 
                         // decides if fluctuation should change direction
                         if (power == 100) {
@@ -61,16 +64,16 @@ public class PowerThread extends Thread {
 
                         // fluctuates the power
                         if (countUp) {
-                            power++;
+                            physics.setPower(physics.getPower() + 1);
                         }
                         else {
-                            power--;
+                            physics.setPower(physics.getPower() - 1);
                         }
 
                         System.out.println("Power: " + Integer.toString(power));
 
                         // cause the thread to halt for 50 ms to prevent to rapid fluctuation
-                        sleep(50);
+                        sleep(25);
 
                     }
 
@@ -91,19 +94,14 @@ public class PowerThread extends Thread {
     }
 
     // enables the if-clause in run() and starts fluctuation
-    public void initiateFluctuation() {
+    public void initiateFluctuation(BulletPhysics physics) {
+        this.physics = physics;
         heldDown = true;
     }
 
     // causes the the else-clause in run() to be triggered, effectively ending fluctuation
     public void endFluctuation() {
         heldDown = false;
-    }
-
-    //
-    public int getPower() {
-        killThread();
-        return power;
     }
 
     // calling this ends the while-loop in run(), stopping the thread from doing anything

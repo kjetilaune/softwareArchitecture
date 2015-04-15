@@ -36,7 +36,7 @@ public class FireThread extends Thread {
     }
 
     public void run() {
-        System.out.println("FireThread started.");
+        //System.out.println("FireThread started.");
 
         // should run until killThread() is called
         while (blinker) {
@@ -51,7 +51,7 @@ public class FireThread extends Thread {
                     synchronized (ammo) {
 
                         ammo.setPosition(physics.getPosition(step));
-                        System.out.println("Setting ammo to " + ammo.getPosition().x + ", " + ammo.getPosition().y + " at step " + step);
+                        //System.out.println("Setting ammo to " + ammo.getPosition().x + ", " + ammo.getPosition().y + " at step " + step);
                         step += 1;
 
                     }
@@ -72,14 +72,14 @@ public class FireThread extends Thread {
             }
         }
 
-        System.out.println("FireThread died.");
+        //System.out.println("FireThread died.");
     }
 
 
     // sets information about how firing should be done and start firing
-    public void fire(GameView view, Vehicle vehicle, Ammunition ammo, Environment environment) {
-        physics = new BulletPhysics(((Tank)vehicle).getBarrel().getAngle());
-        physics.startPosition = ammo.getPosition();
+    public void fire(GameView view, BulletPhysics physics, Ammunition ammo, Environment environment) {
+        this.physics = physics;
+        this.physics.startPosition = ammo.getPosition();
         this.ammo = ammo;
         this.environment = environment;
         this.view = view;

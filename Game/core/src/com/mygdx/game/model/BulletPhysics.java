@@ -17,7 +17,7 @@ public class BulletPhysics {
     public Vector2 startVelocity;
     public Vector2 startDirection;
     public Vector2 startPosition;
-    public int power = 10;
+    public int power;
     public float speed;
     public float gravity = -0.9f;
     public Vector2 position = new Vector2();
@@ -71,5 +71,12 @@ public class BulletPhysics {
         return (x - startPosition.x) / (startVelocity.x);
     }
 
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getPower() {
+        return power;
+    }
 
 }
