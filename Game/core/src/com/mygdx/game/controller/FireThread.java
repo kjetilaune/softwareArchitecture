@@ -1,5 +1,6 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.gui.GameView;
 import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.BulletPhysics;
@@ -113,11 +114,11 @@ public class FireThread extends Thread {
 
             return true;
         }
-        /*
-        else if (to the right, left or below screen) {
+
+        else if (isOutOfScreen()) {
             return true;
         }
-        */
+
         return false;
     }
 
@@ -133,6 +134,12 @@ public class FireThread extends Thread {
         }
 
         return hit;
+    }
+
+    private boolean isOutOfScreen() {
+
+        return ammo.getPosition().x < 0 || ammo.getPosition().x > Gdx.graphics.getWidth() || ammo.getPosition().y < 0;
+
     }
 
     // calling this ends the while-loop in run(), stopping the thread from doing anything

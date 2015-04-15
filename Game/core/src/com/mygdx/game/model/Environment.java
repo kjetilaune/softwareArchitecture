@@ -47,7 +47,7 @@ public class Environment {
         //hillStartY = 500;
         //hillStartY = (140 + Math.random() * 200);
 
-        hillStartY = (Gdx.graphics.getHeight()/4 + Math.random() * Gdx.graphics.getHeight()/3);
+        hillStartY = (2*Gdx.graphics.getHeight()/5 + Math.random() * Gdx.graphics.getHeight()/3);
         hillWidth = Gdx.graphics.getWidth() / numberOfHills;
         numberOfSlices = (int)Math.round(hillWidth / pixelStep); // this really is number of polygon slices per hill
 

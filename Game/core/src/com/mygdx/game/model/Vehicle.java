@@ -59,7 +59,11 @@ public abstract class Vehicle extends GameObject {
     }
 
     public void hit(Ammunition ammo) {
-        health -= ammo.getInitialDamage();
+        setHealth(health - ammo.getInitialDamage());
+    }
+
+    public void decreaseFuel() {
+        setFuel(fuel -= 1);
     }
 
     public boolean isColliding(Vector2 point) {
