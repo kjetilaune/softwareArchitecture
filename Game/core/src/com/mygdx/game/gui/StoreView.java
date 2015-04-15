@@ -66,6 +66,10 @@ public class StoreView implements Screen{
         this.players = gameInstance.getPlayers();
         this.currentPlayer = players.get(0);
         numberOfPlayers = players.size();
+
+        ammos = new ArrayList<Ammunition>();
+        ammoNames = new ArrayList<String>();
+
         allAmmunition = Store.getInstance().getAllAmmunition();
         for (Map.Entry<String, Ammunition> entry : allAmmunition.entrySet())
         {
@@ -73,6 +77,8 @@ public class StoreView implements Screen{
             ammos.add(entry.getValue());
             ammoNames.add(entry.getKey());
         }
+
+
         //ammos = currentPlayer.getInventory().getAmmunitions();
         //currentAmmo = currentPlayer.getChosenAmmo();
         currentAmmo = ammos.get(0);
