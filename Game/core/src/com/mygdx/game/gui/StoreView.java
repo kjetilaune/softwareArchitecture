@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.controller.StoreController;
 import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
@@ -28,10 +29,10 @@ import java.util.Map;
 /**
  * Created by Eplemaskin on 14/04/15.
  */
-public class StoreView implements Screen{
+public class StoreView extends AbstractView implements Screen{
     private MyGdxGame game;
     private Game gameInstance;
-    private Player currentPlayer;
+    public Player currentPlayer;
 
     private ArrayList<Player> players;
     private ArrayList<Ammunition> ammos;
@@ -39,7 +40,7 @@ public class StoreView implements Screen{
 
     private HashMap<String, Ammunition> allAmmunition;
 
-    private Ammunition currentAmmo;
+    public Ammunition currentAmmo;
     private int numberOfPlayers;
 
     //GUI
@@ -182,7 +183,7 @@ public class StoreView implements Screen{
                 if (currentPlayer == players.get(players.size()-2)){
                     currentPlayer = players.get(players.size()-1);
                     currentAmmo = ammos.get(0);
-                    txtMoney.setText("" + currentPlayer.getMoney());
+                    txtMoney.setText("$" + currentPlayer.getMoney());
                     txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
                     back.setText("New round");
                 }
@@ -192,7 +193,7 @@ public class StoreView implements Screen{
                 else{
                     currentPlayer = players.get(players.indexOf(currentPlayer));
                     currentAmmo = ammos.get(0);
-                    txtMoney.setText("" + currentPlayer.getMoney());
+                    txtMoney.setText("$" + currentPlayer.getMoney());
                     txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
                 }
             }
@@ -201,7 +202,6 @@ public class StoreView implements Screen{
         arrowLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("AMMOSIZE" + ammos.size());
                 if (ammos.indexOf(currentAmmo) == 0){
                     currentAmmo = ammos.get(ammos.size() - 1);
                 }
@@ -216,7 +216,6 @@ public class StoreView implements Screen{
         arrowRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("AMMOSIZE" + ammos.size());
                 if (ammos.indexOf(currentAmmo) == ammos.size()-1){
                     currentAmmo = ammos.get(0);
                 }
@@ -226,6 +225,8 @@ public class StoreView implements Screen{
 
             }
         });
+
+        buy.addListener(new StoreController(this));
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -244,6 +245,8 @@ public class StoreView implements Screen{
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
         currentAmmoSprite.setScale(10);
 
+        currentPlayerLabel.setText("" + currentPlayer.getInventory().getAmmoLeft(currentAmmo.getName()));
+
         batch.begin();
         sprite.draw(batch);
         currentAmmoSprite.draw(batch);
@@ -253,6 +256,9 @@ public class StoreView implements Screen{
         stage.draw();
     }
 
+    public void setMoneyText(String s){
+        this.txtMoney.setText(s);
+    }
 
     public void resize (int width, int height){}
 
