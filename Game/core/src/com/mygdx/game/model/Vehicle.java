@@ -30,7 +30,7 @@ public abstract class Vehicle extends GameObject {
     }
 
     public void setHealth(int health) {
-        if (health < 0) {
+        if (health <= 0) {
             this.health = 0;
         }
 
@@ -44,7 +44,6 @@ public abstract class Vehicle extends GameObject {
     public void setFuel(int fuel) {
         this.fuel = fuel;
     }
-
 
     public void setPower(float power) {
         if (power > 100.0f) {
@@ -62,6 +61,8 @@ public abstract class Vehicle extends GameObject {
         return power;
     }
 
+    public boolean isAlive() { return health > 0; }
+
     public void takeDamage(Ammunition ammo) {
         setHealth(health - ammo.getInitialDamage());
     }
@@ -71,6 +72,11 @@ public abstract class Vehicle extends GameObject {
     }
 
     public boolean isColliding(Vector2 point) {
+
+        // dead vehicles can't get hit
+        if (health == 0) {
+            return false;
+        }
 
         Polygon boundingBox;
 

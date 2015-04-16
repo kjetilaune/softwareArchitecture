@@ -9,7 +9,7 @@ import com.mygdx.game.model.Ammunition;
 public class Bullet extends Ammunition {
 
     public Bullet() {
-        super("Bullet", 1, 50, 10, 1, 100);
+        super("Bullet", 50, 1, 10, 1, 100);
 
     }
 

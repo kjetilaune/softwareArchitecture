@@ -87,7 +87,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     public Environment environment; // the current environment of the game
     public Player currentPlayer; // current player
     public Vehicle currentVehicle; // current player's vehicle
-    public ArrayList<Player> players;
+    public ArrayList<Player> playersAlive;
 
     public boolean isFiring = false; // is a bullet being fired?
 
@@ -113,7 +113,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         environment = gameInstance.getEnvironment();
         currentPlayer = gameInstance.getCurrentPlayer();
         currentVehicle = currentPlayer.getVehicle();
-        players = gameInstance.getPlayers();
+        playersAlive = gameInstance.getPlayersAlive();
 
         // instantiate what is used to draw
         stage = new Stage();
@@ -254,7 +254,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         batch.begin();
         batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        for (Player p : players) {
+        for (Player p : playersAlive) {
             if (p.getVehicle().getHealth() > 0) {
                 batch.draw(new TextureRegion(((Tank)p.getVehicle()).getBarrel().getTexture()), ((Tank)p.getVehicle()).getBarrel().getPosition().x, ((Tank)p.getVehicle()).getBarrel().getPosition().y, 0, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight()/2, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getWidth(), (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight(), 1, 1, ((Tank)p.getVehicle()).getBarrel().getRotation() + ((Tank)p.getVehicle()).getBarrel().getAngle());
                 batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
