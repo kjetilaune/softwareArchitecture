@@ -47,17 +47,25 @@ public class MoveThread extends Thread {
                     // enables only this thread to have access to the vehicle during movement
                     synchronized (vehicle) {
 
-                        // moves the tank by updating its position according to the direction-input and environment
-                        // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
-                        if (direction.equals("arrowLeft")){
-                            vehicle.setPosition(new Vector2(vehicle.getPosition().x - 10, environment.getGroundHeight(vehicle.getPosition().x - 10)));
-                        }
-                        else if (direction.equals("arrowRight")){
-                            vehicle.setPosition(new Vector2(vehicle.getPosition().x + 10, environment.getGroundHeight(vehicle.getPosition().x + 10)));
+                        if (vehicle.getFuel() > 0) {
+
+                            // moves the tank by updating its position according to the direction-input and environment
+                            // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
+                            if (direction.equals("arrowLeft")){
+                                vehicle.setPosition(new Vector2(vehicle.getPosition().x - 10, environment.getGroundHeight(vehicle.getPosition().x - 10)));
+                            }
+                            else if (direction.equals("arrowRight")){
+                                vehicle.setPosition(new Vector2(vehicle.getPosition().x + 10, environment.getGroundHeight(vehicle.getPosition().x + 10)));
+                            }
+
+                            // rotates the vehicle according to the environment
+                            vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + TextureManager.tank.getWidth()));
+
+                            // diminishes fuel
+                            vehicle.decreaseFuel();
+
                         }
 
-                        // rotates the vehicle according to the environment
-                        vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + TextureManager.tank.getWidth()));
                     }
 
                     // cause the thread to halt for 50 ms to prevent from moving to fast

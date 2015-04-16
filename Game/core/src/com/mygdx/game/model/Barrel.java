@@ -35,7 +35,7 @@ public class Barrel extends GameObject {
             newAngle += 360;
         }
 
-        System.out.println("Setting angle of barrel to " + newAngle);
+        //System.out.println("Setting angle of barrel to " + newAngle);
 
         if (newAngle > 180 && newAngle < 270) {
             this.angle = 180;

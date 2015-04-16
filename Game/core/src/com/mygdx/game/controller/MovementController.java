@@ -30,9 +30,6 @@ public class MovementController extends AbstractController implements EventListe
 
     public boolean handle (Event event){
 
-        if (!event.toString().equals("touchDragged"))
-            System.out.println(event.toString());
-
         if (event.toString().equals("touchDown")) {
             moveThread = new MoveThread();
         }

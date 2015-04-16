@@ -50,25 +50,8 @@ public class AngleController extends AbstractController implements EventListener
         // if out of deadzone (at bottom where buttons are. should be properly generalized)
         if (y > 200f) {
 
-            /*
-            System.out.println("Barrel angle: " + Float.toString(barrel.getAngle(x, y)));
-            System.out.println("Vehicle rotation: " + Float.toString(vehicle.getRotation()));
-            System.out.println("Total: " + Float.toString(barrel.getAngle(x, y) * -1 - vehicle.getRotation() + 360) + "\n");
-            */
-
-
-
-
             barrel.setAngle(barrel.getAngle(x, y) * -1 - vehicle.getRotation() + 360);
 
-            System.out.println(barrel.getAngle());
-            System.out.println(barrel.getRotation());
-            barrel.getTipOfBarrel();
-/*
-            while (view.environment.isColliding(barrel.getTipOfBarrel())) {
-                barrel.setAngle(barrel.getAngle() + 1.0f);
-            }
-*/
         }
     }
 
