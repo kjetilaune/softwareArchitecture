@@ -22,18 +22,31 @@ public class TextureManager {
     public static Texture burgerBullet = new Texture(Gdx.files.internal("objects/old/burgerBullet.png"));
     public static Texture muffinBullet = new Texture(Gdx.files.internal("objects/old/muffinBullet.png"));
 
-    public static Texture bulletSweets = new Texture(Gdx.files.internal("objects/bullets/Bullet_Sweets_0.png"));
-    public static Texture fbombSweets = new Texture(Gdx.files.internal("objects/bullets/Bullet_Sweets_1.png"));
-    public static Texture instakillSweets = new Texture(Gdx.files.internal("objects/bullets/Bullet_Sweets_2.png"));
-    public static Texture bulletFastfood = new Texture(Gdx.files.internal("objects/bullets/Bullet_Fastfood_0.png"));
-    public static Texture fbombFastfood = new Texture(Gdx.files.internal("objects/bullets/Bullet_Fastfood_1.png"));
-    public static Texture instakillFastfood = new Texture(Gdx.files.internal("objects/bullets/Bullet_Fastfood_2.png"));
-    public static Texture bulletVegan = new Texture(Gdx.files.internal("objects/bullets/Bullet_Vegan_0.png"));
-    public static Texture fbombVegan = new Texture(Gdx.files.internal("objects/bullets/Bullet_Vegan_1.png"));
-    public static Texture instakillVegan = new Texture(Gdx.files.internal("objects/bullets/Bullet_Vegan_2.png"));
-    public static Texture bulletSeafood = new Texture(Gdx.files.internal("objects/bullets/Bullet_Seafood_0.png"));
-    public static Texture fbombSeafood = new Texture(Gdx.files.internal("objects/bullets/Bullet_Seafood_1.png"));
-    public static Texture instakillSeafood = new Texture(Gdx.files.internal("objects/bullets/Bullet_Seafood_2.png"));
+    public static Texture bulletSweets = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Sweets_0.png"));
+    public static Texture fbombSweets = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Sweets_1.png"));
+    public static Texture instakillSweets = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Sweets_2.png"));
+    public static Texture bulletFastfood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Fastfood_0.png"));
+    public static Texture fbombFastfood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Fastfood_1.png"));
+    public static Texture instakillFastfood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Fastfood_2.png"));
+    public static Texture bulletVegan = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Vegan_0.png"));
+    public static Texture fbombVegan = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Vegan_1.png"));
+    public static Texture instakillVegan = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Vegan_2.png"));
+    public static Texture bulletSeafood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Seafood_0.png"));
+    public static Texture fbombSeafood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Seafood_1.png"));
+    public static Texture instakillSeafood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Seafood_2.png"));
+
+    public static Texture storeBulletSweets = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Sweets_0.png"));
+    public static Texture storeFbombSweets = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Sweets_1.png"));
+    public static Texture storeInstakillSweets = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Sweets_2.png"));
+    public static Texture storeBulletFastfood = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Fastfood_0.png"));
+    public static Texture storeFbombFastfood = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Fastfood_1.png"));
+    public static Texture storeInstakillFastfood = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Fastfood_2.png"));
+    public static Texture storeBulletVegan = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Vegan_0.png"));
+    public static Texture storeFbombVegan = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Vegan_1.png"));
+    public static Texture storeInstakillVegan = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Vegan_2.png"));
+    public static Texture storeBulletSeafood = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Seafood_0.png"));
+    public static Texture storeFbombSeafood = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Seafood_1.png"));
+    public static Texture storeInstakillSeafood = new Texture(Gdx.files.internal("objects/bullets/large/View_Bullet_Seafood_2.png"));
 
 
     public static Texture grass = new Texture(Gdx.files.internal("textures/grass.png"));

@@ -165,7 +165,7 @@ public class StoreView extends AbstractView implements Screen{
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
-        currentAmmoSprite.setScale(10);
+        //currentAmmoSprite.setScale(10);
 
         batch = new SpriteBatch();
 
@@ -178,7 +178,7 @@ public class StoreView extends AbstractView implements Screen{
         back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("AMMOSIZE" + ammos.size());
+                //System.out.println("AMMOSIZE" + ammos.size());
                 //game.setScreen(new MainMenu(game, 100));
                 if (currentPlayer == players.get(players.size()-2)){
                     currentPlayer = players.get(players.size()-1);
@@ -243,7 +243,7 @@ public class StoreView extends AbstractView implements Screen{
 
         currentAmmoSprite = getCurrentSprite();
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
-        currentAmmoSprite.setScale(10);
+        //currentAmmoSprite.setScale(10);
 
         currentPlayerLabel.setText("" + currentPlayer.getInventory().getAmmoLeft(currentAmmo.getName()));
 

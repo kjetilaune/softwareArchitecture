@@ -8,10 +8,10 @@ import com.mygdx.game.model.TextureManager;
  * Created by Jonathan on 12.03.2015.
  */
 public enum Team {
-    SWEETS("Team Sweets", TextureManager.tankSweets, TextureManager.barrelSweets, TextureManager.bulletSweets, TextureManager.fbombSweets, TextureManager.instakillSweets, TextureManager.bulletSweets, TextureManager.fbombSweets, TextureManager.instakillSweets),
-    FAST_FOOD("Team Fast Food", TextureManager.tankFastfood, TextureManager.barrelFastfood, TextureManager.bulletFastfood, TextureManager.fbombFastfood, TextureManager.instakillFastfood, TextureManager.bulletFastfood, TextureManager.fbombFastfood, TextureManager.instakillFastfood),
-    VEGAN("Team Vegan", TextureManager.tankVegan, TextureManager.barrelVegan, TextureManager.bulletVegan, TextureManager.fbombVegan, TextureManager.instakillVegan, TextureManager.bulletVegan, TextureManager.fbombVegan, TextureManager.instakillVegan),
-    SEAFOOD("Team Seafood", TextureManager.tankSeafood, TextureManager.barrelSeafood, TextureManager.bulletSeafood, TextureManager.fbombSeafood, TextureManager.instakillSeafood, TextureManager.bulletSeafood, TextureManager.fbombSeafood, TextureManager.instakillSeafood);
+    SWEETS("Team Sweets", TextureManager.tankSweets, TextureManager.barrelSweets, TextureManager.bulletSweets, TextureManager.fbombSweets, TextureManager.instakillSweets, TextureManager.storeBulletSweets, TextureManager.storeFbombSweets, TextureManager.storeInstakillSweets),
+    FAST_FOOD("Team Fast Food", TextureManager.tankFastfood, TextureManager.barrelFastfood, TextureManager.bulletFastfood, TextureManager.fbombFastfood, TextureManager.instakillFastfood, TextureManager.storeBulletFastfood, TextureManager.storeFbombFastfood, TextureManager.storeInstakillFastfood),
+    VEGAN("Team Vegan", TextureManager.tankVegan, TextureManager.barrelVegan, TextureManager.bulletVegan, TextureManager.fbombVegan, TextureManager.instakillVegan, TextureManager.storeBulletVegan, TextureManager.storeFbombVegan, TextureManager.storeInstakillVegan),
+    SEAFOOD("Team Seafood", TextureManager.tankSeafood, TextureManager.barrelSeafood, TextureManager.bulletSeafood, TextureManager.fbombSeafood, TextureManager.instakillSeafood, TextureManager.storeBulletSeafood, TextureManager.storeFbombSeafood, TextureManager.storeInstakillSeafood);
 
     private Texture tankTexture;
     private Texture barrelTexture;
