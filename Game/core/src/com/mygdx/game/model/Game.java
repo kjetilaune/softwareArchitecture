@@ -13,10 +13,15 @@ import java.util.Random;
 public class Game extends AbstractModel {
 
     private Player currentPlayer;
+
+
     private ArrayList<Player> players;
+    private ArrayList<Player> playersAlive;
+    private ArrayList<Player> playersDead;
+
     private Environment environment;
     private Store store;
-    private int numberOfRounds, roundsLeft;
+    private int numberOfRounds, currentRound;
     private float roundTime;
     private long startTime, endTime;
     private float elapsedTime;
@@ -32,12 +37,16 @@ public class Game extends AbstractModel {
         roundTime = settings.getRoundTime();
 
         players = new ArrayList<Player>();
+        playersAlive = new ArrayList<Player>();
+        playersDead = new ArrayList<Player>();
 
         for (int i = 0 ; i < settings.getTeams().size() ; i ++) {
             players.add(new Player(settings.getTeams().get(i), environment, getPosition(i, settings.getTeams().size()), i+1));
+            playersAlive.add(players.get(i));
         }
 
-        currentPlayer = players.get(0);
+        currentPlayer = playersAlive.get(0);
+        currentRound = 1;
         
     }
 
@@ -57,39 +66,59 @@ public class Game extends AbstractModel {
 
     public void changePlayer() {
 
+        // if any player has been killed in this turn, add them to dead players
+        for (Player p : playersAlive) {
+            if (!p.isAlive()) {
+                playersDead.add(p);
+            }
+        }
+
+        // update players alive
+        for (Player p : playersDead) {
+            if (playersAlive.contains(p)) {
+                playersAlive.remove(p);
+            }
+        }
+
+        // check if there is a winner
         if (hasWinner() != null) {
             declareWinner(hasWinner());
         }
+        else { // if not, change to next player
 
-        int nextPlayer = -1;
-        for (int i = 0 ; i < players.size() ; i ++) {
-            if (players.get(i) == currentPlayer) {
-                nextPlayer = i+1;
-                if (i == players.size()-1) {
-                    nextPlayer = 0;
+            int nextPlayer = -1;
+            for (int i = 0 ; i < playersAlive.size() ; i ++) {
+                if (playersAlive.get(i) == currentPlayer) {
+                    nextPlayer = i+1;
+                    if (i == players.size()-1) {
+                        nextPlayer = 0;
+                    }
                 }
             }
+            currentPlayer = players.get(nextPlayer);
+
         }
-        currentPlayer = players.get(nextPlayer);
+
+    }
+
+
+    public void changeRound() {
+
+        if (currentRound < numberOfRounds) {
+            currentRound ++;
+
+            environment = new Environment(4, 10);
+
+        }
+
     }
 
 
     public Player hasWinner() {
 
-        ArrayList<Player> alive = new ArrayList<Player>();
-        ArrayList<Player> dead = new ArrayList<Player>();
 
-        for (Player p : players) {
-            if (p.getVehicle().getHealth() <= 0) {
-                dead.add(p);
-            }
-            else {
-               alive.add(p);
-            }
-        }
-
-        if (alive.size() == 1 && dead.size() > 0) {
-            return alive.get(0);
+        if (playersAlive.size() == 1 && playersDead.size() > 0) {
+            return playersAlive.get(0);
         }
 
         return null;
