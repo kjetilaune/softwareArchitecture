@@ -30,6 +30,10 @@ public abstract class Vehicle extends GameObject {
     }
 
     public void setHealth(int health) {
+        if (health < 0) {
+            this.health = 0;
+        }
+
         this.health = health;
     }
 
@@ -58,7 +62,7 @@ public abstract class Vehicle extends GameObject {
         return power;
     }
 
-    public void hit(Ammunition ammo) {
+    public void takeDamage(Ammunition ammo) {
         setHealth(health - ammo.getInitialDamage());
     }
 

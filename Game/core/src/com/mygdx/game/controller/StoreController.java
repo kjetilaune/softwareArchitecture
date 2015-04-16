@@ -23,6 +23,9 @@ public class StoreController extends AbstractController implements EventListener
         this.view = (StoreView)view;
     }
 
+
+    // NOTE TO KJETIL: the inventory already has buyAmmunition- and buyUpgrade-method
+    // note that these uses the score instead of money, although their function is the same and one should be removed
     private void buy(Ammunition ammunition){
         if (view.currentPlayer.getMoney() < ammunition.getCost()){
             System.out.println("Insuficcient funds!");

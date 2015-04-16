@@ -10,20 +10,20 @@ import com.mygdx.game.model.Enums.Team;
 public class Player {
 
     private Vehicle vehicle;
-    //private Tank vehicle;
     private Inventory inventory;
     private Ammunition chosenAmmo;
     private Team team;
     private float timeLeft;
+    private int playerNumber;
     private int money;
-    private int health;
 
-    public Player(Team team, Environment environment, Vector2 vehiclePosition) {
+    public Player(Team team, Environment environment, Vector2 vehiclePosition, int playerNumber) {
         this.team = team;
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
         vehicle = new Tank(team, environment, vehiclePosition);
         this.money = 100000;
+        this.playerNumber = playerNumber;
 
     }
 
@@ -83,8 +83,8 @@ public class Player {
 
     public int getMoney(){ return this.money; }
 
-    public void setHealth(int health){this.health = health;}
-
-    public int getHealth(){ return this.health;}
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
 
 }

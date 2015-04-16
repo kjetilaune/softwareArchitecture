@@ -117,7 +117,7 @@ public class FireThread extends Thread {
         else if (hitPlayer() != null) {
             System.out.println("Vehicle has been hit!");
 
-            hitPlayer().getVehicle().hit(view.currentPlayer.getChosenAmmo());
+            hitPlayer().getVehicle().takeDamage(view.currentPlayer.getChosenAmmo());
 
             return true;
         }

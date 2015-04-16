@@ -32,7 +32,7 @@ public class Inventory {
 
         // set default ammunition
         ammunitions.add(Store.getAmmunition("Bullet"));
-        ammoAmount.add(15);
+        ammoAmount.add(1337);
         ammunitions.add(Store.getAmmunition("F-Bomb"));
         ammoAmount.add(5);
         ammunitions.add(Store.getAmmunition("Instakill"));
@@ -76,6 +76,12 @@ public class Inventory {
     }
 
     public boolean decreaseAmmo(Ammunition ammo, int amount) {
+
+        // enables infinite ammo of the Bullet-type
+        if (ammo.getName().equals("Bullet")) {
+            return true;
+        }
+
         if (!ammunitions.contains(ammo)) {
             return false;
         }

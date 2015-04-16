@@ -34,7 +34,7 @@ public class Game extends AbstractModel {
         players = new ArrayList<Player>();
 
         for (int i = 0 ; i < settings.getTeams().size() ; i ++) {
-            players.add(new Player(settings.getTeams().get(i), environment, getPosition(i, settings.getTeams().size())));
+            players.add(new Player(settings.getTeams().get(i), environment, getPosition(i, settings.getTeams().size()), i+1));
         }
 
         currentPlayer = players.get(0);
@@ -56,6 +56,10 @@ public class Game extends AbstractModel {
 
 
     public void changePlayer() {
+
+        if (hasWinner() != null) {
+            declareWinner(hasWinner());
+        }
 
         int nextPlayer = -1;
         for (int i = 0 ; i < players.size() ; i ++) {
@@ -91,12 +95,15 @@ public class Game extends AbstractModel {
         return null;
     }
 
+    public void declareWinner(Player winner) {
+        System.out.println(String.format("Player %d has won!", winner.getPlayerNumber()));
+    }
+
     public void setEnvironment(Environment environment) {this.environment = environment;}
 
     public Environment getEnvironment() {
         return environment;
     }
-
 
     public Player getCurrentPlayer() {
         return currentPlayer;

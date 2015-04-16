@@ -255,10 +255,13 @@ public class GameView extends AbstractView implements Screen, Observer{
         batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         for (Player p : players) {
-            batch.draw(new TextureRegion(((Tank)p.getVehicle()).getBarrel().getTexture()), ((Tank)p.getVehicle()).getBarrel().getPosition().x, ((Tank)p.getVehicle()).getBarrel().getPosition().y, 0, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight()/2, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getWidth(), (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight(), 1, 1, ((Tank)p.getVehicle()).getBarrel().getRotation() + ((Tank)p.getVehicle()).getBarrel().getAngle());
-            batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
-            font.setColor(Color.BLACK);
-            font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
+            if (p.getVehicle().getHealth() > 0) {
+                batch.draw(new TextureRegion(((Tank)p.getVehicle()).getBarrel().getTexture()), ((Tank)p.getVehicle()).getBarrel().getPosition().x, ((Tank)p.getVehicle()).getBarrel().getPosition().y, 0, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight()/2, (float)((Tank)p.getVehicle()).getBarrel().getTexture().getWidth(), (float)((Tank)p.getVehicle()).getBarrel().getTexture().getHeight(), 1, 1, ((Tank)p.getVehicle()).getBarrel().getRotation() + ((Tank)p.getVehicle()).getBarrel().getAngle());
+                batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
+                font.setColor(Color.BLACK);
+                font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
+
+            }
         }
 
 
