@@ -12,24 +12,22 @@ import java.util.Random;
  */
 public class Game extends AbstractModel {
 
-    private Player currentPlayer;
-
+    private Player currentPlayer, roundWinningPlayer, gameWinningPlayer;
 
     private ArrayList<Player> players;
     private ArrayList<Player> playersAlive;
     private ArrayList<Player> playersDead;
 
     private Environment environment;
-    private Store store;
     private int numberOfRounds, currentRound;
     private float roundTime;
     private long startTime, endTime;
     private float elapsedTime;
+
     private Random random;
 
     public Game(GameSettings settings) {
 
-        store = Store.getInstance();
         environment = new Environment(4, 10);
         random = new Random();
 
@@ -41,27 +39,17 @@ public class Game extends AbstractModel {
         playersDead = new ArrayList<Player>();
 
         for (int i = 0 ; i < settings.getTeams().size() ; i ++) {
-            players.add(new Player(settings.getTeams().get(i), environment, getPosition(i, settings.getTeams().size()), i+1));
+            players.add(new Player(settings.getTeams().get(i), environment, getStartPosition(i), i+1));
             playersAlive.add(players.get(i));
         }
 
         currentPlayer = playersAlive.get(0);
         currentRound = 1;
+        roundWinningPlayer = null;
+        gameWinningPlayer = null;
         
     }
 
-
-    // should randomize this, so players are placed "randomly" on the environment
-    private Vector2 getPosition(int no, int totalNofPlayers) {
-
-        if (no == 0) {
-            return new Vector2(Gdx.graphics.getWidth()/6, environment.getGroundHeight(Gdx.graphics.getWidth()/6));
-        }
-        else if (no == 1) {
-            return new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
-        }
-        return null;
-    }
 
 
     public void changePlayer() {
@@ -80,28 +68,28 @@ public class Game extends AbstractModel {
             }
         }
 
-        // check if there is a winner
-        if (hasWinner() != null) {
-            declareWinner(hasWinner());
-        }
-        else { // if not, change to next player
+        // update the winning player, is null if there is not yet a winner
+        roundWinningPlayer = getRoundWinner();
 
-            int nextPlayer = -1;
-            for (int i = 0 ; i < playersAlive.size() ; i ++) {
-                if (playersAlive.get(i) == currentPlayer) {
-                    nextPlayer = i+1;
-                    if (i == players.size()-1) {
-                        nextPlayer = 0;
-                    }
+        // change to next player
+        int nextPlayer = -1;
+        for (int i = 0 ; i < playersAlive.size() ; i ++) {
+            if (playersAlive.get(i) == currentPlayer) {
+                nextPlayer = i+1;
+                if (i == players.size()-1) {
+                    nextPlayer = 0;
                 }
             }
-            currentPlayer = players.get(nextPlayer);
-
         }
+        currentPlayer = players.get(nextPlayer);
+
+
 
     }
 
 
+    // change the round to the next round.
+    // If there are no more rounds, the game should be finished.
     public void changeRound() {
 
         if (currentRound < numberOfRounds) {
@@ -109,13 +97,34 @@ public class Game extends AbstractModel {
 
             environment = new Environment(4, 10);
 
+            playersAlive.clear();
+            playersDead.clear();
+
+            for (int i = 0 ; i < players.size() ; i++) {
+                playersAlive.add(players.get(i));
+                players.get(i).reset(environment, getStartPosition(i));
+            }
+
         }
 
     }
 
 
-    public Player hasWinner() {
+    public int getRoundsLeft() {
+        return numberOfRounds - currentRound;
+    }
 
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
+    public void setCurrentRound(int currentRound) {
+        this.currentRound = currentRound;
+    }
+
+
+    // returns the winner of the current round if there is a winner, and null if there is not a winner
+    public Player getRoundWinner() {
 
         if (playersAlive.size() == 1 && playersDead.size() > 0) {
             return playersAlive.get(0);
@@ -124,9 +133,37 @@ public class Game extends AbstractModel {
         return null;
     }
 
-    public void declareWinner(Player winner) {
-        System.out.println(String.format("Player %d has won!", winner.getPlayerNumber()));
+    // calculates and returns the winner of the whole game
+    public Player getGameWinner() {
+
+        int maxWon = -1;
+        Player winningPlayer = null;
+
+        for (Player p : players) {
+
+            if (p.getRoundsWon() > maxWon) {
+                maxWon = p.getRoundsWon();
+                winningPlayer = p;
+            }
+
+        }
+        return winningPlayer;
     }
+
+
+    // where to place the players in the beginning
+    // should randomize this, so players are placed "randomly" on the environment
+    private Vector2 getStartPosition(int no) {
+
+        if (no == 0) {
+            return new Vector2(Gdx.graphics.getWidth()/6, environment.getGroundHeight(Gdx.graphics.getWidth()/6));
+        }
+        else if (no == 1) {
+            return new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
+        }
+        return null;
+    }
+
 
     public void setEnvironment(Environment environment) {this.environment = environment;}
 
