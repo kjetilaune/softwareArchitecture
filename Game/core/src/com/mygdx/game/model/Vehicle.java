@@ -33,8 +33,9 @@ public abstract class Vehicle extends GameObject {
         if (health <= 0) {
             this.health = 0;
         }
-
-        this.health = health;
+        else {
+            this.health = health;
+        }
     }
 
     public int getFuel() {
@@ -45,7 +46,9 @@ public abstract class Vehicle extends GameObject {
         if (fuel <= 0) {
             this.fuel = 0;
         }
-        this.fuel = fuel;
+        else{
+            this.fuel = fuel;
+        }
     }
 
     public void setPower(float power) {
@@ -83,7 +86,7 @@ public abstract class Vehicle extends GameObject {
     public boolean isColliding(Vector2 point) {
 
         // dead vehicles can't get hit
-        if (health == 0) {
+        if (health <= 0) {
             return false;
         }
 
