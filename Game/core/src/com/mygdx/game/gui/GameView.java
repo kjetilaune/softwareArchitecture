@@ -95,12 +95,13 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private OrthographicCamera camera;
 
-
-    Label labelCurrentPlayer;
-    Label labelChosenAmmo;
-    Label labelLeftAmmo;
-    Label labelHealthLeft;
-    Label labelPower;
+    private Label labelRound;
+    private Label labelCurrentPlayer;
+    private Label labelChosenAmmo;
+    private Label labelLeftAmmo;
+    private Label labelHealthLeft;
+    private Label labelFuelLeft;
+    private Label labelPower;
 
 
     public GameView(MyGdxGame game, Game gameInstance){
@@ -189,21 +190,24 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRight.addListener(moveCtrl);
 
 
-
         fireSkin.getFont("font").setScale(1.2f);
+        labelRound = new Label(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()), fireSkin);
         labelCurrentPlayer = new Label(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()), fireSkin);
         fireSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
-        labelHealthLeft = new Label("Health left: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
+        labelHealthLeft = new Label("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
+        labelFuelLeft = new Label("Fuel: " + (currentPlayer.getVehicle().getFuel() + currentPlayer.getFuelUpgrade()), fireSkin);
         labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), fireSkin);
 
         groupTop.left().top();
         groupTop.defaults();
+        groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX().row();
         groupTop.add(labelChosenAmmo).padLeft(10).fillX();
         groupTop.add(labelLeftAmmo).padLeft(40).fillX();
         groupTop.add(labelHealthLeft).padLeft(40).fillX();
+        groupTop.add(labelFuelLeft).padLeft(40).fillX();
         groupTop.add(labelPower).padLeft(40).fillX();
         groupTop.setFillParent(true);
 
@@ -313,10 +317,12 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private void updateTopMenu() {
 
-        labelCurrentPlayer.setText(currentPlayer.getTeam().getName());
+        labelRound.setText(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()));
+        labelCurrentPlayer.setText(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()));
         labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
-        labelHealthLeft.setText("Health left: " + currentPlayer.getVehicle().getHealth());
+        labelHealthLeft.setText("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()));
+        labelFuelLeft.setText("Fuel: " + (currentPlayer.getVehicle().getFuel() + currentPlayer.getFuelUpgrade()));
         labelPower.setText("Power: " + currentPlayer.getVehicle().getPower());
 
     }
