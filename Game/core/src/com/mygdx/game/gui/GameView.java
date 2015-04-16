@@ -270,6 +270,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         // draws the sprites, ex vehicles etc.
         batch.begin();
+        batch.draw(TextureManager.skyBackground, 0, 0);
         batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         for (Player p : playersAlive) {

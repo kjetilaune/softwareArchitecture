@@ -60,5 +60,9 @@ public class TextureManager {
     public static Texture settingsBackground = new Texture(Gdx.files.internal("backgrounds/Food-Frenzy-Settings.png"));
     public static Texture aboutBackground = new Texture(Gdx.files.internal("backgrounds/Food-Frenzy-About.png"));
     public static Texture storeBackground = new Texture(Gdx.files.internal("backgrounds/Food-Frenzy-Store.png"));
+    public static Texture skyBackground = new Texture(Gdx.files.internal("backgrounds/sky.png"));
+    public static Texture cloudsBackground = new Texture(Gdx.files.internal("backgrounds/clouds.png"));
+
+
 
 }
