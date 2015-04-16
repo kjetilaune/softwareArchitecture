@@ -250,6 +250,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         // the game should go to store
         if (gameInstance.getRoundWinner() != null) {
             game.setScreen(new StoreView(game, gameInstance));
+        } // if the game is finished, it should change to game over
+        else if(gameInstance.getGameWinner() != null) {
+            game.setScreen(new GameOverView(game, gameInstance));
         }
 
         currentPlayer = gameInstance.getCurrentPlayer();
