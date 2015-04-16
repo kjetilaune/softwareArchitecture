@@ -109,6 +109,9 @@ public class Game extends AbstractModel {
 
     }
 
+    public ArrayList<Player> getPlayersAlive() {
+        return playersAlive;
+    }
 
     public int getRoundsLeft() {
         return numberOfRounds - currentRound;
