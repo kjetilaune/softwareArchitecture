@@ -31,13 +31,13 @@ import java.util.Map;
  */
 public class StoreView extends AbstractView implements Screen{
 
-    private MyGdxGame game;
+    public MyGdxGame game;
     private Game gameInstance;
     private GameView gameView;
     public Player currentPlayer;
 
-    private ArrayList<Player> players;
-    private ArrayList<Ammunition> ammos;
+    public ArrayList<Player> players;
+    public ArrayList<Ammunition> ammos;
     private ArrayList<String> ammoNames;
 
     private HashMap<String, Ammunition> allAmmunition;
@@ -55,10 +55,10 @@ public class StoreView extends AbstractView implements Screen{
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
 
-    private Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel;
-    private TextButton back;
-    private TextButton buttonNextPlayer, buttonNewRound;
+    public Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel;
+    //public TextButton back;
     private TextButton buy;
+    private TextButton buttonNextPlayer, buttonNewRound;
     private ImageButton arrowLeft, arrowRight;
 
     private Sprite sprite, currentAmmoSprite;
@@ -124,10 +124,12 @@ public class StoreView extends AbstractView implements Screen{
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale((float)0.1);
 
-        this.back = new TextButton("Next Player", skin);
-        this.buttonNextPlayer = new TextButton("Next Player", skin);
-        this.buttonNewRound = new TextButton("New Round", skin);
+        //this.back = new TextButton("Next Player", skin);
+        //this.back.setName("NextPlayer");
         this.buy = new TextButton("Buy", skin);
+        this.buy.setName("Buy");
+        buttonNextPlayer = new TextButton("Next Player", skin);
+        buttonNewRound = new TextButton("New Round", skin);
 
         placeholderLabel = new Label("", skin);
         currentPlayerLabel = new Label("Current Player:", skin);
@@ -166,7 +168,17 @@ public class StoreView extends AbstractView implements Screen{
         bottomContainer.row();
         bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
         bottomContainer.add(buy).prefWidth(stage.getWidth() / 20 * 4);
-        bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+
+        //bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+
+        if (players.size() > 1) {
+            bottomContainer.add(buttonNextPlayer).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        }
+        else {
+            bottomContainer.add(buttonNewRound).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+
+        }
+
 
         sprite = new Sprite(TextureManager.storeBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -182,7 +194,7 @@ public class StoreView extends AbstractView implements Screen{
     }
 
     public void show (){
-        back.addListener(new ClickListener() {
+        /*back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //System.out.println("AMMOSIZE" + ammos.size());
@@ -204,7 +216,9 @@ public class StoreView extends AbstractView implements Screen{
                     txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
                 }
             }
-        });
+        });*/
+
+        //back.addListener(new StoreController(this, gameView));
 
         arrowLeft.addListener(new ClickListener() {
             @Override
@@ -233,7 +247,7 @@ public class StoreView extends AbstractView implements Screen{
             }
         });
 
-        buy.addListener(new StoreController(this));
+        buy.addListener(new StoreController(this, gameView));
 
         Gdx.input.setInputProcessor(stage);
     }
