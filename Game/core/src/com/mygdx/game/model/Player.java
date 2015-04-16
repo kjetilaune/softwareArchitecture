@@ -47,6 +47,10 @@ public class Player {
         return inventory.getHealthUpgrade();
     }
 
+    public int getFuelUpgrade() {
+        return inventory.getFuelUpgrade();
+    }
+
     public Vehicle getVehicle() {
         return vehicle;
     }

@@ -40,12 +40,10 @@ public class FireThread extends Thread {
     public void run() {
         //System.out.println("FireThread started.");
 
-        synchronized (view.currentPlayer.getInventory()) {
-            view.currentPlayer.getInventory().decreaseAmmo(ammo, 1);
-            if (view.currentPlayer.getChosenAmmoAmount() == 0) {
-                view.currentPlayer.changeAmmo();
-            }
-        }
+        System.out.println(ammo.getName());
+        view.currentPlayer.getInventory().decreaseAmmo(ammo, 1);
+        System.out.println("Ammo decreased.");
+        System.out.println(ammo.getName());
 
         // should run until killThread() is called
         while (blinker) {
@@ -74,12 +72,11 @@ public class FireThread extends Thread {
                 else {
 
                     ammo.setPosition(null);
-                    view.setIsFiring(false);
-
-                    synchronized (view.currentVehicle)  {
-                        view.currentVehicle.setPower(0.0f);
+                    if (view.currentPlayer.getChosenAmmoAmount() == 0) {
+                        view.currentPlayer.changeAmmo();
                     }
-
+                    view.setIsFiring(false);
+                    view.currentVehicle.setPower(0.0f);
                     view.gameInstance.changePlayer();
 
                     killThread();

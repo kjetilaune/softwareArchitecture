@@ -66,6 +66,10 @@ public class Inventory {
         return upgrades.get("Health");
     }
 
+    public int getFuelUpgrade() {
+        return upgrades.get("Fuel");
+    }
+
     public void increaseAmmo(Ammunition ammo, int amount) {
 
         if (!ammunitions.contains(ammo)) {

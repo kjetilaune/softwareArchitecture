@@ -97,8 +97,7 @@ public class Barrel extends GameObject {
         tipX = xNewBarrel + bottomX;
         tipY = yNewBarrel + bottomY;
 
-        System.out.println("Tip of barrel is: " + tipX + ", " + tipY);
-
+        //System.out.println("Tip of barrel is: " + tipX + ", " + tipY);
 
         return new Vector2(tipX, tipY);
     }
