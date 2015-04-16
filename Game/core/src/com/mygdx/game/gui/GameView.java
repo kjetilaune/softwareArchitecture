@@ -246,14 +246,14 @@ public class GameView extends AbstractView implements Screen, Observer{
     @Override
     public void render(float delta) {
 
-        // if the round is finished (which means there is a winner),
-        // the game should go to store
+        // if the round is finished (either because there is only one player left, or there is no more turns left
         if (gameInstance.getRoundWinner() != null) {
-            game.setScreen(new StoreView(game, gameInstance));
-        } // if the game is finished, it should change to game over
-        /*else if(gameInstance.getGameWinner() != null) {
-            game.setScreen(new GameOverView(game, gameInstance));
-        }*/
+            if (gameInstance.getRoundsLeft() == 0) {
+                game.setScreen(new GameOverView(game, gameInstance));
+            } else {
+                game.setScreen(new StoreView(game, gameInstance));
+            }
+        }
 
         currentPlayer = gameInstance.getCurrentPlayer();
         currentVehicle = currentPlayer.getVehicle();
