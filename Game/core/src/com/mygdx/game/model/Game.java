@@ -24,9 +24,13 @@ public class Game extends AbstractModel {
     private long startTime, endTime;
     private float elapsedTime;
 
+    private Store store;
+
     private Random random;
 
     public Game(GameSettings settings) {
+        
+        this.store = Store.getInstance();
 
         environment = new Environment(4, 10);
         random = new Random();
