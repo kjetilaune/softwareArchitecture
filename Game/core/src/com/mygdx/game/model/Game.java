@@ -140,6 +140,28 @@ public class Game extends AbstractModel {
             return playersAlive.get(0);
         }
 
+        // check if no player has turns left
+        boolean noTurnsLeft = true;
+        for (Player p : playersAlive) {
+            if (getNumberOfTurns() - p.getTurnsTaken() != 0) {
+                noTurnsLeft = false;
+            }
+        }
+
+        // if so, the player with the most health left should win the round
+        if (noTurnsLeft) {
+            int maxHealth = -1;
+            Player winner = null;
+
+            for (Player p : playersAlive) {
+                if ((p.getVehicle().getHealth() + p.getHealthUpgrade()) > maxHealth) {
+                    maxHealth = p.getVehicle().getHealth() + p.getHealthUpgrade();
+                    winner = p;
+                }
+            }
+            return winner;
+        }
+
         return null;
     }
 

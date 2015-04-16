@@ -30,8 +30,10 @@ import java.util.Map;
  * Created by Eplemaskin on 14/04/15.
  */
 public class StoreView extends AbstractView implements Screen{
+
     private MyGdxGame game;
     private Game gameInstance;
+    private GameView gameView;
     public Player currentPlayer;
 
     private ArrayList<Player> players;
@@ -55,14 +57,16 @@ public class StoreView extends AbstractView implements Screen{
 
     private Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel;
     private TextButton back;
+    private TextButton buttonNextPlayer, buttonNewRound;
     private TextButton buy;
     private ImageButton arrowLeft, arrowRight;
 
     private Sprite sprite, currentAmmoSprite;
     private SpriteBatch batch;
 
-    public StoreView(MyGdxGame game, Game gameInstance){
+    public StoreView(MyGdxGame game, Game gameInstance, GameView gameView){
         this.game = game;
+        this.gameView = gameView;
         this.gameInstance = gameInstance;
         this.players = gameInstance.getPlayers();
         this.currentPlayer = players.get(0);
@@ -121,6 +125,8 @@ public class StoreView extends AbstractView implements Screen{
         skin.getFont("font").scale((float)0.1);
 
         this.back = new TextButton("Next Player", skin);
+        this.buttonNextPlayer = new TextButton("Next Player", skin);
+        this.buttonNewRound = new TextButton("New Round", skin);
         this.buy = new TextButton("Buy", skin);
 
         placeholderLabel = new Label("", skin);
@@ -132,6 +138,7 @@ public class StoreView extends AbstractView implements Screen{
         txtCurrentPlayer.setFontScale(2);
         txtMoney = new Label("$" + currentPlayer.getMoney(), skin);
         currentAmmoSprite = getCurrentSprite();
+
 
         /*
         container.add(placeholderLabel).prefHeight(stage.getHeight()/10 * 2).prefWidth(stage.getWidth());
@@ -188,7 +195,7 @@ public class StoreView extends AbstractView implements Screen{
                     back.setText("New round");
                 }
                 else if (currentPlayer == players.get(players.size()-1)){
-                    game.setScreen(new MainMenu(game, 100));
+                    game.setScreen(gameView);
                 }
                 else{
                     currentPlayer = players.get(players.indexOf(currentPlayer));

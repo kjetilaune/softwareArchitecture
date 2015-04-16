@@ -55,6 +55,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     MyGdxGame game;
     private Stage stage;
+    private GameView gameView;
 
     private MovementController moveCtrl; // controls the left/right-movement of the tank
 
@@ -108,6 +109,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     public GameView(MyGdxGame game, Game gameInstance){
 
         this.game = game; // the application launcher
+        gameView = this;
         game.introSong.stop();
 
         // store the needed variables
@@ -179,7 +181,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonStore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new StoreView(game, gameInstance));
+                game.setScreen(new StoreView(game, gameInstance, gameView));
             }
         });
 
@@ -251,7 +253,7 @@ public class GameView extends AbstractView implements Screen, Observer{
             if (gameInstance.getRoundsLeft() == 0) {
                 game.setScreen(new GameOverView(game, gameInstance));
             } else {
-                game.setScreen(new StoreView(game, gameInstance));
+                game.setScreen(new StoreView(game, gameInstance, this));
             }
         }
 
