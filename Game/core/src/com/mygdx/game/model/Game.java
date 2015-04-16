@@ -80,7 +80,7 @@ public class Game extends AbstractModel {
         for (int i = 0 ; i < playersAlive.size() ; i ++) {
             if (playersAlive.get(i) == currentPlayer) {
                 nextPlayer = i+1;
-                if (i == players.size()-1) {
+                if (i == playersAlive.size()-1) {
                     nextPlayer = 0;
                 }
             }

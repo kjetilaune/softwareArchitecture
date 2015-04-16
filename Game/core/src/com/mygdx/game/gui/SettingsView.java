@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,9 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.Enums.Team;
@@ -68,6 +71,8 @@ public class SettingsView extends AbstractView implements Screen {
     private Label txtNumberOfRounds;
     private Label txtPlayer;
     private Label txtTeams;
+
+    private Slider sliderTest;
 
     private Team[] teamNames;
     private int currentTeam;
@@ -160,6 +165,17 @@ public class SettingsView extends AbstractView implements Screen {
         buttonMainMenu = new TextButton("Main Menu", skin);
         newGame = new TextButton("New Game", skin);
 
+        /*Skin skinSlider = new Skin();
+        skinSlider.add("sliderbackground", Gdx.files.internal("design/slider_background.png"));
+        skinSlider.add("sliderknob", Gdx.files.internal("design/slider_knob.png"));
+
+
+        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
+        sliderStyle.background = skinSlider.getDrawable("sliderbackground");
+        sliderStyle.knob = skinSlider.getDrawable("sliderknob");
+
+        sliderTest = new Slider(0, 10, 1, false, sliderStyle);*/
+
 
 
         scroll.layout();
@@ -173,6 +189,8 @@ public class SettingsView extends AbstractView implements Screen {
         //table.add(title).padBottom(20).row();
 
         table.row().padTop(300);
+
+        //table.add(sliderTest);
 
         table.add(labelNumberOfRounds);
         table.add(arrowLeft);
