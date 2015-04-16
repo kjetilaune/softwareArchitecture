@@ -130,6 +130,7 @@ public class StoreView extends AbstractView implements Screen{
         this.buy.setName("Buy");
         buttonNextPlayer = new TextButton("Next Player", skin);
         buttonNewRound = new TextButton("New Round", skin);
+        buttonNewRound.setName("NewRound");
 
         placeholderLabel = new Label("", skin);
         currentPlayerLabel = new Label("Current Player:", skin);
@@ -217,6 +218,31 @@ public class StoreView extends AbstractView implements Screen{
                 }
             }
         });*/
+
+        buttonNewRound.addListener(new StoreController(this, gameView));
+
+        buttonNextPlayer.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if (currentPlayer == players.get(players.size()-2)){
+                        currentPlayer = players.get(players.size()-1);
+                        currentAmmo = ammos.get(0);
+                        txtMoney.setText("$" + currentPlayer.getMoney());
+                        txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
+                        buttonNextPlayer.remove();
+                        bottomContainer.add(buttonNewRound).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+
+                    }
+                    else{
+                        currentPlayer = players.get(players.indexOf(currentPlayer));
+                        currentAmmo = ammos.get(0);
+                        txtMoney.setText("$" + currentPlayer.getMoney());
+                        txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
+                    }
+
+
+                }
+            });
 
         //back.addListener(new StoreController(this, gameView));
 

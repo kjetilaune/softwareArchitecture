@@ -51,6 +51,7 @@ public class Player {
 
     public void reset(Environment newEnvironment, Vector2 newStartPosition) {
         vehicle.reset(newEnvironment, newStartPosition);
+        turnsTaken = 0;
     }
 
     public int getHealthUpgrade() {

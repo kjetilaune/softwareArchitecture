@@ -61,15 +61,20 @@ public class StoreController extends AbstractController implements EventListener
         }
     }*/
 
+    private void newRound() {
+        gameView.gameInstance.changeRound();
+        view.game.setScreen(gameView);
+    }
+
     public boolean handle (Event event){
         //System.out.println();
         if (event.getListenerActor().getName().equals("Buy")) {
             System.out.println("buy");
             buy(view.currentAmmo);
         }
-        else if (event.getListenerActor().getName().equals("NextPlayer")){
-            System.out.println("next player");
-            //nextPlayer();
+        else if (event.getListenerActor().getName().equals("NewRound")){
+            System.out.println("new round");
+            newRound();
         }
 
         return false;
