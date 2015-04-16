@@ -45,7 +45,6 @@ public class StoreController extends AbstractController implements EventListener
         gameView.gameInstance.changeRound();
         gameView.dispose();
         view.game.setScreen(new GameView(view.game, view.gameInstance));
-        //view.game.setScreen(gameView);
     }
 
     public boolean handle (Event event){

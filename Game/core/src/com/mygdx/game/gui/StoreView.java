@@ -102,7 +102,7 @@ public class StoreView extends AbstractView implements Screen{
         stage.addActor(ammoContainer);
         stage.addActor(bottomContainer);
 
-        System.out.println("" + stage.getHeight() + ", " + stage.getWidth());
+        //System.out.println("" + stage.getHeight() + ", " + stage.getWidth());
         container.setWidth(stage.getWidth());
         container.setHeight(stage.getHeight()/10 * 2);
         ammoContainer.setWidth(stage.getWidth());
