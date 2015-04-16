@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.gui.GameView;
 import com.mygdx.game.gui.SettingsView;
+import com.mygdx.game.gui.TeamView;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.GameSettings;
@@ -24,11 +25,13 @@ public class SettingsController extends AbstractController implements EventListe
     // the view the controller listens to
     private SettingsView view;
 
-    private Environment environment;
+    public GameSettings settings;
+    private TeamView teamView;
 
     public SettingsController(AbstractView view){
         super(view);
         this.view = (SettingsView)view;
+
     }
 
     @Override
@@ -38,7 +41,7 @@ public class SettingsController extends AbstractController implements EventListe
 
     public void touchUp(InputEvent event) {
 
-        GameSettings settings = new GameSettings();
+        settings = new GameSettings();
 
         settings.setNofPlayers(view.numberOfPlayers);
         settings.setNumberOfRounds(view.numberOfRounds);
@@ -47,21 +50,60 @@ public class SettingsController extends AbstractController implements EventListe
 
         view.game.setScreen(new GameView(view.game, new Game(settings)));
 
+    }
+
+    private void next() {
+        settings = new GameSettings();
+
+        settings.setNofPlayers(view.numberOfPlayers);
+        settings.setNumberOfRounds(view.numberOfRounds);
+        settings.setNumberOfTurns(view.numberOfTurns);
+        //settings.setTeams(view.teams);
+
+        view.game.setScreen(new TeamView(view.game, this));
+    }
+
+    private void newGame() {
+
+        teamView.teamsChosen.add(teamView.currentTeam);
+        teamView.currentPlayerNumber ++;
+        System.out.println("Current player " + teamView.currentPlayerNumber);
+
+        if (teamView.currentPlayerNumber == teamView.numberOfPlayers) {
+            settings.setTeams(teamView.teamsChosen);
+            view.game.setScreen(new GameView(view.game, new Game(settings)));
+        }
 
     }
 
+
     public boolean touchDown(InputEvent event) {
 
+        if (event.getListenerActor().getName().equals("Next")) {
+            next();
+        }
+        else if(event.getListenerActor().getName().equals("NewGame")) {
+            newGame();
+        }
+
         return true;
+
     }
 
 
     public boolean handle (Event event){
 
         if (event.toString() == "touchUp"){
-            touchUp((InputEvent)event);
+            touchDown((InputEvent)event);
         }
+
+
+
         return true;
+    }
+
+    public void setTeamView (TeamView teamView) {
+        this.teamView = teamView;
     }
 
 

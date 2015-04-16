@@ -23,6 +23,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.Enums.Team;
 import com.mygdx.game.model.Game;
+import com.mygdx.game.model.GameSettings;
 import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class SettingsView extends AbstractView implements Screen {
     private ImageButton arrowRightTeam;
     private ImageButton arrowLeftPlayer;
     private ImageButton arrowRightPlayer;
-    private TextButton newGame;
+
 
     private Sprite settingsSprite;
     private SpriteBatch batch;
@@ -86,6 +87,7 @@ public class SettingsView extends AbstractView implements Screen {
     public ArrayList<Team> teams;
 
     private TextButton buttonMainMenu;
+    private TextButton buttonNext;
 
 
 
@@ -163,7 +165,8 @@ public class SettingsView extends AbstractView implements Screen {
         txtPlayer = new Label("" + currentPlayer, skin);
 
         buttonMainMenu = new TextButton("Main Menu", skin);
-        newGame = new TextButton("New Game", skin);
+        buttonNext = new TextButton("Next", skin);
+        buttonNext.setName("Next");
 
         /*Skin skinSlider = new Skin();
         skinSlider.add("sliderbackground", Gdx.files.internal("design/slider_background.png"));
@@ -215,7 +218,7 @@ public class SettingsView extends AbstractView implements Screen {
         table.add(arrowRightTeam);
         table.row().padTop(40);
         table.add(buttonMainMenu).size(400, 120).padBottom(5);
-        table.add(newGame).size(400, 120).padLeft(60).padBottom(5).colspan(3).row();
+        table.add(buttonNext).size(400, 120).padLeft(60).padBottom(5).colspan(3).row();
 
         settingsSprite = new Sprite(TextureManager.settingsBackground);
         settingsSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -260,11 +263,12 @@ public class SettingsView extends AbstractView implements Screen {
             }
         });
 
-        newGame.addListener(new SettingsController(this));
-        /*newGame.addListener(new ClickListener() {
+        buttonNext.addListener(new SettingsController(this));
+
+        /*buttonNext.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameView(game, new Game()));
+                game.setScreen(new TeamView(game, new GameSettings()));
             }
         });*/
 
