@@ -14,14 +14,16 @@ public class Player {
     private Ammunition chosenAmmo;
     private Team team;
     private float timeLeft;
+    private int roundsWon;
     private int playerNumber;
     private int money;
 
     public Player(Team team, Environment environment, Vector2 vehiclePosition, int playerNumber) {
-        this.team = team;
+        roundsWon = 0;
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
         vehicle = new Tank(team, environment, vehiclePosition);
+        this.team = team;
         this.money = 100000;
         this.playerNumber = playerNumber;
 
@@ -36,6 +38,14 @@ public class Player {
     }
 
     public boolean isAlive() { return vehicle.getHealth() > 0; }
+
+    public void reset(Environment newEnvironment, Vector2 newStartPosition) {
+        vehicle.reset(newEnvironment, newStartPosition);
+    }
+
+    public int getHealthUpgrade() {
+        return inventory.getHealthUpgrade();
+    }
 
     public Vehicle getVehicle() {
         return vehicle;
@@ -87,6 +97,14 @@ public class Player {
 
     public int getPlayerNumber() {
         return playerNumber;
+    }
+
+    public int getRoundsWon() {
+        return roundsWon;
+    }
+
+    public void setRoundsWon(int roundsWon) {
+        this.roundsWon = roundsWon;
     }
 
 }

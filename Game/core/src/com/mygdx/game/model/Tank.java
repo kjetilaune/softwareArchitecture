@@ -12,6 +12,11 @@ import com.mygdx.game.model.Enums.Team;
  */
 public class Tank extends Vehicle {
 
+
+    // ***THIS CLASS SHOULD BE RESTRUCTURED. MOST OF ITS CONTENT SHOULD BE MOVED TO VEHICLE***
+
+
+
     private Environment environment;
     private Barrel barrel;
 
@@ -19,7 +24,7 @@ public class Tank extends Vehicle {
         super(team.getTankTexture());
         this.environment = environment;
         super.setPosition(position);
-        setRotation(environment.getAngle(getPosition().x, getPosition().x + TextureManager.tank.getWidth()));
+        setRotation(environment.getAngle(getPosition().x, getPosition().x + getTexture().getWidth()));
         barrel = new Barrel(team, getBarrelPosition(), 45);
         barrel.setRotation(getRotation());
     }
@@ -75,6 +80,10 @@ public class Tank extends Vehicle {
 
     public Barrel getBarrel() {
         return barrel;
+    }
+
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
 }

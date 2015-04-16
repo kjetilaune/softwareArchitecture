@@ -191,11 +191,11 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         fireSkin.getFont("font").setScale(1.2f);
-        labelCurrentPlayer = new Label(currentPlayer.getTeam().getName(), fireSkin);
+        labelCurrentPlayer = new Label(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()), fireSkin);
         fireSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
-        labelHealthLeft = new Label("Health left: " + currentPlayer.getVehicle().getHealth(), fireSkin);
+        labelHealthLeft = new Label("Health left: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
         labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), fireSkin);
 
         groupTop.left().top();

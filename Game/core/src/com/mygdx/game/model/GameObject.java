@@ -65,7 +65,6 @@ public abstract class GameObject extends Observable{
         return position;
     }
 
-
     public Texture getTexture() {
         return texture;
     }

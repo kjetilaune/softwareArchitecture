@@ -61,6 +61,14 @@ public abstract class Vehicle extends GameObject {
         return power;
     }
 
+    public void reset(Environment newEnvironment, Vector2 newStartPosition) {
+        health = 100;
+        fuel = 100;
+        position = newStartPosition;
+        super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getTexture().getWidth()));
+
+    }
+
     public void takeDamage(Ammunition ammo) {
         setHealth(health - ammo.getInitialDamage());
     }

@@ -47,8 +47,8 @@ public class AngleController extends AbstractController implements EventListener
 
     // changes the angle of the barrel
     public void changeAngle(Vehicle vehicle, Barrel barrel, float x, float y) {
-        // if out of deadzone (at bottom and top where buttons are. should be properly generalized)
-        if (y > 200f && y < 935f) {
+        // if out of deadzone (at bottom where buttons are. should be properly generalized)
+        if (y > 200f) {
 
             /*
             System.out.println("Barrel angle: " + Float.toString(barrel.getAngle(x, y)));
