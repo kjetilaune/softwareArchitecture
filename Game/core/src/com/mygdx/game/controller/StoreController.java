@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.mygdx.game.gui.AbstractView;
 
+import com.mygdx.game.gui.GameView;
 import com.mygdx.game.gui.StoreView;
 import com.mygdx.game.model.Ammunition;
 
@@ -17,10 +18,12 @@ import java.beans.PropertyChangeEvent;
 public class StoreController extends AbstractController implements EventListener {
 
     private StoreView view;
+    private GameView gameView;
 
-    public StoreController(AbstractView view){
+    public StoreController(AbstractView view, GameView gameView){
         super(view);
         this.view = (StoreView)view;
+        this.gameView = (GameView)gameView;
     }
 
 
@@ -40,21 +43,19 @@ public class StoreController extends AbstractController implements EventListener
 
     private void newRound() {
         gameView.gameInstance.changeRound();
-        view.game.setScreen(gameView);
+        gameView.dispose();
+        view.game.setScreen(new GameView(view.game, view.gameInstance));
+        //view.game.setScreen(gameView);
     }
 
     public boolean handle (Event event){
         System.out.println();
-        if (event.toString().equals("touchDown")){
+        if (event.getListenerActor().getName().equals("Buy")){
             buy(view.currentAmmo);
         }
-<<<<<<< HEAD
         else if (event.getListenerActor().getName().equals("NewRound")){
-            System.out.println("new round");
             newRound();
         }
-=======
->>>>>>> 8bcc0eff60e21c15a4bef3087b67c3ce8f6c94d9
 
         return false;
     }

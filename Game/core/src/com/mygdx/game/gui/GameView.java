@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -105,6 +106,9 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Label labelFuelLeft;
     private Label labelPower;
 
+    private Sprite spriteCloud;
+    private Sprite spriteSky;
+
 
     public GameView(MyGdxGame game, Game gameInstance){
 
@@ -151,6 +155,12 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonStore.setName("Store");
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
+
+        spriteCloud = new Sprite(TextureManager.cloudsBackground);
+        spriteSky = new Sprite(TextureManager.skyBackground);
+        spriteCloud.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/3);
+        spriteCloud.setPosition(0, 2*Gdx.graphics.getHeight()/3);
+        spriteSky.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         setupCamera(); // set up the camera
 
@@ -257,6 +267,7 @@ public class GameView extends AbstractView implements Screen, Observer{
             }
         }
 
+        environment = gameInstance.getEnvironment();
         currentPlayer = gameInstance.getCurrentPlayer();
         currentVehicle = currentPlayer.getVehicle();
 
@@ -264,14 +275,20 @@ public class GameView extends AbstractView implements Screen, Observer{
         Gdx.gl.glClearColor(environment.getBgColors()[0], environment.getBgColors()[1], environment.getBgColors()[2], environment.getBgColors()[3]);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.begin();
+        spriteSky.draw(batch);
+        spriteCloud.draw(batch);
+        batch.end();
+
+
         // draw the ground using the set environment
         generateGround();
 
 
         // draws the sprites, ex vehicles etc.
         batch.begin();
-        batch.draw(TextureManager.skyBackground, 0, 0);
-        batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        //batch.draw(TextureManager.skyBackground, 0, 0);
+        //batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         for (Player p : playersAlive) {
             if (p.getVehicle().getHealth() > 0) {

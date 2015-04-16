@@ -50,6 +50,18 @@ public class Tank extends Vehicle {
 
     }
 
+    public void reset(Environment newEnvironment, Vector2 newStartPosition) {
+
+        super.reset();
+        this.environment = newEnvironment;
+        position = newStartPosition;
+        super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getTexture().getWidth()));
+        barrel.setPosition(getBarrelPosition());
+        barrel.setAngle(45);
+        barrel.setRotation(getRotation());
+
+    }
+
 
 
     public Vector2 getBarrelPosition() {

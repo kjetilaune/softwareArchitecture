@@ -31,9 +31,9 @@ import java.util.Map;
  */
 public class StoreView extends AbstractView implements Screen{
 
-    private MyGdxGame game;
-    private Game gameInstance;
-    private GameView gameView;
+    public MyGdxGame game;
+    public Game gameInstance;
+    public GameView gameView;
     public Player currentPlayer;
 
     private ArrayList<Player> players;
@@ -128,13 +128,9 @@ public class StoreView extends AbstractView implements Screen{
         this.buttonNextPlayer = new TextButton("Next Player", skin);
         this.buttonNewRound = new TextButton("New Round", skin);
         this.buy = new TextButton("Buy", skin);
-<<<<<<< HEAD
+
         this.buy.setName("Buy");
-        buttonNextPlayer = new TextButton("Next Player", skin);
-        buttonNewRound = new TextButton("New Round", skin);
-        buttonNewRound.setName("NewRound");
-=======
->>>>>>> 8bcc0eff60e21c15a4bef3087b67c3ce8f6c94d9
+        this.buttonNewRound.setName("NewRound");
 
         placeholderLabel = new Label("", skin);
         currentPlayerLabel = new Label("Current Player:", skin);
@@ -173,7 +169,9 @@ public class StoreView extends AbstractView implements Screen{
         bottomContainer.row();
         bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
         bottomContainer.add(buy).prefWidth(stage.getWidth() / 20 * 4);
-        bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        //bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(buttonNextPlayer).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+
 
         sprite = new Sprite(TextureManager.storeBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -189,7 +187,7 @@ public class StoreView extends AbstractView implements Screen{
     }
 
     public void show (){
-        back.addListener(new ClickListener() {
+        /*back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //System.out.println("AMMOSIZE" + ammos.size());
@@ -211,8 +209,9 @@ public class StoreView extends AbstractView implements Screen{
                     txtCurrentPlayer.setText("Player " + (players.indexOf(currentPlayer) + 1));
                 }
             }
-<<<<<<< HEAD
+
         });*/
+
 
         buttonNewRound.addListener(new StoreController(this, gameView));
 
@@ -240,9 +239,7 @@ public class StoreView extends AbstractView implements Screen{
             });
 
         //back.addListener(new StoreController(this, gameView));
-=======
-        });
->>>>>>> 8bcc0eff60e21c15a4bef3087b67c3ce8f6c94d9
+
 
         arrowLeft.addListener(new ClickListener() {
             @Override
@@ -271,7 +268,7 @@ public class StoreView extends AbstractView implements Screen{
             }
         });
 
-        buy.addListener(new StoreController(this));
+        buy.addListener(new StoreController(this, gameView));
 
         Gdx.input.setInputProcessor(stage);
     }

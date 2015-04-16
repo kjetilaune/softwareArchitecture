@@ -113,6 +113,9 @@ public class Game extends AbstractModel {
             }
 
         }
+        else {
+            System.out.println("Game over");
+        }
 
     }
 
@@ -147,6 +150,7 @@ public class Game extends AbstractModel {
                 noTurnsLeft = false;
             }
         }
+
 
         // if so, the player with the most health left should win the round
         if (noTurnsLeft) {

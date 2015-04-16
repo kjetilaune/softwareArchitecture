@@ -50,7 +50,7 @@ public class Player {
     public boolean isAlive() { return vehicle.getHealth() > 0; }
 
     public void reset(Environment newEnvironment, Vector2 newStartPosition) {
-        vehicle.reset(newEnvironment, newStartPosition);
+        ((Tank)vehicle).reset(newEnvironment, newStartPosition);
         turnsTaken = 0;
     }
 

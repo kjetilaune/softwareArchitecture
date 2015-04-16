@@ -103,6 +103,9 @@ public class FireThread extends Thread {
     public boolean hasStopped() {
 
 
+        if (ammo.getPosition() == null) {
+            return true;
+        }
 
         if (environment.isColliding(ammo.getPosition())) {
             return true;
