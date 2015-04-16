@@ -67,27 +67,27 @@ public class Game extends AbstractModel {
 
         // update players alive
         for (Player p : playersDead) {
-            if (playersAlive.contains(p)) {
+            if (playersAlive.contains(p) && !p.equals(currentPlayer)) {
                 playersAlive.remove(p);
             }
         }
 
+        // change to next player
+        int oldPlayer = playersAlive.indexOf(currentPlayer);
+        int nextPlayer = oldPlayer + 1;
+        if (nextPlayer >= playersAlive.size()) {
+            nextPlayer = 0;
+        }
+
+        currentPlayer = playersAlive.get(nextPlayer);
+
+        // remove the old current player if dead (only triggers on suicide)
+        if (playersDead.contains(playersAlive.get(oldPlayer))) {
+            playersAlive.remove(oldPlayer);
+        }
+
         // update the winning player, is null if there is not yet a winner
         roundWinningPlayer = getRoundWinner();
-
-        // change to next player
-        int nextPlayer = -1;
-        for (int i = 0 ; i < playersAlive.size() ; i ++) {
-            if (playersAlive.get(i) == currentPlayer) {
-                nextPlayer = i+1;
-                if (i == playersAlive.size()-1) {
-                    nextPlayer = 0;
-                }
-            }
-        }
-        currentPlayer = players.get(nextPlayer);
-
-
 
     }
 
