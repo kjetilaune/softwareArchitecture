@@ -97,6 +97,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private Label labelRound;
     private Label labelCurrentPlayer;
+    private Label labelTurn;
     private Label labelChosenAmmo;
     private Label labelLeftAmmo;
     private Label labelHealthLeft;
@@ -193,6 +194,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         fireSkin.getFont("font").setScale(1.2f);
         labelRound = new Label(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()), fireSkin);
         labelCurrentPlayer = new Label(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()), fireSkin);
+        labelTurn = new Label("Turns left: ?", fireSkin);
         fireSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
@@ -203,7 +205,8 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupTop.left().top();
         groupTop.defaults();
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
-        groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX().row();
+        groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX();
+        groupTop.add(labelTurn).pad(10,10,10,0).fillX().row();
         groupTop.add(labelChosenAmmo).padLeft(10).fillX();
         groupTop.add(labelLeftAmmo).padLeft(40).fillX();
         groupTop.add(labelHealthLeft).padLeft(40).fillX();
@@ -242,6 +245,12 @@ public class GameView extends AbstractView implements Screen, Observer{
     // is called all the time. draws the game with different positions and values for tanks etc.
     @Override
     public void render(float delta) {
+
+        // if the round is finished (which means there is a winner),
+        // the game should go to store
+        if (gameInstance.getRoundWinner() != null) {
+            game.setScreen(new StoreView(game, gameInstance));
+        }
 
         currentPlayer = gameInstance.getCurrentPlayer();
         currentVehicle = currentPlayer.getVehicle();
@@ -319,6 +328,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         labelRound.setText(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()));
         labelCurrentPlayer.setText(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()));
+        labelTurn.setText("Turns left: ?");
         labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
         labelHealthLeft.setText("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()));
