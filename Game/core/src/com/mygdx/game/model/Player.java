@@ -14,7 +14,7 @@ public class Player {
     private Ammunition chosenAmmo;
     private Team team;
     private float timeLeft;
-    private int roundsWon;
+    private int roundsWon, turnsTaken;
     private int playerNumber;
     private int money;
 
@@ -26,12 +26,22 @@ public class Player {
         this.team = team;
         this.money = 100000;
         this.playerNumber = playerNumber;
-
+        turnsTaken = 0;
     }
 
     /*public void fireShot() {
         vehicle.fire(chosenAmmo);
     }*/
+
+    // set how many turns this player has taken
+    public void setTurnsTaken(int turnsTaken) {
+        this.turnsTaken = turnsTaken;
+    }
+
+    // return the number of turns taken by this player
+    public int getTurnsTaken() {
+        return turnsTaken;
+    }
 
     public void changeAmmo() {
         chosenAmmo = inventory.getNextAmmo(chosenAmmo);

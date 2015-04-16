@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class GameSettings {
 
 
-    private int nofPlayers, numberOfRounds, numberOfMoves;
+    private int nofPlayers, numberOfRounds, numberOfTurns;
 
     private ArrayList<Team> teams;
 
@@ -23,8 +23,8 @@ public class GameSettings {
         return nofPlayers;
     }
 
-    public int getNumberOfMoves() {
-        return numberOfMoves;
+    public int getNumberOfTurns() {
+        return numberOfTurns;
     }
 
     public int getNumberOfRounds() {
@@ -35,8 +35,8 @@ public class GameSettings {
         this.nofPlayers = nofPlayers;
     }
 
-    public void setNumberOfMoves(int numberOfMoves) {
-        this.numberOfMoves = numberOfMoves;
+    public void setNumberOfTurns(int numberOfTurns) {
+        this.numberOfTurns = numberOfTurns;
     }
 
     public void setNumberOfRounds(int numberOfRounds) {

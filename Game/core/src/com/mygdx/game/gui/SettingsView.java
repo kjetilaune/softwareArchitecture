@@ -61,13 +61,13 @@ public class SettingsView extends AbstractView implements Screen {
 
     private Label title;
     private Label labelNumberOfPlayers;
-    private Label labelRoundTime;
+    private Label labelNumberOfTurns;
     private Label labelNumberOfRounds;
     private Label labelPlayer;
     private Label labelTeams;
 
     private Label txtNumberOfPlayers;
-    private Label txtNumberOfMoves;
+    private Label txtNumberOfTurns;
     private Label txtNumberOfRounds;
     private Label txtPlayer;
     private Label txtTeams;
@@ -79,7 +79,7 @@ public class SettingsView extends AbstractView implements Screen {
 
     public int numberOfPlayers;
     public int numberOfRounds;
-    public int numberOfMoves;
+    public int numberOfTurns;
     public int currentPlayer;
 
     //An ArrayList where the index corresponds with the player's number (index 0 = Player 1) and the value is the team name.
@@ -145,20 +145,20 @@ public class SettingsView extends AbstractView implements Screen {
         }
 
         numberOfRounds = 1;
-        numberOfMoves = 1;
+        numberOfTurns = 2;
 
         //Labels
         title = new Label("Settings", skin);
         title.setFontScale((float)2);
         labelNumberOfPlayers = new Label("Number of players: ", skin);
         labelNumberOfRounds = new Label("Number of rounds: ", skin);
-        labelRoundTime = new Label("Moves per round: ", skin);
+        labelNumberOfTurns = new Label("Turns per round: ", skin);
         labelTeams = new Label("playing as  ", skin);
         labelPlayer = new Label("Player ", skin);
 
         txtNumberOfPlayers = new Label("" + numberOfPlayers, skin);
         txtNumberOfRounds = new Label("" + numberOfRounds, skin);
-        txtNumberOfMoves = new Label("" + numberOfMoves, skin);
+        txtNumberOfTurns = new Label("" + numberOfTurns, skin);
         txtTeams = new Label("" + teamNames[0].getName(), skin);
         txtPlayer = new Label("" + currentPlayer, skin);
 
@@ -198,9 +198,9 @@ public class SettingsView extends AbstractView implements Screen {
         table.add(arrowRight);
         table.row().padTop(30);
 
-        table.add(labelRoundTime);
+        table.add(labelNumberOfTurns);
         table.add(arrowLeftMoves);
-        table.add(txtNumberOfMoves).width(100);
+        table.add(txtNumberOfTurns).width(100);
         //table.add(txtNumberOfMoves).width(200).padLeft(50);
         table.add(arrowRightMoves);
         table.row().padTop(30);
@@ -290,9 +290,9 @@ public class SettingsView extends AbstractView implements Screen {
         arrowLeftMoves.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (numberOfMoves > 1){
-                    numberOfMoves--;
-                    txtNumberOfMoves.setText("" + numberOfMoves);
+                if (numberOfTurns > 1){
+                    numberOfTurns--;
+                    txtNumberOfTurns.setText("" + numberOfTurns);
                 }
 
             }
@@ -300,8 +300,8 @@ public class SettingsView extends AbstractView implements Screen {
         arrowRightMoves.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                numberOfMoves++;
-                txtNumberOfMoves.setText("" + numberOfMoves);
+                numberOfTurns++;
+                txtNumberOfTurns.setText("" + numberOfTurns);
 
             }
         });

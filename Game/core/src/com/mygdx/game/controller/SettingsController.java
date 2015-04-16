@@ -42,7 +42,7 @@ public class SettingsController extends AbstractController implements EventListe
 
         settings.setNofPlayers(view.numberOfPlayers);
         settings.setNumberOfRounds(view.numberOfRounds);
-        settings.setNumberOfMoves(view.numberOfMoves);
+        settings.setNumberOfTurns(view.numberOfTurns);
         settings.setTeams(view.teams);
 
         view.game.setScreen(new GameView(view.game, new Game(settings)));

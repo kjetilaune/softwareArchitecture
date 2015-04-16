@@ -20,7 +20,7 @@ public class Game extends AbstractModel {
 
     private Environment environment;
     private int numberOfRounds, currentRound;
-    private int numberOfMoves;
+    private int numberOfTurns;
     private long startTime, endTime;
     private float elapsedTime;
 
@@ -36,7 +36,7 @@ public class Game extends AbstractModel {
         random = new Random();
 
         numberOfRounds = settings.getNumberOfRounds();
-        numberOfMoves = settings.getNumberOfMoves();
+        numberOfTurns = settings.getNumberOfTurns();
 
         players = new ArrayList<Player>();
         playersAlive = new ArrayList<Player>();
@@ -57,6 +57,9 @@ public class Game extends AbstractModel {
 
 
     public void changePlayer() {
+
+        // increase the current player's number of turns taken by 1
+        currentPlayer.setTurnsTaken(currentPlayer.getTurnsTaken()+1);
 
         // if any player has been killed in this turn, add them to dead players
         for (Player p : playersAlive) {
@@ -190,12 +193,12 @@ public class Game extends AbstractModel {
         this.numberOfRounds = numberOfRounds;
     }
 
-    public int getNumberOfMoves() {
-        return numberOfMoves;
+    public int getNumberOfTurns() {
+        return numberOfTurns;
     }
 
-    public void setNumberOfMoves(int numberOfMoves) {
-        this.numberOfMoves = numberOfMoves;
+    public void setNumberOfTurns(int numberOfTurns) {
+        this.numberOfTurns = numberOfTurns;
     }
 
     public void setPlayers(ArrayList<Player> players) {
