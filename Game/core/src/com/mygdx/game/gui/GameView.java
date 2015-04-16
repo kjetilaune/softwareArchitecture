@@ -358,8 +358,6 @@ public class GameView extends AbstractView implements Screen, Observer{
     public void setIsFiring(boolean isFiring) {
         this.isFiring = isFiring;
 
-        System.out.println("isFiring set to " + Boolean.toString(isFiring));
-
         if (isFiring == true) {
             suspendButtons();
         }
