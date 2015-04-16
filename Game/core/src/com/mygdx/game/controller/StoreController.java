@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.mygdx.game.gui.AbstractView;
 
-import com.mygdx.game.gui.GameView;
 import com.mygdx.game.gui.StoreView;
 import com.mygdx.game.model.Ammunition;
 
@@ -18,12 +17,10 @@ import java.beans.PropertyChangeEvent;
 public class StoreController extends AbstractController implements EventListener {
 
     private StoreView view;
-    private GameView gameView;
 
-    public StoreController(AbstractView view, AbstractView gameView){
+    public StoreController(AbstractView view){
         super(view);
         this.view = (StoreView)view;
-        this.gameView = (GameView)gameView;
     }
 
 
@@ -40,26 +37,6 @@ public class StoreController extends AbstractController implements EventListener
             //view.currentPlayer.getInventory().getAmmoAmount().get(view.currentPlayer.getInventory().getAmmunitions().indexOf(ammunition));
         }
     }
-/*
-    private void nextPlayer() {
-        if (view.currentPlayer == view.players.get(view.players.size()-2)){
-            view.currentPlayer = view.players.get(view.players.size()-1);
-            view.currentAmmo = view.ammos.get(0);
-            view.txtMoney.setText("$" + view.currentPlayer.getMoney());
-            view.txtCurrentPlayer.setText("Player " + (view.players.indexOf(view.currentPlayer) + 1));
-            view.back.setText("New round");
-        }
-        else if (view.currentPlayer == view.players.get(view.players.size()-1)){
-            gameView.gameInstance.changeRound();
-            view.game.setScreen(gameView);
-        }
-        else{
-            view.currentPlayer = view.players.get(view.players.indexOf(view.currentPlayer));
-            view.currentAmmo = view.ammos.get(0);
-            view.txtMoney.setText("$" + view.currentPlayer.getMoney());
-            view.txtCurrentPlayer.setText("Player " + (view.players.indexOf(view.currentPlayer) + 1));
-        }
-    }*/
 
     private void newRound() {
         gameView.gameInstance.changeRound();
@@ -67,15 +44,17 @@ public class StoreController extends AbstractController implements EventListener
     }
 
     public boolean handle (Event event){
-        //System.out.println();
-        if (event.getListenerActor().getName().equals("Buy")) {
-            System.out.println("buy");
+        System.out.println();
+        if (event.toString().equals("touchDown")){
             buy(view.currentAmmo);
         }
+<<<<<<< HEAD
         else if (event.getListenerActor().getName().equals("NewRound")){
             System.out.println("new round");
             newRound();
         }
+=======
+>>>>>>> 8bcc0eff60e21c15a4bef3087b67c3ce8f6c94d9
 
         return false;
     }
