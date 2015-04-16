@@ -35,6 +35,8 @@ public class Player {
         chosenAmmo = inventory.getNextAmmo(chosenAmmo);
     }
 
+    public boolean isAlive() { return vehicle.getHealth() > 0; }
+
     public Vehicle getVehicle() {
         return vehicle;
     }

@@ -61,8 +61,6 @@ public abstract class Vehicle extends GameObject {
         return power;
     }
 
-    public boolean isAlive() { return health > 0; }
-
     public void takeDamage(Ammunition ammo) {
         setHealth(health - ammo.getInitialDamage());
     }
