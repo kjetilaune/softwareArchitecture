@@ -42,8 +42,8 @@ public class SettingsView extends AbstractView implements Screen {
 
     private ImageButton arrowLeft;
     private ImageButton arrowRight;
-    private ImageButton arrowLeftRoundTime;
-    private ImageButton arrowRightRoundTime;
+    private ImageButton arrowLeftMoves;
+    private ImageButton arrowRightMoves;
     private ImageButton arrowLeftTeam;
     private ImageButton arrowRightTeam;
     private ImageButton arrowLeftPlayer;
@@ -64,7 +64,7 @@ public class SettingsView extends AbstractView implements Screen {
     private Label labelTeams;
 
     private Label txtNumberOfPlayers;
-    private Label txtRoundTime;
+    private Label txtNumberOfMoves;
     private Label txtNumberOfRounds;
     private Label txtPlayer;
     private Label txtTeams;
@@ -74,7 +74,7 @@ public class SettingsView extends AbstractView implements Screen {
 
     public int numberOfPlayers;
     public int numberOfRounds;
-    public int roundTime;
+    public int numberOfMoves;
     public int currentPlayer;
 
     //An ArrayList where the index corresponds with the player's number (index 0 = Player 1) and the value is the team name.
@@ -106,10 +106,10 @@ public class SettingsView extends AbstractView implements Screen {
         arrowRight = new ImageButton(arrowRightSkin);
         arrowRight.setName("arrowRight");
 
-        arrowLeftRoundTime = new ImageButton(arrowLeftSkin);
-        arrowLeftRoundTime.setName("arrowLeftRoundTime");
-        arrowRightRoundTime = new ImageButton(arrowRightSkin);
-        arrowRightRoundTime.setName("arrowRightRoundTime");
+        arrowLeftMoves = new ImageButton(arrowLeftSkin);
+        arrowLeftMoves.setName("arrowLeftMoves");
+        arrowRightMoves = new ImageButton(arrowRightSkin);
+        arrowRightMoves.setName("arrowRightMoves");
 
         arrowLeftTeam = new ImageButton(arrowLeftSkin);
         arrowLeftTeam.setName("arrowLeftTeam");
@@ -140,20 +140,20 @@ public class SettingsView extends AbstractView implements Screen {
         }
 
         numberOfRounds = 1;
-        roundTime = 1;
+        numberOfMoves = 1;
 
         //Labels
         title = new Label("Settings", skin);
         title.setFontScale((float)2);
         labelNumberOfPlayers = new Label("Number of players: ", skin);
         labelNumberOfRounds = new Label("Number of rounds: ", skin);
-        labelRoundTime = new Label("Round time: ", skin);
+        labelRoundTime = new Label("Moves per round: ", skin);
         labelTeams = new Label("playing as  ", skin);
         labelPlayer = new Label("Player ", skin);
 
         txtNumberOfPlayers = new Label("" + numberOfPlayers, skin);
         txtNumberOfRounds = new Label("" + numberOfRounds, skin);
-        txtRoundTime = new Label("" + roundTime + ":00", skin);
+        txtNumberOfMoves = new Label("" + numberOfMoves, skin);
         txtTeams = new Label("" + teamNames[0].getName(), skin);
         txtPlayer = new Label("" + currentPlayer, skin);
 
@@ -181,9 +181,10 @@ public class SettingsView extends AbstractView implements Screen {
         table.row().padTop(30);
 
         table.add(labelRoundTime);
-        table.add(arrowLeftRoundTime);
-        table.add(txtRoundTime).width(200).padLeft(50);
-        table.add(arrowRightRoundTime);
+        table.add(arrowLeftMoves);
+        table.add(txtNumberOfMoves).width(100);
+        //table.add(txtNumberOfMoves).width(200).padLeft(50);
+        table.add(arrowRightMoves);
         table.row().padTop(30);
         table.add(labelPlayer);
         table.add(arrowLeftPlayer);
@@ -268,21 +269,21 @@ public class SettingsView extends AbstractView implements Screen {
             }
         });
 
-        arrowLeftRoundTime.addListener(new ClickListener() {
+        arrowLeftMoves.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (roundTime > 1){
-                    roundTime--;
-                    txtRoundTime.setText("" + roundTime + ":00");
+                if (numberOfMoves > 1){
+                    numberOfMoves--;
+                    txtNumberOfMoves.setText("" + numberOfMoves);
                 }
 
             }
         });
-        arrowRightRoundTime.addListener(new ClickListener() {
+        arrowRightMoves.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                roundTime++;
-                txtRoundTime.setText("" + roundTime + ":00");
+                numberOfMoves++;
+                txtNumberOfMoves.setText("" + numberOfMoves);
 
             }
         });

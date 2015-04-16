@@ -10,8 +10,7 @@ import java.util.ArrayList;
 public class GameSettings {
 
 
-    private int nofPlayers, numberOfRounds;
-    private float roundTime;
+    private int nofPlayers, numberOfRounds, numberOfMoves;
 
     private ArrayList<Team> teams;
 
@@ -24,8 +23,8 @@ public class GameSettings {
         return nofPlayers;
     }
 
-    public float getRoundTime() {
-        return roundTime;
+    public int getNumberOfMoves() {
+        return numberOfMoves;
     }
 
     public int getNumberOfRounds() {
@@ -36,8 +35,8 @@ public class GameSettings {
         this.nofPlayers = nofPlayers;
     }
 
-    public void setRoundTime(int roundTime) {
-        this.roundTime = roundTime;
+    public void setNumberOfMoves(int numberOfMoves) {
+        this.numberOfMoves = numberOfMoves;
     }
 
     public void setNumberOfRounds(int numberOfRounds) {

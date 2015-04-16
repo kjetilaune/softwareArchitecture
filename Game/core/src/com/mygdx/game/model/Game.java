@@ -20,7 +20,7 @@ public class Game extends AbstractModel {
 
     private Environment environment;
     private int numberOfRounds, currentRound;
-    private float roundTime;
+    private int numberOfMoves;
     private long startTime, endTime;
     private float elapsedTime;
 
@@ -29,14 +29,14 @@ public class Game extends AbstractModel {
     private Random random;
 
     public Game(GameSettings settings) {
-        
+
         this.store = Store.getInstance();
 
         environment = new Environment(4, 10);
         random = new Random();
 
         numberOfRounds = settings.getNumberOfRounds();
-        roundTime = settings.getRoundTime();
+        numberOfMoves = settings.getNumberOfMoves();
 
         players = new ArrayList<Player>();
         playersAlive = new ArrayList<Player>();
@@ -190,12 +190,12 @@ public class Game extends AbstractModel {
         this.numberOfRounds = numberOfRounds;
     }
 
-    public float getRoundTime() {
-        return roundTime;
+    public int getNumberOfMoves() {
+        return numberOfMoves;
     }
 
-    public void setRoundTime(float roundTime) {
-        this.roundTime = roundTime;
+    public void setNumberOfMoves(int numberOfMoves) {
+        this.numberOfMoves = numberOfMoves;
     }
 
     public void setPlayers(ArrayList<Player> players) {
