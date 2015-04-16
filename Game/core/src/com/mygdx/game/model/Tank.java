@@ -39,7 +39,7 @@ public class Tank extends Vehicle {
            super.setPosition(new Vector2(0, oldPosition.y));
         }
         else if (position.x + getTexture().getWidth() > Gdx.graphics.getWidth()) {
-            super.setPosition(new Vector2(Gdx.graphics.getWidth() - getTexture().getWidth(), oldPosition.y));
+            super.setPosition(new Vector2(Gdx.graphics.getWidth() - getTexture().getRelativeWidth(), oldPosition.y));
         }
         else {
             super.setPosition(position);

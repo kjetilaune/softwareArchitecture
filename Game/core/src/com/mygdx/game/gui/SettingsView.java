@@ -92,7 +92,7 @@ public class SettingsView extends AbstractView implements Screen {
     public SettingsView(MyGdxGame game) {
 
         this.game = game;
-        System.out.println(Team.values().length);
+        //System.out.println(Team.values().length);
         stage = new Stage();
         table = new Table();
         container = new Table();

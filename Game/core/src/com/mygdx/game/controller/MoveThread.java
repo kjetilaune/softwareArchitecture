@@ -49,20 +49,23 @@ public class MoveThread extends Thread {
 
                         if (vehicle.getFuel() > 0) {
 
+                            float angleToTheLeft = environment.getAngle(vehicle.getPosition().x - 1, vehicle.getPosition().x + vehicle.getTexture().getRelativeWidth() - 1);
+                            float angleToTheRight = environment.getAngle(vehicle.getPosition().x + 1, vehicle.getPosition().x + vehicle.getTexture().getRelativeWidth() + 1);
+
                             // moves the tank by updating its position according to the direction-input and environment
                             // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
-                            if (direction.equals("arrowLeft")){
+                            if (direction.equals("arrowLeft") && canTraverse(angleToTheLeft)){
                                 vehicle.setPosition(new Vector2(vehicle.getPosition().x - 10, environment.getGroundHeight(vehicle.getPosition().x - 10)));
                             }
-                            else if (direction.equals("arrowRight")){
+                            else if (direction.equals("arrowRight") /*&& canTraverse(angleToTheRight)*/){
                                 vehicle.setPosition(new Vector2(vehicle.getPosition().x + 10, environment.getGroundHeight(vehicle.getPosition().x + 10)));
                             }
 
                             // rotates the vehicle according to the environment
-                            vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + TextureManager.tank.getWidth()));
+                            vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + vehicle.getTexture().getRelativeWidth()));
 
                             // diminishes fuel
-                            vehicle.decreaseFuel();
+                            //vehicle.decreaseFuel();
 
                         }
 
@@ -102,6 +105,10 @@ public class MoveThread extends Thread {
     // calling this ends the while-loop in run(), stopping the thread from doing anything
     public void killThread() {
         blinker = false;
+    }
+
+    public boolean canTraverse(float angle) {
+        return Math.abs(angle) < 60.0f;
     }
 
 }
