@@ -23,6 +23,7 @@ public class Player {
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("Bullet");
         vehicle = new Tank(team, environment, vehiclePosition);
+        //vehicle = new Tank(team, environment, vehiclePosition);
         this.team = team;
         this.money = 100000;
         this.playerNumber = playerNumber;

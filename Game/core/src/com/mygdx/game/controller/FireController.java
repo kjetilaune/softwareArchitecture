@@ -58,8 +58,8 @@ public class FireController extends AbstractController implements EventListener{
             //System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
 
 
-            System.out.println("her: " + ((Tank) view.currentVehicle).getBarrel().getTipOfBarrel());
-            view.currentPlayer.getChosenAmmo().setPosition(((Tank) view.currentVehicle).getBarrel().getTipOfBarrel());
+            System.out.println("her: " + view.currentVehicle.getBarrel().getTipOfBarrel());
+            view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getBarrel().getTipOfBarrel());
             view.setIsFiring(true);
             fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
 
