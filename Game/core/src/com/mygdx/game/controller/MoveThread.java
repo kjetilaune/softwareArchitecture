@@ -78,7 +78,7 @@ public class MoveThread extends Thread {
                 else {
                     // cause the thread to halt for 200 ms before checking again for movement
                     // probably not very effective
-                    sleep(200);
+                    sleep(100);
                 }
             }
             catch (InterruptedException e) {
