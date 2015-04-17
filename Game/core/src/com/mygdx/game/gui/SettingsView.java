@@ -168,16 +168,11 @@ public class SettingsView extends AbstractView implements Screen {
         buttonNext = new TextButton("Next", skin);
         buttonNext.setName("Next");
 
-        /*Skin skinSlider = new Skin();
-        skinSlider.add("sliderbackground", Gdx.files.internal("design/slider_background.png"));
-        skinSlider.add("sliderknob", Gdx.files.internal("design/slider_knob.png"));
 
 
-        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
-        sliderStyle.background = skinSlider.getDrawable("sliderbackground");
-        sliderStyle.knob = skinSlider.getDrawable("sliderknob");
+        // trenger skin her jonathan!!!
 
-        sliderTest = new Slider(0, 10, 1, false, sliderStyle);*/
+        sliderTest = new Slider(0, 10, 1, false, skinSlider);
 
 
 
@@ -193,7 +188,9 @@ public class SettingsView extends AbstractView implements Screen {
 
         table.row().padTop(300);
 
-        //table.add(sliderTest);
+
+        // adder slider her, skal vises på skjermen tror jeg
+        table.add(sliderTest);
 
         table.add(labelNumberOfRounds);
         table.add(arrowLeft);

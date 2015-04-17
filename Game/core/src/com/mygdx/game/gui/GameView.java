@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -112,6 +113,8 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Sprite spriteCloudBack;
     private Sprite spriteSky;
 
+    private ProgressBar testProgressBar;
+
 
     public GameView(MyGdxGame game, Game gameInstance){
 
@@ -163,10 +166,15 @@ public class GameView extends AbstractView implements Screen, Observer{
         spriteCloudBack = new Sprite(TextureManager.cloudsBackground);
         spriteSky = new Sprite(TextureManager.skyBackground);
         spriteCloudFront.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/3);
-        spriteCloudFront.setPosition(0, 2*Gdx.graphics.getHeight()/3);
+        spriteCloudFront.setPosition(0, 2 * Gdx.graphics.getHeight() / 3);
         spriteCloudBack.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/3);
         spriteCloudBack.setPosition(0, 2*Gdx.graphics.getHeight()/3);
         spriteSky.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+
+        // trenger progress bar skin her!!!
+
+        testProgressBar = new ProgressBar(1, 100, 1, false, skinProgressBar);
 
         setupCamera(); // set up the camera
 
@@ -232,6 +240,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         groupTop.left().top();
         groupTop.defaults();
+        groupTop.add(testProgressBar); // legger til progress bar her
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX();
         groupTop.add(labelTurn).pad(10,10,10,0).fillX().row();

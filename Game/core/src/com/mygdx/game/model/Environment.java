@@ -2,6 +2,7 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.Enums.EnvironmentEnum;
@@ -16,6 +17,7 @@ import java.util.Vector;
 public class Environment {
 
     private ArrayList<Polygon> polygons;
+    private ArrayList<Circle> collisions;
 
     private int numberOfHills;
     private int pixelStep;
@@ -31,6 +33,7 @@ public class Environment {
     // for creating a simple environment
     public Environment() {
         polygons = new ArrayList<Polygon>();
+        collisions = new ArrayList<Circle>();
         drawBoringHills();
     }
 
@@ -73,8 +76,7 @@ public class Environment {
 
     public void collide(Vector2 point) {
 
-
-        if (isColliding(point)) {
+        /*if (isColliding(point)) {
 
             int collisionIndex = -1;
 
@@ -86,9 +88,18 @@ public class Environment {
             }
 
 
+        }*/
+
+        Circle circle = new Circle(point, 20);
+        collisions.add(circle);
+
+        for (int i = 0 ; i < polygons.size() ; i++) {
+
 
 
         }
+
+
 
 
 
@@ -247,6 +258,10 @@ public class Environment {
 
     public ArrayList<Polygon> getPolygons() {
         return polygons;
+    }
+
+    public ArrayList<Circle> getCollisions() {
+        return collisions;
     }
 
 
