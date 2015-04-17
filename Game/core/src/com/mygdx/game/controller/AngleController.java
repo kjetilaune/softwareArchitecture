@@ -38,10 +38,10 @@ public class AngleController extends AbstractController implements EventListener
         if (event.toString().equals("touchDown") || event.toString().equals("touchDragged")){
             // changes the angle of barrel
             changeAngle(view.currentVehicle, view.currentVehicle.getBarrel(), ((InputEvent)event).getStageX(), ((InputEvent)event).getStageY());
+            return true;
         }
 
-        // has to return something
-        return true;
+        return false;
     }
 
 

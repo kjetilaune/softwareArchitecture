@@ -16,7 +16,6 @@ public class Player {
     private float timeLeft;
     private int roundsWon, turnsTaken;
     private int playerNumber;
-    private int money;
 
     public Player(Team team, Environment environment, Vector2 vehiclePosition, int playerNumber) {
         roundsWon = 0;
@@ -25,7 +24,6 @@ public class Player {
         vehicle = new Tank(team, environment, vehiclePosition);
         //vehicle = new Tank(team, environment, vehiclePosition);
         this.team = team;
-        this.money = 100000;
         this.playerNumber = playerNumber;
         turnsTaken = 0;
     }
@@ -51,8 +49,20 @@ public class Player {
     public boolean isAlive() { return vehicle.getHealth() > 0; }
 
     public void reset(Environment newEnvironment, Vector2 newStartPosition) {
-        ((Tank)vehicle).reset(newEnvironment, newStartPosition);
+        vehicle.reset(newEnvironment, newStartPosition);
         turnsTaken = 0;
+    }
+
+    public boolean buy(String ammoName, Integer amount) {
+        return inventory.buyAmmunition(ammoName, amount);
+    }
+
+    public void setScore(int newScore) {
+        inventory.setScore(newScore);
+    }
+
+    public int getScore() {
+        return inventory.getScore();
     }
 
     public int getHealthUpgrade() {
@@ -106,10 +116,6 @@ public class Player {
     public void reduceTimeLeft(float reducedTime) {
         timeLeft -= reducedTime;
     }
-
-    public void setMoney(int money){ this.money = money; }
-
-    public int getMoney(){ return this.money; }
 
     public int getPlayerNumber() {
         return playerNumber;

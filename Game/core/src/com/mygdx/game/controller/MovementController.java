@@ -32,23 +32,26 @@ public class MovementController extends AbstractController implements EventListe
 
         if (event.toString().equals("touchDown")) {
             moveThread = new MoveThread();
+            return true;
         }
         else if (event.toString().equals("touchUp")) {
             moveThread.killThread();
+            return true;
         }
         // if button is pressed
         else if (event.toString().equals("enter")){
             // update the thread with the current direction, tank, and environment to initiate movement
             moveThread.initiateMovement(event.getTarget().toString(), view.currentVehicle, view.environment);
+            return true;
         }
         // if the button is no longer pressed, either by lifting or moving the finger/cursor
         else if (event.toString().equals("exit")) {
             // end the movement
             moveThread.endMovement();
+            return true;
         }
 
-        // has to return something
-        return true;
+        return false;
     }
 
 }

@@ -13,6 +13,6 @@ public class Instakill extends Ammunition {
     }
 
     public Instakill() {
-        super("Instakill", 100, 1, 100, 10, 10000);
+        super("Instakill", 100, 1, 100, 10);
     }
 }

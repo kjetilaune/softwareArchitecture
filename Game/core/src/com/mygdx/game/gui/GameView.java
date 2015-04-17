@@ -85,6 +85,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private BitmapFont font;
 
+    // Mikal: Why are these public? Should be private and have getters and setters.
     public Game gameInstance;
     public Environment environment; // the current environment of the game
     public Player currentPlayer; // current player

@@ -23,10 +23,9 @@ public class Inventory {
         ammoAmount = new ArrayList<Integer>();
         upgrades = new HashMap<String, Integer>();
 
-        score = 0;
+        score = 10000;
 
         // set default upgrades
-        upgrades.put("Armor", 0);
         upgrades.put("Health", 0);
         upgrades.put("Fuel", 0);
 
@@ -70,7 +69,9 @@ public class Inventory {
         return upgrades.get("Fuel");
     }
 
-    public void increaseAmmo(Ammunition ammo, int amount) {
+    public void increaseAmmo(String ammoName, int amount) {
+
+        Ammunition ammo = Store.getAmmunition(ammoName);
 
         if (!ammunitions.contains(ammo)) {
             ammunitions.add(ammo);
@@ -83,12 +84,14 @@ public class Inventory {
         }
     }
 
-    public boolean decreaseAmmo(Ammunition ammo, int amount) {
+    public boolean decreaseAmmo(String ammoName, int amount) {
 
         // enables infinite ammo of the Bullet-type
-        if (ammo.getName().equals("Bullet")) {
+        if (ammoName.equals("Bullet")) {
             return true;
         }
+
+        Ammunition ammo = Store.getAmmunition(ammoName);
 
         if (!ammunitions.contains(ammo)) {
             return false;
@@ -130,7 +133,7 @@ public class Inventory {
         }
 
         score -= cost;
-        increaseAmmo(Store.getAmmunition(ammoName), amount);
+        increaseAmmo(ammoName, amount);
         return true;
     }
 

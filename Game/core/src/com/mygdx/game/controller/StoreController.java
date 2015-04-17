@@ -17,18 +17,16 @@ import java.beans.PropertyChangeEvent;
  */
 public class StoreController extends AbstractController implements EventListener {
 
-    private StoreView view;
+    private StoreView storeView;
     private GameView gameView;
 
-    public StoreController(AbstractView view, GameView gameView){
-        super(view);
-        this.view = (StoreView)view;
+    public StoreController(AbstractView storeView, AbstractView gameView){
+        super(storeView);
+        this.storeView = (StoreView)storeView;
         this.gameView = (GameView)gameView;
     }
 
-
-    // NOTE TO KJETIL: the inventory already has buyAmmunition- and buyUpgrade-method
-    // note that these uses the score instead of money, although their function is the same and one should be removed
+/* DEPRECATED
     private void buy(Ammunition ammunition){
         if (view.currentPlayer.getMoney() < ammunition.getCost()){
             System.out.println("Insuficcient funds!");
@@ -40,26 +38,31 @@ public class StoreController extends AbstractController implements EventListener
             //view.currentPlayer.getInventory().getAmmoAmount().get(view.currentPlayer.getInventory().getAmmunitions().indexOf(ammunition));
         }
     }
+*/
+    private void buy() {
+        storeView.currentPlayer.buy(storeView.getCurrentAmmo(), 1);
+        storeView.setMoneyText("$" + storeView.currentPlayer.getScore());
+    }
 
     private void back() {
 
-        if (view.currentPlayer == view.players.get(view.players.size()-2)){
-            view.currentPlayer = view.players.get(view.players.size()-1);
-            view.currentAmmo = view.ammos.get(0);
-            view.txtMoney.setText("$" + view.currentPlayer.getMoney());
-            view.txtCurrentPlayer.setText("Player " + (view.players.indexOf(view.currentPlayer) + 1));
-            view.back.setText("New round");
+        if (storeView.currentPlayer == storeView.players.get(storeView.players.size()-2)){
+            storeView.currentPlayer = storeView.players.get(storeView.players.size()-1);
+            storeView.currentAmmo = storeView.ammoForPurchase.get(0);
+            storeView.txtMoney.setText("$" + storeView.currentPlayer.getScore());
+            storeView.txtCurrentPlayer.setText("Player " + (storeView.players.indexOf(storeView.currentPlayer) + 1));
+            storeView.back.setText("New round");
         }
-        else if (view.currentPlayer == view.players.get(view.players.size()-1)){
+        else if (storeView.currentPlayer == storeView.players.get(storeView.players.size()-1)){
             gameView.gameInstance.changeRound();
             gameView.dispose();
-            view.game.setScreen(new GameView(view.game, view.gameInstance));
+            storeView.game.setScreen(new GameView(storeView.game, storeView.gameInstance));
         }
         else{
-            view.currentPlayer = view.players.get(view.players.indexOf(view.currentPlayer));
-            view.currentAmmo = view.ammos.get(0);
-            view.txtMoney.setText("$" + view.currentPlayer.getMoney());
-            view.txtCurrentPlayer.setText("Player " + (view.players.indexOf(view.currentPlayer) + 1));
+            storeView.currentPlayer = storeView.players.get(storeView.players.indexOf(storeView.currentPlayer));
+            storeView.currentAmmo = storeView.ammoForPurchase.get(0);
+            storeView.txtMoney.setText("$" + storeView.currentPlayer.getScore());
+            storeView.txtCurrentPlayer.setText("Player " + (storeView.players.indexOf(storeView.currentPlayer) + 1));
         }
 
     }
@@ -69,7 +72,7 @@ public class StoreController extends AbstractController implements EventListener
         System.out.println(event.toString());
 
         if (event.toString().equals("touchDown") && event.getListenerActor().getName().equals("Buy")){
-            buy(view.currentAmmo);
+            buy();
         }
         else if (event.toString().equals("touchDown") && event.getListenerActor().getName().equals("Back")){
             back();
