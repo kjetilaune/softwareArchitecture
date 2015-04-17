@@ -23,6 +23,7 @@ import com.mygdx.game.model.Store;
 import com.mygdx.game.model.TextureManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,6 +78,7 @@ public class StoreView extends AbstractView implements Screen{
 
         ammoForPurchase = new ArrayList<String>();
         ammoForPurchase.addAll(Store.getInstance().getAmmunitionPrices().keySet());
+        Collections.reverse(ammoForPurchase);
 
         /*
         ammos = new ArrayList<Ammunition>();
@@ -174,7 +176,7 @@ public class StoreView extends AbstractView implements Screen{
         ammoContainer.add(arrowRight).right().maxWidth(stage.getWidth() / 20).padRight(stage.getWidth() / 10);
 
         bottomContainer.row();
-        bottomContainer.add(currentPlayerLabel).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
+        bottomContainer.add(currentPlayerLabel).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight() / 10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
         bottomContainer.row();
         bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
 
