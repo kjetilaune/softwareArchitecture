@@ -41,19 +41,38 @@ public class StoreController extends AbstractController implements EventListener
         }
     }
 
-    private void newRound() {
-        gameView.gameInstance.changeRound();
-        gameView.dispose();
-        view.game.setScreen(new GameView(view.game, view.gameInstance));
+    private void back() {
+
+        if (view.currentPlayer == view.players.get(view.players.size()-2)){
+            view.currentPlayer = view.players.get(view.players.size()-1);
+            view.currentAmmo = view.ammos.get(0);
+            view.txtMoney.setText("$" + view.currentPlayer.getMoney());
+            view.txtCurrentPlayer.setText("Player " + (view.players.indexOf(view.currentPlayer) + 1));
+            view.back.setText("New round");
+        }
+        else if (view.currentPlayer == view.players.get(view.players.size()-1)){
+            gameView.gameInstance.changeRound();
+            gameView.dispose();
+            view.game.setScreen(new GameView(view.game, view.gameInstance));
+        }
+        else{
+            view.currentPlayer = view.players.get(view.players.indexOf(view.currentPlayer));
+            view.currentAmmo = view.ammos.get(0);
+            view.txtMoney.setText("$" + view.currentPlayer.getMoney());
+            view.txtCurrentPlayer.setText("Player " + (view.players.indexOf(view.currentPlayer) + 1));
+        }
+
     }
 
     public boolean handle (Event event){
-        System.out.println();
-        if (event.getListenerActor().getName().equals("Buy")){
+
+        System.out.println(event.toString());
+
+        if (event.toString().equals("touchDown") && event.getListenerActor().getName().equals("Buy")){
             buy(view.currentAmmo);
         }
-        else if (event.getListenerActor().getName().equals("NewRound")){
-            newRound();
+        else if (event.toString().equals("touchDown") && event.getListenerActor().getName().equals("Back")){
+            back();
         }
 
         return false;

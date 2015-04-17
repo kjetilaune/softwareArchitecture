@@ -36,8 +36,8 @@ public class StoreView extends AbstractView implements Screen{
     public GameView gameView;
     public Player currentPlayer;
 
-    private ArrayList<Player> players;
-    private ArrayList<Ammunition> ammos;
+    public ArrayList<Player> players;
+    public ArrayList<Ammunition> ammos;
     private ArrayList<String> ammoNames;
 
     private HashMap<String, Ammunition> allAmmunition;
@@ -55,9 +55,8 @@ public class StoreView extends AbstractView implements Screen{
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
 
-    private Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel;
-    private TextButton back;
-    private TextButton buttonNextPlayer, buttonNewRound;
+    public Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel;
+    public TextButton back;
     private TextButton buy;
     private ImageButton arrowLeft, arrowRight;
 
@@ -125,12 +124,10 @@ public class StoreView extends AbstractView implements Screen{
         skin.getFont("font").scale((float)0.1);
 
         this.back = new TextButton("Next Player", skin);
-        this.buttonNextPlayer = new TextButton("Next Player", skin);
-        this.buttonNewRound = new TextButton("New Round", skin);
         this.buy = new TextButton("Buy", skin);
 
         this.buy.setName("Buy");
-        this.buttonNewRound.setName("NewRound");
+        this.back.setName("Back");
 
         placeholderLabel = new Label("", skin);
         currentPlayerLabel = new Label("Current Player:", skin);
@@ -169,8 +166,7 @@ public class StoreView extends AbstractView implements Screen{
         bottomContainer.row();
         bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
         bottomContainer.add(buy).prefWidth(stage.getWidth() / 20 * 4);
-        //bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
-        bottomContainer.add(buttonNextPlayer).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
 
         sprite = new Sprite(TextureManager.storeBackground);
@@ -187,6 +183,9 @@ public class StoreView extends AbstractView implements Screen{
     }
 
     public void show (){
+
+        back.addListener(new StoreController(this, gameView));
+
         /*back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -213,7 +212,7 @@ public class StoreView extends AbstractView implements Screen{
         });*/
 
 
-        buttonNewRound.addListener(new StoreController(this, gameView));
+        /*buttonNewRound.addListener(new StoreController(this, gameView));
 
         buttonNextPlayer.addListener(new ClickListener() {
                 @Override
@@ -236,7 +235,7 @@ public class StoreView extends AbstractView implements Screen{
 
 
                 }
-            });
+            });*/
 
         //back.addListener(new StoreController(this, gameView));
 
