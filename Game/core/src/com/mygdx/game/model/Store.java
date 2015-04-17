@@ -36,10 +36,10 @@ public class Store {
         allAmmunition.put("Instakill", new Instakill());
 
         // adds all ammunition available for purchase
-        ammunitionPrices.put("F-Bomb", 1000);
+        ammunitionPrices.put("F-Bomb", 500);
+        ammunitionPrices.put("Instakill", 1000);
 
         // adds all upgrades available for purchase
-        upgradePrices.put("Armor", 750);
         upgradePrices.put("Health", 1500);
         upgradePrices.put("Fuel", 500);
 
@@ -63,15 +63,24 @@ public class Store {
     }
 
     public static Ammunition getAmmunition(String name) {
-        return allAmmunition.get(name);
+        if (allAmmunition.containsKey(name)) {
+            return allAmmunition.get(name);
+        }
+        return null;
     }
 
     public static Integer getAmmunitionPrice(String ammoName) {
-        return ammunitionPrices.get(ammoName);
+        if (ammunitionPrices.containsKey(ammoName)) {
+            return ammunitionPrices.get(ammoName);
+        }
+        return -1;
     }
 
     public static Integer getUpgradePrice(String upgrade) {
-        return upgradePrices.get(upgrade);
+        if (upgradePrices.containsKey(upgrade)) {
+            return upgradePrices.get(upgrade);
+        }
+        return -1;
     }
 
 

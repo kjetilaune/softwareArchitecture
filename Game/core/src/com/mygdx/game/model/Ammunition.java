@@ -13,17 +13,15 @@ public abstract class Ammunition extends GameObject {
     private int clusterCount;
     private int blastRadius;
     private int weight;
-    private int cost;
 
     private Sprite image;
 
-    public Ammunition(String name, Integer initialDamage, Integer clusterCount, Integer blastRadius, Integer weight, Integer cost) {
+    public Ammunition(String name, Integer initialDamage, Integer clusterCount, Integer blastRadius, Integer weight) {
         this.name = name;
         this.initialDamage = initialDamage;
         this.clusterCount = clusterCount;
         this.blastRadius = blastRadius;
         this.weight = weight;
-        this.cost = cost;
     }
 
     public String getName() {
@@ -69,8 +67,6 @@ public abstract class Ammunition extends GameObject {
     public void setImage(Sprite image) {
         this.image = image;
     }
-
-    public int getCost(){ return this.cost; }
 
 
 

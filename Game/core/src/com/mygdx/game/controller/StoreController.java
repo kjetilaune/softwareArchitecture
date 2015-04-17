@@ -17,18 +17,16 @@ import java.beans.PropertyChangeEvent;
  */
 public class StoreController extends AbstractController implements EventListener {
 
-    private StoreView view;
+    private StoreView storeView;
     private GameView gameView;
 
-    public StoreController(AbstractView view, GameView gameView){
-        super(view);
-        this.view = (StoreView)view;
+    public StoreController(AbstractView storeView, AbstractView gameView){
+        super(storeView);
+        this.storeView = (StoreView)storeView;
         this.gameView = (GameView)gameView;
     }
 
-
-    // NOTE TO KJETIL: the inventory already has buyAmmunition- and buyUpgrade-method
-    // note that these uses the score instead of money, although their function is the same and one should be removed
+/* DEPRECATED
     private void buy(Ammunition ammunition){
         if (view.currentPlayer.getMoney() < ammunition.getCost()){
             System.out.println("Insuficcient funds!");
@@ -40,17 +38,19 @@ public class StoreController extends AbstractController implements EventListener
             //view.currentPlayer.getInventory().getAmmoAmount().get(view.currentPlayer.getInventory().getAmmunitions().indexOf(ammunition));
         }
     }
+*/
 
     private void newRound() {
         gameView.gameInstance.changeRound();
         gameView.dispose();
-        view.game.setScreen(new GameView(view.game, view.gameInstance));
+        storeView.game.setScreen(new GameView(storeView.game, storeView.gameInstance));
     }
 
     public boolean handle (Event event){
         System.out.println();
         if (event.getListenerActor().getName().equals("Buy")){
-            buy(view.currentAmmo);
+            storeView.currentPlayer.buy(storeView.getCurrentAmmo(), 1);
+            storeView.setMoneyText("$" + storeView.currentPlayer.getScore());
         }
         else if (event.getListenerActor().getName().equals("NewRound")){
             newRound();

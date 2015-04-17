@@ -40,7 +40,7 @@ public class FireThread extends Thread {
     public void run() {
         //System.out.println("FireThread started.");
 
-        view.currentPlayer.getInventory().decreaseAmmo(ammo, 1);
+        view.currentPlayer.getInventory().decreaseAmmo(ammo.getName(), 1);
 
         // should run until killThread() is called
         while (blinker) {
