@@ -55,6 +55,7 @@ public abstract class Vehicle extends GameObject {
             super.setPosition(new Vector2(Gdx.graphics.getWidth() - getRelativeWidth(), oldPosition.y));
         }
         else {
+            //super.setPosition(new Vector2(position.x, position.y));
             super.setPosition(position);
         }
 

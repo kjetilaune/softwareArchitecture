@@ -143,8 +143,11 @@ public class Environment {
 
     public float getAngle(float xStart, float xStop, float width) {
 
-        float x1 = xStart + (5*width/11);
-        float x2 = xStop - (5*width/11);
+        //float x1 = xStart + (2*width/5);
+        //float x2 = xStop - (2*width/5);
+
+        float x1 = xStart;
+        float x2 = xStop - width/2;
 
         float y1 = getGroundHeight(x1);
         float y2 = getGroundHeight(x2);
