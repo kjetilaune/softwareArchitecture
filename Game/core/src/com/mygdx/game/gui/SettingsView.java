@@ -74,6 +74,7 @@ public class SettingsView extends AbstractView implements Screen {
     private Label txtTeams;
 
     private Slider sliderTest;
+    private Skin sliderSkin;
 
     private Team[] teamNames;
     private int currentTeam;
@@ -112,6 +113,8 @@ public class SettingsView extends AbstractView implements Screen {
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
         arrowRight = new ImageButton(arrowRightSkin);
         arrowRight.setName("arrowRight");
+
+        sliderSkin = new Skin(Gdx.files.internal("skins/slider.json"), new TextureAtlas(Gdx.files.internal("skins/slider.pack")));
 
         arrowLeftMoves = new ImageButton(arrowLeftSkin);
         arrowLeftMoves.setName("arrowLeftMoves");
@@ -170,9 +173,9 @@ public class SettingsView extends AbstractView implements Screen {
 
 
 
-        // trenger skin her jonathan!!!
 
-        //sliderTest = new Slider(0, 10, 1, false, skinSlider);
+
+        sliderTest = new Slider(0, 10, 1, false, sliderSkin);
 
 
 
@@ -190,7 +193,7 @@ public class SettingsView extends AbstractView implements Screen {
 
 
         // adder slider her, skal vises på skjermen tror jeg
-        //table.add(sliderTest);
+        table.add(sliderTest);
 
         table.add(labelNumberOfRounds);
         table.add(arrowLeft);
