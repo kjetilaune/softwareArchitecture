@@ -48,6 +48,7 @@ public class FireController extends AbstractController implements EventListener{
 
             fireThread = new FireThread();
             powerThread = new PowerThread();
+            return true;
 
         }
         else if (event.toString().equals("touchUp")) {
@@ -62,22 +63,22 @@ public class FireController extends AbstractController implements EventListener{
             view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getBarrel().getTipOfBarrel());
             view.setIsFiring(true);
             fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
-
+            return true;
         }
 
         else if (event.toString().equals("enter")) {
             // start/continue power-fluctuation
             powerThread.initiateFluctuation(view.currentVehicle);
+            return true;
         }
 
         else if (event.toString().equals("exit")) {
             // end/halt power-fluctuation
             powerThread.endFluctuation();
+            return true;
         }
 
-
-        // has to return something
-        return true;
+        return false;
     }
 
 }

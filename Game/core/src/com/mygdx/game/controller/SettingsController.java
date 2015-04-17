@@ -39,19 +39,6 @@ public class SettingsController extends AbstractController implements EventListe
 
     }
 
-    public void touchUp(InputEvent event) {
-
-        settings = new GameSettings();
-
-        settings.setNofPlayers(view.numberOfPlayers);
-        settings.setNumberOfRounds(view.numberOfRounds);
-        settings.setNumberOfTurns(view.numberOfTurns);
-        settings.setTeams(view.teams);
-
-        view.game.setScreen(new GameView(view.game, new Game(settings)));
-
-    }
-
     private void next() {
         settings = new GameSettings();
 
@@ -76,37 +63,24 @@ public class SettingsController extends AbstractController implements EventListe
 
     }
 
-
-    public boolean touchDown(InputEvent event) {
-
-        if (event.getListenerActor().getName().equals("Next")) {
-            next();
-        }
-        else if(event.getListenerActor().getName().equals("NewGame")) {
-            newGame();
-        }
-
-        return true;
-
-    }
-
-
     public boolean handle (Event event){
 
-        if (event.toString() == "touchUp"){
-            touchDown((InputEvent)event);
+        if (event.toString().equals("touchUp")){
+            if (event.getListenerActor().getName().equals("Next")) {
+                next();
+                return true;
+            }
+            else if(event.getListenerActor().getName().equals("NewGame")) {
+                newGame();
+                return true;
+            }
         }
 
-
-
-        return true;
+        return false;
     }
 
     public void setTeamView (TeamView teamView) {
         this.teamView = teamView;
     }
-
-
-
 
 }

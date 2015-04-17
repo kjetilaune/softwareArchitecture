@@ -65,7 +65,7 @@ public class MoveThread extends Thread {
                             vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + vehicle.getRelativeWidth(), vehicle.getRelativeWidth()));
 
                             // diminishes fuel
-                            vehicle.decreaseFuel();
+                            //vehicle.decreaseFuel();
 
                         }
 
