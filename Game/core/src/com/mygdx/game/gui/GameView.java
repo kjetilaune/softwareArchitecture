@@ -86,6 +86,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     private BitmapFont font;
 
     // Mikal: Why are these public? Should be private and have getters and setters.
+    // Annie: Because of the controllers. I'm not sure if a view should have getters and setters, should check how it should be
     public Game gameInstance;
     public Environment environment; // the current environment of the game
     public Player currentPlayer; // current player
@@ -107,7 +108,8 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Label labelFuelLeft;
     private Label labelPower;
 
-    private Sprite spriteCloud;
+    private Sprite spriteCloudFront;
+    private Sprite spriteCloudBack;
     private Sprite spriteSky;
 
 
@@ -157,10 +159,13 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
-        spriteCloud = new Sprite(TextureManager.cloudsBackground);
+        spriteCloudFront = new Sprite(TextureManager.cloudsForeground);
+        spriteCloudBack = new Sprite(TextureManager.cloudsBackground);
         spriteSky = new Sprite(TextureManager.skyBackground);
-        spriteCloud.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/3);
-        spriteCloud.setPosition(0, 2*Gdx.graphics.getHeight()/3);
+        spriteCloudFront.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/3);
+        spriteCloudFront.setPosition(0, 2*Gdx.graphics.getHeight()/3);
+        spriteCloudBack.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/3);
+        spriteCloudBack.setPosition(0, 2*Gdx.graphics.getHeight()/3);
         spriteSky.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         setupCamera(); // set up the camera
@@ -205,6 +210,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         fireSkin.getFont("font").setScale(1.2f);
+
         labelRound = new Label(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()), fireSkin);
         labelCurrentPlayer = new Label(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()), fireSkin);
         labelTurn = new Label("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()), fireSkin);
@@ -214,6 +220,15 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelHealthLeft = new Label("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
         labelFuelLeft = new Label("Fuel: " + (currentPlayer.getVehicle().getFuel() + currentPlayer.getFuelUpgrade()), fireSkin);
         labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), fireSkin);
+
+        labelRound.setColor(Color.BLACK);
+        labelCurrentPlayer.setColor(Color.BLACK);
+        labelTurn.setColor(Color.BLACK);
+        labelChosenAmmo.setColor(Color.BLACK);
+        labelLeftAmmo.setColor(Color.BLACK);
+        labelHealthLeft.setColor(Color.BLACK);
+        labelFuelLeft.setColor(Color.BLACK);
+        labelPower.setColor(Color.BLACK);
 
         groupTop.left().top();
         groupTop.defaults();
@@ -276,7 +291,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         batch.begin();
         spriteSky.draw(batch);
-        spriteCloud.draw(batch);
+        spriteCloudBack.draw(batch);
         batch.end();
 
 
@@ -292,11 +307,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         for (Player p : playersAlive) {
             if (p.getVehicle().getHealth() > 0) {
 
-                batch.draw(new TextureRegion(p.getVehicle().getBarrel().getTexture()), p.getVehicle().getBarrel().getPosition().x, p.getVehicle().getBarrel().getPosition().y, 0, (float)p.getVehicle().getBarrel().getTexture().getHeight()/2, (float)p.getVehicle().getBarrel().getTexture().getWidth(), (float)p.getVehicle().getBarrel().getTexture().getHeight(), 1, 1, p.getVehicle().getBarrel().getRotation() + p.getVehicle().getBarrel().getAngle());
+                batch.draw(new TextureRegion(p.getVehicle().getBarrel().getTexture()), p.getVehicle().getBarrel().getPosition().x, p.getVehicle().getBarrel().getPosition().y, 0, (float) p.getVehicle().getBarrel().getTexture().getHeight() / 2, (float) p.getVehicle().getBarrel().getTexture().getWidth(), (float) p.getVehicle().getBarrel().getTexture().getHeight(), 1, 1, p.getVehicle().getBarrel().getRotation() + p.getVehicle().getBarrel().getAngle());
 
                 batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
 
-                //batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
                 font.setColor(Color.BLACK);
                 font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
 
@@ -312,6 +326,8 @@ public class GameView extends AbstractView implements Screen, Observer{
             batch.draw(new TextureRegion(ammoTexture), currentPlayer.getChosenAmmo().getPosition().x, currentPlayer.getChosenAmmo().getPosition().y);
 
         }
+
+        spriteCloudFront.draw(batch);
 
         batch.end();
 
@@ -351,6 +367,11 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
     private void updateTopMenu() {
+
+        /*labelRound.setColor(Color.BLACK);
+        labelCurrentPlayer.setColor(Color.BLACK);
+        labelTurn.setColor(Color.BLACK);
+        labelChosenAmmo.setColor(Color.BLACK);*/
 
         labelRound.setText(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()));
         labelCurrentPlayer.setText(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()));

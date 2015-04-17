@@ -229,6 +229,8 @@ public abstract class Vehicle extends GameObject {
 
     public void reset(Environment newEnvironment, Vector2 newStartPosition) {
 
+        setHealth(100);
+        setFuel(100);
         this.environment = newEnvironment;
         position = newStartPosition;
         super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getRelativeWidth(), getRelativeWidth()));

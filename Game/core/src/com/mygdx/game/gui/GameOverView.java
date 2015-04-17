@@ -65,6 +65,7 @@ public class GameOverView extends AbstractView implements Screen {
 
         tableTop.setFillParent(true);
         tableBottom.setFillParent(true);
+
         stage.addActor(tableTop);
         stage.addActor(tableBottom);
 
@@ -104,6 +105,8 @@ public class GameOverView extends AbstractView implements Screen {
 
         tableBottom.bottom();
         tableBottom.add(buttonMainMenu).fillX().padBottom(Gdx.graphics.getHeight()/10);
+
+        Gdx.input.setInputProcessor(stage);
 
     }
 

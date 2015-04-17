@@ -21,8 +21,6 @@ public class Game extends AbstractModel {
     private Environment environment;
     private int numberOfRounds, currentRound;
     private int numberOfTurns;
-    private long startTime, endTime;
-    private float elapsedTime;
 
     private Store store;
 
@@ -99,6 +97,8 @@ public class Game extends AbstractModel {
     // If there are no more rounds, the game should be finished.
     public void changeRound() {
 
+        getRoundWinner().setRoundsWon(getRoundWinner().getRoundsWon() + 1);
+
         if (currentRound < numberOfRounds) {
             currentRound ++;
 
@@ -118,23 +118,6 @@ public class Game extends AbstractModel {
         }
 
     }
-
-    public ArrayList<Player> getPlayersAlive() {
-        return playersAlive;
-    }
-
-    public int getRoundsLeft() {
-        return numberOfRounds - currentRound;
-    }
-
-    public int getCurrentRound() {
-        return currentRound;
-    }
-
-    public void setCurrentRound(int currentRound) {
-        this.currentRound = currentRound;
-    }
-
 
     // returns the winner of the current round if there is a winner, and null if there is not a winner
     public Player getRoundWinner() {
@@ -200,6 +183,23 @@ public class Game extends AbstractModel {
         return null;
     }
 
+
+
+    public ArrayList<Player> getPlayersAlive() {
+        return playersAlive;
+    }
+
+    public int getRoundsLeft() {
+        return numberOfRounds - currentRound;
+    }
+
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
+    public void setCurrentRound(int currentRound) {
+        this.currentRound = currentRound;
+    }
 
     public void setEnvironment(Environment environment) {this.environment = environment;}
 

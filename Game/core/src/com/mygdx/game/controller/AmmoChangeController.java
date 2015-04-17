@@ -30,7 +30,7 @@ public class AmmoChangeController extends AbstractController implements EventLis
 
     public boolean handle (Event event){
 
-        if (event.toString().equals("touchUp")){
+        if (event.toString().equals("touchDown")){
             view.currentPlayer.changeAmmo();
             return true;
         }
