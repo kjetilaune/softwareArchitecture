@@ -122,7 +122,7 @@ public class TeamView extends AbstractView implements Screen{
         labelCurrentTeam = new Label(currentTeam.getName(), skin);
         labelCurrentTeam.setFontScale(2);
 
-        currentTeamSprite = new Sprite(currentTeam.getTankTexture());
+        currentTeamSprite = currentTeam.getVehicleSprite();
 
 
         teamContainer.add(arrowLeft).left().maxWidth(stage.getWidth() / 20).padLeft(stage.getWidth() / 10);
@@ -135,7 +135,7 @@ public class TeamView extends AbstractView implements Screen{
         bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
         currentTeamSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentTeamSprite.getHeight()/2);
-        currentTeamSprite.setScale(5);
+        //currentTeamSprite.setScale(5);
 
         settingsSprite = new Sprite(TextureManager.settingsBackground);
         settingsSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -200,10 +200,10 @@ public class TeamView extends AbstractView implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        currentTeamSprite = new Sprite(currentTeam.getTankTexture());
+        currentTeamSprite = currentTeam.getVehicleSprite();
 
         currentTeamSprite.setPosition(Gdx.graphics.getWidth()/2 - currentTeamSprite.getWidth()/2, Gdx.graphics.getHeight()/2 - currentTeamSprite.getHeight()/2);
-        currentTeamSprite.setScale(5);
+        //currentTeamSprite.setScale(5);
 
         labelCurrentTeam.setText(currentTeam.getName());
         labelCurrentPlayer.setText("Player " + (currentPlayerNumber+1));

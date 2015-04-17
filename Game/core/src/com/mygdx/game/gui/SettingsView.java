@@ -172,7 +172,7 @@ public class SettingsView extends AbstractView implements Screen {
 
         // trenger skin her jonathan!!!
 
-        sliderTest = new Slider(0, 10, 1, false, skinSlider);
+        //sliderTest = new Slider(0, 10, 1, false, skinSlider);
 
 
 
@@ -190,7 +190,7 @@ public class SettingsView extends AbstractView implements Screen {
 
 
         // adder slider her, skal vises på skjermen tror jeg
-        table.add(sliderTest);
+        //table.add(sliderTest);
 
         table.add(labelNumberOfRounds);
         table.add(arrowLeft);

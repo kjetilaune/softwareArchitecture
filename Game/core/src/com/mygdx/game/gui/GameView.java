@@ -174,7 +174,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         // trenger progress bar skin her!!!
 
-        testProgressBar = new ProgressBar(1, 100, 1, false, skinProgressBar);
+        //testProgressBar = new ProgressBar(1, 100, 1, false, skinProgressBar);
 
         setupCamera(); // set up the camera
 
@@ -240,7 +240,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         groupTop.left().top();
         groupTop.defaults();
-        groupTop.add(testProgressBar); // legger til progress bar her
+        //groupTop.add(testProgressBar); // legger til progress bar her
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX();
         groupTop.add(labelTurn).pad(10,10,10,0).fillX().row();

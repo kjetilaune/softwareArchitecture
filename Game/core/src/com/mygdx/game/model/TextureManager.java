@@ -19,6 +19,11 @@ public class TextureManager {
     public static Texture barrelSeafood = new Texture(Gdx.files.internal("objects/vehicles/Barrel_Seafood.png"));
     public static Texture tankSeafood = new Texture(Gdx.files.internal("objects/vehicles/Tank_Seafood.png"));
 
+    public static Texture largeTankSweets = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_sweets.png"));
+    public static Texture largeTankFastfood = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_fastfood.png"));
+    public static Texture largeTankVegan = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_vegan.png"));
+    public static Texture largeTankSeafood = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_seafood.png"));
+
     public static Texture burgerBullet = new Texture(Gdx.files.internal("objects/old/burgerBullet.png"));
     public static Texture muffinBullet = new Texture(Gdx.files.internal("objects/old/muffinBullet.png"));
 
