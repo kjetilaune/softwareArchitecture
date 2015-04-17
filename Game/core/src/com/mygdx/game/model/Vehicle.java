@@ -24,7 +24,7 @@ public abstract class Vehicle extends GameObject {
     public Vehicle(Team team, Environment environment, Vector2 position) {
         super(team.getTankTexture());
         super.setPosition(position);
-        super.setRotation(environment.getAngle(getPosition().x, getPosition().x + getTexture().getWidth()));
+        super.setRotation(environment.getAngle(getPosition().x, getPosition().x + getRelativeWidth(), getRelativeWidth()));
 
         this.environment = environment;
 
@@ -51,7 +51,7 @@ public abstract class Vehicle extends GameObject {
         if (position.x < 0) {
             super.setPosition(new Vector2(0, oldPosition.y));
         }
-        else if (position.x + getTexture().getWidth() > Gdx.graphics.getWidth()) {
+        else if (position.x + getRelativeWidth() > Gdx.graphics.getWidth()) {
             super.setPosition(new Vector2(Gdx.graphics.getWidth() - getRelativeWidth(), oldPosition.y));
         }
         else {
@@ -230,7 +230,8 @@ public abstract class Vehicle extends GameObject {
 
         this.environment = newEnvironment;
         position = newStartPosition;
-        super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getTexture().getWidth()));
+        super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getRelativeWidth(), getRelativeWidth()));
+        //super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getTexture().getWidth()));
         barrel.setPosition(getBarrelPosition());
         barrel.setAngle(45);
         barrel.setRotation(getRotation());

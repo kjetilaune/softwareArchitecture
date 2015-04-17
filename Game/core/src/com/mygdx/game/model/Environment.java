@@ -109,8 +109,15 @@ public class Environment {
 
                 float y1 = verticesY[1];
                 float y2 = verticesY[2];
+                float x1 = verticesX[1];
+                float x2 = verticesX[2];
 
-                y = ((y1/y2) * (xPos - verticesX[0])) + y1; // y = ax + b
+               // y = ((y1/y2) * (xPos - verticesX[0])) + y1; // y = ax + b
+                float m = (y1-y2)/(x1-x2);
+
+                // y - y1 = m(x - x1) ---> y = m(x - x1) + y1
+                y = (m * (xPos - x1)) + y1;
+
             }
 
         }
@@ -120,7 +127,7 @@ public class Environment {
 
 
     // returns the angle of the ground at the given start and stop x-position
-    public float getAngle(float xStart, float xStop) {
+    /*public float getAngle(float xStart, float xStop) {
 
         float y1 = getGroundHeight(xStart);
         float y2 = getGroundHeight(xStop);
@@ -132,7 +139,29 @@ public class Environment {
 
 
         return -1 * (float)Math.toDegrees(angle);
+    }*/
+
+    public float getAngle(float xStart, float xStop, float width) {
+
+        float x1 = xStart + (5*width/11);
+        float x2 = xStop - (5*width/11);
+
+        float y1 = getGroundHeight(x1);
+        float y2 = getGroundHeight(x2);
+
+        float adjacent = x1 - x2;
+        float opposite = y1 - y2;
+
+        float angle = (float)Math.atan(opposite/adjacent);
+
+        System.out.println("inn: " + xStart + ", " + xStop + " med bredde " + width);
+        System.out.println("ny: " + (xStart + width/3) + ", " + (xStop - width/3));
+        System.out.println("vinkel: " + -1 * (float)Math.toDegrees(angle));
+
+        return 1 * (float)Math.toDegrees(angle);
+        //return -1 * (float)Math.toDegrees(angle);
     }
+
 
 
     // help function for getting all x-coordinates of a polygon given its array of points
