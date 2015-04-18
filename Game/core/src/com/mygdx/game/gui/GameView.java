@@ -398,7 +398,8 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         polyBatch.begin();
 
-        ArrayList<Polygon> polys = environment.getPolygons();
+        //ArrayList<Polygon> polys = environment.getPolygons();
+        ArrayList<Polygon> polys = gameInstance.getEnvironment().getPolygons();
 
         for (Polygon p : polys) {
             float[] vecs = p.getVertices();

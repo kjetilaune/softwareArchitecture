@@ -17,10 +17,10 @@ import java.util.Vector;
 public class Environment {
 
     private ArrayList<Polygon> polygons;
-    private ArrayList<Circle> collisions;
+    private ArrayList<Boolean> collisions;
 
     private int numberOfHills;
-    private int pixelStep;
+    private int pixelStep; // width of each polygon
 
     private double hillStartY;
     private double hillWidth;
@@ -33,7 +33,7 @@ public class Environment {
     // for creating a simple environment
     public Environment() {
         polygons = new ArrayList<Polygon>();
-        collisions = new ArrayList<Circle>();
+        collisions = new ArrayList<Boolean>();
         drawBoringHills();
     }
 
@@ -65,6 +65,7 @@ public class Environment {
     // returns whether the given point is colliding with the environment
     public boolean isColliding(Vector2 point) {
 
+
         for (Polygon polygon : polygons) {
             if (polygon.contains(point.x, point.y)) {
                 return true;
@@ -74,36 +75,77 @@ public class Environment {
         return false;
     }
 
-    public void collide(Vector2 point) {
-
-        /*if (isColliding(point)) {
-
-            int collisionIndex = -1;
-
-            // get the polygon that collides
-            for (int i = 0 ; i < polygons.size() ; i++) {
-                if (polygons.get(i).contains(point.x, point.y)) {
-                    collisionIndex = i;
-                }
-            }
 
 
-        }*/
 
-        Circle circle = new Circle(point, 20);
-        collisions.add(circle);
+    public void collide(Vector2 point, int blastRadius) {
 
+        System.out.println("Collides with ground");
+
+
+        Circle blast = new Circle(point, blastRadius);
+        int indexCollision = -1;
+
+        // find the polygon of collision
         for (int i = 0 ; i < polygons.size() ; i++) {
 
+            //collisions.add(false);
 
+            if (polygons.get(i).contains(point.x, point.y)) {
+                indexCollision = i;
+            }
+        }
+
+        System.out.println("Collision with polygon no " + indexCollision);
+
+        // mark all polygons that should be affected
+        // alter the given polygons
+        int indexRange = blastRadius/pixelStep;
+
+        for (int i = indexCollision - indexRange ; i < indexCollision + indexRange + 1 ; i ++) {
+
+            //collisions.set(i, true);
+
+            float[] vertices = polygons.get(i).getVertices();
+
+            System.out.println("Polygon vertices: (" + vertices[0] + ", " + vertices[1] + "), (" + vertices[2] + ", " + vertices[3] + "), (" + vertices[4] + ", " + vertices[5] + "), (" + vertices[6] + ", " + vertices[7] + ")");
+
+
+            vertices[3] = getIntersection(blast, vertices[2], vertices[3]);
+            vertices[5] = getIntersection(blast, vertices[4], vertices[5]);
+
+            //Vector2 intersection = getIntersection(blast, polygons.get(i));
+
+            polygons.get(i).setVertices(vertices);
+
+            System.out.println("Polygon vertices: (" + vertices[0] + ", " + vertices[1] + "), (" + vertices[2] + ", " + vertices[3] + "), (" + vertices[4] + ", " + vertices[5] + "), (" + vertices[6] + ", " + vertices[7] + ")");
 
         }
 
+    }
 
 
+    private float getIntersection(Circle blast, float x, float y) {
 
+        double y1 = (double)(Math.sqrt(Math.pow(blast.radius, 2) - Math.pow((x - blast.x), 2)) + blast.y);
+        double y2 = (double)(-1 * Math.sqrt(Math.pow(blast.radius, 2) - Math.pow((x - blast.x), 2)) + blast.y);
+
+
+        if (Double.isNaN(y1) && Double.isNaN(y2)) {
+            return y;
+        }
+        else if (Double.isNaN(y1)) {
+            return (float)y2;
+        }
+        else if (Double.isNaN(y2)) {
+            return (float)y1;
+        }
+        else {
+            return y1<y2 ? (float)y1 : (float)y2;
+        }
 
     }
+
 
 
     // returns the height of the ground at the given x-position
@@ -138,20 +180,6 @@ public class Environment {
 
 
     // returns the angle of the ground at the given start and stop x-position
-    /*public float getAngle(float xStart, float xStop) {
-
-        float y1 = getGroundHeight(xStart);
-        float y2 = getGroundHeight(xStop);
-
-        float adjacent = xStop - xStart;
-        float opposite = y1 - y2;
-
-        float angle = (float)Math.atan(opposite/adjacent);
-
-
-        return -1 * (float)Math.toDegrees(angle);
-    }*/
-
     public float getAngle(float xStart, float xStop, float width) {
 
         float x1 = xStart;
@@ -172,7 +200,6 @@ public class Environment {
         return 1 * (float)Math.toDegrees(angle);
         //return -1 * (float)Math.toDegrees(angle);
     }
-
 
 
     // help function for getting all x-coordinates of a polygon given its array of points
@@ -260,7 +287,8 @@ public class Environment {
         return polygons;
     }
 
-    public ArrayList<Circle> getCollisions() {
+
+    public ArrayList<Boolean> getCollisions() {
         return collisions;
     }
 

@@ -49,12 +49,12 @@ public class MoveThread extends Thread {
 
                         if (vehicle.getFuel() > 0) {
 
-                            //float angleToTheLeft = environment.getAngle(vehicle.getPosition().x - 1, vehicle.getPosition().x + vehicle.getRelativeWidth() - 1);
-                            //float angleToTheRight = environment.getAngle(vehicle.getPosition().x + 1, vehicle.getPosition().x + vehicle.getRelativeWidth() + 1);
+                            //float angleToTheLeft = environment.getAngle(vehicle.getPosition().x - 1, vehicle.getPosition().x + vehicle.getRelativeWidth() - 1, vehicle.getRelativeWidth());
+                            //float angleToTheRight = environment.getAngle(vehicle.getPosition().x + 1, vehicle.getPosition().x + vehicle.getRelativeWidth() + 1, vehicle.getRelativeWidth());
 
                             // moves the tank by updating its position according to the direction-input and environment
                             // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
-                            if (direction.equals("arrowLeft") /* && canTraverse(angleToTheLeft)*/){
+                            if (direction.equals("arrowLeft") /*&& canTraverse(angleToTheLeft)*/){
                                 vehicle.setPosition(new Vector2(vehicle.getPosition().x - 10, environment.getGroundHeight(vehicle.getPosition().x - 10)));
                             }
                             else if (direction.equals("arrowRight") /*&& canTraverse(angleToTheRight)*/){

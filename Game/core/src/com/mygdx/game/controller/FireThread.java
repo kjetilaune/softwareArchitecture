@@ -108,6 +108,7 @@ public class FireThread extends Thread {
         }
 
         if (environment.isColliding(ammo.getPosition())) {
+            environment.collide(ammo.getPosition(), ammo.getBlastRadius());
             return true;
         }
 
