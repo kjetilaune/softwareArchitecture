@@ -1,5 +1,6 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.gui.AbstractView;
 import com.mygdx.game.gui.GameView;
 import com.mygdx.game.model.BulletPhysics;
+import com.mygdx.game.model.SoundManager;
 import com.mygdx.game.model.Tank;
 
 import java.beans.PropertyChangeEvent;
@@ -19,7 +21,7 @@ public class FireController extends AbstractController implements EventListener{
     // temporary storage for power, must be moved to a more appropriate class
     int power;
 
-
+    private Sound fire;
 
 
     // the view the controller listens to
@@ -63,6 +65,8 @@ public class FireController extends AbstractController implements EventListener{
             view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getBarrel().getTipOfBarrel());
             view.setIsFiring(true);
             fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
+            fire = SoundManager.tankFire;
+            fire.play(1f);
             return true;
         }
 
