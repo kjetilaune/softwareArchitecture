@@ -60,7 +60,7 @@ public class StoreView extends AbstractView implements Screen{
     private Skin arrowRightSkin;
 
 
-    public Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel;
+    public Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
     public TextButton back;
     private TextButton buy;
     private ImageButton arrowLeft, arrowRight;
@@ -124,7 +124,7 @@ public class StoreView extends AbstractView implements Screen{
 
         container.setDebug(false);
         ammoContainer.setDebug(false);
-        bottomContainer.setDebug(true);
+        bottomContainer.setDebug(false);
 
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
         arrowLeft = new ImageButton(arrowLeftSkin);
@@ -152,6 +152,7 @@ public class StoreView extends AbstractView implements Screen{
         txtCurrentPlayer.setFontScale(2);
         txtMoney = new Label("$" + currentPlayer.getScore(), skin);
         currentAmmoSprite = getCurrentSprite();
+        infoLabel = new Label("Name of Ammo: " + currentAmmo + "\nPrice: " + Store.getAmmunitionPrice(currentAmmo) + "\nDamage: " + Store.getAmmunition(currentAmmo).getInitialDamage(), skin);
 
 
         /*
@@ -172,7 +173,7 @@ public class StoreView extends AbstractView implements Screen{
         container.row().fillX();
 
         ammoContainer.add(arrowLeft).left().maxWidth(stage.getWidth() / 20).padLeft(stage.getWidth() / 10);
-        ammoContainer.add(placeholderLabel).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5);
+        ammoContainer.add(infoLabel).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5).padLeft(stage.getWidth()/20*7).right();
         ammoContainer.add(arrowRight).right().maxWidth(stage.getWidth() / 20).padRight(stage.getWidth() / 10);
 
         bottomContainer.row();
@@ -187,7 +188,7 @@ public class StoreView extends AbstractView implements Screen{
         sprite = new Sprite(TextureManager.storeBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        currentAmmoSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
+        currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
         //currentAmmoSprite.setScale(10);
 
         batch = new SpriteBatch();
@@ -211,7 +212,7 @@ public class StoreView extends AbstractView implements Screen{
                 else{
                     currentAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(currentAmmo) - 1);
                 }
-
+                infoLabel.setText("Name of Ammo: " + currentAmmo + "\nPrice: " + Store.getAmmunitionPrice(currentAmmo) + "\nDamage: " + Store.getAmmunition(currentAmmo).getInitialDamage());
 
             }
         });
@@ -225,7 +226,7 @@ public class StoreView extends AbstractView implements Screen{
                 else{
                     currentAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(currentAmmo) + 1);
                 }
-
+                infoLabel.setText("Name of Ammo: " + currentAmmo + "\nPrice: " + Store.getAmmunitionPrice(currentAmmo) + "\nDamage: " + Store.getAmmunition(currentAmmo).getInitialDamage());
             }
         });
 
@@ -244,7 +245,7 @@ public class StoreView extends AbstractView implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         currentAmmoSprite = getCurrentSprite();
-        currentAmmoSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
+        currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
         //currentAmmoSprite.setScale(10);
 
         currentPlayerLabel.setText("" + currentPlayer.getInventory().getAmmoLeft(currentAmmo));
