@@ -74,7 +74,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     // for menu and buttons
     private Skin menuSkin;
     private Skin fireSkin;
-    private Skin healthSkin;
+    private Skin progressBarSkin;
 
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
@@ -115,6 +115,12 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Sprite spriteSky;
 
     private ProgressBar testProgressBar;
+    private ProgressBar powerProgressBar;
+    private ProgressBar fuelProgressBar;
+    private ArrayList<ProgressBar> healthProgressBars;
+
+    private Sprite healthBackground;
+    private Sprite healthForeground;
 
 
     public GameView(MyGdxGame game, Game gameInstance){
@@ -160,15 +166,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRight.setName("arrowRight");
         buttonStore = new TextButton("Store", menuSkin);
         buttonStore.setName("Store");
-        healthSkin = new Skin();
-        healthSkin.add("disabledBackground", new Texture(Gdx.files.internal("designs/disabledBackground.png")));
-        healthSkin.add("background", new Texture(Gdx.files.internal("designs/background.png")));
-        ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
-        style.background = healthSkin.getDrawable("background");
-        style.disabledBackground = healthSkin.getDrawable("disabledBackground");
-
-
-        testProgressBar = new ProgressBar(0,100,1,false,style);
 
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
@@ -183,9 +180,28 @@ public class GameView extends AbstractView implements Screen, Observer{
         spriteSky.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 
-        // trenger progress bar skin her!!!
+        progressBarSkin = new Skin();
+        progressBarSkin.add("disabledBackground", new Texture(Gdx.files.internal("design/disabledBackground.png")));
+        progressBarSkin.add("background", new Texture(Gdx.files.internal("design/background.png")));
 
-        //testProgressBar = new ProgressBar(1, 100, 1, false, skinProgressBar);
+        ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
+        style.background = progressBarSkin.getDrawable("disabledBackground");
+        style.disabledBackground = progressBarSkin.getDrawable("disabledBackground");
+        style.knobAfter = progressBarSkin.getDrawable("disabledBackground");
+        style.knobBefore = progressBarSkin.getDrawable("background");
+
+        healthBackground = new Sprite(new Texture(Gdx.files.internal("design/disabledBackground.png")));
+        healthForeground = new Sprite(new Texture(Gdx.files.internal("design/background.png")));
+
+
+        testProgressBar = new ProgressBar(0, 100, 1, false, style);
+
+        /*healthProgressBars = new ArrayList<ProgressBar>();
+
+        for (Player p : playersAlive) {
+            healthProgressBars.add(new ProgressBar(0, 100, 1, false, style));
+        }*/
+
 
         setupCamera(); // set up the camera
 
@@ -249,11 +265,13 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelFuelLeft.setColor(Color.BLACK);
         labelPower.setColor(Color.BLACK);
 
-        testProgressBar.setVisible(true);
+        //testProgressBar.setValue(50);
+
+        //testProgressBar.setVisible(true);
 
         groupTop.left().top();
         groupTop.defaults();
-        groupTop.add(testProgressBar); // legger til progress bar her
+        //groupTop.add(testProgressBar); // legger til progress bar her
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX();
         groupTop.add(labelTurn).pad(10,10,10,0).fillX().row();
@@ -279,6 +297,15 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupBottom.setFillParent(true);
         groupRight.setFillParent(true);
         groupLeft.setFillParent(true);
+/*
+        for (int i = 0 ; i < playersAlive.size() ; i++) {
+            healthProgressBars.get(i).setPosition(playersAlive.get(i).getVehicle().getPosition().x, playersAlive.get(i).getVehicle().getPosition().y);
+            healthProgressBars.get(i).setValue(playersAlive.get(i).getVehicle().getHealth());
+            System.out.println("health: " + healthProgressBars.get(i).getValue());
+            System.out.println("health visual value: " + healthProgressBars.get(i).getVisualValue());
+            healthProgressBars.get(i).setAnimateDuration(2);
+            stage.addActor(healthProgressBars.get(i));
+        }*/
 
         stage.addActor(groupTop);
         stage.addActor(groupBottom);
@@ -330,10 +357,23 @@ public class GameView extends AbstractView implements Screen, Observer{
             if (p.getVehicle().getHealth() > 0) {
 
                 batch.draw(new TextureRegion(p.getVehicle().getBarrel().getTexture()), p.getVehicle().getBarrel().getPosition().x, p.getVehicle().getBarrel().getPosition().y, 0, (float) p.getVehicle().getBarrel().getTexture().getHeight() / 2, (float) p.getVehicle().getBarrel().getTexture().getWidth(), (float) p.getVehicle().getBarrel().getTexture().getHeight(), 1, 1, p.getVehicle().getBarrel().getRotation() + p.getVehicle().getBarrel().getAngle());
-
                 batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
 
                 font.setColor(Color.BLACK);
+
+                /*healthProgressBars.get(playersAlive.indexOf(p)).setPosition(playersAlive.get(playersAlive.indexOf(p)).getVehicle().getPosition().x, playersAlive.get(playersAlive.indexOf(p)).getVehicle().getPosition().y);
+                healthProgressBars.get(playersAlive.indexOf(p)).setValue(p.getVehicle().getHealth());
+
+                System.out.println("health: " + healthProgressBars.get(playersAlive.indexOf(p)).getValue());
+                System.out.println("health visual value: " + healthProgressBars.get(playersAlive.indexOf(p)).getVisualValue());*/
+
+                /*healthBackground.setPosition(p.getVehicle().getPosition().x, p.getVehicle().getPosition().y);
+                healthBackground.draw(batch);
+
+                healthForeground.setPosition(p.getVehicle().getPosition().x, p.getVehicle().getPosition().y);
+                healthForeground.setSize(healthForeground.getWidth()/2, healthForeground.getHeight());
+                healthForeground.draw(batch);*/
+
                 font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
 
             }
