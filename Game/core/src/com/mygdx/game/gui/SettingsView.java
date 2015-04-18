@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.MyGdxGame;
@@ -114,8 +116,6 @@ public class SettingsView extends AbstractView implements Screen {
         arrowRight = new ImageButton(arrowRightSkin);
         arrowRight.setName("arrowRight");
 
-        sliderSkin = new Skin(Gdx.files.internal("skins/slider.json"), new TextureAtlas(Gdx.files.internal("skins/slider.pack")));
-
         arrowLeftMoves = new ImageButton(arrowLeftSkin);
         arrowLeftMoves.setName("arrowLeftMoves");
         arrowRightMoves = new ImageButton(arrowRightSkin);
@@ -173,10 +173,10 @@ public class SettingsView extends AbstractView implements Screen {
 
 
 
-
+        sliderSkin = new Skin(Gdx.files.internal("skins/slider.json"), new TextureAtlas(Gdx.files.internal("skins/slider.pack")));
 
         sliderTest = new Slider(0, 10, 1, false, sliderSkin);
-
+        //sliderTest.setSize(300, 100);
 
 
         scroll.layout();
@@ -193,12 +193,13 @@ public class SettingsView extends AbstractView implements Screen {
 
 
         // adder slider her, skal vises på skjermen tror jeg
-        table.add(sliderTest);
+        //table.add(sliderTest);
 
-        table.add(labelNumberOfRounds);
-        table.add(arrowLeft);
+        table.add(labelNumberOfRounds).padRight(100);
+        //table.add(arrowLeft);
+        table.add(sliderTest).width(100);
         table.add(txtNumberOfRounds).width(100);
-        table.add(arrowRight);
+        //table.add(arrowRight);
         table.row().padTop(30);
 
         table.add(labelNumberOfTurns);
@@ -364,6 +365,14 @@ public class SettingsView extends AbstractView implements Screen {
                 }
                 txtPlayer.setText("" + currentPlayer);
                 txtTeams.setText(teams.get(currentPlayer - 1).getName());
+            }
+        });
+
+        sliderTest.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+
+                numberOfRounds = (int)sliderTest.getValue();
+                txtNumberOfRounds.setText("" + numberOfRounds);
             }
         });
 
