@@ -286,7 +286,7 @@ public class GameView extends AbstractView implements Screen, Observer{
             if (gameInstance.getRoundsLeft() == 0) {
                 game.setScreen(new GameOverView(game, gameInstance));
             } else {
-                game.setScreen(new StoreView(game, gameInstance, this));
+                game.setScreen(new RoundOverView(game, gameInstance.getRoundWinner(), gameInstance, this));
             }
         }
 
