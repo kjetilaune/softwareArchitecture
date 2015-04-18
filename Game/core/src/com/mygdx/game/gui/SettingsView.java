@@ -197,7 +197,7 @@ public class SettingsView extends AbstractView implements Screen {
 
         table.add(labelNumberOfRounds).padRight(100);
         //table.add(arrowLeft);
-        table.add(sliderTest).width(100);
+        table.add(sliderTest).width(300);
         table.add(txtNumberOfRounds).width(100);
         //table.add(arrowRight);
         table.row().padTop(30);

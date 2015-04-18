@@ -74,6 +74,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     // for menu and buttons
     private Skin menuSkin;
     private Skin fireSkin;
+    private Skin healthSkin;
 
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
@@ -159,6 +160,16 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRight.setName("arrowRight");
         buttonStore = new TextButton("Store", menuSkin);
         buttonStore.setName("Store");
+        healthSkin = new Skin();
+        healthSkin.add("disabledBackground", new Texture(Gdx.files.internal("designs/disabledBackground.png")));
+        healthSkin.add("background", new Texture(Gdx.files.internal("designs/background.png")));
+        ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
+        style.background = healthSkin.getDrawable("background");
+        style.disabledBackground = healthSkin.getDrawable("disabledBackground");
+
+
+        testProgressBar = new ProgressBar(0,100,1,false,style);
+
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
@@ -238,9 +249,11 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelFuelLeft.setColor(Color.BLACK);
         labelPower.setColor(Color.BLACK);
 
+        testProgressBar.setVisible(true);
+
         groupTop.left().top();
         groupTop.defaults();
-        //groupTop.add(testProgressBar); // legger til progress bar her
+        groupTop.add(testProgressBar); // legger til progress bar her
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX();
         groupTop.add(labelTurn).pad(10,10,10,0).fillX().row();
