@@ -70,10 +70,7 @@ public class MainMenu implements Screen {
         batch = new SpriteBatch();
         this.clock = clock;
 
-        if (clock == 0) {
-            game.introSong.play();
-            game.introSong.setLooping(true);
-        }
+
 
     }
 
@@ -96,7 +93,10 @@ public class MainMenu implements Screen {
             stage.draw();
         }
 
-
+        if (!game.introSong.isPlaying()) {
+            game.introSong.play();
+            game.introSong.setLooping(true);
+        }
 
 
     }
