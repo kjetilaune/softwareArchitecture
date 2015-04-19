@@ -10,4 +10,5 @@ public class SoundManager {
     public static Sound tankFire = Gdx.audio.newSound(Gdx.files.internal("sounds/tankFire.mp3"));
     public static Sound impact1 = Gdx.audio.newSound(Gdx.files.internal("sounds/grenade.mp3"));
     public static Sound impact2 = Gdx.audio.newSound(Gdx.files.internal("sounds/bigBomb.mp3"));
+
 }

@@ -6,6 +6,7 @@ package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -122,6 +123,8 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Sprite healthBackground;
     private Sprite healthForeground;
 
+    public Music battleSong;
+
 
     public GameView(MyGdxGame game, Game gameInstance){
 
@@ -202,6 +205,7 @@ public class GameView extends AbstractView implements Screen, Observer{
             healthProgressBars.add(new ProgressBar(0, 100, 1, false, style));
         }*/
 
+        battleSong = Gdx.audio.newMusic(Gdx.files.internal("Music/battleMusic.MP3"));
 
         setupCamera(); // set up the camera
 
@@ -273,8 +277,8 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupTop.defaults();
         //groupTop.add(testProgressBar); // legger til progress bar her
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
-        groupTop.add(labelCurrentPlayer).pad(10,10,10,0).fillX();
-        groupTop.add(labelTurn).pad(10,10,10,0).fillX().row();
+        groupTop.add(labelCurrentPlayer).pad(10, 10, 10, 0).fillX();
+        groupTop.add(labelTurn).pad(10, 10, 10, 0).fillX().row();
         groupTop.add(labelChosenAmmo).padLeft(10).fillX();
         groupTop.add(labelLeftAmmo).padLeft(40).fillX();
         groupTop.add(labelHealthLeft).padLeft(40).fillX();
@@ -312,6 +316,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         stage.addActor(groupRight);
         stage.addActor(groupLeft);
 
+        battleSong.play();
+        battleSong.setLooping(true);
+
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -325,8 +332,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         if (gameInstance.getRoundWinner() != null) {
             if (gameInstance.getRoundsLeft() == 0) {
                 game.setScreen(new GameOverView(game, gameInstance));
+                battleSong.stop();
             } else {
                 game.setScreen(new RoundOverView(game, gameInstance.getRoundWinner(), gameInstance, this));
+                battleSong.stop();
             }
         }
 
