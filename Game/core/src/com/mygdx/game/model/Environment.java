@@ -134,11 +134,14 @@ public class Environment {
         if (Double.isNaN(y1) && Double.isNaN(y2)) {
             return y;
         }
-        else if (Double.isNaN(y1)) {
+        else if (Double.isNaN(y1) && y2 > y1) {
             return (float)y2;
         }
-        else if (Double.isNaN(y2)) {
+        else if (Double.isNaN(y2) && y1 > y2) {
             return (float)y1;
+        }
+        else if (y < y1 && y < y2) {
+            return y;
         }
         else {
             return y1<y2 ? (float)y1 : (float)y2;
