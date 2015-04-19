@@ -186,12 +186,13 @@ public class GameView extends AbstractView implements Screen, Observer{
         progressBarSkin = new Skin();
         progressBarSkin.add("disabledBackground", new Texture(Gdx.files.internal("design/disabledBackground.png")));
         progressBarSkin.add("background", new Texture(Gdx.files.internal("design/background.png")));
+        progressBarSkin.add("knob", new Texture(Gdx.files.internal("design/knob.png")));
 
         ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
         style.background = progressBarSkin.getDrawable("disabledBackground");
         style.disabledBackground = progressBarSkin.getDrawable("disabledBackground");
-        style.knobAfter = progressBarSkin.getDrawable("disabledBackground");
-        style.knobBefore = progressBarSkin.getDrawable("background");
+        style.knobAfter = progressBarSkin.getDrawable("knob");
+        style.knobBefore = progressBarSkin.getDrawable("knob");
 
         healthBackground = new Sprite(new Texture(Gdx.files.internal("design/disabledBackground.png")));
         healthForeground = new Sprite(new Texture(Gdx.files.internal("design/background.png")));
