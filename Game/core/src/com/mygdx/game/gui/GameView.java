@@ -78,7 +78,6 @@ public class GameView extends AbstractView implements Screen, Observer{
     // for menu and buttons
     private Skin menuSkin;
     private Skin fireSkin;
-    private Skin progressBarSkin;
 
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
@@ -102,7 +101,6 @@ public class GameView extends AbstractView implements Screen, Observer{
     public boolean isFiring = false; // is a bullet being fired?
 
 
-
     private OrthographicCamera camera;
 
     private Label labelRound;
@@ -117,14 +115,6 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Sprite spriteCloudFront;
     private Sprite spriteCloudBack;
     private Sprite spriteSky;
-
-    private ProgressBar testProgressBar;
-    private ProgressBar powerProgressBar;
-    private ProgressBar fuelProgressBar;
-    private ArrayList<ProgressBar> healthProgressBars;
-
-    private Sprite healthBackground;
-    private Sprite healthForeground;
 
     public Music battleSong;
 
@@ -174,7 +164,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonStore = new TextButton("Store", menuSkin);
         buttonStore.setName("Store");
 
-
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
         spriteCloudFront = new Sprite(TextureManager.cloudsForeground);
@@ -185,30 +174,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         spriteCloudBack.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/3);
         spriteCloudBack.setPosition(0, 2*Gdx.graphics.getHeight()/3);
         spriteSky.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-
-        progressBarSkin = new Skin();
-        progressBarSkin.add("disabledBackground", new Texture(Gdx.files.internal("design/disabledBackground.png")));
-        progressBarSkin.add("background", new Texture(Gdx.files.internal("design/background.png")));
-        progressBarSkin.add("knob", new Texture(Gdx.files.internal("design/knob.png")));
-
-        ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
-        style.background = progressBarSkin.getDrawable("disabledBackground");
-        style.disabledBackground = progressBarSkin.getDrawable("disabledBackground");
-        style.knobAfter = progressBarSkin.getDrawable("knob");
-        style.knobBefore = progressBarSkin.getDrawable("knob");
-
-        healthBackground = new Sprite(new Texture(Gdx.files.internal("design/disabledBackground.png")));
-        healthForeground = new Sprite(new Texture(Gdx.files.internal("design/background.png")));
-
-
-        testProgressBar = new ProgressBar(0, 100, 1, false, style);
-
-        /*healthProgressBars = new ArrayList<ProgressBar>();
-
-        for (Player p : playersAlive) {
-            healthProgressBars.add(new ProgressBar(0, 100, 1, false, style));
-        }*/
 
         battleSong = Gdx.audio.newMusic(Gdx.files.internal("Music/battleMusic.MP3"));
 
@@ -241,7 +206,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonStore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new StoreView(game, gameInstance, gameView, currentPlayer));
+                game.setScreen(new StoreView(game, gameInstance, gameView));
             }
         });
 
@@ -274,13 +239,8 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelFuelLeft.setColor(Color.BLACK);
         labelPower.setColor(Color.BLACK);
 
-        //testProgressBar.setValue(50);
-
-        //testProgressBar.setVisible(true);
-
         groupTop.left().top();
         groupTop.defaults();
-        //groupTop.add(testProgressBar); // legger til progress bar her
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelCurrentPlayer).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelTurn).pad(10, 10, 10, 0).fillX().row();
@@ -294,7 +254,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupBottom.bottom();
         groupBottom.add(buttonFire);
 
-
         groupLeft.bottom().left();
         groupLeft.add(arrowLeft).padLeft(20).padBottom(20);
         groupLeft.add(arrowRight).padLeft(20).padBottom(20);
@@ -306,15 +265,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupBottom.setFillParent(true);
         groupRight.setFillParent(true);
         groupLeft.setFillParent(true);
-/*
-        for (int i = 0 ; i < playersAlive.size() ; i++) {
-            healthProgressBars.get(i).setPosition(playersAlive.get(i).getVehicle().getPosition().x, playersAlive.get(i).getVehicle().getPosition().y);
-            healthProgressBars.get(i).setValue(playersAlive.get(i).getVehicle().getHealth());
-            System.out.println("health: " + healthProgressBars.get(i).getValue());
-            System.out.println("health visual value: " + healthProgressBars.get(i).getVisualValue());
-            healthProgressBars.get(i).setAnimateDuration(2);
-            stage.addActor(healthProgressBars.get(i));
-        }*/
 
         stage.addActor(groupTop);
         stage.addActor(groupBottom);
@@ -334,7 +284,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     public void render(float delta) {
 
         // if the round is finished (either because there is only one player left, or there is no more turns left
-        if (gameInstance.getRoundWinner() != null) {
+        /*if (gameInstance.getRoundWinner() != null) {
             if (gameInstance.getRoundsLeft() == 0) {
                 game.setScreen(new GameOverView(game, gameInstance));
                 battleSong.stop();
@@ -342,11 +292,17 @@ public class GameView extends AbstractView implements Screen, Observer{
                 game.setScreen(new RoundOverView(game, gameInstance.getRoundWinner(), gameInstance, this));
                 battleSong.stop();
             }
+        }*/
+
+        if (gameInstance.getRoundWinners() != null) {
+            battleSong.stop();
+            if (gameInstance.getRoundsLeft() == 0) {
+                game.setScreen(new GameOverView(game, gameInstance));
+            } else {
+                game.setScreen(new RoundOverView(game, gameInstance, this));
+            }
+            this.dispose();
         }
-
-
-
-
 
         environment = gameInstance.getEnvironment();
         currentPlayer = gameInstance.getCurrentPlayer();
@@ -368,61 +324,49 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         // draws the sprites, ex vehicles etc.
         batch.begin();
-        //batch.draw(TextureManager.skyBackground, 0, 0);
-        //batch.draw(new TextureRegion(TextureManager.menu), 0, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 7, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        for (Player p : playersAlive) {
-            if (p.getVehicle().getHealth() > 0) {
+        try {
+            for (Player p : playersAlive) {
+                if (p.getVehicle().getHealth() > 0) {
 
-                //Draw the barrel and vehicle
-                batch.draw(new TextureRegion(p.getVehicle().getBarrel().getTexture()), p.getVehicle().getBarrel().getPosition().x, p.getVehicle().getBarrel().getPosition().y, 0, (float) p.getVehicle().getBarrel().getTexture().getHeight() / 2, (float) p.getVehicle().getBarrel().getTexture().getWidth(), (float) p.getVehicle().getBarrel().getTexture().getHeight(), 1, 1, p.getVehicle().getBarrel().getRotation() + p.getVehicle().getBarrel().getAngle());
-                batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
+                    //Draw the barrel and vehicle
+                    batch.draw(new TextureRegion(p.getVehicle().getBarrel().getTexture()), p.getVehicle().getBarrel().getPosition().x, p.getVehicle().getBarrel().getPosition().y, 0, (float) p.getVehicle().getBarrel().getTexture().getHeight() / 2, (float) p.getVehicle().getBarrel().getTexture().getWidth(), (float) p.getVehicle().getBarrel().getTexture().getHeight(), 1, 1, p.getVehicle().getBarrel().getRotation() + p.getVehicle().getBarrel().getAngle());
+                    batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float) p.getVehicle().getTexture().getWidth(), (float) p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
 
-                font.setColor(Color.BLACK);
-                batch.end();
-                /*healthProgressBars.get(playersAlive.indexOf(p)).setPosition(playersAlive.get(playersAlive.indexOf(p)).getVehicle().getPosition().x, playersAlive.get(playersAlive.indexOf(p)).getVehicle().getPosition().y);
-                healthProgressBars.get(playersAlive.indexOf(p)).setValue(p.getVehicle().getHealth());
+                    font.setColor(Color.BLACK);
+                    batch.end();
 
-                System.out.println("health: " + healthProgressBars.get(playersAlive.indexOf(p)).getValue());
-                System.out.println("health visual value: " + healthProgressBars.get(playersAlive.indexOf(p)).getVisualValue());*/
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+                    shapeRenderer.setColor(0, 0, 0, 1);
+                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, stage.getHeight() / 40 + 2);
+                    shapeRenderer.end();
 
-                /*healthBackground.setPosition(p.getVehicle().getPosition().x, p.getVehicle().getPosition().y);
-                healthBackground.draw(batch);
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-                healthForeground.setPosition(p.getVehicle().getPosition().x, p.getVehicle().getPosition().y);
-                healthForeground.setSize(healthForeground.getWidth()/2, healthForeground.getHeight());
-                healthForeground.draw(batch);*/
+                    if (p.getVehicle().getHealth() < 25) {
+                        shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
+                    } else if (p.getVehicle().getHealth() < 50) {
+                        shapeRenderer.setColor(255.f / 255, 192.f / 255, 76.f / 255, 1);
+                    } else if (p.getVehicle().getHealth() < 75) {
+                        shapeRenderer.setColor(255.f / 255, 255.f / 255, 127.f / 255, 1);
+                    } else {
+                        shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
+                    }
 
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.setColor(0,0,0,1);
-                shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, stage.getHeight()/40 + 2);
-                shapeRenderer.end();
+                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), stage.getHeight() / 40);
+                    shapeRenderer.end();
+                    batch.begin();
+                    font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
 
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-                if (p.getVehicle().getHealth() < 25){
-                    shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
                 }
-                else if (p.getVehicle().getHealth() < 50){
-                    shapeRenderer.setColor(255.f / 255, 192.f / 255, 76.f / 255, 1);
-                }
-                else if (p.getVehicle().getHealth() < 75){
-                    shapeRenderer.setColor(255.f / 255, 255.f / 255, 127.f / 255, 1);
-                }
-                else{
-                    shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
-                }
-
-                shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), stage.getHeight()/40);
-                shapeRenderer.end();
-                batch.begin();
-                font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
-
             }
+        }
+        catch (Exception ConcurrentModificationException) {
+            System.out.println("error, killed player while looping");
         }
 
 
-        // NOT FINISHED: should draw the bullet if a tank is firing
+        // draw the bullet if a tank is firing
 
         if (currentPlayer.getChosenAmmo().getPosition() != null) {
 

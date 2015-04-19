@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.Enums.Team;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -12,7 +13,9 @@ import java.util.Random;
  */
 public class Game extends AbstractModel {
 
-    private Player currentPlayer, roundWinningPlayer, gameWinningPlayer;
+    private Player currentPlayer, startingPlayer;
+    private Player roundWinningPlayer, gameWinningPlayer;
+    private ArrayList<Player> roundWinningPlayers, gameWinningPlayers;
 
     private ArrayList<Player> players;
     private ArrayList<Player> playersAlive;
@@ -25,12 +28,15 @@ public class Game extends AbstractModel {
     private Store store;
 
     private Random random;
+    private GameSettings settings;
 
     public Game(GameSettings settings) {
 
         this.store = Store.getInstance();
+        this.settings = settings;
 
-        environment = new Environment(4, 10);
+        environment = initializeEnvironment();
+
         random = new Random();
 
         numberOfRounds = settings.getNumberOfRounds();
@@ -46,9 +52,12 @@ public class Game extends AbstractModel {
         }
 
         currentPlayer = playersAlive.get(0);
+        startingPlayer = currentPlayer;
         currentRound = 1;
         roundWinningPlayer = null;
         gameWinningPlayer = null;
+        roundWinningPlayers = new ArrayList<Player>();
+        gameWinningPlayers = new ArrayList<Player>();
         
     }
 
@@ -56,8 +65,11 @@ public class Game extends AbstractModel {
 
     public void changePlayer() {
 
-        // increase the current player's number of turns taken by 1
-        currentPlayer.setTurnsTaken(currentPlayer.getTurnsTaken()+1);
+        if (numberOfTurns != -1) {
+            // increase the current player's number of turns taken by 1
+            currentPlayer.setTurnsTaken(currentPlayer.getTurnsTaken()+1);
+        }
+
 
         // if any player has been killed in this turn, add them to dead players
         for (Player p : playersAlive) {
@@ -88,7 +100,7 @@ public class Game extends AbstractModel {
         }
 
         // update the winning player, is null if there is not yet a winner
-        roundWinningPlayer = getRoundWinner();
+        //roundWinningPlayer = getRoundWinner();
 
     }
 
@@ -97,12 +109,16 @@ public class Game extends AbstractModel {
     // If there are no more rounds, the game should be finished.
     public void changeRound() {
 
-        getRoundWinner().setRoundsWon(getRoundWinner().getRoundsWon() + 1);
+        for (Player p : getRoundWinners()) {
+            p.setRoundsWon(p.getRoundsWon() + 1);
+        }
+
+        //getRoundWinner().setRoundsWon(getRoundWinner().getRoundsWon() + 1);
 
         if (currentRound < numberOfRounds) {
             currentRound ++;
 
-            environment = new Environment(4, 10);
+            environment = initializeEnvironment();
 
             playersAlive.clear();
             playersDead.clear();
@@ -111,16 +127,22 @@ public class Game extends AbstractModel {
                 playersAlive.add(players.get(i));
                 players.get(i).reset(environment, getStartPosition(i));
             }
+            // Starting player switches at each round
+            if (playersAlive.indexOf(startingPlayer) == playersAlive.size()-1) {
+                currentPlayer = playersAlive.get(0);
+            }
+            else {
+                currentPlayer = playersAlive.get(playersAlive.indexOf(startingPlayer)+1);
+            }
+            startingPlayer = currentPlayer;
 
-        }
-        else {
-            System.out.println("Game over");
         }
 
     }
 
+
     // returns the winner of the current round if there is a winner, and null if there is not a winner
-    public Player getRoundWinner() {
+    /*public Player getRoundWinner() {
 
         if (playersAlive.size() == 1 && playersDead.size() > 0) {
             return playersAlive.get(0);
@@ -133,7 +155,6 @@ public class Game extends AbstractModel {
                 noTurnsLeft = false;
             }
         }
-
 
         // if so, the player with the most health left should win the round
         if (noTurnsLeft) {
@@ -150,24 +171,76 @@ public class Game extends AbstractModel {
         }
 
         return null;
+    }*/
+
+    public ArrayList<Player> getRoundWinners() {
+
+        if (playersAlive.size() == 1 && playersDead.size() > 0) {
+            return new ArrayList<Player>(Arrays.asList(playersAlive.get(0)));
+        }
+
+        // check if no player has turns left
+        boolean noTurnsLeft = true;
+        for (Player p : playersAlive) {
+            if (getNumberOfTurns() - p.getTurnsTaken() != 0) {
+                noTurnsLeft = false;
+            }
+        }
+
+        // if so, the player with the most health left should win the round
+        if (noTurnsLeft) {
+            return getPlayersMaxHealth();
+        }
+
+        return null;
+    }
+
+    public ArrayList<Player> getGameWinners() {
+
+        if (numberOfRounds == 1) {
+            if (playersAlive.size() == 1 && playersDead.size() > 0) {
+                return new ArrayList<Player>(Arrays.asList(playersAlive.get(0)));
+            }
+
+            return getPlayersMaxHealth();
+
+        }
+        else {
+            return getPlayersMaxRoundsWon();
+        }
+
     }
 
     // calculates and returns the winner of the whole game
-    public Player getGameWinner() {
+    /*public Player getGameWinner() {
 
-        int maxWon = -1;
         Player winningPlayer = null;
 
-        for (Player p : players) {
-
-            if (p.getRoundsWon() > maxWon) {
-                maxWon = p.getRoundsWon();
-                winningPlayer = p;
+        if (numberOfRounds == 1) {
+            if (playersAlive.size() == 1 && playersDead.size() > 0) {
+                return playersAlive.get(0);
             }
 
+            int maxHealth = -1;
+            for (Player p : players) {
+                if (p.getVehicle().getHealth() > maxHealth) {
+                    maxHealth = p.getVehicle().getHealth();
+                    winningPlayer = p;
+                }
+            }
         }
+        else {
+            int maxWon = -1;
+            for (Player p : players) {
+                if (p.getRoundsWon() > maxWon) {
+                    maxWon = p.getRoundsWon();
+                    winningPlayer = p;
+                }
+            }
+        }
+
         return winningPlayer;
-    }
+    }*/
 
 
     // where to place the players in the beginning
@@ -183,6 +256,62 @@ public class Game extends AbstractModel {
         return null;
     }
 
+
+    private ArrayList<Player> getPlayersMaxHealth() {
+
+        ArrayList<Player> winners = new ArrayList<Player>();
+
+        int maxHealth = -1;
+        for (Player p : players) {
+            if (p.getVehicle().getHealth() > maxHealth) {
+                maxHealth = p.getVehicle().getHealth();
+            }
+        }
+
+        for (Player p : players) {
+            if (p.getVehicle().getHealth() == maxHealth) {
+                winners.add(p);
+            }
+        }
+
+        return winners;
+    }
+
+    private ArrayList<Player> getPlayersMaxRoundsWon() {
+
+        ArrayList<Player> winners = new ArrayList<Player>();
+
+        int maxRoundsWon = -1;
+        for (Player p : players) {
+            if (p.getRoundsWon() > maxRoundsWon) {
+                maxRoundsWon = p.getRoundsWon();
+            }
+        }
+
+        for (Player p : players) {
+            if (p.getRoundsWon() == maxRoundsWon) {
+                winners.add(p);
+            }
+        }
+
+        return winners;
+    }
+
+    // Create environment based on difficulty
+    private Environment initializeEnvironment() {
+
+        if (settings.getDifficulty().equals("Easy")) {
+            return new Environment(2, 10);
+        }
+        else if(settings.getDifficulty().equals("Medium")) {
+            return new Environment(4, 10);
+        }
+        else if(settings.getDifficulty().equals("Difficult")) {
+            return new Environment(6, 10);
+        }
+        return null;
+
+    }
 
 
     public ArrayList<Player> getPlayersAlive() {

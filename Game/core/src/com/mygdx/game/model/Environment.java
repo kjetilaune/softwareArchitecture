@@ -5,11 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.model.Enums.EnvironmentEnum;
+import com.mygdx.game.model.Enums.Appearance;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 /**
  * Created by annieaa on 10/03/15.
@@ -17,7 +16,7 @@ import java.util.Vector;
 public class Environment {
 
     private ArrayList<Polygon> polygons;
-    private ArrayList<Boolean> collisions;
+    private ArrayList<Boolean> traversables; // says which polygons are not traversable
 
     private int numberOfHills;
     private int pixelStep; // width of each polygon
@@ -26,16 +25,8 @@ public class Environment {
     private double hillWidth;
     private int numberOfSlices;
 
-    private EnvironmentEnum appearance;
+    private Appearance appearance;
 
-
-
-    // for creating a simple environment
-    public Environment() {
-        polygons = new ArrayList<Polygon>();
-        collisions = new ArrayList<Boolean>();
-        drawBoringHills();
-    }
 
     // for creating an environment with a certain number of hills
     // pixelStep is the width of each polygon that makes up the ground
@@ -43,12 +34,6 @@ public class Environment {
 
         this.numberOfHills = numberOfHills;
         this.pixelStep = pixelStep;
-
-        //System.out.println("Height: " + Gdx.graphics.getHeight() + ", Width: " + Gdx.graphics.getWidth());
-
-        // where the hill should start, will randomize this properly
-        //hillStartY = 500;
-        //hillStartY = (140 + Math.random() * 200);
 
         hillStartY = (Gdx.graphics.getHeight()/5 + Math.random() * Gdx.graphics.getHeight()/3);
         hillWidth = Gdx.graphics.getWidth() / numberOfHills;
@@ -65,7 +50,6 @@ public class Environment {
     // returns whether the given point is colliding with the environment
     public boolean isColliding(Vector2 point) {
 
-
         for (Polygon polygon : polygons) {
             if (polygon.contains(point.x, point.y)) {
                 return true;
@@ -76,12 +60,7 @@ public class Environment {
     }
 
 
-
-
     public void collide(Vector2 point, int blastRadius) {
-
-        System.out.println("Collides with ground");
-
 
         Circle blast = new Circle(point, blastRadius);
         int indexCollision = -1;
@@ -89,48 +68,38 @@ public class Environment {
         // find the polygon of collision
         for (int i = 0 ; i < polygons.size() ; i++) {
 
-            //collisions.add(false);
-
             if (polygons.get(i).contains(point.x, point.y)) {
                 indexCollision = i;
             }
         }
 
-        System.out.println("Collision with polygon no " + indexCollision);
-
         // mark all polygons that should be affected
-        // alter the given polygons
+        // and alter the given polygons
         int indexRange = blastRadius/pixelStep;
 
         for (int i = indexCollision - indexRange ; i < indexCollision + indexRange + 1 ; i ++) {
 
-            //collisions.set(i, true);
-
             float[] vertices = polygons.get(i).getVertices();
-
-            System.out.println("Polygon vertices: (" + vertices[0] + ", " + vertices[1] + "), (" + vertices[2] + ", " + vertices[3] + "), (" + vertices[4] + ", " + vertices[5] + "), (" + vertices[6] + ", " + vertices[7] + ")");
-
 
             vertices[3] = getIntersection(blast, vertices[2], vertices[3]);
             vertices[5] = getIntersection(blast, vertices[4], vertices[5]);
 
-            //Vector2 intersection = getIntersection(blast, polygons.get(i));
-
             polygons.get(i).setVertices(vertices);
-
-            System.out.println("Polygon vertices: (" + vertices[0] + ", " + vertices[1] + "), (" + vertices[2] + ", " + vertices[3] + "), (" + vertices[4] + ", " + vertices[5] + "), (" + vertices[6] + ", " + vertices[7] + ")");
 
         }
 
     }
 
 
+    // returns the lowest y-coordinate at the intersection of the given circle and x-coordinate
     private float getIntersection(Circle blast, float x, float y) {
 
-        double y1 = (double)(Math.sqrt(Math.pow(blast.radius, 2) - Math.pow((x - blast.x), 2)) + blast.y);
-        double y2 = (double)(-1 * Math.sqrt(Math.pow(blast.radius, 2) - Math.pow((x - blast.x), 2)) + blast.y);
+        // calculate the two solutions for intersection
+        double y1 = Math.sqrt(Math.pow(blast.radius, 2) - Math.pow((x - blast.x), 2)) + blast.y;
+        double y2 = -1 * Math.sqrt(Math.pow(blast.radius, 2) - Math.pow((x - blast.x), 2)) + blast.y;
 
-
+        // check if solutions are imaginary
+        // if so, return the existing y-coordinate
         if (Double.isNaN(y1) && Double.isNaN(y2)) {
             return y;
         }
@@ -141,7 +110,7 @@ public class Environment {
             return (float)y1;
         }
         else if (y < y1 && y < y2) {
-            return y;
+            return y; // check if the hill is already below the intersection
         }
         else {
             return y1<y2 ? (float)y1 : (float)y2;
@@ -150,12 +119,11 @@ public class Environment {
     }
 
 
-
     // returns the height of the ground at the given x-position
     public float getGroundHeight(float xPos) {
 
         float y = 0;
-
+        // iterate the polygons and find the one that contains the given x
         for (Polygon poly : polygons) {
 
             if (poly.contains(xPos, 0)) {
@@ -168,12 +136,9 @@ public class Environment {
                 float x1 = verticesX[1];
                 float x2 = verticesX[2];
 
-               // y = ((y1/y2) * (xPos - verticesX[0])) + y1; // y = ax + b
+                // calculate the slope and y-coordinate
                 float m = (y1-y2)/(x1-x2);
-
-                // y - y1 = m(x - x1) ---> y = m(x - x1) + y1
                 y = (m * (xPos - x1)) + y1;
-
             }
 
         }
@@ -196,12 +161,8 @@ public class Environment {
 
         float angle = (float)Math.atan(opposite/adjacent);
 
-        System.out.println("inn: " + xStart + ", " + xStop + " med bredde " + width);
-        System.out.println("ny: " + (xStart + width/3) + ", " + (xStop - width/3));
-        System.out.println("vinkel: " + -1 * (float)Math.toDegrees(angle));
-
         return 1 * (float)Math.toDegrees(angle);
-        //return -1 * (float)Math.toDegrees(angle);
+
     }
 
 
@@ -227,19 +188,6 @@ public class Environment {
     }
 
 
-    // for testing purposes. will probably be deleted soon.
-    private void drawBoringHills() {
-
-        float[] vecs1 = {0, 0, Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth()/4, 400, 0, Gdx.graphics.getHeight() - 400};
-        polygons.add(new Polygon(vecs1));
-        float[] vecs2 = {Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 0, 3*Gdx.graphics.getWidth()/4, 400, Gdx.graphics.getWidth()/4, 400};
-        polygons.add(new Polygon(vecs2));
-        float[] vecs3 = {3*Gdx.graphics.getWidth()/4, 0, Gdx.graphics.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - 500, 3*Gdx.graphics.getWidth()/4,  400};
-        polygons.add(new Polygon(vecs3));
-
-    }
-
-
     // draws hills with random heights
     private void drawHills() {
 
@@ -248,12 +196,17 @@ public class Environment {
         for (int i = 0 ; i < numberOfHills ; i++) {
 
             // decides the random height of each hill
-            //double randomHeight = Math.random() * 400; // should be randomized properly
+            // make sure it does not go below screen
             double randomHeight = Math.random() * Gdx.graphics.getHeight()/5;
+            while (hillStartY - 2*randomHeight < Gdx.graphics.getHeight()/80) {
+                randomHeight = Math.random() * Gdx.graphics.getHeight()/5;
+            }
 
             if (i != 0) {
                 hillStartY -= randomHeight; // to make sure the next hill starts when the last ended
             }
+
+            System.out.println("height: " + randomHeight);
 
             // create a polygon for each slice of hill
             for (int j = 0 ; j < numberOfSlices ; j++) {
@@ -281,8 +234,8 @@ public class Environment {
 
     // sets random appearance of the environment, ex. grass, snow, rock etc.
     private void setRandomAppearance() {
-        int pick = new Random().nextInt(EnvironmentEnum.values().length);
-        appearance = EnvironmentEnum.values()[pick];
+        int pick = new Random().nextInt(Appearance.values().length);
+        appearance = Appearance.values()[pick];
     }
 
 
@@ -291,8 +244,8 @@ public class Environment {
     }
 
 
-    public ArrayList<Boolean> getCollisions() {
-        return collisions;
+    public ArrayList<Boolean> getTraversables() {
+        return traversables;
     }
 
 

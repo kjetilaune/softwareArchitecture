@@ -35,9 +35,9 @@ public class StoreView extends AbstractView implements Screen{
     public MyGdxGame game;
     public Game gameInstance;
     public GameView gameView;
-    public Player currentPlayer, roundWinner;
-    private final int winnerScoreAward = 5000;
-    private final int loserScoreAward = 2000;
+    public Player currentPlayer;//, roundWinner;
+    //private final int winnerScoreAward = 5000;
+    //private final int loserScoreAward = 2000;
 
 
     public ArrayList<Player> players;
@@ -70,13 +70,13 @@ public class StoreView extends AbstractView implements Screen{
     private Sprite sprite, currentAmmoSprite;
     private SpriteBatch batch;
 
-    public StoreView(MyGdxGame game, Game gameInstance, GameView gameView, Player roundWinner){
+    public StoreView(MyGdxGame game, Game gameInstance, GameView gameView){
         this.game = game;
         this.gameView = gameView;
         this.gameInstance = gameInstance;
         this.players = gameInstance.getPlayers();
         this.currentPlayer = players.get(0);
-        this.roundWinner = roundWinner;
+        //this.roundWinner = roundWinner;
         numberOfPlayers = players.size();
 
         ammoForPurchase = new ArrayList<String>();
@@ -103,7 +103,7 @@ public class StoreView extends AbstractView implements Screen{
 
         currentAmmo = ammoForPurchase.get(0);
 
-        awardPlayers();
+        //awardPlayers();
         
         //GUI
         stage = new Stage();
@@ -268,7 +268,7 @@ public class StoreView extends AbstractView implements Screen{
         stage.draw();
     }
 
-    private void awardPlayers(){
+    /*private void awardPlayers(){
         for (Player player : players){
             if (player.getPlayerNumber() == roundWinner.getPlayerNumber()){
                 player.setScore(player.getScore() + winnerScoreAward);
@@ -277,7 +277,7 @@ public class StoreView extends AbstractView implements Screen{
                 player.setScore(player.getScore() + loserScoreAward);
             }
         }
-    }
+    }*/
 
     public void setMoneyText(String s){
         this.txtMoney.setText(s);

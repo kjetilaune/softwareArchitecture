@@ -54,7 +54,7 @@ public class StoreController extends AbstractController implements EventListener
             storeView.back.setText("New round");
         }
         else if (storeView.currentPlayer == storeView.players.get(storeView.players.size()-1)){
-            gameView.gameInstance.getRoundWinner();
+            //gameView.gameInstance.getRoundWinner();
             gameView.gameInstance.changeRound();
             gameView.dispose();
             storeView.game.setScreen(new GameView(storeView.game, storeView.gameInstance));
