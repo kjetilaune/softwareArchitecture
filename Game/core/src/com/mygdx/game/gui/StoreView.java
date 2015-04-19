@@ -46,7 +46,7 @@ public class StoreView extends AbstractView implements Screen{
 
     //private HashMap<String, Ammunition> allAmmunition;
 
-    public String currentAmmo;
+    public String currentAmmo, txtAmmo;
     private int numberOfPlayers;
 
     //GUI
@@ -100,6 +100,7 @@ public class StoreView extends AbstractView implements Screen{
 
         currentAmmo = ammoForPurchase.get(0);
 
+
         //GUI
         stage = new Stage();
         container = new Table();
@@ -146,11 +147,12 @@ public class StoreView extends AbstractView implements Screen{
         placeholderLabel = new Label("", skin);
         currentPlayerLabel = new Label("Current Player:", skin);
         priceLabel = new Label("Price: ", skin);
-        moneyLabel = new Label("Available Money: ", skin);
+        moneyLabel = new Label("Available Money: " + "Number of current ammo: ", skin);
+        txtAmmo = "" + currentPlayer.getInventory().getAmmoLeft(currentAmmo);
         txtPrice = new Label("", skin);
         txtCurrentPlayer = new Label("Player 1", skin);
         txtCurrentPlayer.setFontScale(2);
-        txtMoney = new Label("$" + currentPlayer.getScore(), skin);
+        txtMoney = new Label("$" + currentPlayer.getScore() + "\n " + txtAmmo, skin);
         currentAmmoSprite = getCurrentSprite();
         infoLabel = new Label("Name of Ammo: " + currentAmmo + "\nPrice: " + Store.getAmmunitionPrice(currentAmmo) + "\nDamage: " + Store.getAmmunition(currentAmmo).getInitialDamage(), skin);
 
@@ -171,6 +173,7 @@ public class StoreView extends AbstractView implements Screen{
         container.add(moneyLabel).expand().padTop(stage.getHeight()/10).top().right();
         container.add(txtMoney).top().padTop(stage.getHeight()/10).padRight(stage.getWidth()/10);
         container.row().fillX();
+
 
         ammoContainer.add(arrowLeft).left().maxWidth(stage.getWidth() / 20).padLeft(stage.getWidth() / 10);
         ammoContainer.add(infoLabel).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5).padLeft(stage.getWidth()/20*7).right();
@@ -213,7 +216,6 @@ public class StoreView extends AbstractView implements Screen{
                     currentAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(currentAmmo) - 1);
                 }
                 infoLabel.setText("Name of Ammo: " + currentAmmo + "\nPrice: " + Store.getAmmunitionPrice(currentAmmo) + "\nDamage: " + Store.getAmmunition(currentAmmo).getInitialDamage());
-
             }
         });
 
@@ -248,7 +250,10 @@ public class StoreView extends AbstractView implements Screen{
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
         //currentAmmoSprite.setScale(10);
 
-        currentPlayerLabel.setText("" + currentPlayer.getInventory().getAmmoLeft(currentAmmo));
+
+        txtAmmo = ("" + currentPlayer.getInventory().getAmmoLeft(currentAmmo));
+        this.moneyLabel.setText("Available Money: \n" + "Number of current ammo: ");
+        setMoneyText("$" + currentPlayer.getScore() + "\n " + getNumberOfCurrentAmmo());
 
         batch.begin();
         sprite.draw(batch);
@@ -261,6 +266,10 @@ public class StoreView extends AbstractView implements Screen{
 
     public void setMoneyText(String s){
         this.txtMoney.setText(s);
+    }
+
+    public String getNumberOfCurrentAmmo(){
+        return "" + currentPlayer.getInventory().getAmmoLeft(currentAmmo);
     }
 
     public void resize (int width, int height){}

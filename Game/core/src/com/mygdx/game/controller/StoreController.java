@@ -41,7 +41,7 @@ public class StoreController extends AbstractController implements EventListener
 */
     private void buy() {
         storeView.currentPlayer.buy(storeView.getCurrentAmmo(), 1);
-        storeView.setMoneyText("$" + storeView.currentPlayer.getScore());
+        storeView.setMoneyText("$" + storeView.currentPlayer.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
     }
 
     private void back() {
@@ -49,7 +49,7 @@ public class StoreController extends AbstractController implements EventListener
         if (storeView.currentPlayer == storeView.players.get(storeView.players.size()-2)){
             storeView.currentPlayer = storeView.players.get(storeView.players.size()-1);
             storeView.currentAmmo = storeView.ammoForPurchase.get(0);
-            storeView.txtMoney.setText("$" + storeView.currentPlayer.getScore());
+            storeView.setMoneyText("$" + storeView.currentPlayer.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
             storeView.txtCurrentPlayer.setText("Player " + (storeView.players.indexOf(storeView.currentPlayer) + 1));
             storeView.back.setText("New round");
         }
@@ -62,7 +62,7 @@ public class StoreController extends AbstractController implements EventListener
         else{
             storeView.currentPlayer = storeView.players.get(storeView.players.indexOf(storeView.currentPlayer));
             storeView.currentAmmo = storeView.ammoForPurchase.get(0);
-            storeView.txtMoney.setText("$" + storeView.currentPlayer.getScore());
+            storeView.setMoneyText("$" + storeView.currentPlayer.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
             storeView.txtCurrentPlayer.setText("Player " + (storeView.players.indexOf(storeView.currentPlayer) + 1));
         }
 
