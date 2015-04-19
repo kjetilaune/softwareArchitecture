@@ -103,7 +103,8 @@ public class StoreView extends AbstractView implements Screen{
 
         currentAmmo = ammoForPurchase.get(0);
 
-
+        awardPlayers();
+        
         //GUI
         stage = new Stage();
         container = new Table();
