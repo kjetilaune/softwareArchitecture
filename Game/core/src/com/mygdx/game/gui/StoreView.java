@@ -35,7 +35,9 @@ public class StoreView extends AbstractView implements Screen{
     public MyGdxGame game;
     public Game gameInstance;
     public GameView gameView;
-    public Player currentPlayer;
+    public Player currentPlayer, roundWinner;
+    private final int winnerScoreAward = 5000;
+    private final int loserScoreAward = 2000;
 
 
     public ArrayList<Player> players;
@@ -68,12 +70,13 @@ public class StoreView extends AbstractView implements Screen{
     private Sprite sprite, currentAmmoSprite;
     private SpriteBatch batch;
 
-    public StoreView(MyGdxGame game, Game gameInstance, GameView gameView){
+    public StoreView(MyGdxGame game, Game gameInstance, GameView gameView, Player roundWinner){
         this.game = game;
         this.gameView = gameView;
         this.gameInstance = gameInstance;
         this.players = gameInstance.getPlayers();
         this.currentPlayer = players.get(0);
+        this.roundWinner = roundWinner;
         numberOfPlayers = players.size();
 
         ammoForPurchase = new ArrayList<String>();
@@ -262,6 +265,17 @@ public class StoreView extends AbstractView implements Screen{
 
         stage.act();
         stage.draw();
+    }
+
+    private void awardPlayers(){
+        for (Player player : players){
+            if (player.getPlayerNumber() == roundWinner.getPlayerNumber()){
+                player.setScore(player.getScore() + winnerScoreAward);
+            }
+            else{
+                player.setScore(player.getScore() + loserScoreAward);
+            }
+        }
     }
 
     public void setMoneyText(String s){

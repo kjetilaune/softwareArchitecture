@@ -67,12 +67,14 @@ public class RoundOverView extends AbstractView implements Screen{
     private Sprite currentTeamSprite;
     private SpriteBatch batch;
 
+    private Player winner;
+
 
     public RoundOverView(MyGdxGame game, Player roundWinner, Game gameInstance, GameView gameView){
         this.game = game;
         this.gameInstance = gameInstance;
         this.gameView = gameView;
-
+        this.winner = roundWinner;
         this.roundWinner = roundWinner.getPlayerNumber();
         this.currentTeamSprite = roundWinner.getTeam().getVehicleSprite();
 
@@ -156,7 +158,7 @@ public class RoundOverView extends AbstractView implements Screen{
         buttonNext.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new StoreView(game, gameInstance, gameView));
+                game.setScreen(new StoreView(game, gameInstance, gameView, winner));
             }
         });
 

@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -59,6 +60,8 @@ public class GameView extends AbstractView implements Screen, Observer{
     MyGdxGame game;
     private Stage stage;
     private GameView gameView;
+
+    private ShapeRenderer shapeRenderer;
 
     private MovementController moveCtrl; // controls the left/right-movement of the tank
 
@@ -131,6 +134,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         this.game = game; // the application launcher
         gameView = this;
         game.introSong.stop();
+        shapeRenderer = new ShapeRenderer();
 
         // store the needed variables
         this.gameInstance = gameInstance; // the current game
@@ -237,7 +241,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonStore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new StoreView(game, gameInstance, gameView));
+                game.setScreen(new StoreView(game, gameInstance, gameView, currentPlayer));
             }
         });
 
@@ -340,6 +344,10 @@ public class GameView extends AbstractView implements Screen, Observer{
             }
         }
 
+
+
+
+
         environment = gameInstance.getEnvironment();
         currentPlayer = gameInstance.getCurrentPlayer();
         currentVehicle = currentPlayer.getVehicle();
@@ -366,11 +374,12 @@ public class GameView extends AbstractView implements Screen, Observer{
         for (Player p : playersAlive) {
             if (p.getVehicle().getHealth() > 0) {
 
+                //Draw the barrel and vehicle
                 batch.draw(new TextureRegion(p.getVehicle().getBarrel().getTexture()), p.getVehicle().getBarrel().getPosition().x, p.getVehicle().getBarrel().getPosition().y, 0, (float) p.getVehicle().getBarrel().getTexture().getHeight() / 2, (float) p.getVehicle().getBarrel().getTexture().getWidth(), (float) p.getVehicle().getBarrel().getTexture().getHeight(), 1, 1, p.getVehicle().getBarrel().getRotation() + p.getVehicle().getBarrel().getAngle());
                 batch.draw(new TextureRegion(p.getVehicle().getTexture()), p.getVehicle().getPosition().x, p.getVehicle().getPosition().y, 0, 0, (float)p.getVehicle().getTexture().getWidth(), (float)p.getVehicle().getTexture().getHeight(), 1, 1, p.getVehicle().getRotation());
 
                 font.setColor(Color.BLACK);
-
+                batch.end();
                 /*healthProgressBars.get(playersAlive.indexOf(p)).setPosition(playersAlive.get(playersAlive.indexOf(p)).getVehicle().getPosition().x, playersAlive.get(playersAlive.indexOf(p)).getVehicle().getPosition().y);
                 healthProgressBars.get(playersAlive.indexOf(p)).setValue(p.getVehicle().getHealth());
 
@@ -384,6 +393,29 @@ public class GameView extends AbstractView implements Screen, Observer{
                 healthForeground.setSize(healthForeground.getWidth()/2, healthForeground.getHeight());
                 healthForeground.draw(batch);*/
 
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+                shapeRenderer.setColor(0,0,0,1);
+                shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, stage.getHeight()/40 + 2);
+                shapeRenderer.end();
+
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+                if (p.getVehicle().getHealth() < 25){
+                    shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
+                }
+                else if (p.getVehicle().getHealth() < 50){
+                    shapeRenderer.setColor(255.f / 255, 192.f / 255, 76.f / 255, 1);
+                }
+                else if (p.getVehicle().getHealth() < 75){
+                    shapeRenderer.setColor(255.f / 255, 255.f / 255, 127.f / 255, 1);
+                }
+                else{
+                    shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
+                }
+
+                shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), stage.getHeight()/40);
+                shapeRenderer.end();
+                batch.begin();
                 font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth()/2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
 
             }
@@ -402,6 +434,68 @@ public class GameView extends AbstractView implements Screen, Observer{
         spriteCloudFront.draw(batch);
 
         batch.end();
+
+        //Personal fuel box
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        if (currentPlayer.getVehicle().getFuel() < 25){
+            shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
+        }
+        else if (currentPlayer.getVehicle().getFuel() < 50){
+            shapeRenderer.setColor(255.f / 255, 192.f / 255, 76.f / 255, 1);
+        }
+        else if (currentPlayer.getVehicle().getFuel() < 75){
+            shapeRenderer.setColor(255.f / 255, 255.f / 255, 127.f / 255, 1);
+        }
+        else{
+            shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
+        }
+
+        shapeRenderer.rect(stage.getWidth()/40 * 23, stage.getHeight()/40 * 35, currentPlayer.getVehicle().getFuel(), stage.getHeight()/40);
+        shapeRenderer.end();
+
+        //Personal fuel outline box
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(0,0,0,1);
+        shapeRenderer.rect(stage.getWidth()/40 * 23, stage.getHeight() / 40 * 35, 102, stage.getHeight()/40 + 2);
+        shapeRenderer.end();
+
+        //Personal health box
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        if (currentPlayer.getVehicle().getHealth() < 25){
+            shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
+        }
+        else if (currentPlayer.getVehicle().getHealth() < 50){
+            shapeRenderer.setColor(255.f / 255, 192.f / 255, 76.f / 255, 1);
+        }
+        else if (currentPlayer.getVehicle().getHealth() < 75){
+            shapeRenderer.setColor(255.f / 255, 255.f / 255, 127.f / 255, 1);
+        }
+        else{
+            shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
+        }
+
+        shapeRenderer.rect(stage.getWidth()/20 * 9, stage.getHeight()/40 * 35, currentPlayer.getVehicle().getHealth(), stage.getHeight()/40);
+        shapeRenderer.end();
+
+        //Personal health outline box
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(0,0,0,1);
+        shapeRenderer.rect(stage.getWidth()/20 * 9, stage.getHeight() / 40 * 35, 102, stage.getHeight()/40 + 2);
+        shapeRenderer.end();
+
+        //Fire power outline box
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(0,0,0,1);
+        shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, 202, stage.getHeight()/30 + 2);
+        shapeRenderer.end();
+
+        //Fire power fluctuator
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
+        shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
+        shapeRenderer.end();
 
         stage.act();
         stage.draw();

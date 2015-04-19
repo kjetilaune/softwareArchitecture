@@ -66,7 +66,7 @@ public class PowerThread extends Thread {
                         }
 
                         // cause the thread to halt for 25 ms to prevent to rapid fluctuation
-                        sleep(25);
+                        sleep(10);
 
                     }
 
