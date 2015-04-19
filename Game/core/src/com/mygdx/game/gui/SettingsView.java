@@ -46,15 +46,12 @@ public class SettingsView extends AbstractView implements Screen {
 
     private Skin skin;
 
-    private ImageButton arrowLeft;
-    private ImageButton arrowRight;
-    private ImageButton arrowLeftMoves;
-    private ImageButton arrowRightMoves;
-    private ImageButton arrowLeftTeam;
-    private ImageButton arrowRightTeam;
-    private ImageButton arrowLeftPlayer;
-    private ImageButton arrowRightPlayer;
-
+    private ImageButton arrowLeftRounds;
+    private ImageButton arrowRightRounds;
+    private ImageButton arrowLeftTurns;
+    private ImageButton arrowRightTurns;
+    private ImageButton arrowLeftDifficulty;
+    private ImageButton arrowRightDifficulty;
 
     private Sprite settingsSprite;
     private SpriteBatch batch;
@@ -62,162 +59,99 @@ public class SettingsView extends AbstractView implements Screen {
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
 
-    private Label title;
-    private Label labelNumberOfPlayers;
-    private Label labelNumberOfTurns;
     private Label labelNumberOfRounds;
-    private Label labelPlayer;
-    private Label labelTeams;
+    private Label labelNumberOfTurns;
+    private Label labelDifficulty;
 
-    private Label txtNumberOfPlayers;
-    private Label txtNumberOfTurns;
     private Label txtNumberOfRounds;
-    private Label txtPlayer;
-    private Label txtTeams;
+    private Label txtNumberOfTurns;
+    private Label txtDifficulty;
 
-    private Slider sliderTest;
-    private Skin sliderSkin;
-
-    private Team[] teamNames;
-    private int currentTeam;
-
-    public int numberOfPlayers;
     public int numberOfRounds;
-    public int numberOfTurns;
-    public int currentPlayer;
-
-    //An ArrayList where the index corresponds with the player's number (index 0 = Player 1) and the value is the team name.
-    public ArrayList<Team> teams;
+    public String numberOfTurns;
+    public String difficulty;
 
     private TextButton buttonMainMenu;
     private TextButton buttonNext;
 
 
-
     public SettingsView(MyGdxGame game) {
 
         this.game = game;
-        //System.out.println(Team.values().length);
         stage = new Stage();
         table = new Table();
         container = new Table();
-        //stage.addActor(container);
+        stage.addActor(container);
         container.setFillParent(true);
-        //table.setDebug(true);
+
         //Makes a scroll pane to support scrolling
         scroll = new ScrollPane(table);
 
-
         //Buttons
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
-        arrowLeft = new ImageButton(arrowLeftSkin);
-        arrowLeft.setName("arrowLeft");
+        arrowLeftRounds = new ImageButton(arrowLeftSkin);
+        arrowLeftRounds.setName("arrowLeftRounds");
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
-        arrowRight = new ImageButton(arrowRightSkin);
-        arrowRight.setName("arrowRight");
+        arrowRightRounds = new ImageButton(arrowRightSkin);
+        arrowRightRounds.setName("arrowRightRounds");
 
-        arrowLeftMoves = new ImageButton(arrowLeftSkin);
-        arrowLeftMoves.setName("arrowLeftMoves");
-        arrowRightMoves = new ImageButton(arrowRightSkin);
-        arrowRightMoves.setName("arrowRightMoves");
+        arrowLeftTurns = new ImageButton(arrowLeftSkin);
+        arrowLeftTurns.setName("arrowLeftTurns");
+        arrowRightTurns = new ImageButton(arrowRightSkin);
+        arrowRightTurns.setName("arrowRightTurns");
 
-        arrowLeftTeam = new ImageButton(arrowLeftSkin);
-        arrowLeftTeam.setName("arrowLeftTeam");
-        arrowRightTeam = new ImageButton(arrowRightSkin);
-        arrowRightTeam.setName("arrowRightTeam");
-
-        arrowLeftPlayer = new ImageButton(arrowLeftSkin);
-        arrowLeftPlayer.setName("arrowLeftPlayer");
-        arrowRightPlayer = new ImageButton(arrowRightSkin);
-        arrowRightPlayer.setName("arrowRightPlayer");
-
-
-        //Get an array of team names
-        teamNames = getTeamNames();
-        currentTeam = 0;
+        arrowLeftDifficulty = new ImageButton(arrowLeftSkin);
+        arrowLeftDifficulty.setName("arrowLeftDifficulty");
+        arrowRightDifficulty = new ImageButton(arrowRightSkin);
+        arrowRightDifficulty.setName("arrowRightDifficulty");
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale((float)0.5);
 
-        numberOfPlayers = 2;
-        currentPlayer = 1;
-
-        teams = new ArrayList<Team>();
-
-        //Initiate all players as the same team
-        for (int i = 0; i < numberOfPlayers; i++){
-            teams.add(teamNames[0]);
-        }
-
         numberOfRounds = 1;
-        numberOfTurns = 2;
+        numberOfTurns = "Unlimited";
+        difficulty = "Medium";
 
         //Labels
-        title = new Label("Settings", skin);
-        title.setFontScale((float)2);
-        labelNumberOfPlayers = new Label("Number of players: ", skin);
         labelNumberOfRounds = new Label("Number of rounds: ", skin);
         labelNumberOfTurns = new Label("Turns per round: ", skin);
-        labelTeams = new Label("playing as  ", skin);
-        labelPlayer = new Label("Player ", skin);
+        labelDifficulty = new Label("Difficulty: ", skin);
 
-        txtNumberOfPlayers = new Label("" + numberOfPlayers, skin);
         txtNumberOfRounds = new Label("" + numberOfRounds, skin);
         txtNumberOfTurns = new Label("" + numberOfTurns, skin);
-        txtTeams = new Label("" + teamNames[0].getName(), skin);
-        txtPlayer = new Label("" + currentPlayer, skin);
+        txtDifficulty = new Label("" + difficulty, skin);
 
         buttonMainMenu = new TextButton("Main Menu", skin);
+        buttonMainMenu.setName("MainMenu");
         buttonNext = new TextButton("Next", skin);
         buttonNext.setName("Next");
 
-
-
-        sliderSkin = new Skin(Gdx.files.internal("skins/slider.json"), new TextureAtlas(Gdx.files.internal("skins/slider.pack")));
-
-        sliderTest = new Slider(0, 10, 1, false, sliderSkin);
-        //sliderTest.setSize(300, 100);
-
-
         scroll.layout();
-        //table.setFillParent(true);
-
+        table.setFillParent(true);
         stage.addActor(container);
         container.add(scroll);
 
-
         //Add everything on the screen
-        //table.add(title).padBottom(20).row();
-
         table.row().padTop(300);
 
-
-        // adder slider her, skal vises på skjermen tror jeg
-        //table.add(sliderTest);
-
         table.add(labelNumberOfRounds).padRight(100);
-        //table.add(arrowLeft);
-        table.add(sliderTest).width(300);
+        table.add(arrowLeftRounds);
         table.add(txtNumberOfRounds).width(100);
-        //table.add(arrowRight);
+        table.add(arrowRightRounds);
         table.row().padTop(30);
 
         table.add(labelNumberOfTurns);
-        table.add(arrowLeftMoves);
+        table.add(arrowLeftTurns);
         table.add(txtNumberOfTurns).width(100);
-        //table.add(txtNumberOfMoves).width(200).padLeft(50);
-        table.add(arrowRightMoves);
+        table.add(arrowRightTurns);
         table.row().padTop(30);
-        table.add(labelPlayer);
-        table.add(arrowLeftPlayer);
-        table.add(txtPlayer).width(100);
-        table.add(arrowRightPlayer);
-        table.row().padTop(30);
-        table.add(labelTeams);
-        table.add(arrowLeftTeam);
-        table.add(txtTeams).width(600).padLeft(40);
-        table.add(arrowRightTeam);
+
+        table.add(labelDifficulty);
+        table.add(arrowLeftDifficulty);
+        table.add(txtDifficulty).width(600).padLeft(40);
+        table.add(arrowRightDifficulty);
         table.row().padTop(40);
+
         table.add(buttonMainMenu).size(400, 120).padBottom(5);
         table.add(buttonNext).size(400, 120).padLeft(60).padBottom(5).colspan(3).row();
 
@@ -226,17 +160,6 @@ public class SettingsView extends AbstractView implements Screen {
         batch = new SpriteBatch();
     }
 
-    //Returns the team names from the Team enum
-    private Team[] getTeamNames(){
-        Team[] s = new Team[Team.values().length];
-        int i  = 0;
-        for (Team t : Team.values()){
-            s[i] = t;
-            i++;
-
-        }
-        return s;
-    }
 
     @Override
     public void render(float delta) {
@@ -257,6 +180,7 @@ public class SettingsView extends AbstractView implements Screen {
     public void show() {
 
         //Button listeners
+
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -264,115 +188,104 @@ public class SettingsView extends AbstractView implements Screen {
             }
         });
 
+
         buttonNext.addListener(new SettingsController(this));
 
-        /*buttonNext.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new TeamView(game, new GameSettings()));
-            }
-        });*/
 
-        arrowLeft.addListener(new ClickListener() {
+        arrowLeftRounds.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (numberOfRounds > 1){
+                if (numberOfRounds == 1) {
+                    numberOfRounds = 10;
+                }
+                else if (numberOfRounds > 1){
                     numberOfRounds--;
-                    txtNumberOfRounds.setText("" + numberOfRounds);
                 }
-
-            }
-        });
-        arrowRight.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                numberOfRounds++;
                 txtNumberOfRounds.setText("" + numberOfRounds);
-
             }
         });
 
-        arrowLeftMoves.addListener(new ClickListener() {
+
+        arrowRightRounds.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (numberOfTurns > 1){
-                    numberOfTurns--;
-                    txtNumberOfTurns.setText("" + numberOfTurns);
+                if (numberOfRounds == 10) {
+                    numberOfRounds = 1;
                 }
-
-            }
-        });
-        arrowRightMoves.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                numberOfTurns++;
-                txtNumberOfTurns.setText("" + numberOfTurns);
-
-            }
-        });
-
-        arrowLeftTeam.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //Check if the current player's team is the first in the teamNames array.
-                if (Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) == 0){
-                    //set the current player's team to be the last in the teamNames array
-                    teams.set(currentPlayer - 1, teamNames[teamNames.length - 1]);
+                else if (numberOfRounds < 10){
+                    numberOfRounds++;
                 }
-                else{
-                    teams.set(currentPlayer - 1, teamNames[Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) - 1]);
-                }
-                txtTeams.setText(teams.get(currentPlayer - 1).getName());
-            }
-        });
-
-        arrowRightTeam.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //Just the opposite of the corresponding left arrow
-                if (Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) == teamNames.length - 1){
-                    teams.set(currentPlayer - 1, teamNames[0]);
-                }
-                else{
-                    teams.set(currentPlayer - 1, teamNames[Arrays.asList(teamNames).indexOf(teams.get(currentPlayer-1)) + 1]);
-                }
-                txtTeams.setText(teams.get(currentPlayer - 1).getName());
-            }
-        });
-
-        arrowLeftPlayer.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (currentPlayer == 1){
-                    currentPlayer = numberOfPlayers;
-                }
-                else{
-                    currentPlayer--;
-                }
-                txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(teams.get(currentPlayer - 1).getName());
-
-            }
-        });
-        arrowRightPlayer.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (currentPlayer == numberOfPlayers){
-                    currentPlayer = 1;
-                }
-                else{
-                    currentPlayer++;
-                }
-                txtPlayer.setText("" + currentPlayer);
-                txtTeams.setText(teams.get(currentPlayer - 1).getName());
-            }
-        });
-
-        sliderTest.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
-
-                numberOfRounds = (int)sliderTest.getValue();
                 txtNumberOfRounds.setText("" + numberOfRounds);
+            }
+        });
+
+
+        arrowLeftTurns.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (numberOfTurns.equals("Unlimited")) {
+                    numberOfTurns = Integer.toString(20);
+
+                }
+                else if (Integer.parseInt(numberOfTurns) == 5){
+                    numberOfTurns = "Unlimited";
+                }
+                else {
+                    numberOfTurns = Integer.toString(Integer.parseInt(numberOfTurns) - 5);
+                }
+                txtNumberOfTurns.setText(numberOfTurns);
+            }
+        });
+
+
+        arrowRightTurns.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (numberOfTurns.equals("Unlimited")) {
+                    numberOfTurns = Integer.toString(5);
+
+                }
+                else if (Integer.parseInt(numberOfTurns) == 20){
+                    numberOfTurns = "Unlimited";
+                }
+                else {
+                    numberOfTurns = Integer.toString(Integer.parseInt(numberOfTurns) + 5);
+                }
+                txtNumberOfTurns.setText(numberOfTurns);
+            }
+        });
+
+
+        arrowLeftDifficulty.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (difficulty.equals("Easy")) {
+                    difficulty = "Difficult";
+                }
+                else if (difficulty.equals("Medium")){
+                    difficulty = "Easy";
+                }
+                else if (difficulty.equals("Difficult")) {
+                    difficulty = "Medium";
+                }
+                txtDifficulty.setText(difficulty);
+            }
+        });
+
+
+        arrowRightDifficulty.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (difficulty.equals("Easy")) {
+                    difficulty = "Medium";
+                }
+                else if (difficulty.equals("Medium")){
+                    difficulty = "Difficult";
+                }
+                else if (difficulty.equals("Difficult")) {
+                    difficulty = "Easy";
+                }
+                txtDifficulty.setText(difficulty);
             }
         });
 
@@ -381,28 +294,34 @@ public class SettingsView extends AbstractView implements Screen {
 
     }
 
+
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height);
     }
+
 
     @Override
     public void pause() {
 
     }
 
+
     @Override
     public void resume() {
 
     }
+
 
     @Override
     public void hide() {
 
     }
 
+
     @Override
     public void dispose() {
 
     }
+
 }

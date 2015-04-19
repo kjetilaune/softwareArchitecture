@@ -73,7 +73,7 @@ public class TeamView extends AbstractView implements Screen{
         this.settingsController = settingsController;
         this.settingsController.setTeamView(this);
 
-        numberOfPlayers = settingsController.settings.getNofPlayers();
+        numberOfPlayers = 2;
         currentPlayerNumber = 0;
         currentTeamNumber = 0;
 
@@ -124,7 +124,6 @@ public class TeamView extends AbstractView implements Screen{
 
         currentTeamSprite = currentTeam.getVehicleSprite();
 
-
         teamContainer.add(arrowLeft).left().maxWidth(stage.getWidth() / 20).padLeft(stage.getWidth() / 10);
         teamContainer.add(labelPlaceholder).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5);
         teamContainer.add(arrowRight).right().maxWidth(stage.getWidth() / 20).padRight(stage.getWidth() / 10);
@@ -135,14 +134,11 @@ public class TeamView extends AbstractView implements Screen{
         bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
         currentTeamSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentTeamSprite.getHeight()/2);
-        //currentTeamSprite.setScale(5);
 
         settingsSprite = new Sprite(TextureManager.settingsBackground);
         settingsSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
-
-
 
     }
 

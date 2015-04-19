@@ -11,6 +11,7 @@ public class GameSettings {
 
 
     private int nofPlayers, numberOfRounds, numberOfTurns;
+    private String difficulty;
 
     private ArrayList<Team> teams;
 
@@ -18,6 +19,14 @@ public class GameSettings {
 
     }
 
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
 
     public int getNofPlayers() {
         return nofPlayers;

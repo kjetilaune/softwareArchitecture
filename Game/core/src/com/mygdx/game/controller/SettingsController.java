@@ -40,11 +40,19 @@ public class SettingsController extends AbstractController implements EventListe
     }
 
     private void next() {
-        settings = new GameSettings();
 
-        settings.setNofPlayers(view.numberOfPlayers);
+        settings = new GameSettings();
+        //settings.setNofPlayers(view.numberOfPlayers);
         settings.setNumberOfRounds(view.numberOfRounds);
-        settings.setNumberOfTurns(view.numberOfTurns);
+
+        if (view.numberOfTurns.equals("Unlimited")) {
+            settings.setNumberOfTurns(-1);
+        }
+        else {
+            settings.setNumberOfTurns(Integer.parseInt(view.numberOfTurns));
+        }
+
+        settings.setDifficulty(view.difficulty);
         //settings.setTeams(view.teams);
 
         view.game.setScreen(new TeamView(view.game, this));
@@ -52,6 +60,7 @@ public class SettingsController extends AbstractController implements EventListe
 
     private void newGame() {
 
+        settings.setNofPlayers(teamView.numberOfPlayers);
         teamView.teamsChosen.add(teamView.currentTeam);
         teamView.currentPlayerNumber ++;
         System.out.println("Current player " + teamView.currentPlayerNumber);
