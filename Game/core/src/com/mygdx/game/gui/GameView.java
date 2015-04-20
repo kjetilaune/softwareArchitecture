@@ -261,11 +261,11 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         groupTop2.setDebug(true);
         groupTop2.left().top();
-        groupTop2.add(labelPower).pad(2*padding+labelCurrentPlayer.getHeight(), 20*padding, 0, 20*padding).fillX();
-        groupTop2.add(labelHealthLeft).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0 , 0).fillX();
-        groupTop2.add(labelFuelLeft).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
+        groupTop2.add(labelHealthLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 20*padding, 0 , 0).fillX();
+        groupTop2.add(labelFuelLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
+        groupTop2.add(labelPower).pad(3*padding+labelCurrentPlayer.getHeight(), 20*padding, 0, 20*padding).fillX();
         //groupTop2.add(labelChosenAmmo).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
-        groupTop2.add(labelLeftAmmo).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX().row();
+        groupTop2.add(labelLeftAmmo).pad(3*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX().row();
 
 
 
@@ -374,7 +374,7 @@ public class GameView extends AbstractView implements Screen, Observer{
                     } else {
                         shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
                     }
-
+                    // draw health
                     shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), stage.getHeight() / 40);
                     shapeRenderer.end();
                     batch.begin();
@@ -401,66 +401,20 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         batch.end();
 
-        //Personal fuel box
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        if (currentPlayer.getVehicle().getFuel() < 25){
-            shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
-        }
-        else if (currentPlayer.getVehicle().getFuel() < 50){
-            shapeRenderer.setColor(255.f / 255, 192.f / 255, 76.f / 255, 1);
-        }
-        else if (currentPlayer.getVehicle().getFuel() < 75){
-            shapeRenderer.setColor(255.f / 255, 255.f / 255, 127.f / 255, 1);
-        }
-        else{
-            shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
-        }
-
         shapeRenderer.rect(stage.getWidth()/40 * 23, stage.getHeight()/40 * 35, currentPlayer.getVehicle().getFuel(), stage.getHeight()/40);
-        shapeRenderer.end();
-
-        //Personal fuel outline box
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(stage.getWidth()/40 * 23, stage.getHeight() / 40 * 35, 102, stage.getHeight()/40 + 2);
-        shapeRenderer.end();
-
-        //Personal health box
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        if (currentPlayer.getVehicle().getHealth() < 25){
-            shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
-        }
-        else if (currentPlayer.getVehicle().getHealth() < 50){
-            shapeRenderer.setColor(255.f / 255, 192.f / 255, 76.f / 255, 1);
-        }
-        else if (currentPlayer.getVehicle().getHealth() < 75){
-            shapeRenderer.setColor(255.f / 255, 255.f / 255, 127.f / 255, 1);
-        }
-        else{
-            shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
-        }
-
-        shapeRenderer.rect(stage.getWidth()/20 * 9, stage.getHeight()/40 * 35, currentPlayer.getVehicle().getHealth(), stage.getHeight()/40);
-        shapeRenderer.end();
-
-        //Personal health outline box
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(stage.getWidth()/20 * 9, stage.getHeight() / 40 * 35, 102, stage.getHeight()/40 + 2);
         shapeRenderer.end();
 
         //Fire power outline box
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, 202, stage.getHeight()/30 + 2);
+        shapeRenderer.rect(labelPower.getWidth()+(Gdx.graphics.getWidth()/10), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), 202, stage.getHeight()/30 + 2);
         shapeRenderer.end();
 
         //Fire power fluctuator
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
-        shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
+        shapeRenderer.rect(labelPower.getWidth()+(Gdx.graphics.getWidth()/10), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
+        //shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
         shapeRenderer.end();
 
         stage.act();
@@ -511,7 +465,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
         labelHealthLeft.setText("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()));
-        labelFuelLeft.setText("Fuel: ");
+        labelFuelLeft.setText("Fuel: " + (currentPlayer.getFuelUpgrade() + currentPlayer.getVehicle().getFuel()));
         labelPower.setText("Power: ");
 
     }
@@ -570,6 +524,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         buttonFire.setVisible(true);
         arrowLeft.setVisible(true);
         arrowRight.setVisible(true);
+    }
+
+    public boolean outsideFireButton(float touchUpAtX, float touchUpAtY) {
+        return touchUpAtY < buttonFire.getY() || touchUpAtY > (buttonFire.getY() + buttonFire.getHeight()) || touchUpAtX < buttonFire.getX() || touchUpAtX > (buttonFire.getX() + buttonFire.getWidth());
     }
 
 }
