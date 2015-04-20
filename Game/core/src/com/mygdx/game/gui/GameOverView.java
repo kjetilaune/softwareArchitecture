@@ -2,6 +2,7 @@ package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -49,6 +50,7 @@ public class GameOverView extends AbstractView implements Screen {
 
     private SpriteBatch batch;
 
+    private Music winningMusic;
 
 
     public GameOverView(MyGdxGame game, Game gameInstance) {
@@ -123,6 +125,7 @@ public class GameOverView extends AbstractView implements Screen {
         //table.add(statistics).top().fillX();
 
 
+        winningMusic = Gdx.audio.newMusic(Gdx.files.internal("Music/winningMusic.mp3"));
 
     }
 
@@ -131,6 +134,7 @@ public class GameOverView extends AbstractView implements Screen {
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                winningMusic.stop();
                 game.setScreen(new MainMenu(game, 100));
             }
         });
@@ -142,6 +146,9 @@ public class GameOverView extends AbstractView implements Screen {
         tableBottom.bottom();
         tableBottom.add(buttonMainMenu).fillX().padBottom(Gdx.graphics.getHeight()/10);
 */
+
+        winningMusic.play();
+
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -165,6 +172,7 @@ public class GameOverView extends AbstractView implements Screen {
 
         stage.act();
         stage.draw();
+
 
     }
 

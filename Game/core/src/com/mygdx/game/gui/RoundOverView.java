@@ -2,6 +2,7 @@ package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -63,6 +64,8 @@ public class RoundOverView extends AbstractView implements Screen{
     //private Player winner;
     private ArrayList<Player> winners;
 
+    private Music winningMusic;
+
 
     public RoundOverView(MyGdxGame game, Game gameInstance, GameView gameView){
 
@@ -117,7 +120,6 @@ public class RoundOverView extends AbstractView implements Screen{
             labelCurrentPlayer = new Label("It's a tie!", skin);
         }
 
-
         labelCurrentPlayer.setFontScale(2);
 
         labelsTeams = new ArrayList<Label>();
@@ -155,7 +157,7 @@ public class RoundOverView extends AbstractView implements Screen{
 
         batch = new SpriteBatch();
 
-
+        winningMusic = Gdx.audio.newMusic(Gdx.files.internal("Music/winningMusic.mp3"));
 
     }
 
@@ -164,10 +166,12 @@ public class RoundOverView extends AbstractView implements Screen{
         buttonNext.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                winningMusic.stop();
                 game.setScreen(new StoreView(game, gameInstance, gameView));
             }
         });
 
+        winningMusic.play();
 
         Gdx.input.setInputProcessor(stage);
     }
