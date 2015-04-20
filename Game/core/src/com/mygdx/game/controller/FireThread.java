@@ -136,6 +136,9 @@ public class FireThread extends Thread {
 
             hitPlayer().getVehicle().takeDamage(ammo);
 
+            // award player for hit
+            view.currentPlayer.setScore(view.currentPlayer.getScore() + ammo.getInitialDamage()*10);
+
             return true;
         }
 

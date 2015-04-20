@@ -20,7 +20,7 @@ public class Player {
     public Player(Team team, Environment environment, Vector2 vehiclePosition, int playerNumber) {
         roundsWon = 0;
         inventory = new Inventory();
-        chosenAmmo = Store.getAmmunition("Bullet");
+        chosenAmmo = Store.getAmmunition("YummyGrenade");
         vehicle = new Tank(team, environment, vehiclePosition);
         //vehicle = new Tank(team, environment, vehiclePosition);
         this.team = team;

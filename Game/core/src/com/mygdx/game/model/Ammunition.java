@@ -9,17 +9,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public abstract class Ammunition extends GameObject {
 
     private String name;
-    private int initialDamage;
-    private int clusterCount;
-    private int blastRadius;
+    private int initialDamage, blastRadius;
     private float weight;
 
     private Sprite image;
 
-    public Ammunition(String name, Integer initialDamage, Integer clusterCount, Integer blastRadius, float weight) {
+    public Ammunition(String name, Integer initialDamage, Integer blastRadius, float weight) {
         this.name = name;
         this.initialDamage = initialDamage;
-        this.clusterCount = clusterCount;
         this.blastRadius = blastRadius;
         this.weight = weight;
     }
@@ -34,14 +31,6 @@ public abstract class Ammunition extends GameObject {
 
     public void setInitialDamage(int initialDamage) {
         this.initialDamage = initialDamage;
-    }
-
-    public int getClusterCount() {
-        return clusterCount;
-    }
-
-    public void setClusterCount(int clusterCount) {
-        this.clusterCount = clusterCount;
     }
 
     public int getBlastRadius() {

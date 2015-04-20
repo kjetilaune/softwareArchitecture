@@ -1,8 +1,10 @@
 package com.mygdx.game.model;
 
-import com.mygdx.game.model.AmmoTypes.Bullet;
-import com.mygdx.game.model.AmmoTypes.F_Bomb;
-import com.mygdx.game.model.AmmoTypes.Instakill;
+import com.mygdx.game.model.AmmoTypes.DeliBomb;
+import com.mygdx.game.model.AmmoTypes.FlavourRocket;
+import com.mygdx.game.model.AmmoTypes.YummyGrenade;
+import com.mygdx.game.model.AmmoTypes.Instastuffed;
+import com.mygdx.game.model.AmmoTypes.TastyMissile;
 
 import java.util.HashMap;
 
@@ -31,13 +33,17 @@ public class Store {
         upgradePrices = new HashMap<String, Integer>();
 
         // instantiates and adds all existing ammunition types
-        allAmmunition.put("Bullet", new Bullet());
-        allAmmunition.put("F-Bomb", new F_Bomb());
-        allAmmunition.put("Instakill", new Instakill());
+        allAmmunition.put("YummyGrenade", new YummyGrenade());
+        allAmmunition.put("FlavourRocket", new FlavourRocket());
+        allAmmunition.put("DeliBomb", new DeliBomb());
+        allAmmunition.put("TastyMissile", new TastyMissile());
+        allAmmunition.put("Instastuffed", new Instastuffed());
 
         // adds all ammunition available for purchase
-        ammunitionPrices.put("F-Bomb", 500);
-        ammunitionPrices.put("Instakill", 1000);
+        /*ammunitionPrices.put("FlavourRocket", 100);
+        ammunitionPrices.put("DeliBomb", 250);*/
+        ammunitionPrices.put("TastyMissile", 500);
+        ammunitionPrices.put("Instastuffed", 1000);
 
         // adds all upgrades available for purchase
         upgradePrices.put("Health", 1500);

@@ -9,7 +9,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
@@ -22,13 +21,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -40,17 +36,12 @@ import com.mygdx.game.controller.AmmoChangeController;
 import com.mygdx.game.controller.AngleController;
 import com.mygdx.game.controller.FireController;
 import com.mygdx.game.controller.MovementController;
-import com.mygdx.game.model.AmmoTypes.Bullet;
-import com.mygdx.game.model.BulletPhysics;
-import com.mygdx.game.model.Enums.Team;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.TextureManager;
 import com.mygdx.game.model.Vehicle;
 
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -173,7 +164,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         spriteChosenAmmo = currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
         spriteChosenAmmo.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
-        spriteChosenAmmo.setPosition(Gdx.graphics.getWidth()-spriteChosenAmmo.getWidth(), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
+        spriteChosenAmmo.setPosition(Gdx.graphics.getWidth() - spriteChosenAmmo.getWidth(), Gdx.graphics.getHeight() - spriteChosenAmmo.getHeight());
 
         spriteCloudFront = new Sprite(TextureManager.cloudsForeground);
         spriteCloudBack = new Sprite(TextureManager.cloudsBackground);
