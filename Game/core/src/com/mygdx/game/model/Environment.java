@@ -79,12 +79,14 @@ public class Environment {
 
         for (int i = indexCollision - indexRange ; i < indexCollision + indexRange + 1 ; i ++) {
 
-            float[] vertices = polygons.get(i).getVertices();
+            if (i > 0 && i < polygons.size()) {
+                float[] vertices = polygons.get(i).getVertices();
 
-            vertices[3] = getIntersection(blast, vertices[2], vertices[3]);
-            vertices[5] = getIntersection(blast, vertices[4], vertices[5]);
+                vertices[3] = getIntersection(blast, vertices[2], vertices[3]);
+                vertices[5] = getIntersection(blast, vertices[4], vertices[5]);
 
-            polygons.get(i).setVertices(vertices);
+                polygons.get(i).setVertices(vertices);
+            }
 
         }
 
