@@ -172,8 +172,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
         spriteChosenAmmo = currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
-        spriteChosenAmmo.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
-        spriteChosenAmmo.setPosition(Gdx.graphics.getWidth()-spriteChosenAmmo.getWidth(), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
 
         spriteCloudFront = new Sprite(TextureManager.cloudsForeground);
         spriteCloudBack = new Sprite(TextureManager.cloudsBackground);
@@ -237,9 +235,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelTurn = new Label("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()), fireSkin);
         labelTurn.setFontScale(1.2f);
         //fireSkin.getFont("font").setScale(1f);
-        //labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
-        //labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
         labelChosenAmmo = new Label("Ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
+        //labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
+        //labelChosenAmmo = new Label("Ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
         labelHealthLeft = new Label("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
         labelFuelLeft = new Label("Fuel: " + (currentPlayer.getVehicle().getFuel() + currentPlayer.getFuelUpgrade()), fireSkin);
@@ -256,24 +254,22 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         float padding = Gdx.graphics.getWidth()/200; // about 10 pixels, padding goes (top, left, bottom, right)
 
-        groupTop1.setDebug(true);
         groupTop1.left().top();
         groupTop1.defaults();
-        groupTop1.add(labelCurrentPlayer).pad(padding, 10*padding, padding, 0).fillX();
-        groupTop1.add(labelRound).pad(padding, 10*padding, padding, 0).fillX();
-        groupTop1.add(labelTurn).pad(padding, 10*padding, padding, 0).fillX();
-        //groupTop1.add(labelChosenAmmo).pad(padding, 10*padding, padding, 0).fillX().row();
+        groupTop1.add(labelCurrentPlayer).pad(padding, 20*padding, padding, 0).fillX();
+        groupTop1.add(labelRound).pad(padding, 7*padding, padding, 0).fillX();
+        groupTop1.add(labelTurn).pad(padding, 7*padding, padding, 0).fillX();
+        groupTop1.add(labelChosenAmmo).pad(padding, 9*padding, padding, 0).fillX().row();
 
-        groupTop2.setDebug(true);
         groupTop2.left().top();
-        groupTop2.add(labelHealthLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 20*padding, 0 , 0).fillX();
-        groupTop2.add(labelFuelLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
-        groupTop2.add(labelPower).pad(3*padding+labelCurrentPlayer.getHeight(), 20*padding, 0, 20*padding).fillX();
-        groupTop2.add(labelLeftAmmo).pad(3*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX().row();
+        groupTop2.add(labelHealthLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 30*padding, 0 , 0).fillX();
+        groupTop2.add(labelFuelLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 8*padding, 0, 0).fillX();
+        groupTop2.add(labelPower).pad(3*padding+labelCurrentPlayer.getHeight(), 8*padding, 0, 20*padding).fillX();
+        groupTop2.add(labelLeftAmmo).pad(3*padding+labelCurrentPlayer.getHeight(), 15*padding, 0, 0).fillX().row();
 
-        groupTopRight.setDebug(true);
+        /*groupTopRight.setDebug(true);
         groupTopRight.right().top();
-        groupTopRight.add(labelChosenAmmo);
+        groupTopRight.add(labelChosenAmmo);*/
 
 
         groupTop1.setFillParent(true);
@@ -299,6 +295,10 @@ public class GameView extends AbstractView implements Screen, Observer{
         stage.addActor(groupBottom);
         stage.addActor(groupRight);
         stage.addActor(groupLeft);
+
+        spriteChosenAmmo.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
+        spriteChosenAmmo.setPosition(labelHealthLeft.getWidth() + labelFuelLeft.getWidth() + labelPower.getWidth() + (3*Gdx.graphics.getWidth()/5), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
+
 
         battleSong.play();
         battleSong.setLooping(true);
@@ -413,13 +413,13 @@ public class GameView extends AbstractView implements Screen, Observer{
         //Fire power outline box
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(labelPower.getWidth()+(Gdx.graphics.getWidth()/10), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), 202, stage.getHeight()/30 + 2);
+        shapeRenderer.rect(labelHealthLeft.getWidth()+labelFuelLeft.getWidth()+labelPower.getWidth()+(44*Gdx.graphics.getWidth()/200), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), 202, stage.getHeight()/30 + 2);
         shapeRenderer.end();
 
         //Fire power fluctuator
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
-        shapeRenderer.rect(labelPower.getWidth()+(Gdx.graphics.getWidth()/10), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
+        shapeRenderer.rect(labelHealthLeft.getWidth()+labelFuelLeft.getWidth()+labelPower.getWidth()+(44*Gdx.graphics.getWidth()/200), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
         //shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
         shapeRenderer.end();
 
@@ -466,12 +466,13 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelChosenAmmo.setColor(Color.BLACK);*/
 
         spriteChosenAmmo = currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
-        spriteChosenAmmo.setPosition(Gdx.graphics.getWidth()-spriteChosenAmmo.getWidth(), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
+        spriteChosenAmmo.setPosition(labelHealthLeft.getWidth() + labelFuelLeft.getWidth() + labelPower.getWidth() + (3*Gdx.graphics.getWidth()/5), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
+        spriteChosenAmmo.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
 
         labelRound.setText(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()));
         labelCurrentPlayer.setText("Player " + currentPlayer.getPlayerNumber());
         labelTurn.setText("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()));
-        labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
+        labelChosenAmmo.setText("Ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
         labelHealthLeft.setText("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()));
         labelFuelLeft.setText("Fuel: " + (currentPlayer.getFuelUpgrade() + currentPlayer.getVehicle().getFuel()));
