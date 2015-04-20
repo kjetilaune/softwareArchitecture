@@ -65,6 +65,8 @@ public class StoreView extends AbstractView implements Screen{
     public Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
     public TextButton back;
     private TextButton buy;
+    private TextButton undo;
+
     private ImageButton arrowLeft, arrowRight;
 
     private Sprite sprite, currentAmmoSprite;
@@ -144,9 +146,12 @@ public class StoreView extends AbstractView implements Screen{
 
         this.back = new TextButton("Next Player", skin);
         this.buy = new TextButton("Buy", skin);
+        this.undo = new TextButton("Undo", skin);
 
         this.buy.setName("Buy");
         this.back.setName("Back");
+        this.undo.setName("Undo");
+        undo.setVisible(false);
 
         placeholderLabel = new Label("", skin);
         currentPlayerLabel = new Label("Current Player:", skin);
@@ -188,8 +193,9 @@ public class StoreView extends AbstractView implements Screen{
         bottomContainer.row();
         bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
 
+        bottomContainer.add(undo).prefWidth(stage.getWidth()/ 20*4);
         bottomContainer.add(buy).prefWidth(stage.getWidth() / 20 * 4);
-        bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 4).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
 
         sprite = new Sprite(TextureManager.storeBackground);
@@ -209,6 +215,20 @@ public class StoreView extends AbstractView implements Screen{
 
         back.addListener(new StoreController(this, gameView));
         buy.addListener(new StoreController(this, gameView));
+
+        buy.addListener(new ClickListener(){
+           @Override
+           public void clicked(InputEvent event, float x, float y){
+                undo.setVisible(true);
+           }
+        });
+
+        undo.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                //removeAmmo
+            }
+        });
 
         arrowLeft.addListener(new ClickListener() {
             @Override

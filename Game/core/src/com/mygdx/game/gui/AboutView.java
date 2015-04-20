@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -34,6 +35,7 @@ public class AboutView implements Screen {
     private Sprite aboutSprite;
 
     private Skin skin;
+    private Skin windowSkin;
 
     private Label title, aboutText;
     private TextButton buttonMainMenu;
@@ -47,6 +49,8 @@ public class AboutView implements Screen {
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
+
+        windowSkin = new Skin(Gdx.files.internal("skins/windowSkin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
 
         font = new BitmapFont(Gdx.files.internal("font/rav.fnt"), Gdx.files.internal("font/rav.png"), false);
         batch = new SpriteBatch();
@@ -96,7 +100,23 @@ public class AboutView implements Screen {
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenu(game, 100));
+                new Dialog("Dialog", windowSkin){
+                    {
+                        text("Do you want to go the the main menu?");
+                        button("Yes", "go");
+                        button("No", "stay");
+
+                    }
+                    @Override
+                    protected void result(final Object object){
+                        System.out.println(object.toString());
+                        if (object.toString() == "go"){
+                            game.setScreen(new MainMenu(game, 100));
+                        }
+
+
+                    }
+                }.show(stage);
             }
         });
 
@@ -105,6 +125,8 @@ public class AboutView implements Screen {
         table.setPosition(stage.getWidth()/2,stage.getHeight() - 400);
         table.setFillParent(false);
         stage.addActor(table);
+
+
 
         Gdx.input.setInputProcessor(stage);
 
