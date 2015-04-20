@@ -1,0 +1,47 @@
+
+windowPack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 1, 507
+  size: 640, 400
+  orig: 640, 400
+  offset: 0, 0
+  index: -1
+stageBackground
+  rotate: false
+  xy: 1, 105
+  size: 640, 400
+  orig: 640, 400
+  offset: 0, 0
+  index: -1
+buttonDown
+  rotate: false
+  xy: 643, 804
+  size: 262, 103
+  orig: 262, 103
+  offset: 0, 0
+  index: -1
+buttonUp
+  rotate: false
+  xy: 1, 1
+  size: 263, 102
+  orig: 263, 102
+  offset: 0, 0
+  index: -1
+speakerOff
+  rotate: false
+  xy: 643, 702
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+speakerOn
+  rotate: false
+  xy: 907, 807
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1

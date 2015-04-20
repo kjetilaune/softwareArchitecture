@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -11,14 +12,15 @@ public abstract class Ammunition extends GameObject {
     private String name;
     private int initialDamage, blastRadius;
     private float weight;
-
+    private Sound sound;
     private Sprite image;
 
-    public Ammunition(String name, Integer initialDamage, Integer blastRadius, float weight) {
+    public Ammunition(String name, Integer initialDamage, Integer blastRadius, float weight, Sound sound) {
         this.name = name;
         this.initialDamage = initialDamage;
         this.blastRadius = blastRadius;
         this.weight = weight;
+        this.sound = sound;
     }
 
     public String getName() {
@@ -56,6 +58,11 @@ public abstract class Ammunition extends GameObject {
     public void setImage(Sprite image) {
         this.image = image;
     }
+
+    public Sound getSound(){
+        return sound;
+    }
+    public void setSound(Sound sound) {this.sound = sound;}
 
 
 

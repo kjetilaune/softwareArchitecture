@@ -1,6 +1,7 @@
 package com.mygdx.game.model.AmmoTypes;
 
 import com.mygdx.game.model.Ammunition;
+import com.mygdx.game.model.SoundManager;
 
 /**
  * Created by Mikal on 20.04.2015.
@@ -8,7 +9,7 @@ import com.mygdx.game.model.Ammunition;
 public class FlavourRocket extends Ammunition {
 
     public FlavourRocket () {
-        super("FlavourRocket", 15, 15, 1.2f);
+        super("FlavourRocket", 15, 15, 1.2f, SoundManager.impact1);
     }
 
 }

@@ -23,6 +23,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -74,12 +75,15 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
+    private Skin windowSkin;
     private TextButton buttonMainMenu;
     private TextButton buttonFire;
     private TextButton buttonAmmo;
-    private TextButton buttonStore;
+    private TextButton buttonExit;
     private ImageButton arrowLeft;
     private ImageButton arrowRight;
+
+
 
     private BitmapFont font;
 
@@ -157,8 +161,11 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRightSkin = new Skin(Gdx.files.internal("skins/arrowRight.json"), new TextureAtlas(Gdx.files.internal("skins/rightArrow.pack")));
         arrowRight = new ImageButton(arrowRightSkin);
         arrowRight.setName("arrowRight");
-        buttonStore = new TextButton("Store", menuSkin);
-        buttonStore.setName("Store");
+        windowSkin = new Skin(Gdx.files.internal("skins/windowSkin.json"), new TextureAtlas(Gdx.files.internal("skins/windowPack.pack")));
+
+
+        buttonExit = new TextButton("Exit", menuSkin);
+        buttonExit.setName("Exit");
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
@@ -203,12 +210,38 @@ public class GameView extends AbstractView implements Screen, Observer{
             }
         });
 
-        buttonStore.addListener(new ClickListener() {
+        buttonExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new StoreView(game, gameInstance, gameView));
+
+                new Dialog("", windowSkin){
+                    {
+                        text("Do you really want to quit?");
+                        button("Exit", "go");
+                        button("", "mute", windowSkin.get("speaker", TextButton.TextButtonStyle.class));
+                        button("Cancel", "stay");
+
+                    }
+                    @Override
+                    protected void result(final Object object){
+                        System.out.println(object.toString());
+                        if (object.toString() == "go"){
+                            battleSong.stop();
+                            game.setScreen(new MainMenu(game, 100));
+                        }
+                        else if (object.toString() == "mute"){
+                            if(battleSong.isPlaying()){
+                                battleSong.pause();
+                            }else{
+                                battleSong.play();}
+                        }
+
+
+                    }
+                }.show(stage);
             }
         });
+
 
         buttonFire.addListener(new FireController(this));
 
@@ -272,12 +305,12 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupBottom.add(buttonFire);
 
         groupLeft.bottom().left();
-        groupLeft.add(arrowLeft).padLeft(2*padding).padBottom(2*padding);
-        groupLeft.add(arrowRight).padLeft(2*padding).padBottom(2*padding);
+        groupLeft.add(arrowLeft).padLeft(2*padding).padBottom(2*padding).padRight(25).width(100).height(100);
+        groupLeft.add(arrowRight).padLeft(2*padding).padBottom(2*padding).width(100).height(100);
 
         groupRight.bottom().right();
         groupRight.add(buttonAmmo).padBottom(2*padding);
-        groupRight.add(buttonStore).padBottom(2*padding);
+        groupRight.add(buttonExit).padBottom(2*padding);
 
         groupBottom.setFillParent(true);
         groupRight.setFillParent(true);
@@ -515,7 +548,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     public void suspendButtons() {
         buttonAmmo.setVisible(false);
-        buttonStore.setVisible(false);
+        buttonExit.setVisible(false);
         buttonFire.setVisible(false);
         arrowLeft.setVisible(false);
         arrowRight.setVisible(false);
@@ -523,7 +556,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     public void resumeButtons() {
         buttonAmmo.setVisible(true);
-        buttonStore.setVisible(true);
+        buttonExit.setVisible(true);
         buttonFire.setVisible(true);
         arrowLeft.setVisible(true);
         arrowRight.setVisible(true);

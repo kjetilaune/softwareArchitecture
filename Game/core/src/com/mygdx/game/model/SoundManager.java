@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 public class SoundManager {
 
     public static Sound foodFrenzy = Gdx.audio.newSound(Gdx.files.internal("sounds/Foodfrenzy.m4a"));
+    public static Sound instaYummy = Gdx.audio.newSound(Gdx.files.internal("sounds/Kill.m4a"));
 
     public static Sound tankFire = Gdx.audio.newSound(Gdx.files.internal("sounds/tankFire.mp3"));
     public static Sound impact1 = Gdx.audio.newSound(Gdx.files.internal("sounds/grenade.mp3"));

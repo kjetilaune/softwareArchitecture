@@ -1,6 +1,7 @@
 package com.mygdx.game.model.AmmoTypes;
 
 import com.mygdx.game.model.Ammunition;
+import com.mygdx.game.model.SoundManager;
 
 /**
  * Created by Mikal on 12.03.2015.
@@ -8,7 +9,7 @@ import com.mygdx.game.model.Ammunition;
 public class YummyGrenade extends Ammunition {
 
     public YummyGrenade() {
-        super("YummyGrenade", 5, 5, 1.0f);
+        super("YummyGrenade", 5, 5, 1.0f, SoundManager.impact1);
     }
 
 }
