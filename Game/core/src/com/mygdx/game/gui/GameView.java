@@ -72,6 +72,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private Table groupTop1;
     private Table groupTop2;
+    private Table groupTopRight;
     private Table groupBottom; // the button at the bottom: fire, change ammmo etc
     private Table groupRight;
     private Table groupLeft;
@@ -146,6 +147,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         // instantiate menu stuff
         groupTop1 = new Table();
         groupTop2 = new Table();
+        groupTopRight = new Table();
         groupBottom = new Table();
         groupRight = new Table();
         groupLeft = new Table();
@@ -170,7 +172,8 @@ public class GameView extends AbstractView implements Screen, Observer{
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
         spriteChosenAmmo = currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
-        spriteChosenAmmo.scale(0.3f);
+        spriteChosenAmmo.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
+        spriteChosenAmmo.setPosition(Gdx.graphics.getWidth()-spriteChosenAmmo.getWidth(), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
 
         spriteCloudFront = new Sprite(TextureManager.cloudsForeground);
         spriteCloudBack = new Sprite(TextureManager.cloudsBackground);
@@ -234,7 +237,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelTurn = new Label("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()), fireSkin);
         labelTurn.setFontScale(1.2f);
         //fireSkin.getFont("font").setScale(1f);
-        labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
+        //labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
+        //labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
+        labelChosenAmmo = new Label("Ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
         labelHealthLeft = new Label("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
         labelFuelLeft = new Label("Fuel: " + (currentPlayer.getVehicle().getFuel() + currentPlayer.getFuelUpgrade()), fireSkin);
@@ -257,7 +262,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupTop1.add(labelCurrentPlayer).pad(padding, 10*padding, padding, 0).fillX();
         groupTop1.add(labelRound).pad(padding, 10*padding, padding, 0).fillX();
         groupTop1.add(labelTurn).pad(padding, 10*padding, padding, 0).fillX();
-        groupTop1.add(labelChosenAmmo).pad(padding, 10*padding, padding, 0).fillX().row();
+        //groupTop1.add(labelChosenAmmo).pad(padding, 10*padding, padding, 0).fillX().row();
 
         groupTop2.setDebug(true);
         groupTop2.left().top();
@@ -266,6 +271,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupTop2.add(labelPower).pad(3*padding+labelCurrentPlayer.getHeight(), 20*padding, 0, 20*padding).fillX();
         groupTop2.add(labelLeftAmmo).pad(3*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX().row();
 
+        groupTopRight.setDebug(true);
+        groupTopRight.right().top();
+        groupTopRight.add(labelChosenAmmo);
 
 
         groupTop1.setFillParent(true);
@@ -397,6 +405,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         }
 
         spriteCloudFront.draw(batch);
+        spriteChosenAmmo.draw(batch);
 
         batch.end();
 
@@ -455,6 +464,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelCurrentPlayer.setColor(Color.BLACK);
         labelTurn.setColor(Color.BLACK);
         labelChosenAmmo.setColor(Color.BLACK);*/
+
+        spriteChosenAmmo = currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
+        spriteChosenAmmo.setPosition(Gdx.graphics.getWidth()-spriteChosenAmmo.getWidth(), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
 
         labelRound.setText(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()));
         labelCurrentPlayer.setText("Player " + currentPlayer.getPlayerNumber());
