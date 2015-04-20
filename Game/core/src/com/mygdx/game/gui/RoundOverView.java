@@ -44,18 +44,6 @@ public class RoundOverView extends AbstractView implements Screen{
 
     private Sprite sprite;
 
-    public Team currentTeam;
-    public Team[] teams;
-
-    //An ArrayList where the index corresponds with the player's number (index 0 = Player 1) and the value is the team name.
-    public ArrayList<Team> teamsChosen;
-
-    public int currentTeamNumber;
-    public int currentPlayerNumber;
-    public int numberOfPlayers;
-
-    private int roundWinner;
-
     //GUI
     private Stage stage;
     private Table container;
@@ -66,10 +54,9 @@ public class RoundOverView extends AbstractView implements Screen{
 
     private ArrayList<Label> labelsTeams, labelsPlayers;
 
-    private Label title, labelCurrentPlayer, labelCurrentTeam, labelPlaceholder;
+    private Label labelCurrentPlayer, labelPlaceholder;
     private TextButton buttonNext;
 
-    //private Sprite currentTeamSprite;
     private ArrayList<Sprite> teamSprites;
     private SpriteBatch batch;
 
@@ -78,27 +65,19 @@ public class RoundOverView extends AbstractView implements Screen{
 
 
     public RoundOverView(MyGdxGame game, Game gameInstance, GameView gameView){
+
         this.game = game;
         this.gameInstance = gameInstance;
         this.gameView = gameView;
-        //this.winner = roundWinner;
+
         this.winners = gameInstance.getRoundWinners();
-        //this.roundWinner = roundWinner.getPlayerNumber();
         teamSprites = new ArrayList<Sprite>();
 
         for (Player p : winners) {
             teamSprites.add(p.getTeam().getVehicleSprite());
         }
-        //this.currentTeamSprite = roundWinner.getTeam().getVehicleSprite();
 
         awardPlayers();
-
-        /*currentPlayerNumber = 0;
-        currentTeamNumber = 0;
-
-        teams = Team.values();
-        currentTeam = teams[currentTeamNumber];
-        teamsChosen = new ArrayList<Team>();*/
 
 
         //GUI
@@ -130,7 +109,6 @@ public class RoundOverView extends AbstractView implements Screen{
         this.buttonNext.setName("Continue");
 
         labelPlaceholder = new Label("", skin);
-        //labelCurrentPlayer = new Label("Player " + roundWinner + " won the round!", skin);
 
         if (winners.size() == 1) {
             labelCurrentPlayer = new Label("Player " + winners.get(0).getPlayerNumber() + " won the round!", skin);
@@ -141,9 +119,6 @@ public class RoundOverView extends AbstractView implements Screen{
 
 
         labelCurrentPlayer.setFontScale(2);
-        //labelCurrentTeam = new Label(currentTeam.getName(), skin);
-        //labelCurrentTeam = new Label(winners.get(0).getTeam().getName(), skin);
-        //labelCurrentTeam.setFontScale(2);
 
         labelsTeams = new ArrayList<Label>();
         //labelsPlayers = new ArrayList<Label>();
@@ -203,24 +178,6 @@ public class RoundOverView extends AbstractView implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        /*
-        for (Player p : winners) {
-            p.getTeam().getVehicleSprite().setPosition(Gdx.graphics.getWidth()/(120 * winners.size()), Gdx.graphics.getHeight()/50 - p.getTeam().getVehicleSprite().getHeight()/2);
-        }*/
-
-        /*if (winners.size() == 1) {
-            teamSprites.get(0).setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
-        }*/
-
-
-        //currentTeamSprite.setPosition(Gdx.graphics.getWidth()/2 - currentTeamSprite.getWidth()/2, Gdx.graphics.getHeight()/2 - currentTeamSprite.getHeight()/2);
-        //currentTeamSprite.setScale(5);
-
-
-        //labelCurrentTeam.setText(winners.get(0).getTeam().getName());
-        //labelCurrentPlayer.setText("Player " + winners.get(0).getPlayerNumber() + " won the round!");
-        //labelCurrentTeam.setText(currentTeam.getName());
-        //labelCurrentPlayer.setText("Player " + roundWinner + " won the round!");
 
         batch.begin();
         sprite.draw(batch);
@@ -231,7 +188,6 @@ public class RoundOverView extends AbstractView implements Screen{
             teamSprites.get(1).draw(batch);
         }
 
-        //currentTeamSprite.draw(batch);
         batch.end();
 
         stage.act();

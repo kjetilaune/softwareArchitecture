@@ -19,6 +19,8 @@ import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.TextureManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jonathan on 12.03.2015.
  */
@@ -33,15 +35,17 @@ public class GameOverView extends AbstractView implements Screen {
     private Table tableBottom;
 
     private Skin skin;
-    private BitmapFont font;
+
+    private ArrayList<Label> labelsTeams, labelsPlayers;
+    private Label labelCurrentPlayer, labelPlaceholder;
+
+    private ArrayList<Sprite> teamSprites;
+
     private TextButton buttonMainMenu;
-    private Label txtWinningPlayer;
-    private Label txtWinningTeam;
 
     private Sprite titleSprite;
 
-    private Player winner;
-    private Sprite winnerTank;
+    private ArrayList<Player> winners;
 
     private SpriteBatch batch;
 
@@ -49,16 +53,19 @@ public class GameOverView extends AbstractView implements Screen {
 
     public GameOverView(MyGdxGame game, Game gameInstance) {
 
-        System.out.println("Height: " + Gdx.graphics.getHeight() + " Width: " + Gdx.graphics.getWidth());
-
         this.game = game;
         this.gameInstance = gameInstance;
 
-        //winner = gameInstance.getGameWinner();
-        winner = gameInstance.getGameWinners().get(0);
-        winnerTank = winner.getTeam().getVehicleSprite();
-        winnerTank.scale(5);
-        winnerTank.setPosition(Gdx.graphics.getWidth()/2 - winnerTank.getWidth()/2, Gdx.graphics.getHeight()/2 - winnerTank.getHeight()/2);
+        this.winners = gameInstance.getGameWinners();
+        //System.out.println("winners: " + gameInstance.getRoundWinners());
+        teamSprites = new ArrayList<Sprite>();
+
+        for (Player p : winners) {
+            teamSprites.add(p.getTeam().getVehicleSprite());
+        }
+
+
+        //GUI
 
         stage = new Stage();
         tableTop = new Table();
@@ -72,16 +79,44 @@ public class GameOverView extends AbstractView implements Screen {
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
-        font = new BitmapFont(Gdx.files.internal("font/rav.fnt"), Gdx.files.internal("font/rav.png"), false);
 
         buttonMainMenu = new TextButton("Main Menu", skin);
-        //statistics = new Label(String.format("The winner is Player %d with %s", winner.getPlayerNumber(), winner.getTeam().getName()), skin);
 
-        txtWinningPlayer = new Label("The winner is player " + winner.getPlayerNumber(), skin);
-        txtWinningTeam = new Label(winner.getTeam().getName(), skin);
+        if (winners.size() == 1) {
+            labelCurrentPlayer = new Label("Player " + winners.get(0).getPlayerNumber() + " won the round!", skin);
+        }
+        else {
+            labelCurrentPlayer = new Label("It's a tie!", skin);
+        }
 
-        //titleSprite = new Sprite(TextureManager.titleBackground);
-        //titleSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        labelCurrentPlayer.setFontScale(2);
+
+        titleSprite = new Sprite(TextureManager.titleBackground);
+        titleSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        labelsTeams = new ArrayList<Label>();
+
+        for (int i = 0 ; i < winners.size() ; i++) {
+            labelsTeams.add(new Label(winners.get(i).getTeam().getName(), skin));
+            labelsTeams.get(i).setFontScale(2);
+        }
+
+
+        tableBottom.row();
+        tableBottom.add(labelCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
+        tableBottom.row();
+        tableBottom.add(buttonMainMenu).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+
+
+        if (winners.size() == 1) {
+            teamSprites.get(0).setPosition(Gdx.graphics.getWidth()/20 * 6, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
+        }
+        else {
+            teamSprites.get(0).setScale(0.5f);
+            teamSprites.get(0).setPosition(Gdx.graphics.getWidth()/20 * 3, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
+            teamSprites.get(1).setScale(0.5f);
+            teamSprites.get(1).setPosition(Gdx.graphics.getWidth()/20 * 9, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(1).getHeight()/2);
+        }
 
         batch = new SpriteBatch();
 
@@ -99,14 +134,14 @@ public class GameOverView extends AbstractView implements Screen {
                 game.setScreen(new MainMenu(game, 100));
             }
         });
-
+/*
         tableTop.top();
         tableTop.add(txtWinningPlayer).fillX().padBottom(Gdx.graphics.getHeight()/3);
         tableTop.add(txtWinningTeam).fillX();
 
         tableBottom.bottom();
         tableBottom.add(buttonMainMenu).fillX().padBottom(Gdx.graphics.getHeight()/10);
-
+*/
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -120,13 +155,12 @@ public class GameOverView extends AbstractView implements Screen {
 
         batch.begin();
 
-        winnerTank.draw(batch);
+        teamSprites.get(0).draw(batch);
 
-        /*font.draw(batch, "The winner is", stage.getWidth()/2, 5*stage.getHeight()/8);
-        font.draw(batch, "Player " + winner.getPlayerNumber(), stage.getWidth()/2, 4*stage.getHeight()/8);
-        font.draw(batch, "Team " + winner.getTeam().getName(), stage.getWidth()/2, 3*stage.getHeight()/8);*/
+        if (winners.size() != 1) {
+            teamSprites.get(1).draw(batch);
+        }
 
-        //titleSprite.draw(batch);
         batch.end();
 
         stage.act();
