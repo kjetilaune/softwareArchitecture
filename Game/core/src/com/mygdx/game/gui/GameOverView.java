@@ -56,7 +56,7 @@ public class GameOverView extends AbstractView implements Screen {
 
         //winner = gameInstance.getGameWinner();
         winner = gameInstance.getGameWinners().get(0);
-        winnerTank = new Sprite(winner.getVehicle().getTexture());
+        winnerTank = winner.getTeam().getVehicleSprite();
         winnerTank.scale(5);
         winnerTank.setPosition(Gdx.graphics.getWidth()/2 - winnerTank.getWidth()/2, Gdx.graphics.getHeight()/2 - winnerTank.getHeight()/2);
 

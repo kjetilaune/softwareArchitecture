@@ -126,14 +126,14 @@ public class RoundOverView extends AbstractView implements Screen{
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale((float)0.1);
 
-        this.buttonNext = new TextButton("Continue", skin);
+        this.buttonNext = new TextButton("Continue to Store", skin);
         this.buttonNext.setName("Continue");
 
         labelPlaceholder = new Label("", skin);
         //labelCurrentPlayer = new Label("Player " + roundWinner + " won the round!", skin);
 
         if (winners.size() == 1) {
-            labelCurrentPlayer = new Label("Player " + winners.get(0) + " won the round!", skin);
+            labelCurrentPlayer = new Label("Player " + winners.get(0).getPlayerNumber() + " won the round!", skin);
         }
         else {
             labelCurrentPlayer = new Label("It's a tie!", skin);
@@ -163,16 +163,18 @@ public class RoundOverView extends AbstractView implements Screen{
         sprite = new Sprite(TextureManager.storeBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        System.out.println(" Width: " + Gdx.graphics.getWidth() + " Height: " + Gdx.graphics.getHeight());
+        System.out.print("str: " + winners.size());
+
         if (winners.size() == 1) {
-            teamSprites.get(0).setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
+            teamSprites.get(0).setPosition(Gdx.graphics.getWidth()/20 * 6, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
         }
         else {
-            System.out.println("Draw");
+            teamSprites.get(0).setScale(0.5f);
+            teamSprites.get(0).setPosition(Gdx.graphics.getWidth()/20 * 3, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
+            teamSprites.get(1).setScale(0.5f);
+            teamSprites.get(1).setPosition(Gdx.graphics.getWidth()/20 * 9, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(1).getHeight()/2);
         }
-
-        //currentTeamSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentTeamSprite.getHeight()/2);
-        //currentTeamSprite.setScale(5);
-
 
 
 
@@ -201,12 +203,12 @@ public class RoundOverView extends AbstractView implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        /*
         for (Player p : winners) {
             p.getTeam().getVehicleSprite().setPosition(Gdx.graphics.getWidth()/(120 * winners.size()), Gdx.graphics.getHeight()/50 - p.getTeam().getVehicleSprite().getHeight()/2);
-        }
-        /*
-        if (winners.size() == 1) {
+        }*/
+
+        /*if (winners.size() == 1) {
             teamSprites.get(0).setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
         }*/
 
@@ -222,9 +224,13 @@ public class RoundOverView extends AbstractView implements Screen{
 
         batch.begin();
         sprite.draw(batch);
-        for (int i = 0 ; i < winners.size() ; i++) {
-            teamSprites.get(0).draw(batch);
+
+        teamSprites.get(0).draw(batch);
+
+        if (winners.size() != 1) {
+            teamSprites.get(1).draw(batch);
         }
+
         //currentTeamSprite.draw(batch);
         batch.end();
 
