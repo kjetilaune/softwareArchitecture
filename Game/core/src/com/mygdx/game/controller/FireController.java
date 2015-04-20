@@ -18,12 +18,6 @@ import java.beans.PropertyChangeEvent;
  */
 public class FireController extends AbstractController implements EventListener{
 
-    // temporary storage for power, must be moved to a more appropriate class
-    int power;
-
-    private Sound fire;
-
-
     // the view the controller listens to
     private GameView view;
 
@@ -36,7 +30,6 @@ public class FireController extends AbstractController implements EventListener{
     public FireController(AbstractView view){
         super(view);
         this.view = (GameView)view;
-        fire = SoundManager.tankFire;
     }
 
     @Override
@@ -48,25 +41,26 @@ public class FireController extends AbstractController implements EventListener{
     public boolean handle (Event event){
 
         if (event.toString().equals("touchDown")) {
-
-            fireThread = new FireThread();
             powerThread = new PowerThread();
             return true;
 
         }
         else if (event.toString().equals("touchUp")) {
 
-            System.out.println(event.getListenerActor());
-
             // kills the power-fluctuation-thread
             powerThread.killThread();
 
+            // if touchUp is registered outside firebutton-area
+            if (view.outsideFireButton(((InputEvent)event).getStageX(), ((InputEvent)event).getStageY())) {
+                view.currentVehicle.setPower(0.0f);
+                return true;
+            }
+
             //System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
 
-            view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getBarrel().getTipOfBarrel());
-            view.setIsFiring(true);
-            fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
-            fire.play(1f);
+            fireThread = new FireThread(view);
+
+            //fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
             return true;
         }
 
