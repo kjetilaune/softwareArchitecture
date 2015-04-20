@@ -1,11 +1,13 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.gui.GameView;
 import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Player;
+import com.mygdx.game.model.SoundManager;
 import com.mygdx.game.model.Tank;
 import com.mygdx.game.model.Vehicle;
 
@@ -18,6 +20,9 @@ public class FireThread extends Thread {
     private boolean blinker;
 
     private GameView view;
+
+    // enables sound when firing bullets
+    private Sound fire;
 
     // holds the ammo to be moved
     private Ammunition ammo;
@@ -32,14 +37,29 @@ public class FireThread extends Thread {
     private BulletPhysics physics;
 
 
-    public FireThread() {
+    public FireThread(GameView view) {
         blinker = true;
+        fire = SoundManager.tankFire;
+
+        this.view = view;
+        this.ammo = view.currentPlayer.getChosenAmmo();
+        this.environment = view.environment;
+
+        view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getBarrel().getTipOfBarrel());
+
+        physics = new BulletPhysics(view.currentVehicle.getBarrel().getAngle() + view.currentVehicle.getRotation(), view.currentVehicle.getPower(), ammo.getWeight(), ammo.getPosition());
+
         step = 0;
+
+        view.setIsFiring(true);
+
+        start();
     }
 
     public void run() {
         //System.out.println("FireThread started.");
 
+        fire.play(1f);
         view.currentPlayer.getInventory().decreaseAmmo(ammo.getName(), 1);
 
         // should run until killThread() is called
@@ -90,8 +110,7 @@ public class FireThread extends Thread {
 
     // sets information about how firing should be done and start firing
     public void fire(GameView view, Ammunition ammo, Environment environment) {
-        physics = new BulletPhysics(view.currentVehicle.getBarrel().getAngle() + view.currentVehicle.getRotation(), view.currentVehicle.getPower(), view.currentPlayer.getChosenAmmo().getWeight());
-        physics.startPosition = ammo.getPosition();
+        physics = new BulletPhysics(view.currentVehicle.getBarrel().getAngle() + view.currentVehicle.getRotation(), view.currentVehicle.getPower(), ammo.getWeight(), ammo.getPosition());
         this.ammo = ammo;
         this.environment = environment;
         this.view = view;
@@ -115,7 +134,7 @@ public class FireThread extends Thread {
         else if (hitPlayer() != null) {
             //System.out.println("Vehicle has been hit!");
 
-            hitPlayer().getVehicle().takeDamage(view.currentPlayer.getChosenAmmo());
+            hitPlayer().getVehicle().takeDamage(ammo);
 
             return true;
         }

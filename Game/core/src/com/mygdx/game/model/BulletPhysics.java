@@ -18,12 +18,12 @@ public class BulletPhysics {
     public Vector2 startPosition;
     public float speed;
     public float gravity = -0.9f;
-    public Vector2 position = new Vector2();
 
-    public BulletPhysics(double angle, float power, float weight) {
+    public BulletPhysics(double angle, float power, float weight, Vector2 startPosition) {
         setStartDirection(angle);
         setInitialSpeed(power, weight);
         decomposeSpeed();
+        this.startPosition = startPosition;
     }
 
     public void setInitialSpeed(float power, float weight){
