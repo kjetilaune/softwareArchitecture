@@ -36,6 +36,7 @@ public class FireController extends AbstractController implements EventListener{
     public FireController(AbstractView view){
         super(view);
         this.view = (GameView)view;
+        fire = SoundManager.tankFire;
     }
 
     @Override
@@ -55,17 +56,16 @@ public class FireController extends AbstractController implements EventListener{
         }
         else if (event.toString().equals("touchUp")) {
 
+            System.out.println(event.getListenerActor());
+
             // kills the power-fluctuation-thread
             powerThread.killThread();
 
             //System.out.println("FIRE" + " X:" + ((InputEvent)event).getStageX() + " Y:" + ((InputEvent)event).getStageY());
 
-
-            System.out.println("her: " + view.currentVehicle.getBarrel().getTipOfBarrel());
             view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getBarrel().getTipOfBarrel());
             view.setIsFiring(true);
             fireThread.fire(view, view.currentPlayer.getChosenAmmo(), view.environment);
-            fire = SoundManager.tankFire;
             fire.play(1f);
             return true;
         }

@@ -111,7 +111,7 @@ public class MoveThread extends Thread {
     }
 
     public boolean canTraverse(float angle) {
-        return Math.abs(angle) < 70.0f;
+        return Math.abs(angle) < 80.0f;
     }
 
 }

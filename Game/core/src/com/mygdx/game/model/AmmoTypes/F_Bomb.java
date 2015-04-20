@@ -12,7 +12,7 @@ public class F_Bomb extends Ammunition {
         //does something
     }
     public F_Bomb() {
-        super("F-Bomb", 10, 1, 25, 3);
+        super("F-Bomb", 10, 1, 25, 3.0f);
     }
 
 }

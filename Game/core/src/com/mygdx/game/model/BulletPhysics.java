@@ -13,7 +13,6 @@ import com.mygdx.game.controller.FireController;
 public class BulletPhysics {
 
     //Draw should be done in gameview
-    public int weight = 1;
     public Vector2 startVelocity;
     public Vector2 startDirection;
     public Vector2 startPosition;
@@ -21,16 +20,15 @@ public class BulletPhysics {
     public float gravity = -0.9f;
     public Vector2 position = new Vector2();
 
-    public BulletPhysics(double angle, float power) {
+    public BulletPhysics(double angle, float power, float weight) {
         setStartDirection(angle);
-        speed(power);
-        initialSpeed();
+        setInitialSpeed(power, weight);
+        decomposeSpeed();
     }
 
-    public float speed(float power){
+    public void setInitialSpeed(float power, float weight){
         // divided by 2 to match other calculations
-        speed = (power/2.0f) * weight;
-        return speed;
+        speed = (power/2.0f) / weight;
     }
 
 
@@ -40,7 +38,7 @@ public class BulletPhysics {
     }
 
 
-    public Vector2 initialSpeed(){
+    public Vector2 decomposeSpeed(){
         startVelocity = new Vector2(startDirection.x*speed, startDirection.y*speed);
         return startVelocity;
     }
