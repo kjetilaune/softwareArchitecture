@@ -70,7 +70,8 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     private SpriteBatch batch; // to draw sprites: ex. tanks and barrels
 
-    private Table groupTop;
+    private Table groupTop1;
+    private Table groupTop2;
     private Table groupBottom; // the button at the bottom: fire, change ammmo etc
     private Table groupRight;
     private Table groupLeft;
@@ -143,7 +144,8 @@ public class GameView extends AbstractView implements Screen, Observer{
         moveCtrl = new MovementController(this);
 
         // instantiate menu stuff
-        groupTop  = new Table();
+        groupTop1 = new Table();
+        groupTop2 = new Table();
         groupBottom = new Table();
         groupRight = new Table();
         groupLeft = new Table();
@@ -226,15 +228,17 @@ public class GameView extends AbstractView implements Screen, Observer{
 
 
         labelRound = new Label(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()), fireSkin);
-        labelCurrentPlayer = new Label(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()), fireSkin);
-        labelCurrentPlayer.setFontScale(2);
+        labelRound.setFontScale(1.2f);
+        labelCurrentPlayer = new Label("Player " + currentPlayer.getPlayerNumber(), fireSkin);
+        labelCurrentPlayer.setFontScale(1.5f);
         labelTurn = new Label("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()), fireSkin);
+        labelTurn.setFontScale(1.2f);
         //fireSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
         labelHealthLeft = new Label("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
         labelFuelLeft = new Label("Fuel: " + (currentPlayer.getVehicle().getFuel() + currentPlayer.getFuelUpgrade()), fireSkin);
-        labelPower = new Label("Power: " + currentPlayer.getVehicle().getPower(), fireSkin);
+        labelPower = new Label("Power: ", fireSkin);
 
         labelRound.setColor(Color.BLACK);
         labelCurrentPlayer.setColor(Color.BLACK);
@@ -245,34 +249,46 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelFuelLeft.setColor(Color.BLACK);
         labelPower.setColor(Color.BLACK);
 
-        groupTop.left().top();
-        groupTop.defaults();
-        groupTop.add(labelCurrentPlayer).pad(10, 100, 10, 0).fillX();
-        groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
-        groupTop.add(labelTurn).pad(10, 10, 10, 0).fillX().row();
-        groupTop.add(labelChosenAmmo).padLeft(10).fillX();
-        groupTop.add(labelLeftAmmo).padLeft(40).fillX();
-        groupTop.add(labelHealthLeft).padLeft(40).fillX();
-        groupTop.add(labelFuelLeft).padLeft(40).fillX();
-        groupTop.add(labelPower).padLeft(40).fillX();
-        groupTop.setFillParent(true);
+        float padding = Gdx.graphics.getWidth()/200; // about 10 pixels, padding goes (top, left, bottom, right)
+
+        groupTop1.setDebug(true);
+        groupTop1.left().top();
+        groupTop1.defaults();
+        groupTop1.add(labelCurrentPlayer).pad(padding, 10*padding, padding, 0).fillX();
+        groupTop1.add(labelRound).pad(padding, 10*padding, padding, 0).fillX();
+        groupTop1.add(labelTurn).pad(padding, 10*padding, padding, 0).fillX();
+        groupTop1.add(labelChosenAmmo).pad(padding, 10*padding, padding, 0).fillX().row();
+
+        groupTop2.setDebug(true);
+        groupTop2.left().top();
+        groupTop2.add(labelPower).pad(2*padding+labelCurrentPlayer.getHeight(), 20*padding, 0, 20*padding).fillX();
+        groupTop2.add(labelHealthLeft).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0 , 0).fillX();
+        groupTop2.add(labelFuelLeft).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
+        //groupTop2.add(labelChosenAmmo).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
+        groupTop2.add(labelLeftAmmo).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX().row();
+
+
+
+        groupTop1.setFillParent(true);
+        groupTop2.setFillParent(true);
 
         groupBottom.bottom();
         groupBottom.add(buttonFire);
 
         groupLeft.bottom().left();
-        groupLeft.add(arrowLeft).padLeft(20).padBottom(20);
-        groupLeft.add(arrowRight).padLeft(20).padBottom(20);
+        groupLeft.add(arrowLeft).padLeft(2*padding).padBottom(2*padding);
+        groupLeft.add(arrowRight).padLeft(2*padding).padBottom(2*padding);
 
         groupRight.bottom().right();
-        groupRight.add(buttonAmmo).padBottom(20);
-        groupRight.add(buttonStore).padBottom(20);
+        groupRight.add(buttonAmmo).padBottom(2*padding);
+        groupRight.add(buttonStore).padBottom(2*padding);
 
         groupBottom.setFillParent(true);
         groupRight.setFillParent(true);
         groupLeft.setFillParent(true);
 
-        stage.addActor(groupTop);
+        stage.addActor(groupTop1);
+        stage.addActor(groupTop2);
         stage.addActor(groupBottom);
         stage.addActor(groupRight);
         stage.addActor(groupLeft);
@@ -490,13 +506,13 @@ public class GameView extends AbstractView implements Screen, Observer{
         labelChosenAmmo.setColor(Color.BLACK);*/
 
         labelRound.setText(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()));
-        labelCurrentPlayer.setText(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()));
+        labelCurrentPlayer.setText("Player " + currentPlayer.getPlayerNumber());
         labelTurn.setText("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()));
         labelChosenAmmo.setText("Chosen ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
         labelHealthLeft.setText("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()));
-        labelFuelLeft.setText("Fuel: " + (currentPlayer.getVehicle().getFuel() + currentPlayer.getFuelUpgrade()));
-        labelPower.setText("Power: " + currentPlayer.getVehicle().getPower());
+        labelFuelLeft.setText("Fuel: ");
+        labelPower.setText("Power: ");
 
     }
 
