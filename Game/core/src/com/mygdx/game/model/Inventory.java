@@ -23,19 +23,19 @@ public class Inventory {
         ammoAmount = new ArrayList<Integer>();
         upgrades = new HashMap<String, Integer>();
 
-        score = 10000;
+        score = 0;
+
+        // set default ammunition
+        ammunitions.add(Store.getAmmunition("YummyGrenade"));
+        ammoAmount.add(1337);
+        ammunitions.add(Store.getAmmunition("TastyMissile"));
+        ammoAmount.add(5);
+        ammunitions.add(Store.getAmmunition("Instastuffed"));
+        ammoAmount.add(1);
 
         // set default upgrades
         upgrades.put("Health", 0);
         upgrades.put("Fuel", 0);
-
-        // set default ammunition
-        ammunitions.add(Store.getAmmunition("Bullet"));
-        ammoAmount.add(1337);
-        ammunitions.add(Store.getAmmunition("F-Bomb"));
-        ammoAmount.add(5);
-        ammunitions.add(Store.getAmmunition("Instakill"));
-        ammoAmount.add(1);
 
 
 
@@ -86,8 +86,8 @@ public class Inventory {
 
     public boolean decreaseAmmo(String ammoName, int amount) {
 
-        // enables infinite ammo of the Bullet-type
-        if (ammoName.equals("Bullet")) {
+        // enables infinite ammo of the YummyGrenade-type
+        if (ammoName.equals("YummyGrenade")) {
             return true;
         }
 

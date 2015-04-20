@@ -8,45 +8,45 @@ import com.mygdx.game.model.TextureManager;
  * Created by Jonathan on 12.03.2015.
  */
 public enum Team {
-    SWEETS("Team Sweets", TextureManager.tankSweets, TextureManager.barrelSweets, TextureManager.bulletSweets, TextureManager.fbombSweets, TextureManager.instakillSweets, TextureManager.storeBulletSweets, TextureManager.storeFbombSweets, TextureManager.storeInstakillSweets, TextureManager.largeTankSweets),
-    FAST_FOOD("Team Fast Food", TextureManager.tankFastfood, TextureManager.barrelFastfood, TextureManager.bulletFastfood, TextureManager.fbombFastfood, TextureManager.instakillFastfood, TextureManager.storeBulletFastfood, TextureManager.storeFbombFastfood, TextureManager.storeInstakillFastfood, TextureManager.largeTankFastfood),
-    VEGAN("Team Vegan", TextureManager.tankVegan, TextureManager.barrelVegan, TextureManager.bulletVegan, TextureManager.fbombVegan, TextureManager.instakillVegan, TextureManager.storeBulletVegan, TextureManager.storeFbombVegan, TextureManager.storeInstakillVegan, TextureManager.largeTankVegan),
-    SEAFOOD("Team Seafood", TextureManager.tankSeafood, TextureManager.barrelSeafood, TextureManager.bulletSeafood, TextureManager.fbombSeafood, TextureManager.instakillSeafood, TextureManager.storeBulletSeafood, TextureManager.storeFbombSeafood, TextureManager.storeInstakillSeafood, TextureManager.largeTankSeafood);
+    SWEETS("Team Sweets", TextureManager.tankSweets, TextureManager.barrelSweets, TextureManager.yummyGrenadeSweets, TextureManager.tastyMissileSweets, TextureManager.instastuffedSweets, TextureManager.storeYummyGrenadeSweets, TextureManager.storeTastyMissileSweets, TextureManager.storeInstastuffedSweets, TextureManager.largeTankSweets),
+    FAST_FOOD("Team Fast Food", TextureManager.tankFastfood, TextureManager.barrelFastfood, TextureManager.yummyGrenadeFastfood, TextureManager.tastyMissileFastfood, TextureManager.instastuffedFastfood, TextureManager.storeYummyGrenadeFastfood, TextureManager.storeTastyMissileFastfood, TextureManager.storeInstastuffedFastfood, TextureManager.largeTankFastfood),
+    VEGAN("Team Vegan", TextureManager.tankVegan, TextureManager.barrelVegan, TextureManager.yummyGrenadeVegan, TextureManager.tastyMissileVegan, TextureManager.instastuffedVegan, TextureManager.storeYummyGrenadeVegan, TextureManager.storeTastyMissileVegan, TextureManager.storeInstastuffedVegan, TextureManager.largeTankVegan),
+    SEAFOOD("Team Seafood", TextureManager.tankSeafood, TextureManager.barrelSeafood, TextureManager.yummyGrenadeSeafood, TextureManager.tastyMissileSeafood, TextureManager.instastuffedSeafood, TextureManager.storeYummyGrenadeSeafood, TextureManager.storeTastyMissileSeafood, TextureManager.storeInstastuffedSeafood, TextureManager.largeTankSeafood);
 
     private Texture vehicleTexture;
     private Texture barrelTexture;
-    private Texture bulletTexture;
-    private Texture fbombTexture;
-    private Texture instakillTexture;
-    private Sprite bulletSprite;
-    private Sprite fbombSprite;
-    private Sprite instakillSprite;
+    private Texture yummyGrenadeTexture;
+    private Texture tastyMissileTexture;
+    private Texture instastuffedTexture;
+    private Sprite yummyGrenadeSprite;
+    private Sprite tastyMissileSprite;
+    private Sprite instastuffedSprite;
     private Sprite vehicleSprite;
     private String name;
 
-    private Team(String name, Texture tankTexture, Texture barrelTexture, Texture bulletTexture, Texture fbombTexture, Texture instakillTexture, Texture bulletStoreTexture, Texture fbombStoreTexture, Texture instakillStoreTexture, Texture largeTankTexture) {
+    private Team(String name, Texture tankTexture, Texture barrelTexture, Texture yummyGrenadeTexture, Texture TastyMissileTexture, Texture instastuffedTexture, Texture yummyGrenadeStoreTexture, Texture tastyMissileStoreTexture, Texture instastuffedStoreTexture, Texture largeTankTexture) {
         this.name = name;
         this.vehicleTexture = tankTexture;
         this.barrelTexture = barrelTexture;
-        this.bulletTexture = bulletTexture;
-        this.fbombTexture = fbombTexture;
-        this.instakillTexture = instakillTexture;
-        this.bulletSprite = new Sprite(bulletStoreTexture);
-        this.fbombSprite = new Sprite(fbombStoreTexture);
-        this.instakillSprite = new Sprite(instakillStoreTexture);
+        this.yummyGrenadeTexture = yummyGrenadeTexture;
+        this.tastyMissileTexture = TastyMissileTexture;
+        this.instastuffedTexture = instastuffedTexture;
+        this.yummyGrenadeSprite = new Sprite(yummyGrenadeStoreTexture);
+        this.tastyMissileSprite = new Sprite(tastyMissileStoreTexture);
+        this.instastuffedSprite = new Sprite(instastuffedStoreTexture);
         this.vehicleSprite = new Sprite(largeTankTexture);
     }
 
     public Texture getAmmunitionTexture(String ammoName) {
 
-        if (ammoName.equals("Bullet")) {
-            return bulletTexture;
+        if (ammoName.equals("YummyGrenade")) {
+            return yummyGrenadeTexture;
         }
-        else if (ammoName.equals("F-Bomb")) {
-            return fbombTexture;
+        else if (ammoName.equals("TastyMissile")) {
+            return tastyMissileTexture;
         }
-        else if (ammoName.equals("Instakill")) {
-            return instakillTexture;
+        else if (ammoName.equals("Instastuffed")) {
+            return instastuffedTexture;
         }
 
        return null;
@@ -54,14 +54,14 @@ public enum Team {
 
     public Sprite getAmmunitionSprite(String ammoName) {
 
-        if (ammoName.equals("Bullet")) {
-            return bulletSprite;
+        if (ammoName.equals("YummyGrenade")) {
+            return yummyGrenadeSprite;
         }
-        else if (ammoName.equals("F-Bomb")) {
-            return fbombSprite;
+        else if (ammoName.equals("TastyMissile")) {
+            return tastyMissileSprite;
         }
-        else if (ammoName.equals("Instakill")) {
-            return instakillSprite;
+        else if (ammoName.equals("Instastuffed")) {
+            return instastuffedSprite;
         }
 
         return null;
