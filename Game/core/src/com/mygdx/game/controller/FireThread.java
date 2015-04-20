@@ -121,6 +121,7 @@ public class FireThread extends Thread {
 
     public boolean hasStopped() {
 
+        Player hitPlayer = getHitPlayer();
 
         if (ammo.getPosition() == null) {
             return true;
@@ -131,13 +132,15 @@ public class FireThread extends Thread {
             return true;
         }
 
-        else if (hitPlayer() != null) {
+        else if (hitPlayer != null) {
             //System.out.println("Vehicle has been hit!");
 
-            hitPlayer().getVehicle().takeDamage(ammo);
+            hitPlayer.getVehicle().takeDamage(ammo);
 
             // award player for hit
-            view.currentPlayer.setScore(view.currentPlayer.getScore() + ammo.getInitialDamage()*10);
+            if (!hitPlayer.equals(view.currentPlayer)) {
+                view.currentPlayer.setScore(view.currentPlayer.getScore() + ammo.getInitialDamage()*10);
+            }
 
             return true;
         }
@@ -150,7 +153,7 @@ public class FireThread extends Thread {
     }
 
     // returns the player hit by the bullet, if null then no tank has hit
-    private Player hitPlayer() {
+    private Player getHitPlayer() {
 
         Player hit = null;
 
