@@ -1,8 +1,10 @@
 package com.mygdx.game.gui;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.controller.AmmoChangeController;
 import com.mygdx.game.model.Game;
+import com.mygdx.game.model.SoundManager;
 import com.mygdx.game.model.TextureManager;
 
 /**
@@ -43,6 +46,7 @@ public class MainMenu implements Screen {
 
     private int clock;
     //public Music introSong;
+    public Sound foodFrenzy;
 
 
     public MainMenu(MyGdxGame game, int clock) {
@@ -55,6 +59,7 @@ public class MainMenu implements Screen {
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
 
+        foodFrenzy = SoundManager.foodFrenzy;
         //introSong = Gdx.audio.newMusic(Gdx.files.internal("Music/introSong.mp3"));
 
 
@@ -85,6 +90,12 @@ public class MainMenu implements Screen {
             titleSprite.draw(batch);
             clock ++;
             batch.end();
+
+            if (clock > 7 && !game.introSong.isPlaying()) {
+                game.introSong.play();
+                game.introSong.setLooping(true);
+            }
+
         }
         else {
             menuSprite.draw(batch);
@@ -93,15 +104,14 @@ public class MainMenu implements Screen {
             stage.draw();
         }
 
-        if (!game.introSong.isPlaying()) {
-            game.introSong.play();
-            game.introSong.setLooping(true);
-        }
+
 
 
     }
 
     public void show(){
+
+        foodFrenzy.play();
 
         /*buttonNewGame.addListener(new ClickListener() {
             @Override

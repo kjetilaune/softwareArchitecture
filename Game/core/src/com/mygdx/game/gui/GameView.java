@@ -112,6 +112,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Label labelFuelLeft;
     private Label labelPower;
 
+    private Sprite spriteChosenAmmo;
     private Sprite spriteCloudFront;
     private Sprite spriteCloudBack;
     private Sprite spriteSky;
@@ -166,6 +167,9 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
+        spriteChosenAmmo = currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
+        spriteChosenAmmo.scale(0.3f);
+
         spriteCloudFront = new Sprite(TextureManager.cloudsForeground);
         spriteCloudBack = new Sprite(TextureManager.cloudsBackground);
         spriteSky = new Sprite(TextureManager.skyBackground);
@@ -218,12 +222,14 @@ public class GameView extends AbstractView implements Screen, Observer{
         arrowRight.addListener(moveCtrl);
 
 
-        fireSkin.getFont("font").setScale(1.2f);
+        fireSkin.getFont("font").setScale(1.0f);
+
 
         labelRound = new Label(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()), fireSkin);
         labelCurrentPlayer = new Label(String.format("Player %d - %s", currentPlayer.getPlayerNumber(), currentPlayer.getTeam().getName()), fireSkin);
+        labelCurrentPlayer.setFontScale(2);
         labelTurn = new Label("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()), fireSkin);
-        fireSkin.getFont("font").setScale(1f);
+        //fireSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Chosen ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);
         labelHealthLeft = new Label("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()), fireSkin);
@@ -241,8 +247,8 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         groupTop.left().top();
         groupTop.defaults();
+        groupTop.add(labelCurrentPlayer).pad(10, 100, 10, 0).fillX();
         groupTop.add(labelRound).pad(10, 10, 10, 0).fillX();
-        groupTop.add(labelCurrentPlayer).pad(10, 10, 10, 0).fillX();
         groupTop.add(labelTurn).pad(10, 10, 10, 0).fillX().row();
         groupTop.add(labelChosenAmmo).padLeft(10).fillX();
         groupTop.add(labelLeftAmmo).padLeft(40).fillX();
