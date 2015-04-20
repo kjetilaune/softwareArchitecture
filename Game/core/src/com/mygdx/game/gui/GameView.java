@@ -264,7 +264,6 @@ public class GameView extends AbstractView implements Screen, Observer{
         groupTop2.add(labelHealthLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 20*padding, 0 , 0).fillX();
         groupTop2.add(labelFuelLeft).pad(3*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
         groupTop2.add(labelPower).pad(3*padding+labelCurrentPlayer.getHeight(), 20*padding, 0, 20*padding).fillX();
-        //groupTop2.add(labelChosenAmmo).pad(2*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX();
         groupTop2.add(labelLeftAmmo).pad(3*padding+labelCurrentPlayer.getHeight(), 10*padding, 0, 0).fillX().row();
 
 
@@ -401,8 +400,6 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         batch.end();
 
-        shapeRenderer.rect(stage.getWidth()/40 * 23, stage.getHeight()/40 * 35, currentPlayer.getVehicle().getFuel(), stage.getHeight()/40);
-        shapeRenderer.end();
 
         //Fire power outline box
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
