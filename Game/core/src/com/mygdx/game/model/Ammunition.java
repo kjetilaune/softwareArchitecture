@@ -12,11 +12,11 @@ public abstract class Ammunition extends GameObject {
     private int initialDamage;
     private int clusterCount;
     private int blastRadius;
-    private int weight;
+    private float weight;
 
     private Sprite image;
 
-    public Ammunition(String name, Integer initialDamage, Integer clusterCount, Integer blastRadius, Integer weight) {
+    public Ammunition(String name, Integer initialDamage, Integer clusterCount, Integer blastRadius, float weight) {
         this.name = name;
         this.initialDamage = initialDamage;
         this.clusterCount = clusterCount;
@@ -52,11 +52,11 @@ public abstract class Ammunition extends GameObject {
         this.blastRadius = blastRadius;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 

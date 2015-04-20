@@ -151,7 +151,7 @@ public abstract class Vehicle extends GameObject {
     }
 
     public void decreaseFuel() {
-        setFuel(fuel - 1);
+        setFuel(fuel - 2);
     }
 
     public boolean isColliding(Vector2 point) {

@@ -90,7 +90,7 @@ public class FireThread extends Thread {
 
     // sets information about how firing should be done and start firing
     public void fire(GameView view, Ammunition ammo, Environment environment) {
-        physics = new BulletPhysics(view.currentVehicle.getBarrel().getAngle() + view.currentVehicle.getRotation(), view.currentVehicle.getPower());
+        physics = new BulletPhysics(view.currentVehicle.getBarrel().getAngle() + view.currentVehicle.getRotation(), view.currentVehicle.getPower(), view.currentPlayer.getChosenAmmo().getWeight());
         physics.startPosition = ammo.getPosition();
         this.ammo = ammo;
         this.environment = environment;
