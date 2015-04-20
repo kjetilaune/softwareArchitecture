@@ -49,23 +49,26 @@ public class MoveThread extends Thread {
 
                         if (vehicle.getFuel() > 0) {
 
-                            //float angleToTheLeft = environment.getAngle(vehicle.getPosition().x - 1, vehicle.getPosition().x + vehicle.getRelativeWidth() - 1, vehicle.getRelativeWidth());
-                            //float angleToTheRight = environment.getAngle(vehicle.getPosition().x + 1, vehicle.getPosition().x + vehicle.getRelativeWidth() + 1, vehicle.getRelativeWidth());
+                            float angleToTheLeft = environment.getAngle(vehicle.getPosition().x - 10, vehicle.getPosition().x + vehicle.getRelativeWidth() - 10, vehicle.getRelativeWidth());
+                            float angleToTheRight = environment.getAngle(vehicle.getPosition().x + 10, vehicle.getPosition().x + vehicle.getRelativeWidth() + 10, vehicle.getRelativeWidth());
 
                             // moves the tank by updating its position according to the direction-input and environment
                             // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
-                            if (direction.equals("arrowLeft") /*&& canTraverse(angleToTheLeft)*/){
+                            if (direction.equals("arrowLeft") && canTraverse(angleToTheLeft)){
                                 vehicle.setPosition(new Vector2(vehicle.getPosition().x - 10, environment.getGroundHeight(vehicle.getPosition().x - 10)));
+                                // diminishes fuel
+                                vehicle.decreaseFuel();
                             }
-                            else if (direction.equals("arrowRight") /*&& canTraverse(angleToTheRight)*/){
+                            else if (direction.equals("arrowRight") && canTraverse(angleToTheRight)){
                                 vehicle.setPosition(new Vector2(vehicle.getPosition().x + 10, environment.getGroundHeight(vehicle.getPosition().x + 10)));
+                                // diminishes fuel
+                                vehicle.decreaseFuel();
                             }
 
                             // rotates the vehicle according to the environment
                             vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + vehicle.getRelativeWidth(), vehicle.getRelativeWidth()));
 
-                            // diminishes fuel
-                            //vehicle.decreaseFuel();
+
 
                         }
 
@@ -108,7 +111,7 @@ public class MoveThread extends Thread {
     }
 
     public boolean canTraverse(float angle) {
-        return Math.abs(angle) < 60.0f;
+        return Math.abs(angle) < 70.0f;
     }
 
 }
