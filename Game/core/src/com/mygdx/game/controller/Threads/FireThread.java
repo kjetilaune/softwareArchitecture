@@ -1,13 +1,14 @@
-package com.mygdx.game.controller.Threads;
+package com.mygdx.game.controller.threads;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.mygdx.game.gui.GameView;
+import com.mygdx.game.view.GameView;
 import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Environment;
+import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.AudioVisualManagers.SoundManager;
+import com.mygdx.game.model.audioVisualManagers.SoundManager;
 import com.mygdx.game.model.Vehicle;
 
 import java.util.ArrayList;
@@ -45,22 +46,24 @@ public class FireThread extends Thread {
     private BulletPhysics physics;
 
 
-    public FireThread(GameView view, Player playerModel, Environment environmentModel, ArrayList<Player> players) {
+    public FireThread(GameView view, Game gameModel) {
         blinker = true;
         fire = SoundManager.tankFire;
 
         this.view = view;
-        this.playerModel = playerModel;
+        this.playerModel = gameModel.getCurrentPlayer();
         this.vehicleModel = playerModel.getVehicle();
         this.ammoModel = playerModel.getChosenAmmo();
-        this.environmentModel = environmentModel;
-        this.players = players;
+        this.environmentModel = gameModel.getEnvironment();
+        this.players = gameModel.getPlayersAlive();
 
         playerModel.getChosenAmmo().setPosition(vehicleModel.getBarrel().getTipOfBarrel());
 
         physics = new BulletPhysics(vehicleModel.getBarrel().getAngle() + vehicleModel.getRotation(), vehicleModel.getPower(), ammoModel.getWeight(), ammoModel.getPosition());
 
         step = 0;
+
+        view.setIsFiring(true);
 
         start();
     }

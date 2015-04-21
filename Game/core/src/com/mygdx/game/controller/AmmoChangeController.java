@@ -2,7 +2,7 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.mygdx.game.model.Player;
+import com.mygdx.game.model.Game;
 
 /**
  * Created by Mikal on 10.03.2015.
@@ -10,17 +10,17 @@ import com.mygdx.game.model.Player;
 public class AmmoChangeController implements EventListener{
 
     // model the controller wants to change/access
-    private Player playerModel;
+    private Game gameModel;
 
-    public AmmoChangeController(Player playerModel){
-        this.playerModel = playerModel;
+    public AmmoChangeController(Game gameModel){
+        this.gameModel = gameModel;
     }
 
     public boolean handle (Event event){
 
         // change ammo if ammo-button is pressed
         if (event.toString().equals("touchDown")){
-            playerModel.changeAmmo();
+            gameModel.getCurrentPlayer().changeAmmo();
             return true;
         }
 

@@ -1,4 +1,4 @@
-package com.mygdx.game.gui;
+package com.mygdx.game.view;
 
 /**
  * Created by Eplemaskin on 11/03/15.
@@ -40,7 +40,7 @@ import com.mygdx.game.controller.MovementController;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.AudioVisualManagers.TextureManager;
+import com.mygdx.game.model.audioVisualManagers.TextureManager;
 import com.mygdx.game.model.Vehicle;
 
 import java.util.ArrayList;
@@ -133,7 +133,7 @@ public class GameView implements Screen, Observer{
         polyBatch = new PolygonSpriteBatch();
 
         // instantiate controllers
-        moveCtrl = new MovementController(currentVehicle, environment);
+        moveCtrl = new MovementController(gameInstance);
 
         // instantiate menu stuff
         groupTop1 = new Table();
@@ -197,7 +197,7 @@ public class GameView implements Screen, Observer{
     @Override
     public void show() {
 
-        buttonAmmo.addListener(new AmmoChangeController(gameInstance.getCurrentPlayer()));
+        buttonAmmo.addListener(new AmmoChangeController(gameInstance));
 
         buttonMainMenu.addListener(new ClickListener() {
             @Override
@@ -239,9 +239,9 @@ public class GameView implements Screen, Observer{
         });
 
 
-        buttonFire.addListener(new FireController(this, currentPlayer, environment, playersAlive));
+        buttonFire.addListener(new FireController(this, gameInstance));
 
-        stage.addListener(new AngleController(currentVehicle, currentVehicle.getBarrel()));
+        stage.addListener(new AngleController(gameInstance));
 
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
@@ -523,10 +523,7 @@ public class GameView implements Screen, Observer{
 
     }
 
-
     public void update(Observable o, Object arg){
-
-        //System.out.println("IT CHANGED");
         arg.toString();
     }
 

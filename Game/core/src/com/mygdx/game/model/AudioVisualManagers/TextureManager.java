@@ -1,4 +1,4 @@
-package com.mygdx.game.model.AudioVisualManagers;
+package com.mygdx.game.model.audioVisualManagers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

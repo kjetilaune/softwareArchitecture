@@ -1,6 +1,6 @@
 package com.mygdx.game.model;
 
-import com.mygdx.game.model.Enums.Team;
+import com.mygdx.game.model.enums.Team;
 
 import java.util.ArrayList;
 

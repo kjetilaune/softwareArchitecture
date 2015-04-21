@@ -2,7 +2,7 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.mygdx.game.gui.StoreView;
+import com.mygdx.game.view.StoreView;
 import com.mygdx.game.model.Player;
 import java.util.ArrayList;
 

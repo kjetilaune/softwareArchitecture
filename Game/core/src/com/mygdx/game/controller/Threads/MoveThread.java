@@ -1,4 +1,4 @@
-package com.mygdx.game.controller.Threads;
+package com.mygdx.game.controller.threads;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.Environment;

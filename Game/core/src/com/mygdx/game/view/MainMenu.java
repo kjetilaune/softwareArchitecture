@@ -1,4 +1,4 @@
-package com.mygdx.game.gui;
+package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,8 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.model.AudioVisualManagers.SoundManager;
-import com.mygdx.game.model.AudioVisualManagers.TextureManager;
+import com.mygdx.game.model.audioVisualManagers.SoundManager;
+import com.mygdx.game.model.audioVisualManagers.TextureManager;
 
 /**
  * Created by Jonathan on 10.03.2015.

@@ -1,4 +1,4 @@
-package com.mygdx.game.gui;
+package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -20,7 +20,7 @@ import com.mygdx.game.controller.StoreController;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Store;
-import com.mygdx.game.model.AudioVisualManagers.TextureManager;
+import com.mygdx.game.model.audioVisualManagers.TextureManager;
 
 import java.util.ArrayList;
 import java.util.Collections;

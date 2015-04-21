@@ -3,12 +3,11 @@ package com.mygdx.game.controller;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.mygdx.game.controller.Threads.FireThread;
-import com.mygdx.game.controller.Threads.PowerThread;
-import com.mygdx.game.gui.GameView;
-import com.mygdx.game.model.Environment;
+import com.mygdx.game.controller.threads.FireThread;
+import com.mygdx.game.controller.threads.PowerThread;
+import com.mygdx.game.view.GameView;
+import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.Vehicle;
 import java.util.ArrayList;
 
 /**
@@ -19,10 +18,8 @@ public class FireController implements EventListener{
     // view the controller listens to
     private GameView view;
 
-    // models the controller wants to change/access
-    private Player playerModel;
-    private Vehicle vehicleModel;
-    private Environment environmentModel;
+    // model the controller wants to change/access
+    private Game gameModel;
 
     // list of players
     private ArrayList<Player> players;
@@ -33,12 +30,10 @@ public class FireController implements EventListener{
     // the thread used for continuous power fluctuation
     private PowerThread powerThread;
 
-    public FireController(GameView view, Player playerModel, Environment environmentModel, ArrayList<Player> players){
+    public FireController(GameView view, Game gameModel){
         this.view = view;
-        this.playerModel = playerModel;
-        this.vehicleModel = playerModel.getVehicle();
-        this.environmentModel = environmentModel;
-        this.players = players;
+        this.gameModel = gameModel;
+        this.players = gameModel.getPlayersAlive();
     }
 
     public boolean handle (Event event){
@@ -57,19 +52,19 @@ public class FireController implements EventListener{
             // if touchUp is registered outside firebutton-area
             if (view.outsideFireButton(((InputEvent)event).getStageX(), ((InputEvent)event).getStageY())) {
                 // reset power and do not fire
-                vehicleModel.setPower(0.0f);
+                gameModel.getCurrentPlayer().getVehicle().setPower(0.0f);
                 return true;
             }
 
             // create a fire-thread which handles firing
-            fireThread = new FireThread(view, playerModel, environmentModel, players);
+            fireThread = new FireThread(view, gameModel);
             return true;
         }
 
         // when finger enters button-area
         else if (event.toString().equals("enter")) {
             // start/continue power-fluctuation
-            powerThread.initiateFluctuation(vehicleModel);
+            powerThread.initiateFluctuation(gameModel.getCurrentPlayer().getVehicle());
             return true;
         }
 

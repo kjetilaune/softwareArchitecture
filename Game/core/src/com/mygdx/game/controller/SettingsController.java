@@ -2,9 +2,9 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.mygdx.game.gui.GameView;
-import com.mygdx.game.gui.SettingsView;
-import com.mygdx.game.gui.TeamView;
+import com.mygdx.game.view.GameView;
+import com.mygdx.game.view.SettingsView;
+import com.mygdx.game.view.TeamView;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.GameSettings;
 

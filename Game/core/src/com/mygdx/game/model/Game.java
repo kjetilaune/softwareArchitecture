@@ -2,7 +2,6 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.model.Enums.Team;
 
 import java.util.ArrayList;
 import java.util.Arrays;

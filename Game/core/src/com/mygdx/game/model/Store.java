@@ -1,10 +1,10 @@
 package com.mygdx.game.model;
 
-import com.mygdx.game.model.AmmoTypes.DeliBomb;
-import com.mygdx.game.model.AmmoTypes.FlavourRocket;
-import com.mygdx.game.model.AmmoTypes.YummyGrenade;
-import com.mygdx.game.model.AmmoTypes.Instastuffed;
-import com.mygdx.game.model.AmmoTypes.TastyMissile;
+import com.mygdx.game.model.ammoTypes.DeliBomb;
+import com.mygdx.game.model.ammoTypes.FlavourRocket;
+import com.mygdx.game.model.ammoTypes.YummyGrenade;
+import com.mygdx.game.model.ammoTypes.Instastuffed;
+import com.mygdx.game.model.ammoTypes.TastyMissile;
 
 import java.util.HashMap;
 
