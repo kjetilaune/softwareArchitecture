@@ -2,89 +2,77 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.mygdx.game.gui.AbstractView;
-
-import com.mygdx.game.gui.GameView;
 import com.mygdx.game.gui.StoreView;
-import com.mygdx.game.model.Ammunition;
-
-
-import java.beans.PropertyChangeEvent;
+import com.mygdx.game.model.Player;
+import java.util.ArrayList;
 
 
 /**
  * Created by Eplemaskin on 15/04/15.
  */
-public class StoreController extends AbstractController implements EventListener {
+public class StoreController implements EventListener {
 
+    // view the controller listens to
     private StoreView storeView;
-    private GameView gameView;
 
-    public StoreController(AbstractView storeView, AbstractView gameView){
-        super(storeView);
-        this.storeView = (StoreView)storeView;
-        this.gameView = (GameView)gameView;
+    // model the controller wants to change/access
+    private Player playerModel;
+
+    // array containing all the players
+    private ArrayList<Player> players;
+
+    public StoreController(StoreView storeView, ArrayList<Player> players){
+        this.storeView = storeView;
+        this.players = players;
     }
 
-/* DEPRECATED
-    private void buy(Ammunition ammunition){
-        if (view.currentPlayer.getMoney() < ammunition.getCost()){
-            System.out.println("Insuficcient funds!");
-        }
-        else{
-            view.currentPlayer.getInventory().increaseAmmo(ammunition, 1);
-            view.currentPlayer.setMoney(view.currentPlayer.getMoney() - ammunition.getCost());
-            view.setMoneyText("$" + view.currentPlayer.getMoney());
-            //view.currentPlayer.getInventory().getAmmoAmount().get(view.currentPlayer.getInventory().getAmmunitions().indexOf(ammunition));
-        }
-    }
-*/
-    private void buy() {
-        storeView.currentPlayer.buy(storeView.getCurrentAmmo(), 1);
-        storeView.setMoneyText("$" + storeView.currentPlayer.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
+    private void initiatePurchase() {
+        playerModel = storeView.getCurrentPlayer();
+        playerModel.buy(storeView.getCurrentAmmo(), 1);
+        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
     }
 
+
+    // needs a more specific name
     private void back() {
 
-        if (storeView.currentPlayer == storeView.players.get(storeView.players.size()-2)){
-            storeView.currentPlayer = storeView.players.get(storeView.players.size()-1);
-            storeView.currentAmmo = storeView.ammoForPurchase.get(0);
-            storeView.setMoneyText("$" + storeView.currentPlayer.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
-            storeView.txtCurrentPlayer.setText("Player " + (storeView.players.indexOf(storeView.currentPlayer) + 1));
+        playerModel = storeView.getCurrentPlayer();
+
+
+        if (playerModel.equals(players.get(players.size()-1))){
+            storeView.newRound();
+        }
+        else if (playerModel.equals(players.get(players.size()-2))){
+            storeView.setCurrentPlayer(players.get(players.size()-1));
+            cyclePlayersInStore();
             storeView.back.setText("New round");
         }
-        else if (storeView.currentPlayer == storeView.players.get(storeView.players.size()-1)){
-            //gameView.gameInstance.getRoundWinner();
-            gameView.gameInstance.changeRound();
-            gameView.dispose();
-            storeView.game.setScreen(new GameView(storeView.game, storeView.gameInstance));
-        }
         else{
-            storeView.currentPlayer = storeView.players.get(storeView.players.indexOf(storeView.currentPlayer));
-            storeView.currentAmmo = storeView.ammoForPurchase.get(0);
-            storeView.setMoneyText("$" + storeView.currentPlayer.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
-            storeView.txtCurrentPlayer.setText("Player " + (storeView.players.indexOf(storeView.currentPlayer) + 1));
+            storeView.setCurrentPlayer(players.get(players.indexOf(playerModel) + 1));
+            cyclePlayersInStore();
         }
 
     }
 
     public boolean handle (Event event){
 
-        System.out.println(event.toString());
-
-        if (event.toString().equals("touchDown") && event.getListenerActor().getName().equals("Buy")){
-            buy();
-        }
-        else if (event.toString().equals("touchDown") && event.getListenerActor().getName().equals("Back")){
-            back();
+        if (event.toString().equals("touchDown")) {
+            if (event.getListenerActor().getName().equals("Buy")){
+                initiatePurchase();
+                return true;
+            }
+            else if (event.getListenerActor().getName().equals("Back")){
+                back();
+                return true;
+            }
         }
 
         return false;
     }
 
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
+    public void cyclePlayersInStore() {
+        storeView.setCurrentAmmo(storeView.getInitialAmmo());
+        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
+        storeView.txtCurrentPlayer.setText("Player " + (playerModel.getPlayerNumber()));
     }
 }

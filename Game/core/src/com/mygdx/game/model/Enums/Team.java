@@ -2,7 +2,7 @@ package com.mygdx.game.model.Enums;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.game.model.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 /**
  * Created by Jonathan on 12.03.2015.

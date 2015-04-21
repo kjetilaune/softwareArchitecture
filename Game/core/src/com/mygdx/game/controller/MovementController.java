@@ -2,30 +2,25 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.mygdx.game.gui.AbstractView;
-import com.mygdx.game.gui.GameView;
-
-import java.beans.PropertyChangeEvent;
+import com.mygdx.game.controller.Threads.MoveThread;
+import com.mygdx.game.model.Environment;
+import com.mygdx.game.model.Vehicle;
 
 /**
  * Created by Jonathan on 10.03.2015.
  */
-public class MovementController extends AbstractController implements EventListener{
+public class MovementController implements EventListener{
 
-    // the view the controller listens to
-    private GameView view;
+    // models the controller wants to change/access
+    private Vehicle vehicleModel;
+    private Environment environmentModel;
 
     // the thread used for continuous movement
     private MoveThread moveThread;
 
-    public MovementController(AbstractView view){
-        super(view);
-        this.view = (GameView)view;
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
+    public MovementController(Vehicle vehicleModel, Environment environmentModel){
+        this.vehicleModel = vehicleModel;
+        this.environmentModel = environmentModel;
     }
 
     public boolean handle (Event event){
@@ -41,7 +36,7 @@ public class MovementController extends AbstractController implements EventListe
         // if button is pressed
         else if (event.toString().equals("enter")){
             // update the thread with the current direction, tank, and environment to initiate movement
-            moveThread.initiateMovement(event.getTarget().toString(), view.currentVehicle, view.environment);
+            moveThread.initiateMovement(event.getTarget().toString(), vehicleModel, environmentModel);
             return true;
         }
         // if the button is no longer pressed, either by lifting or moving the finger/cursor

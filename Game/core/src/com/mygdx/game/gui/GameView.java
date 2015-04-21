@@ -40,14 +40,14 @@ import com.mygdx.game.controller.MovementController;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 import com.mygdx.game.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class GameView extends AbstractView implements Screen, Observer{
+public class GameView implements Screen, Observer{
 
     MyGdxGame game;
     private Stage stage;
@@ -83,19 +83,15 @@ public class GameView extends AbstractView implements Screen, Observer{
     private ImageButton arrowLeft;
     private ImageButton arrowRight;
 
-
-
     private BitmapFont font;
 
-    // Mikal: Why are these public? Should be private and have getters and setters.
-    // Annie: Because of the controllers. I'm not sure if a view should have getters and setters, should check how it should be
-    public Game gameInstance;
-    public Environment environment; // the current environment of the game
-    public Player currentPlayer; // current player
-    public Vehicle currentVehicle; // current player's vehicle
-    public ArrayList<Player> playersAlive;
+    private Game gameInstance;
+    private Environment environment; // the current environment of the game
+    private Player currentPlayer; // current player
+    private Vehicle currentVehicle; // current player's vehicle
+    private ArrayList<Player> playersAlive;
 
-    public boolean isFiring = false; // is a bullet being fired?
+    private boolean isFiring = false; // is a bullet being fired?
 
 
     private OrthographicCamera camera;
@@ -114,7 +110,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     private Sprite spriteCloudBack;
     private Sprite spriteSky;
 
-    public Music battleSong;
+    private Music battleSong;
 
 
     public GameView(MyGdxGame game, Game gameInstance){
@@ -137,7 +133,7 @@ public class GameView extends AbstractView implements Screen, Observer{
         polyBatch = new PolygonSpriteBatch();
 
         // instantiate controllers
-        moveCtrl = new MovementController(this);
+        moveCtrl = new MovementController(currentVehicle, environment);
 
         // instantiate menu stuff
         groupTop1 = new Table();
@@ -201,7 +197,7 @@ public class GameView extends AbstractView implements Screen, Observer{
     @Override
     public void show() {
 
-        buttonAmmo.addListener(new AmmoChangeController(this));
+        buttonAmmo.addListener(new AmmoChangeController(gameInstance.getCurrentPlayer()));
 
         buttonMainMenu.addListener(new ClickListener() {
             @Override
@@ -243,9 +239,9 @@ public class GameView extends AbstractView implements Screen, Observer{
         });
 
 
-        buttonFire.addListener(new FireController(this));
+        buttonFire.addListener(new FireController(this, currentPlayer, environment, playersAlive));
 
-        stage.addListener(new AngleController(this));
+        stage.addListener(new AngleController(currentVehicle, currentVehicle.getBarrel()));
 
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
@@ -306,7 +302,7 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         groupLeft.bottom().left();
         groupLeft.add(arrowLeft).padLeft(2*padding).padBottom(2*padding).padRight(25).width(100).height(100);
-        groupLeft.add(arrowRight).padLeft(2*padding).padBottom(2*padding).width(100).height(100);
+        groupLeft.add(arrowRight).padLeft(2*padding).padBottom(2 * padding).width(100).height(100);
 
         groupRight.bottom().right();
         groupRight.add(buttonAmmo).padBottom(2*padding);
@@ -511,7 +507,6 @@ public class GameView extends AbstractView implements Screen, Observer{
 
         polyBatch.begin();
 
-        //ArrayList<Polygon> polys = environment.getPolygons();
         ArrayList<Polygon> polys = gameInstance.getEnvironment().getPolygons();
 
         for (Polygon p : polys) {
@@ -564,6 +559,14 @@ public class GameView extends AbstractView implements Screen, Observer{
 
     public boolean outsideFireButton(float touchUpAtX, float touchUpAtY) {
         return touchUpAtY < buttonFire.getY() || touchUpAtY > (buttonFire.getY() + buttonFire.getHeight()) || touchUpAtX < buttonFire.getX() || touchUpAtX > (buttonFire.getX() + buttonFire.getWidth());
+    }
+
+    public void changePlayer() {
+        this.gameInstance.changePlayer();
+    }
+
+    public void changeRound() {
+        this.gameInstance.changeRound();
     }
 
 }

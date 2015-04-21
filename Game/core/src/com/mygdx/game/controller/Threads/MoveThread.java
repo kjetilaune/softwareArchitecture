@@ -1,8 +1,7 @@
-package com.mygdx.game.controller;
+package com.mygdx.game.controller.Threads;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.Environment;
-import com.mygdx.game.model.TextureManager;
 import com.mygdx.game.model.Vehicle;
 
 /**
@@ -18,10 +17,10 @@ public class MoveThread extends Thread {
     private String direction;
 
     // holds the vehicle to be moved
-    private Vehicle vehicle;
+    private Vehicle vehicleModel;
 
     // holds the environment to move according to
-    private Environment environment;
+    private Environment environmentModel;
 
     // true if a move-button is held down, else false
     // used to decide whether to move or not
@@ -45,28 +44,28 @@ public class MoveThread extends Thread {
 
                     // unsure about the necessity of synchronized
                     // enables only this thread to have access to the vehicle during movement
-                    synchronized (vehicle) {
+                    synchronized (vehicleModel) {
 
-                        if (vehicle.getFuel() > 0) {
+                        if (vehicleModel.getFuel() > 0) {
 
-                            float angleToTheLeft = environment.getAngle(vehicle.getPosition().x - 10, vehicle.getPosition().x + vehicle.getRelativeWidth() - 10, vehicle.getRelativeWidth());
-                            float angleToTheRight = environment.getAngle(vehicle.getPosition().x + 10, vehicle.getPosition().x + vehicle.getRelativeWidth() + 10, vehicle.getRelativeWidth());
+                            float angleToTheLeft = environmentModel.getAngle(vehicleModel.getPosition().x - 10, vehicleModel.getPosition().x + vehicleModel.getRelativeWidth() - 10, vehicleModel.getRelativeWidth());
+                            float angleToTheRight = environmentModel.getAngle(vehicleModel.getPosition().x + 10, vehicleModel.getPosition().x + vehicleModel.getRelativeWidth() + 10, vehicleModel.getRelativeWidth());
 
                             // moves the tank by updating its position according to the direction-input and environment
                             // somehow, changing the position with less than 10 seems to cause the vehicle to bounce around
                             if (direction.equals("arrowLeft") && canTraverse(angleToTheLeft)){
-                                vehicle.setPosition(new Vector2(vehicle.getPosition().x - 10, environment.getGroundHeight(vehicle.getPosition().x - 10)));
+                                vehicleModel.setPosition(new Vector2(vehicleModel.getPosition().x - 10, environmentModel.getGroundHeight(vehicleModel.getPosition().x - 10)));
                                 // diminishes fuel
-                                vehicle.decreaseFuel();
+                                vehicleModel.decreaseFuel();
                             }
                             else if (direction.equals("arrowRight") && canTraverse(angleToTheRight)){
-                                vehicle.setPosition(new Vector2(vehicle.getPosition().x + 10, environment.getGroundHeight(vehicle.getPosition().x + 10)));
+                                vehicleModel.setPosition(new Vector2(vehicleModel.getPosition().x + 10, environmentModel.getGroundHeight(vehicleModel.getPosition().x + 10)));
                                 // diminishes fuel
-                                vehicle.decreaseFuel();
+                                vehicleModel.decreaseFuel();
                             }
 
                             // rotates the vehicle according to the environment
-                            vehicle.setRotation(environment.getAngle(vehicle.getPosition().x, vehicle.getPosition().x + vehicle.getRelativeWidth(), vehicle.getRelativeWidth()));
+                            vehicleModel.setRotation(environmentModel.getAngle(vehicleModel.getPosition().x, vehicleModel.getPosition().x + vehicleModel.getRelativeWidth(), vehicleModel.getRelativeWidth()));
 
 
 
@@ -93,11 +92,11 @@ public class MoveThread extends Thread {
     }
 
     // enables the if-clause in run() and updates information about how and what to move
-    public void initiateMovement(String direction, Vehicle vehicle, Environment environment) {
+    public void initiateMovement(String direction, Vehicle vehicleModel, Environment environmentModel) {
         this.heldDown = true;
         this.direction  = direction;
-        this.vehicle = vehicle;
-        this.environment = environment;
+        this.vehicleModel = vehicleModel;
+        this.environmentModel = environmentModel;
     }
 
     // causes the the else-clause in run() to be triggered, effectively ending movement

@@ -14,42 +14,32 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.controller.StoreController;
-import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Store;
-import com.mygdx.game.model.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Eplemaskin on 14/04/15.
  */
-public class StoreView extends AbstractView implements Screen{
+public class StoreView implements Screen{
 
-    public MyGdxGame game;
-    public Game gameInstance;
-    public GameView gameView;
-    public Player currentPlayer;//, roundWinner;
-    //private final int winnerScoreAward = 5000;
-    //private final int loserScoreAward = 2000;
+    private MyGdxGame game;
+    private Game gameInstance;
+    private GameView gameView;
+    private Player currentPlayer;
 
+    private ArrayList<Player> players;
 
-    public ArrayList<Player> players;
-    public ArrayList<Ammunition> ammos;
-    private ArrayList<String> ammoNames;
+    private ArrayList<String> ammoForPurchase;
 
-    public ArrayList<String> ammoForPurchase;
-
-    //private HashMap<String, Ammunition> allAmmunition;
-
-    public String currentAmmo, txtAmmo;
-    private int numberOfPlayers;
+    private String currentAmmo, txtAmmo;
 
     //GUI
     private Stage stage;
@@ -61,11 +51,10 @@ public class StoreView extends AbstractView implements Screen{
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
 
-
-    public Label title, currentPlayerLabel, priceLabel, moneyLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
+    public Label currentPlayerLabel, moneyLabel, priceLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
     public TextButton back;
-    private TextButton buy;
-    private TextButton undo;
+    public TextButton buy;
+    public TextButton undo;
 
     private ImageButton arrowLeft, arrowRight;
 
@@ -78,34 +67,12 @@ public class StoreView extends AbstractView implements Screen{
         this.gameInstance = gameInstance;
         this.players = gameInstance.getPlayers();
         this.currentPlayer = players.get(0);
-        //this.roundWinner = roundWinner;
-        numberOfPlayers = players.size();
 
         ammoForPurchase = new ArrayList<String>();
         ammoForPurchase.addAll(Store.getInstance().getAmmunitionPrices().keySet());
         Collections.reverse(ammoForPurchase);
 
-        /*
-        ammos = new ArrayList<Ammunition>();
-        ammoNames = new ArrayList<String>();
-
-        allAmmunition = Store.getInstance().getAllAmmunition();
-        for (Map.Entry<String, Ammunition> entry : allAmmunition.entrySet())
-        {
-            //System.out.println(entry.getKey() + "/" + entry.getValue().getName());
-            ammos.add(entry.getValue());
-            ammoNames.add(entry.getKey());
-        }
-
-
-        //ammos = currentPlayer.getInventory().getAmmunitions();
-        //currentAmmo = currentPlayer.getChosenAmmo();
-        currentAmmo = ammos.get(0);
-        */
-
         currentAmmo = ammoForPurchase.get(0);
-
-        //awardPlayers();
         
         //GUI
         stage = new Stage();
@@ -121,7 +88,6 @@ public class StoreView extends AbstractView implements Screen{
         stage.addActor(ammoContainer);
         stage.addActor(bottomContainer);
 
-        //System.out.println("" + stage.getHeight() + ", " + stage.getWidth());
         container.setWidth(stage.getWidth());
         container.setHeight(stage.getHeight()/10 * 2);
         ammoContainer.setWidth(stage.getWidth());
@@ -142,7 +108,6 @@ public class StoreView extends AbstractView implements Screen{
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale((float)0.1);
-
 
         this.back = new TextButton("Next Player", skin);
         this.buy = new TextButton("Buy", skin);
@@ -183,7 +148,6 @@ public class StoreView extends AbstractView implements Screen{
         container.add(txtMoney).top().padTop(stage.getHeight()/10).padRight(stage.getWidth()/10);
         container.row().fillX();
 
-
         ammoContainer.add(arrowLeft).left().maxWidth(stage.getWidth() / 20).padLeft(stage.getWidth() / 10);
         ammoContainer.add(infoLabel).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5).padLeft(stage.getWidth()/20*7).right();
         ammoContainer.add(arrowRight).right().maxWidth(stage.getWidth() / 20).padRight(stage.getWidth() / 10);
@@ -197,24 +161,18 @@ public class StoreView extends AbstractView implements Screen{
         bottomContainer.add(buy).prefWidth(stage.getWidth() / 20 * 4);
         bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 4).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
-
         sprite = new Sprite(TextureManager.storeBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
-        //currentAmmoSprite.setScale(10);
 
         batch = new SpriteBatch();
-
-
-
-
     }
 
     public void show (){
 
-        back.addListener(new StoreController(this, gameView));
-        buy.addListener(new StoreController(this, gameView));
+        back.addListener(new StoreController(this, players));
+        buy.addListener(new StoreController(this, players));
 
         buy.addListener(new ClickListener(){
            @Override
@@ -256,12 +214,10 @@ public class StoreView extends AbstractView implements Screen{
             }
         });
 
-
         Gdx.input.setInputProcessor(stage);
     }
 
     private Sprite getCurrentSprite(){
-        //System.out.println("Sprite" + currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName()));
         return currentPlayer.getTeam().getAmmunitionSprite(currentAmmo);
     }
 
@@ -272,8 +228,6 @@ public class StoreView extends AbstractView implements Screen{
 
         currentAmmoSprite = getCurrentSprite();
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
-        //currentAmmoSprite.setScale(10);
-
 
         txtAmmo = ("" + currentPlayer.getInventory().getAmmoLeft(currentAmmo));
         this.moneyLabel.setText("Available Money: \n" + "Number of current ammo: ");
@@ -287,17 +241,6 @@ public class StoreView extends AbstractView implements Screen{
         stage.act();
         stage.draw();
     }
-
-    /*private void awardPlayers(){
-        for (Player player : players){
-            if (player.getPlayerNumber() == roundWinner.getPlayerNumber()){
-                player.setScore(player.getScore() + winnerScoreAward);
-            }
-            else{
-                player.setScore(player.getScore() + loserScoreAward);
-            }
-        }
-    }*/
 
     public void setMoneyText(String s){
         this.txtMoney.setText(s);
@@ -321,8 +264,26 @@ public class StoreView extends AbstractView implements Screen{
 
     public void dispose (){}
 
+    public void newRound() {
+        gameView.changeRound();
+        gameView.dispose();
+        game.setScreen(new GameView(game, gameInstance));
+    }
+
     public String getCurrentAmmo() {
         return currentAmmo;
+    }
+
+    public Player getCurrentPlayer() { return currentPlayer; }
+
+    public String getInitialAmmo() { return ammoForPurchase.get(0); }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public void setCurrentAmmo(String currentAmmo) {
+        this.currentAmmo = currentAmmo;
     }
 
 }

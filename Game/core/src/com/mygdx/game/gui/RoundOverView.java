@@ -9,31 +9,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.controller.SettingsController;
-import com.mygdx.game.controller.StoreController;
-import com.mygdx.game.model.Ammunition;
-import com.mygdx.game.model.Enums.Team;
 import com.mygdx.game.model.Game;
-import com.mygdx.game.model.GameSettings;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.Store;
-import com.mygdx.game.model.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by annieaa on 16/04/15.
  */
-public class RoundOverView extends AbstractView implements Screen{
+public class RoundOverView implements Screen{
 
 
     public MyGdxGame game;

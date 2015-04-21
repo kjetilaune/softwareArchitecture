@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,14 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 import java.util.ArrayList;
 
 /**
  * Created by Jonathan on 12.03.2015.
  */
-public class GameOverView extends AbstractView implements Screen {
+public class GameOverView implements Screen {
 
 
     private MyGdxGame game;

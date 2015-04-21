@@ -13,8 +13,6 @@ import java.util.HashMap;
  */
 public class Store {
 
-    //need to add something to the hashmaps.
-
     private static Store storeInstance;
 
     // Maps name of the Ammunition to the actual object
@@ -25,7 +23,6 @@ public class Store {
 
     // Maps the name of the upgrade to the store prices
     private static HashMap<String, Integer> upgradePrices;
-
 
     public Store() {
         allAmmunition = new HashMap<String, Ammunition>();
@@ -88,6 +85,5 @@ public class Store {
         }
         return -1;
     }
-
 
 }

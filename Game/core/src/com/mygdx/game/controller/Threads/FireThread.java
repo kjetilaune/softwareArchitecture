@@ -1,4 +1,4 @@
-package com.mygdx.game.controller;
+package com.mygdx.game.controller.Threads;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -7,9 +7,10 @@ import com.mygdx.game.model.Ammunition;
 import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.SoundManager;
-import com.mygdx.game.model.Tank;
+import com.mygdx.game.model.AudioVisualManagers.SoundManager;
 import com.mygdx.game.model.Vehicle;
+
+import java.util.ArrayList;
 
 /**
  * Created by annieaa on 07/04/15.
@@ -19,18 +20,23 @@ public class FireThread extends Thread {
     // use blinker to safely replace Thread.stop()
     private boolean blinker;
 
+    // view the Fire-controller listens to
     private GameView view;
+
+    // model the Fire-controller wants to change/access
+    private Player playerModel;
+    private Vehicle vehicleModel;
+    private Ammunition ammoModel;
+    private Environment environmentModel; // holds the environment to move according to
+
+    // list of players
+    private ArrayList<Player> players;
 
     // enables sound when firing bullets
     private Sound fire;
+
     //enables sound when the bullet hits
     private Sound impact;
-
-    // holds the ammo to be moved
-    private Ammunition ammo;
-
-    // holds the environment to move according to
-    private Environment environment;
 
     // step in animation
     private float step;
@@ -39,21 +45,22 @@ public class FireThread extends Thread {
     private BulletPhysics physics;
 
 
-    public FireThread(GameView view) {
+    public FireThread(GameView view, Player playerModel, Environment environmentModel, ArrayList<Player> players) {
         blinker = true;
         fire = SoundManager.tankFire;
 
         this.view = view;
-        this.ammo = view.currentPlayer.getChosenAmmo();
-        this.environment = view.environment;
+        this.playerModel = playerModel;
+        this.vehicleModel = playerModel.getVehicle();
+        this.ammoModel = playerModel.getChosenAmmo();
+        this.environmentModel = environmentModel;
+        this.players = players;
 
-        view.currentPlayer.getChosenAmmo().setPosition(view.currentVehicle.getBarrel().getTipOfBarrel());
+        playerModel.getChosenAmmo().setPosition(vehicleModel.getBarrel().getTipOfBarrel());
 
-        physics = new BulletPhysics(view.currentVehicle.getBarrel().getAngle() + view.currentVehicle.getRotation(), view.currentVehicle.getPower(), ammo.getWeight(), ammo.getPosition());
+        physics = new BulletPhysics(vehicleModel.getBarrel().getAngle() + vehicleModel.getRotation(), vehicleModel.getPower(), ammoModel.getWeight(), ammoModel.getPosition());
 
         step = 0;
-
-        view.setIsFiring(true);
 
         start();
     }
@@ -62,7 +69,7 @@ public class FireThread extends Thread {
         //System.out.println("FireThread started.");
 
         fire.play(1f);
-        view.currentPlayer.getInventory().decreaseAmmo(ammo.getName(), 1);
+        playerModel.getInventory().decreaseAmmo(ammoModel.getName(), 1);
 
         // should run until killThread() is called
         while (blinker) {
@@ -74,12 +81,9 @@ public class FireThread extends Thread {
 
                     // unsure about the necessity of synchronized
                     // enables only this thread to have access to the ammo during fireThread
-                    synchronized (ammo) {
+                    synchronized (ammoModel) {
 
-                        // NEED A CHECK AND RESPONSE TO THE BULLET GOING ABOVE THE SCREEN
-
-                        ammo.setPosition(physics.getPosition(step));
-                        //System.out.println("Setting ammo to " + ammo.getPosition().x + ", " + ammo.getPosition().y + " at step " + step);
+                        ammoModel.setPosition(physics.getPosition(step));
                         step += 1;
 
                     }
@@ -89,16 +93,16 @@ public class FireThread extends Thread {
                 }
 
                 else {
-                    impact = view.currentPlayer.getChosenAmmo().getSound();
+                    impact = ammoModel.getSound();
                     impact.play(1f);
 
-                    ammo.setPosition(null);
-                    if (view.currentPlayer.getChosenAmmoAmount() == 0) {
-                        view.currentPlayer.changeAmmo();
+                    ammoModel.setPosition(null);
+                    if (playerModel.getChosenAmmoAmount() == 0) {
+                        playerModel.changeAmmo();
                     }
                     view.setIsFiring(false);
-                    view.currentVehicle.setPower(0.0f);
-                    view.gameInstance.changePlayer();
+                    vehicleModel.setPower(0.0f);
+                    view.changePlayer();
 
                     killThread();
                 }
@@ -111,39 +115,27 @@ public class FireThread extends Thread {
         //System.out.println("FireThread died.");
     }
 
-
-    // sets information about how firing should be done and start firing
-    public void fire(GameView view, Ammunition ammo, Environment environment) {
-        physics = new BulletPhysics(view.currentVehicle.getBarrel().getAngle() + view.currentVehicle.getRotation(), view.currentVehicle.getPower(), ammo.getWeight(), ammo.getPosition());
-        this.ammo = ammo;
-        this.environment = environment;
-        this.view = view;
-
-        start();
-
-    }
-
     public boolean hasStopped() {
 
         Player hitPlayer = getHitPlayer();
 
-        if (ammo.getPosition() == null) {
+        if (ammoModel.getPosition() == null) {
             return true;
         }
 
-        if (environment.isColliding(ammo.getPosition())) {
-            environment.collide(ammo.getPosition(), ammo.getBlastRadius());
+        if (environmentModel.isColliding(ammoModel.getPosition())) {
+            environmentModel.collide(ammoModel.getPosition(), ammoModel.getBlastRadius());
             return true;
         }
 
         else if (hitPlayer != null) {
             //System.out.println("Vehicle has been hit!");
 
-            hitPlayer.getVehicle().takeDamage(ammo);
+            hitPlayer.getVehicle().takeDamage(ammoModel);
 
             // award player for hit
-            if (!hitPlayer.equals(view.currentPlayer)) {
-                view.currentPlayer.setScore(view.currentPlayer.getScore() + ammo.getInitialDamage()*50);
+            if (!hitPlayer.equals(playerModel)) {
+                playerModel.setScore(playerModel.getScore() + ammoModel.getInitialDamage()*50);
             }
 
             return true;
@@ -156,13 +148,13 @@ public class FireThread extends Thread {
         return false;
     }
 
-    // returns the player hit by the bullet, if null then no tank has hit
+    // returns the player whose vehicle is hit by the bullet, null then no vehicle is hit
     private Player getHitPlayer() {
 
         Player hit = null;
 
-        for (Player p : view.gameInstance.getPlayers()) {
-            if (p.getVehicle().isColliding(ammo.getPosition())) {
+        for (Player p : players) {
+            if (p.getVehicle().isColliding(ammoModel.getPosition())) {
                 hit = p;
             }
         }
@@ -171,8 +163,8 @@ public class FireThread extends Thread {
     }
 
     private boolean isOutOfScreen() {
-
-        return ammo.getPosition().x < 0 || ammo.getPosition().x > Gdx.graphics.getWidth() || ammo.getPosition().y < 0;
+        // ammo is to the left of the OR ammo to the right of the screen OR ammo beneath screen
+        return ammoModel.getPosition().x < 0 || ammoModel.getPosition().x > Gdx.graphics.getWidth() || ammoModel.getPosition().y < 0;
 
     }
 

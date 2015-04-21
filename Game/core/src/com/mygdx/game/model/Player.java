@@ -28,10 +28,6 @@ public class Player {
         turnsTaken = 0;
     }
 
-    /*public void fireShot() {
-        vehicle.fire(chosenAmmo);
-    }*/
-
     // set how many turns this player has taken
     public void setTurnsTaken(int turnsTaken) {
         this.turnsTaken = turnsTaken;

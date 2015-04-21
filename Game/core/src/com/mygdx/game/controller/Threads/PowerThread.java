@@ -1,19 +1,11 @@
-package com.mygdx.game.controller;
+package com.mygdx.game.controller.Threads;
 
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.model.BulletPhysics;
-import com.mygdx.game.model.Environment;
-import com.mygdx.game.model.TextureManager;
 import com.mygdx.game.model.Vehicle;
 
 /**
  * Created by Mikal on 19.03.2015.
  */
 public class PowerThread extends Thread {
-
-
-
-    // THIS THREAD IS NOT FINISHED. IT SHOULD CALL A .setPower(power), this.getPower() should be removed and killing the thread should be done in FireController
 
     // use blinker to safely replace Thread.stop()
     private boolean blinker;
@@ -26,7 +18,7 @@ public class PowerThread extends Thread {
     private boolean countUp;
 
     // the vehicle which power is changed in this thread
-    private Vehicle vehicle;
+    private Vehicle vehicleModel;
 
     public PowerThread() {
         blinker = true;
@@ -46,26 +38,26 @@ public class PowerThread extends Thread {
 
                     // unsure about the necessity of synchronized
                     // enables only this thread to have access to the vehicle during fluctuation
-                    synchronized (vehicle) {
+                    synchronized (vehicleModel) {
 
                         // decides if fluctuation should change direction
-                        if (vehicle.getPower() >= 100.0f) {
+                        if (vehicleModel.getPower() >= 100.0f) {
                             countUp = false;
                         }
-                        else if (vehicle.getPower() <= 0.0f) {
+                        else if (vehicleModel.getPower() <= 0.0f) {
                             countUp = true;
                         }
 
 
                         // fluctuates the power
                         if (countUp) {
-                            vehicle.setPower(vehicle.getPower() + 1.0f);
+                            vehicleModel.setPower(vehicleModel.getPower() + 1.0f);
                         }
                         else {
-                            vehicle.setPower(vehicle.getPower() - 1.0f);
+                            vehicleModel.setPower(vehicleModel.getPower() - 1.0f);
                         }
 
-                        // cause the thread to halt for 25 ms to prevent to rapid fluctuation
+                        // cause the thread to halt for 10 ms to prevent to rapid fluctuation
                         sleep(10);
 
                     }
@@ -89,8 +81,8 @@ public class PowerThread extends Thread {
     }
 
     // enables the if-clause in run() and starts fluctuation
-    public void initiateFluctuation(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void initiateFluctuation(Vehicle vehicleModel) {
+        this.vehicleModel = vehicleModel;
         heldDown = true;
     }
 

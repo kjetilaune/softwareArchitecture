@@ -9,20 +9,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.model.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 
 /**
  * Created by annieaa on 11/03/15.
  */
-public class AboutView implements Screen {
+public class InstructionsView implements Screen {
 
     MyGdxGame game;
 
@@ -40,7 +39,7 @@ public class AboutView implements Screen {
     private Label title, aboutText;
     private TextButton buttonMainMenu;
 
-    public AboutView(MyGdxGame game) {
+    public InstructionsView(MyGdxGame game) {
 
         this.game = game;
 
