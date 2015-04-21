@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.audioVisualManagers.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 import java.util.ArrayList;
 

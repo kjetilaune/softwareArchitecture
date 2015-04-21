@@ -1,7 +1,7 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.model.enums.Team;
+import com.mygdx.game.model.Enums.Team;
 
 /**
  * Created by Nixa on 3/12/2015.

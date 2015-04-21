@@ -1,4 +1,4 @@
-package com.mygdx.game.controller.threads;
+package com.mygdx.game.controller.Threads;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -8,7 +8,7 @@ import com.mygdx.game.model.BulletPhysics;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.audioVisualManagers.SoundManager;
+import com.mygdx.game.model.AudioVisualManagers.SoundManager;
 import com.mygdx.game.model.Vehicle;
 
 import java.util.ArrayList;

@@ -20,7 +20,7 @@ import com.mygdx.game.controller.StoreController;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
 import com.mygdx.game.model.Store;
-import com.mygdx.game.model.audioVisualManagers.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 import java.util.ArrayList;
 import java.util.Collections;

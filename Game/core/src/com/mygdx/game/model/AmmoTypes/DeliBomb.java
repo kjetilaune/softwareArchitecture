@@ -1,7 +1,7 @@
-package com.mygdx.game.model.ammoTypes;
+package com.mygdx.game.model.AmmoTypes;
 
 import com.mygdx.game.model.Ammunition;
-import com.mygdx.game.model.audioVisualManagers.SoundManager;
+import com.mygdx.game.model.AudioVisualManagers.SoundManager;
 
 /**
  * Created by Mikal on 20.04.2015.

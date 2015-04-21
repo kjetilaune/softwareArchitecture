@@ -27,7 +27,7 @@ public class Inventory {
 
         // set default ammunition
         ammunitions.add(Store.getAmmunition("YummyGrenade"));
-        ammoAmount.add(1337);
+        ammoAmount.add(1336);
         ammunitions.add(Store.getAmmunition("TastyMissile"));
         ammoAmount.add(5);
         ammunitions.add(Store.getAmmunition("Instastuffed"));

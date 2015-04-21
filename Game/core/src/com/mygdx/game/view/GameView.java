@@ -40,7 +40,7 @@ import com.mygdx.game.controller.MovementController;
 import com.mygdx.game.model.Environment;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.audioVisualManagers.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 import com.mygdx.game.model.Vehicle;
 
 import java.util.ArrayList;

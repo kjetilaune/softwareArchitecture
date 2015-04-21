@@ -1,4 +1,4 @@
-package com.mygdx.game.controller.threads;
+package com.mygdx.game.controller.Threads;
 
 import com.mygdx.game.model.Vehicle;
 

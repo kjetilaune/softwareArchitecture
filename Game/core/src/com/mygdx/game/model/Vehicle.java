@@ -3,7 +3,7 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.model.enums.Team;
+import com.mygdx.game.model.Enums.Team;
 
 /**
  * Created by annieaa on 10/03/15.
