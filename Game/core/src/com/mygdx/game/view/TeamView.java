@@ -140,6 +140,14 @@ public class TeamView implements Screen{
 
     }
 
+    public boolean isLastPlayer(){
+        return currentPlayerNumber == numberOfPlayers;
+    }
+
+    public void setNextButtonText(String s){
+        this.buttonNext.setText(s);
+    }
+
     public void show (){
 
         /*buttonNext.addListener(new ClickListener() {
