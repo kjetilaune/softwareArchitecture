@@ -84,7 +84,7 @@ public class GameOverView implements Screen {
         buttonMainMenu = new TextButton("Main Menu", skin);
 
         if (winners.size() == 1) {
-            labelCurrentPlayer = new Label("Player " + winners.get(0).getPlayerNumber() + " won the round!", skin);
+            labelCurrentPlayer = new Label("Player " + winners.get(0).getPlayerNumber() + " won the game!", skin);
         }
         else {
             labelCurrentPlayer = new Label("It's a tie!", skin);
@@ -92,8 +92,6 @@ public class GameOverView implements Screen {
 
         labelCurrentPlayer.setFontScale(2);
 
-        titleSprite = new Sprite(TextureManager.gameOverBackground);
-        titleSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         labelsTeams = new ArrayList<Label>();
 
@@ -121,7 +119,7 @@ public class GameOverView implements Screen {
 
         batch = new SpriteBatch();
 
-        bg = new Sprite(TextureManager.endBackground);
+        bg = new Sprite(TextureManager.gameOverBackground);
         bg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         //table.add(statistics).top().fillX();
 
