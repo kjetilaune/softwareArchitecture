@@ -16,16 +16,18 @@ public class Store {
     private static Store storeInstance;
 
     // Maps name of the Ammunition to the actual object
-    private  HashMap<String, Ammunition> allAmmunition;
+    private static HashMap<String, Ammunition> allAmmunition;
 
     // Maps name of the Ammunition to the store prices
-    private HashMap<String, Integer> ammunitionPrices;
+    private static HashMap<String, Integer> ammunitionPrices;
 
     // Maps the name of the upgrade to the store prices
-    private HashMap<String, Integer> upgradePrices;
+    private static HashMap<String, Integer> upgradePrices;
 
     private Player buyingPlayer;
     private String shownAmmo;
+
+    private final String initialAmmo = "TastyMissile";
 
     public Store() {
         allAmmunition = new HashMap<String, Ammunition>();
@@ -49,7 +51,7 @@ public class Store {
         upgradePrices.put("Health", 1500);
         upgradePrices.put("Fuel", 500);
 
-        shownAmmo = "TastyMissile";
+        shownAmmo = initialAmmo;
 
     }
 
@@ -70,21 +72,21 @@ public class Store {
         return upgradePrices;
     }
 
-    public Ammunition getAmmunition(String name) {
+    public static Ammunition getAmmunition(String name) {
         if (allAmmunition.containsKey(name)) {
             return allAmmunition.get(name);
         }
         return null;
     }
 
-    public Integer getAmmunitionPrice(String ammoName) {
+    public static Integer getAmmunitionPrice(String ammoName) {
         if (ammunitionPrices.containsKey(ammoName)) {
             return ammunitionPrices.get(ammoName);
         }
         return -1;
     }
 
-    public Integer getUpgradePrice(String upgrade) {
+    public static Integer getUpgradePrice(String upgrade) {
         if (upgradePrices.containsKey(upgrade)) {
             return upgradePrices.get(upgrade);
         }
@@ -94,6 +96,8 @@ public class Store {
     public String getNumberOfCurrentAmmo(){
         return "" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo);
     }
+
+    public String getInitialAmmo() { return initialAmmo; }
 
     public String getShownAmmo() {
         return shownAmmo;

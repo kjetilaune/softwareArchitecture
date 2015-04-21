@@ -129,7 +129,7 @@ public class StoreView implements Screen{
         txtCurrentPlayer.setFontScale(2);
         txtMoney = new Label("$" + buyingPlayer.getScore() + "\n " + txtAmmo, skin);
         currentAmmoSprite = getCurrentSprite();
-        infoLabel = new Label("Name of Ammo: " + shownAmmo + "\nPrice: " + storeModel.getAmmunitionPrice(shownAmmo) + "\nDamage: " + storeModel.getAmmunition(shownAmmo).getInitialDamage(), skin);
+        infoLabel = new Label("Name of Ammo: " + shownAmmo + "\nPrice: " + Store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + Store.getAmmunition(shownAmmo).getInitialDamage(), skin);
 
 
         /*
@@ -198,7 +198,7 @@ public class StoreView implements Screen{
                 else{
                     shownAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(shownAmmo) - 1);
                 }
-                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + storeModel.getAmmunitionPrice(shownAmmo) + "\nDamage: " + storeModel.getAmmunition(shownAmmo).getInitialDamage());
+                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + Store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + Store.getAmmunition(shownAmmo).getInitialDamage());
             }
         });
 
@@ -211,7 +211,7 @@ public class StoreView implements Screen{
                 else{
                     shownAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(shownAmmo) + 1);
                 }
-                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + storeModel.getAmmunitionPrice(shownAmmo) + "\nDamage: " + storeModel.getAmmunition(shownAmmo).getInitialDamage());
+                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + Store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + Store.getAmmunition(shownAmmo).getInitialDamage());
             }
         });
 
@@ -275,8 +275,6 @@ public class StoreView implements Screen{
     }
 
     public Player getBuyingPlayer() { return buyingPlayer; }
-
-    public String getInitialAmmo() { return ammoForPurchase.get(0); }
 
     public void setBuyingPlayer(Player buyingPlayer) {
         this.buyingPlayer = buyingPlayer;

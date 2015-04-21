@@ -74,7 +74,7 @@ public class StoreController implements EventListener {
     }
 
     public void cyclePlayersInStore() {
-        storeModel.setShownAmmo(storeView.getInitialAmmo());
+        storeModel.setShownAmmo(storeModel.getInitialAmmo());
         storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
         storeView.txtCurrentPlayer.setText("Player " + (playerModel.getPlayerNumber()));
     }
