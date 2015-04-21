@@ -10,11 +10,9 @@ import java.util.Random;
 /**
  * Created by annieaa on 10/03/15.
  */
-public class Game extends AbstractModel {
+public class Game {
 
     private Player currentPlayer, startingPlayer;
-    private Player roundWinningPlayer, gameWinningPlayer;
-    private ArrayList<Player> roundWinningPlayers, gameWinningPlayers;
 
     private ArrayList<Player> players;
     private ArrayList<Player> playersAlive;
@@ -50,13 +48,10 @@ public class Game extends AbstractModel {
             playersAlive.add(players.get(i));
         }
 
+        store.setBuyingPlayer(players.get(0));
         currentPlayer = playersAlive.get(0);
         startingPlayer = currentPlayer;
         currentRound = 1;
-        roundWinningPlayer = null;
-        gameWinningPlayer = null;
-        roundWinningPlayers = new ArrayList<Player>();
-        gameWinningPlayers = new ArrayList<Player>();
         
     }
 
@@ -141,37 +136,6 @@ public class Game extends AbstractModel {
 
 
     // returns the winner of the current round if there is a winner, and null if there is not a winner
-    /*public Player getRoundWinner() {
-
-        if (playersAlive.size() == 1 && playersDead.size() > 0) {
-            return playersAlive.get(0);
-        }
-
-        // check if no player has turns left
-        boolean noTurnsLeft = true;
-        for (Player p : playersAlive) {
-            if (getNumberOfTurns() - p.getTurnsTaken() != 0) {
-                noTurnsLeft = false;
-            }
-        }
-
-        // if so, the player with the most health left should win the round
-        if (noTurnsLeft) {
-            int maxHealth = -1;
-            Player winner = null;
-
-            for (Player p : playersAlive) {
-                if ((p.getVehicle().getHealth() + p.getHealthUpgrade()) > maxHealth) {
-                    maxHealth = p.getVehicle().getHealth() + p.getHealthUpgrade();
-                    winner = p;
-                }
-            }
-            return winner;
-        }
-
-        return null;
-    }*/
-
     public ArrayList<Player> getRoundWinners() {
 
         if (playersAlive.size() == 1 && playersDead.size() > 0) {
@@ -194,6 +158,7 @@ public class Game extends AbstractModel {
         return null;
     }
 
+    // calculates and returns the winner of the whole game
     public ArrayList<Player> getGameWinners() {
 
         if (numberOfRounds == 1) {
@@ -210,38 +175,6 @@ public class Game extends AbstractModel {
 
     }
 
-    // calculates and returns the winner of the whole game
-    /*public Player getGameWinner() {
-
-        Player winningPlayer = null;
-
-        if (numberOfRounds == 1) {
-            if (playersAlive.size() == 1 && playersDead.size() > 0) {
-                return playersAlive.get(0);
-            }
-
-            int maxHealth = -1;
-            for (Player p : players) {
-                if (p.getVehicle().getHealth() > maxHealth) {
-                    maxHealth = p.getVehicle().getHealth();
-                    winningPlayer = p;
-                }
-            }
-        }
-        else {
-            int maxWon = -1;
-            for (Player p : players) {
-                if (p.getRoundsWon() > maxWon) {
-                    maxWon = p.getRoundsWon();
-                    winningPlayer = p;
-                }
-            }
-        }
-
-        return winningPlayer;
-    }*/
-
-
     // where to place the players in the beginning
     // should randomize this, so players are placed "randomly" on the environment
     private Vector2 getStartPosition(int no) {
@@ -254,7 +187,6 @@ public class Game extends AbstractModel {
         }
         return null;
     }
-
 
     private ArrayList<Player> getPlayersMaxHealth() {
 
@@ -312,7 +244,6 @@ public class Game extends AbstractModel {
 
     }
 
-
     public ArrayList<Player> getPlayersAlive() {
         return playersAlive;
     }
@@ -324,12 +255,6 @@ public class Game extends AbstractModel {
     public int getCurrentRound() {
         return currentRound;
     }
-
-    public void setCurrentRound(int currentRound) {
-        this.currentRound = currentRound;
-    }
-
-    public void setEnvironment(Environment environment) {this.environment = environment;}
 
     public Environment getEnvironment() {
         return environment;
@@ -343,24 +268,14 @@ public class Game extends AbstractModel {
         return numberOfRounds;
     }
 
-    public void setNumberOfRounds(int numberOfRounds) {
-        this.numberOfRounds = numberOfRounds;
-    }
-
     public int getNumberOfTurns() {
         return numberOfTurns;
-    }
-
-    public void setNumberOfTurns(int numberOfTurns) {
-        this.numberOfTurns = numberOfTurns;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
     }
 
     public ArrayList<Player> getPlayers() {
         return players;
     }
+
+    public Store getStore() { return store; }
 
 }

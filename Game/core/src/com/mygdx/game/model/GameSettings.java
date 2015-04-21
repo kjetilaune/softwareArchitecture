@@ -1,7 +1,6 @@
 package com.mygdx.game.model;
 
 import com.mygdx.game.model.enums.Team;
-
 import java.util.ArrayList;
 
 /**
@@ -18,7 +17,6 @@ public class GameSettings {
     public GameSettings() {
 
     }
-
 
     public String getDifficulty() {
         return difficulty;

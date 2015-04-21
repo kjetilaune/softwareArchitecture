@@ -49,18 +49,6 @@ public class Inventory {
         this.score = score;
     }
 
-    public ArrayList<Ammunition> getAmmunitions() {
-        return ammunitions;
-    }
-
-    public ArrayList<Integer> getAmmoAmount() {
-        return ammoAmount;
-    }
-
-    public HashMap<String, Integer> getUpgrades() {
-        return upgrades;
-    }
-
     public int getHealthUpgrade() {
         return upgrades.get("Health");
     }

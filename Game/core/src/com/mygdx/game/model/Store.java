@@ -24,6 +24,9 @@ public class Store {
     // Maps the name of the upgrade to the store prices
     private static HashMap<String, Integer> upgradePrices;
 
+    private Player buyingPlayer;
+    private String shownAmmo;
+
     public Store() {
         allAmmunition = new HashMap<String, Ammunition>();
         ammunitionPrices = new HashMap<String, Integer>();
@@ -46,6 +49,8 @@ public class Store {
         upgradePrices.put("Health", 1500);
         upgradePrices.put("Fuel", 500);
 
+        shownAmmo = "TastyMissile";
+
     }
 
     public static Store getInstance() {
@@ -65,25 +70,42 @@ public class Store {
         return upgradePrices;
     }
 
-    public static Ammunition getAmmunition(String name) {
+    public Ammunition getAmmunition(String name) {
         if (allAmmunition.containsKey(name)) {
             return allAmmunition.get(name);
         }
         return null;
     }
 
-    public static Integer getAmmunitionPrice(String ammoName) {
+    public Integer getAmmunitionPrice(String ammoName) {
         if (ammunitionPrices.containsKey(ammoName)) {
             return ammunitionPrices.get(ammoName);
         }
         return -1;
     }
 
-    public static Integer getUpgradePrice(String upgrade) {
+    public Integer getUpgradePrice(String upgrade) {
         if (upgradePrices.containsKey(upgrade)) {
             return upgradePrices.get(upgrade);
         }
         return -1;
+    }
+
+
+    public String getShownAmmo() {
+        return shownAmmo;
+    }
+
+    public void setShownAmmo(String shownAmmo) {
+        this.shownAmmo = shownAmmo;
+    }
+
+    public Player getBuyingPlayer() {
+        return buyingPlayer;
+    }
+
+    public void setBuyingPlayer(Player buyingPlayer) {
+        this.buyingPlayer = buyingPlayer;
     }
 
 }

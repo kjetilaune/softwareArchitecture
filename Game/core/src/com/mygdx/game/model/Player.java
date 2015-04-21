@@ -12,7 +12,6 @@ public class Player {
     private Inventory inventory;
     private Ammunition chosenAmmo;
     private Team team;
-    private float timeLeft;
     private int roundsWon, turnsTaken;
     private int playerNumber;
 
@@ -21,7 +20,6 @@ public class Player {
         inventory = new Inventory();
         chosenAmmo = Store.getAmmunition("YummyGrenade");
         vehicle = new Tank(team, environment, vehiclePosition);
-        //vehicle = new Tank(team, environment, vehiclePosition);
         this.team = team;
         this.playerNumber = playerNumber;
         turnsTaken = 0;
@@ -56,6 +54,10 @@ public class Player {
         inventory.setScore(newScore);
     }
 
+    public void setRoundsWon(int roundsWon) {
+        this.roundsWon = roundsWon;
+    }
+
     public int getScore() {
         return inventory.getScore();
     }
@@ -72,16 +74,8 @@ public class Player {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
     }
 
     public Ammunition getChosenAmmo() {
@@ -92,24 +86,8 @@ public class Player {
         return inventory.getAmmoLeft(chosenAmmo.getName());
     }
 
-    public void setChosenAmmo(Ammunition chosenAmmo) {
-        this.chosenAmmo = chosenAmmo;
-    }
-
     public Team getTeam() {
         return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public float getTimeLeft() {
-        return timeLeft;
-    }
-
-    public void reduceTimeLeft(float reducedTime) {
-        timeLeft -= reducedTime;
     }
 
     public int getPlayerNumber() {
@@ -118,10 +96,6 @@ public class Player {
 
     public int getRoundsWon() {
         return roundsWon;
-    }
-
-    public void setRoundsWon(int roundsWon) {
-        this.roundsWon = roundsWon;
     }
 
 }

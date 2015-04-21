@@ -27,8 +27,8 @@ public class StoreController implements EventListener {
     }
 
     private void initiatePurchase() {
-        playerModel = storeView.getCurrentPlayer();
-        playerModel.buy(storeView.getCurrentAmmo(), 1);
+        playerModel = storeView.getBuyingPlayer();
+        playerModel.buy(storeView.getShownAmmo(), 1);
         storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
     }
 
@@ -36,19 +36,19 @@ public class StoreController implements EventListener {
     // needs a more specific name
     private void back() {
 
-        playerModel = storeView.getCurrentPlayer();
+        playerModel = storeView.getBuyingPlayer();
 
 
         if (playerModel.equals(players.get(players.size()-1))){
             storeView.newRound();
         }
         else if (playerModel.equals(players.get(players.size()-2))){
-            storeView.setCurrentPlayer(players.get(players.size()-1));
+            storeView.setBuyingPlayer(players.get(players.size() - 1));
             cyclePlayersInStore();
             storeView.back.setText("New round");
         }
         else{
-            storeView.setCurrentPlayer(players.get(players.indexOf(playerModel) + 1));
+            storeView.setBuyingPlayer(players.get(players.indexOf(playerModel) + 1));
             cyclePlayersInStore();
         }
 
@@ -71,7 +71,7 @@ public class StoreController implements EventListener {
     }
 
     public void cyclePlayersInStore() {
-        storeView.setCurrentAmmo(storeView.getInitialAmmo());
+        storeView.setShownAmmo(storeView.getInitialAmmo());
         storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
         storeView.txtCurrentPlayer.setText("Player " + (playerModel.getPlayerNumber()));
     }

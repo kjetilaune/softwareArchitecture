@@ -1,7 +1,6 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
@@ -31,39 +30,16 @@ public abstract class Ammunition extends GameObject {
         return initialDamage;
     }
 
-    public void setInitialDamage(int initialDamage) {
-        this.initialDamage = initialDamage;
-    }
-
     public int getBlastRadius() {
         return blastRadius;
-    }
-
-    public void setBlastRadius(int blastRadius) {
-        this.blastRadius = blastRadius;
     }
 
     public float getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public Sprite getImage() {
-        return image;
-    }
-
-    public void setImage(Sprite image) {
-        this.image = image;
-    }
-
     public Sound getSound(){
         return sound;
     }
-    public void setSound(Sound sound) {this.sound = sound;}
-
-
 
 }

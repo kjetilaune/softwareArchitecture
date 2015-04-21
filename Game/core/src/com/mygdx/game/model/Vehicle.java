@@ -1,7 +1,6 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.enums.Team;
@@ -15,7 +14,6 @@ public abstract class Vehicle extends GameObject {
     private int fuel;
     private float power;
 
-    private Environment environment;
     private Barrel barrel;
 
     public Vehicle(Team team, Environment environment, Vector2 position) {
@@ -23,18 +21,9 @@ public abstract class Vehicle extends GameObject {
         super.setPosition(position);
         super.setRotation(environment.getAngle(getPosition().x, getPosition().x + getRelativeWidth(), getRelativeWidth()));
 
-        this.environment = environment;
-
         barrel = new Barrel(team, getBarrelPosition(), 45);
         barrel.setRotation(getRotation());
 
-        health = 100;
-        fuel = 100;
-    }
-
-
-    public Vehicle(Texture texture) {
-        super(texture);
         health = 100;
         fuel = 100;
     }
@@ -90,11 +79,6 @@ public abstract class Vehicle extends GameObject {
         return barrel;
     }
 
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-
     public int getHealth() {
         return health;
     }
@@ -135,12 +119,6 @@ public abstract class Vehicle extends GameObject {
 
     public float getPower() {
         return power;
-    }
-
-    public void reset() {
-        health = 100;
-        fuel = 100;
-
     }
 
     public void takeDamage(Ammunition ammo) {
@@ -228,10 +206,8 @@ public abstract class Vehicle extends GameObject {
 
         setHealth(100);
         setFuel(100);
-        this.environment = newEnvironment;
         position = newStartPosition;
         super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getRelativeWidth(), getRelativeWidth()));
-        //super.setRotation(newEnvironment.getAngle(getPosition().x, getPosition().x + getTexture().getWidth()));
         barrel.setPosition(getBarrelPosition());
         barrel.setAngle(45);
         barrel.setRotation(getRotation());

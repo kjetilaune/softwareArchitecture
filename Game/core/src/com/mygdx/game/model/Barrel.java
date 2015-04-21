@@ -8,6 +8,7 @@ import com.mygdx.game.model.enums.Team;
  */
 
 public class Barrel extends GameObject {
+
     private float angle;
 
     public Barrel(Team team, Vector2 rootPos, float angle) {
@@ -18,11 +19,6 @@ public class Barrel extends GameObject {
 
     public void setAngle(float angle) {
 
-        // works now I think!!
-
-        //System.out.println("want to set angle to: " + angle);
-        //System.out.println("rotation of barrel is: " + getRotation());
-
         float newAngle = angle;
 
         while (newAngle > 360) {
@@ -32,8 +28,6 @@ public class Barrel extends GameObject {
         while (newAngle < 0) {
             newAngle += 360;
         }
-
-        //System.out.println("Setting angle of barrel to " + newAngle);
 
         if (newAngle > 180 && newAngle < 270) {
             this.angle = 180;

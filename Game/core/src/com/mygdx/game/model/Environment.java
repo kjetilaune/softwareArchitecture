@@ -16,7 +16,6 @@ import java.util.Random;
 public class Environment {
 
     private ArrayList<Polygon> polygons;
-    private ArrayList<Boolean> traversables; // says which polygons are not traversable
 
     private int numberOfHills;
     private int pixelStep; // width of each polygon
@@ -26,7 +25,6 @@ public class Environment {
     private int numberOfSlices;
 
     private Appearance appearance;
-
 
     // for creating an environment with a certain number of hills
     // pixelStep is the width of each polygon that makes up the ground
@@ -46,7 +44,6 @@ public class Environment {
 
     }
 
-
     // returns whether the given point is colliding with the environment
     public boolean isColliding(Vector2 point) {
 
@@ -58,7 +55,6 @@ public class Environment {
 
         return false;
     }
-
 
     public void collide(Vector2 point, int blastRadius) {
 
@@ -92,7 +88,6 @@ public class Environment {
 
     }
 
-
     // returns the lowest y-coordinate at the intersection of the given circle and x-coordinate
     private float getIntersection(Circle blast, float x, float y) {
 
@@ -119,7 +114,6 @@ public class Environment {
         }
 
     }
-
 
     // returns the height of the ground at the given x-position
     public float getGroundHeight(float xPos) {
@@ -148,7 +142,6 @@ public class Environment {
         return y;
     }
 
-
     // returns the angle of the ground at the given start and stop x-position
     public float getAngle(float xStart, float xStop, float width) {
 
@@ -167,7 +160,6 @@ public class Environment {
 
     }
 
-
     // help function for getting all x-coordinates of a polygon given its array of points
     private float[] getVerticesX (float[] vertices) {
 
@@ -178,7 +170,6 @@ public class Environment {
         return verticesX;
     }
 
-
     // help function for getting all y-coordinates of a polygon given its array of points
     private float[] getVerticesY (float[] vertices) {
 
@@ -188,7 +179,6 @@ public class Environment {
         }
         return verticesY;
     }
-
 
     // draws hills with random heights
     private void drawHills() {
@@ -240,16 +230,9 @@ public class Environment {
         appearance = Appearance.values()[pick];
     }
 
-
     public ArrayList<Polygon> getPolygons() {
         return polygons;
     }
-
-
-    public ArrayList<Boolean> getTraversables() {
-        return traversables;
-    }
-
 
     public Texture getTexture() {
         return appearance.getTexture();
