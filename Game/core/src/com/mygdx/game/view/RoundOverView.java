@@ -128,7 +128,7 @@ public class RoundOverView implements Screen{
         bottomContainer.row();
         bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
-        sprite = new Sprite(TextureManager.storeBackground);
+        sprite = new Sprite(TextureManager.endBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         System.out.println(" Width: " + Gdx.graphics.getWidth() + " Height: " + Gdx.graphics.getHeight());

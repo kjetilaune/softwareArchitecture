@@ -43,7 +43,7 @@ public class GameOverView implements Screen {
 
     private TextButton buttonMainMenu;
 
-    private Sprite titleSprite;
+    private Sprite titleSprite, bg;
 
     private ArrayList<Player> winners;
 
@@ -121,6 +121,8 @@ public class GameOverView implements Screen {
 
         batch = new SpriteBatch();
 
+        bg = new Sprite(TextureManager.endBackground);
+        bg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         //table.add(statistics).top().fillX();
 
 
@@ -160,7 +162,7 @@ public class GameOverView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-
+        bg.draw(batch);
         teamSprites.get(0).draw(batch);
 
         if (winners.size() != 1) {
