@@ -86,7 +86,7 @@ public class CreditsView implements Screen{
         this.buttonBack.setName("Back");
 
 
-        bottomContainer.add(creditLabel).padTop(Gdx.graphics.getHeight() / 10).prefWidth(Gdx.graphics.getWidth()).colspan(3).padLeft(Gdx.graphics.getWidth() / 5).align();
+        bottomContainer.add(creditLabel).padTop(Gdx.graphics.getHeight() / 10).prefWidth(Gdx.graphics.getWidth()).colspan(3).padLeft(Gdx.graphics.getWidth() / 5);
         bottomContainer.row().fillX();
         bottomContainer.add(placeholderLabel).prefWidth(Gdx.graphics.getWidth());
         bottomContainer.add(buttonBack).prefWidth(Gdx.graphics.getHeight()/20 * 8).padTop(40).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
