@@ -52,10 +52,10 @@ public class StoreView implements Screen{
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
 
-    public Label currentPlayerLabel, moneyLabel, priceLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
-    public TextButton back;
-    public TextButton buy;
-    public TextButton undo;
+    private Label currentPlayerLabel, moneyLabel, priceLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
+    private TextButton back;
+    private TextButton buy;
+    private TextButton undo;
 
     private ImageButton arrowLeft, arrowRight;
 
@@ -192,26 +192,26 @@ public class StoreView implements Screen{
         arrowLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (ammoForPurchase.indexOf(shownAmmo) == 0){
-                    shownAmmo = ammoForPurchase.get(ammoForPurchase.size() - 1);
+                if (ammoForPurchase.indexOf(storeModel.getShownAmmo()) == 0){
+                    storeModel.setShownAmmo(ammoForPurchase.get(ammoForPurchase.size() - 1));
                 }
                 else{
-                    shownAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(shownAmmo) - 1);
+                    storeModel.setShownAmmo(ammoForPurchase.get(ammoForPurchase.indexOf(storeModel.getShownAmmo()) - 1));
                 }
-                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + Store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + Store.getAmmunition(shownAmmo).getInitialDamage());
+                infoLabel.setText("Name of Ammo: " + storeModel.getShownAmmo() + "\nPrice: " + Store.getAmmunitionPrice(storeModel.getShownAmmo()) + "\nDamage: " + Store.getAmmunition(storeModel.getShownAmmo()).getInitialDamage());
             }
         });
 
         arrowRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (ammoForPurchase.indexOf(shownAmmo) == ammoForPurchase.size()-1){
-                    shownAmmo = ammoForPurchase.get(0);
+                if (ammoForPurchase.indexOf(storeModel.getShownAmmo()) == ammoForPurchase.size()-1){
+                    storeModel.setShownAmmo(ammoForPurchase.get(0));
                 }
                 else{
-                    shownAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(shownAmmo) + 1);
+                    storeModel.setShownAmmo(ammoForPurchase.get(ammoForPurchase.indexOf(storeModel.getShownAmmo()) + 1));
                 }
-                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + Store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + Store.getAmmunition(shownAmmo).getInitialDamage());
+                infoLabel.setText("Name of Ammo: " + storeModel.getShownAmmo() + "\nPrice: " + Store.getAmmunitionPrice(storeModel.getShownAmmo()) + "\nDamage: " + Store.getAmmunition(storeModel.getShownAmmo()).getInitialDamage());
             }
         });
 
@@ -246,6 +246,10 @@ public class StoreView implements Screen{
         stage.draw();
     }
 
+    public void setBackText(String s) { this.back.setText(s); }
+
+    public void setCurrentPlayerText(String s) { this.txtCurrentPlayer.setText(s);}
+
     public void setMoneyText(String s){
         this.txtMoney.setText(s);
     }
@@ -268,20 +272,6 @@ public class StoreView implements Screen{
         gameView.changeRound();
         gameView.dispose();
         game.setScreen(new GameView(game, gameInstance));
-    }
-
-    public String getShownAmmo() {
-        return shownAmmo;
-    }
-
-    public Player getBuyingPlayer() { return buyingPlayer; }
-
-    public void setBuyingPlayer(Player buyingPlayer) {
-        this.buyingPlayer = buyingPlayer;
-    }
-
-    public void setShownAmmo(String shownAmmo) {
-        this.shownAmmo = shownAmmo;
     }
 
 }

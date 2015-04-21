@@ -27,7 +27,7 @@ public class Store {
     private Player buyingPlayer;
     private String shownAmmo;
 
-    private final String initialAmmo = "TastyMissile";
+    private final String INITIALAMMO = "TastyMissile";
 
     public Store() {
         allAmmunition = new HashMap<String, Ammunition>();
@@ -51,7 +51,7 @@ public class Store {
         upgradePrices.put("Health", 1500);
         upgradePrices.put("Fuel", 500);
 
-        shownAmmo = initialAmmo;
+        shownAmmo = INITIALAMMO;
 
     }
 
@@ -97,7 +97,7 @@ public class Store {
         return "" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo);
     }
 
-    public String getInitialAmmo() { return initialAmmo; }
+    public String getInitialAmmo() { return INITIALAMMO; }
 
     public String getShownAmmo() {
         return shownAmmo;

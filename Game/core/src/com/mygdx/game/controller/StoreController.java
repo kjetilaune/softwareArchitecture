@@ -18,7 +18,6 @@ public class StoreController implements EventListener {
 
     // model the controller wants to change/access
     private Store storeModel;
-    private Player playerModel;
 
     // array containing all the players
     private ArrayList<Player> players;
@@ -30,28 +29,25 @@ public class StoreController implements EventListener {
     }
 
     private void initiatePurchase() {
-        playerModel = storeModel.getBuyingPlayer();
-        playerModel.buy(storeModel.getShownAmmo(), 1);
-        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
+        storeModel.getBuyingPlayer().buy(storeModel.getShownAmmo(), 1);
+        storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
     }
 
 
     // needs a more specific name
     private void back() {
 
-        playerModel = storeModel.getBuyingPlayer();
-
-
-        if (playerModel.equals(players.get(players.size()-1))){
+        if (storeModel.getBuyingPlayer().equals(players.get(players.size()-1))){
+            storeModel.setBuyingPlayer(players.get(0));
             storeView.newRound();
         }
-        else if (playerModel.equals(players.get(players.size()-2))){
+        else if (storeModel.getBuyingPlayer().equals(players.get(players.size()-2))){
             storeModel.setBuyingPlayer(players.get(players.size() - 1));
             cyclePlayersInStore();
-            storeView.back.setText("New round");
+            storeView.setBackText("New round");
         }
         else{
-            storeModel.setBuyingPlayer(players.get(players.indexOf(playerModel) + 1));
+            storeModel.setBuyingPlayer(players.get(players.indexOf(storeModel.getBuyingPlayer()) + 1));
             cyclePlayersInStore();
         }
 
@@ -75,7 +71,7 @@ public class StoreController implements EventListener {
 
     public void cyclePlayersInStore() {
         storeModel.setShownAmmo(storeModel.getInitialAmmo());
-        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
-        storeView.txtCurrentPlayer.setText("Player " + (playerModel.getPlayerNumber()));
+        storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
+        storeView.setCurrentPlayerText("Player " + (storeModel.getBuyingPlayer().getPlayerNumber()));
     }
 }
