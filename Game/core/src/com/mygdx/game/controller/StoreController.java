@@ -33,6 +33,11 @@ public class StoreController implements EventListener {
         storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
     }
 
+    private void undoPurchase(){
+        storeModel.getBuyingPlayer().buy(storeModel.getShownAmmo(), -1);
+        storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
+    }
+
 
     // needs a more specific name
     private void back() {
@@ -62,6 +67,10 @@ public class StoreController implements EventListener {
             }
             else if (event.getListenerActor().getName().equals("Back")){
                 back();
+                return true;
+            }
+            else if (event.getListenerActor().getName().equals("Undo")){
+                undoPurchase();
                 return true;
             }
         }

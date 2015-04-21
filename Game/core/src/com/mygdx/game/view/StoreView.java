@@ -174,6 +174,7 @@ public class StoreView implements Screen{
 
         back.addListener(new StoreController(this, storeModel, players));
         buy.addListener(new StoreController(this, storeModel, players));
+        undo.addListener(new StoreController(this, storeModel, players));
 
         buy.addListener(new ClickListener(){
            @Override
@@ -185,7 +186,7 @@ public class StoreView implements Screen{
         undo.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                //removeAmmo
+                undo.setVisible(false);
             }
         });
 
