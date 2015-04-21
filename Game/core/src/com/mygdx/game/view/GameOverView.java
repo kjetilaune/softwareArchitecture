@@ -92,7 +92,7 @@ public class GameOverView implements Screen {
 
         labelCurrentPlayer.setFontScale(2);
 
-        titleSprite = new Sprite(TextureManager.titleBackground);
+        titleSprite = new Sprite(TextureManager.gameOverBackground);
         titleSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         labelsTeams = new ArrayList<Label>();
