@@ -95,11 +95,17 @@ public class MainMenu implements Screen {
 
         }
         else {
+            if(!game.introSong.isPlaying()){
+                game.introSong.play();
+                game.introSong.setLooping(true);
+            }
             menuSprite.draw(batch);
             batch.end();
             stage.act();
             stage.draw();
         }
+
+
 
 
 
