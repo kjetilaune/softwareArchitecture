@@ -8,7 +8,7 @@ import com.mygdx.game.model.Ammunition;
 public class YummyGrenade extends Ammunition {
 
     public YummyGrenade() {
-        super("YummyGrenade", 5, 5, 1.0f);
+        super("YummyGrenade", 10, 20, 1.0f);
     }
 
 }

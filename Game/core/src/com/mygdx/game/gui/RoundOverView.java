@@ -40,8 +40,8 @@ public class RoundOverView extends AbstractView implements Screen{
     private Game gameInstance;
     private GameView gameView;
 
-    private final int winnerScoreAward = 1000;
-    private final int loserScoreAward = 200;
+    private final int winnerScoreAward = 2500;
+    private final int loserScoreAward = 500;
 
     private Sprite sprite;
 

@@ -8,7 +8,7 @@ import com.mygdx.game.model.Ammunition;
 public class Instastuffed extends Ammunition {
 
     public Instastuffed() {
-        super("Instastuffed", 100, 15, 2.0f);
+        super("Instastuffed", 100, 20, 1.4f);
     }
 
 }

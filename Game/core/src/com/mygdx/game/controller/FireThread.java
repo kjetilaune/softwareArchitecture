@@ -139,7 +139,7 @@ public class FireThread extends Thread {
 
             // award player for hit
             if (!hitPlayer.equals(view.currentPlayer)) {
-                view.currentPlayer.setScore(view.currentPlayer.getScore() + ammo.getInitialDamage()*10);
+                view.currentPlayer.setScore(view.currentPlayer.getScore() + ammo.getInitialDamage()*50);
             }
 
             return true;
