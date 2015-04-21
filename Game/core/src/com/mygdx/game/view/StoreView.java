@@ -149,9 +149,9 @@ public class StoreView implements Screen{
         container.add(txtMoney).top().padTop(stage.getHeight()/10).padRight(stage.getWidth()/10);
         container.row().fillX();
 
-        ammoContainer.add(arrowLeft).left().maxWidth(stage.getWidth() / 20).padLeft(stage.getWidth() / 10);
+        ammoContainer.add(arrowLeft).left().height(stage.getHeight()/8).width(stage.getWidth()/16).padLeft(stage.getWidth() / 10);
         ammoContainer.add(infoLabel).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5).padLeft(stage.getWidth()/20*7).right();
-        ammoContainer.add(arrowRight).right().maxWidth(stage.getWidth() / 20).padRight(stage.getWidth() / 10);
+        ammoContainer.add(arrowRight).right().height(stage.getHeight()/8).width(stage.getWidth()/16).padRight(stage.getWidth() / 10);
 
         bottomContainer.row();
         bottomContainer.add(currentPlayerLabel).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight() / 10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
