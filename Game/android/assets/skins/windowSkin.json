@@ -4,8 +4,8 @@
 	},
 
 	"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle":{
-		default: {"titleFont" : font, "background" : buttonUp},
-		dialog: {"titleFont" : font, "background" : buttonUp, "stageBackground": buttonUp},
+		default: {"titleFont" : font, "background" : background},
+		dialog: {"titleFont" : font, "background" : background, "stageBackground": stageBackground},
 	},
 
 	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
@@ -13,6 +13,8 @@
     },
 
     "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
-         "default": {"up": "buttonUp" , "down": "buttonDown", "font": font}
+         "default": {"up": "buttonUp" , "down": "buttonDown", "font": font},
+         "speaker": {"up": "speakerOn", "down": "speakerOff", "font": font},
     },
+
 }

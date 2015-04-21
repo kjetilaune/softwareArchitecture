@@ -23,6 +23,8 @@ public class FireThread extends Thread {
 
     // enables sound when firing bullets
     private Sound fire;
+    //enables sound when the bullet hits
+    private Sound impact;
 
     // holds the ammo to be moved
     private Ammunition ammo;
@@ -87,6 +89,8 @@ public class FireThread extends Thread {
                 }
 
                 else {
+                    impact = view.currentPlayer.getChosenAmmo().getSound();
+                    impact.play(1f);
 
                     ammo.setPosition(null);
                     if (view.currentPlayer.getChosenAmmoAmount() == 0) {

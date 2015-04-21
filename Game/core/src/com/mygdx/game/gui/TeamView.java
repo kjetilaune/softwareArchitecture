@@ -61,6 +61,7 @@ public class TeamView extends AbstractView implements Screen{
 
     private Label title, labelCurrentPlayer, labelCurrentTeam, labelPlaceholder;
     private TextButton buttonNext;
+    private TextButton buttonSettings;
     private ImageButton arrowLeft, arrowRight;
 
     private Sprite settingsSprite, currentTeamSprite;
@@ -116,6 +117,9 @@ public class TeamView extends AbstractView implements Screen{
         this.buttonNext = new TextButton("Next Player", skin);
         this.buttonNext.setName("NewGame");
 
+        this.buttonSettings = new TextButton("Back to Settings", skin);
+        this.buttonSettings.setName("Settings");
+
         labelPlaceholder = new Label("", skin);
         labelCurrentPlayer = new Label("Player " + (currentPlayerNumber+1), skin);
         labelCurrentPlayer.setFontScale(2);
@@ -132,6 +136,8 @@ public class TeamView extends AbstractView implements Screen{
         bottomContainer.add(labelCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
         bottomContainer.row();
         bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.row();
+        bottomContainer.add(buttonSettings).prefWidth(stage.getWidth()/20*8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
         currentTeamSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentTeamSprite.getHeight()/2);
 
@@ -183,6 +189,13 @@ public class TeamView extends AbstractView implements Screen{
                 }
                 currentTeam = teams[currentTeamNumber];
 
+            }
+        });
+
+        buttonSettings.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                game.setScreen(new SettingsView(game));
             }
         });
 

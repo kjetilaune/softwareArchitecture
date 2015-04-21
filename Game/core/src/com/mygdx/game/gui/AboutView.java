@@ -35,7 +35,7 @@ public class AboutView implements Screen {
     private Sprite aboutSprite;
 
     private Skin skin;
-    private Skin windowSkin;
+
 
     private Label title, aboutText;
     private TextButton buttonMainMenu;
@@ -50,7 +50,7 @@ public class AboutView implements Screen {
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale(1);
 
-        windowSkin = new Skin(Gdx.files.internal("skins/windowSkin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
+
 
         font = new BitmapFont(Gdx.files.internal("font/rav.fnt"), Gdx.files.internal("font/rav.png"), false);
         batch = new SpriteBatch();
@@ -100,25 +100,11 @@ public class AboutView implements Screen {
         buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new Dialog("Dialog", windowSkin){
-                    {
-                        text("Do you want to go the the main menu?");
-                        button("Yes", "go");
-                        button("No", "stay");
-
-                    }
-                    @Override
-                    protected void result(final Object object){
-                        System.out.println(object.toString());
-                        if (object.toString() == "go"){
-                            game.setScreen(new MainMenu(game, 100));
-                        }
-
-
-                    }
-                }.show(stage);
+                game.setScreen(new MainMenu(game, 100));
             }
         });
+
+
 
         table.add(title).padBottom(stage.getHeight() - 200).row();
         table.add(buttonMainMenu).size(500, 120).padBottom(20).row();
