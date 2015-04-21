@@ -94,7 +94,7 @@ public class SettingsView implements Screen {
         arrowRightDifficulty.setName("arrowRightDifficulty");
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale((float)0.5);
+        skin.getFont("font").scale((float)(Gdx.graphics.getHeight())/2160);
 
         numberOfRounds = 1;
         numberOfTurns = "Unlimited";
@@ -120,28 +120,28 @@ public class SettingsView implements Screen {
         container.add(scroll);
 
         //Add everything on the screen
-        table.row().padTop(300);
+        table.row().padTop((int)(Gdx.graphics.getHeight()/3.6));
 
-        table.add(labelNumberOfRounds).padRight(100);
+        table.add(labelNumberOfRounds).padRight((int)(Gdx.graphics.getHeight()/10.8));
         table.add(arrowLeftRounds);
-        table.add(txtNumberOfRounds).width(100);
+        table.add(txtNumberOfRounds).width((int)(Gdx.graphics.getHeight()/10.8));
         table.add(arrowRightRounds);
-        table.row().padTop(30);
+        table.row().padTop(Gdx.graphics.getHeight()/36);
 
         table.add(labelNumberOfTurns);
         table.add(arrowLeftTurns);
-        table.add(txtNumberOfTurns).width(100);
+        table.add(txtNumberOfTurns).width((int)(Gdx.graphics.getHeight()/10.8));
         table.add(arrowRightTurns);
-        table.row().padTop(30);
+        table.row().padTop(Gdx.graphics.getHeight()/36);
 
         table.add(labelDifficulty);
         table.add(arrowLeftDifficulty);
-        table.add(txtDifficulty).width(600).padLeft(40);
+        table.add(txtDifficulty).width((int)(Gdx.graphics.getHeight()/1.8)).padLeft(Gdx.graphics.getHeight()/27);
         table.add(arrowRightDifficulty);
-        table.row().padTop(40);
+        table.row().padTop(Gdx.graphics.getHeight()/27);
 
-        table.add(buttonMainMenu).size(400, 120).padBottom(5);
-        table.add(buttonNext).size(400, 120).padLeft(60).padBottom(5).colspan(3).row();
+        table.add(buttonMainMenu).size((int)(Gdx.graphics.getHeight()/2.7), Gdx.graphics.getHeight()/9).padBottom(5);
+        table.add(buttonNext).size((int)(Gdx.graphics.getHeight()/2.7), Gdx.graphics.getHeight()/9).padLeft(Gdx.graphics.getHeight()/18).padBottom(Gdx.graphics.getHeight()/216).colspan(3).row();
 
         settingsSprite = new Sprite(TextureManager.settingsBackground);
         settingsSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -248,12 +248,12 @@ public class SettingsView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (difficulty.equals("Easy")) {
-                    difficulty = "Difficult";
+                    difficulty = "Hard";
                 }
                 else if (difficulty.equals("Medium")){
                     difficulty = "Easy";
                 }
-                else if (difficulty.equals("Difficult")) {
+                else if (difficulty.equals("Hard")) {
                     difficulty = "Medium";
                 }
                 txtDifficulty.setText(difficulty);
@@ -268,9 +268,9 @@ public class SettingsView implements Screen {
                     difficulty = "Medium";
                 }
                 else if (difficulty.equals("Medium")){
-                    difficulty = "Difficult";
+                    difficulty = "Hard";
                 }
-                else if (difficulty.equals("Difficult")) {
+                else if (difficulty.equals("Hard")) {
                     difficulty = "Easy";
                 }
                 txtDifficulty.setText(difficulty);

@@ -108,7 +108,7 @@ public class StoreView implements Screen{
         arrowRight.setName("arrowRight");
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale((float)0.1);
+        skin.getFont("font").scale((float)Gdx.graphics.getHeight()/10800);
 
         this.back = new TextButton("Next Player", skin);
         this.buy = new TextButton("Buy", skin);
@@ -158,14 +158,16 @@ public class StoreView implements Screen{
         bottomContainer.row();
         bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
 
-        bottomContainer.add(undo).prefWidth(stage.getWidth()/ 20*4);
+        bottomContainer.add(undo).prefWidth(stage.getWidth()/ 20 * 4);
         bottomContainer.add(buy).prefWidth(stage.getWidth() / 20 * 4);
         bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 4).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
         sprite = new Sprite(TextureManager.storeBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        currentAmmoSprite.setSize(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/3);
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
+
 
         batch = new SpriteBatch();
     }
@@ -232,6 +234,7 @@ public class StoreView implements Screen{
         shownAmmo = storeModel.getShownAmmo();
 
         currentAmmoSprite = getCurrentSprite();
+        currentAmmoSprite.setSize(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/3);
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
 
         txtAmmo = ("" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo));

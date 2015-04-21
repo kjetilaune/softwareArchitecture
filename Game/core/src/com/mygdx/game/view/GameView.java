@@ -144,11 +144,11 @@ public class GameView implements Screen, Observer{
         groupLeft = new Table();
 
         menuSkin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        menuSkin.getFont("font").scale(1);
+        menuSkin.getFont("font").scale(Gdx.graphics.getHeight()/1080);
         buttonMainMenu = new TextButton("To Main Menu", menuSkin);
         fireSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
-        fireSkin.getFont("font").scale(1);
-        fireSkin.getFont("font").setScale(2);
+        fireSkin.getFont("font").scale(Gdx.graphics.getHeight()/1080);
+        fireSkin.getFont("font").setScale(Gdx.graphics.getHeight()/540);
         buttonFire = new TextButton("Fire", fireSkin);
         buttonAmmo = new TextButton("Ammo", menuSkin);
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
@@ -251,11 +251,11 @@ public class GameView implements Screen, Observer{
 
 
         labelRound = new Label(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()), fireSkin);
-        labelRound.setFontScale(1.2f);
+        labelRound.setFontScale(Gdx.graphics.getHeight()/900);
         labelCurrentPlayer = new Label("Player " + currentPlayer.getPlayerNumber(), fireSkin);
-        labelCurrentPlayer.setFontScale(1.5f);
+        labelCurrentPlayer.setFontScale(Gdx.graphics.getHeight()/720);
         labelTurn = new Label("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()), fireSkin);
-        labelTurn.setFontScale(1.2f);
+        labelTurn.setFontScale(Gdx.graphics.getHeight()/900);
         //fireSkin.getFont("font").setScale(1f);
         labelChosenAmmo = new Label("Ammo: " + currentPlayer.getChosenAmmo().getName(), fireSkin);
         //labelLeftAmmo = new Label("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()), fireSkin);

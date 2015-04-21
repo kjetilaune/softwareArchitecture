@@ -237,7 +237,7 @@ public class Game {
         else if(settings.getDifficulty().equals("Medium")) {
             return new Environment(4, 10);
         }
-        else if(settings.getDifficulty().equals("Difficult")) {
+        else if(settings.getDifficulty().equals("Hard")) {
             return new Environment(6, 10);
         }
         return null;
