@@ -65,7 +65,7 @@ public class TextureManager {
     public static Texture skyBackground = new Texture(Gdx.files.internal("backgrounds/sky.png"));
     public static Texture cloudsForeground = new Texture(Gdx.files.internal("backgrounds/clouds.png"));
     public static Texture cloudsBackground = new Texture(Gdx.files.internal("backgrounds/clouds_back.png"));
-
+    public static Texture creditsBackground = new Texture(Gdx.files.internal("backgrounds/Food-Frenzy-Credits.png"));
 
 
 }
