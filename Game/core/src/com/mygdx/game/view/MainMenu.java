@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.model.AudioVisualManagers.SoundManager;
 import com.mygdx.game.model.AudioVisualManagers.TextureManager;
+import com.mygdx.game.model.Store;
 
 /**
  * Created by Jonathan on 10.03.2015.
@@ -33,6 +34,7 @@ public class MainMenu implements Screen {
     private TextButton buttonNewGame;
     //private TextButton buttonSettings;
     private TextButton buttonAbout;
+    private TextButton buttonCredits;
 
     private Sprite titleSprite;
     private Sprite menuSprite;
@@ -60,6 +62,7 @@ public class MainMenu implements Screen {
         buttonNewGame = new TextButton("New Game", skin);
         //buttonSettings = new TextButton("Settings", skin);
         buttonAbout = new TextButton("About", skin);
+        buttonCredits = new TextButton("Credits", skin);
 
         titleSprite = new Sprite(TextureManager.titleBackground);
         titleSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -136,11 +139,19 @@ public class MainMenu implements Screen {
             }
         });
 
+        buttonCredits.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new CreditsView(game));
+            }
+        });
+
 
         table.add(title).padBottom(40).row();
         table.add(buttonNewGame).size(470, 120).padBottom(20).row();
         //table.add(buttonSettings).size(300, 120).padBottom(20).row();
         table.add(buttonAbout).size(470, 120).padBottom(20).row();
+        table.add(buttonCredits).size(470, 120).padBottom(20).row();
 
         table.setFillParent(true);
         stage.addActor(table);

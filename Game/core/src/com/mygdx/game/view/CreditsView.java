@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.model.Game;
 import com.mygdx.game.model.Player;
-import com.mygdx.game.model.audioVisualManagers.TextureManager;
+import com.mygdx.game.model.AudioVisualManagers.TextureManager;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class CreditsView implements Screen{
     private Stage stage;
     private Table bottomContainer;
     private SpriteBatch batch;
-    private Skin skin;
+    private Skin skin, fireskin;
 
     private Label creditLabel, placeholderLabel;
 
@@ -46,10 +46,10 @@ public class CreditsView implements Screen{
 
 
 
-    public CreditsView(MyGdxGame game, Game gameInstance, GameView gameView){
+    public CreditsView(MyGdxGame game){
 
 
-
+        this.game = game;
 
         //GUI
         stage = new Stage();
@@ -57,26 +57,39 @@ public class CreditsView implements Screen{
 
         bottomContainer.setFillParent(true);
 
+        skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
+        skin.getFont("font").scale((float)0.1);
+
+        fireskin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
+        fireskin.getFont("font").scale((float)0.1);
+
         stage.addActor(bottomContainer);
 
-        creditLabel = new Label("", skin);
+        creditLabel = new Label("Special thanks to\n" +
+                "floatingpointmusic and\n" +
+                "Ruari1 for the music.\n\n" +
+                "Developed by:\n" +
+                "Annie Aasen\n" +
+                "Jonathan Brusch Nilsen Trapnes\n" +
+                "Kjetil Aune\n" +
+                "Mikael Shazam Bjerga\n" +
+                "Nikola Radenkovic", fireskin);
         placeholderLabel = new Label("", skin);
 
         bottomContainer.setWidth(Gdx.graphics.getWidth());
         bottomContainer.setHeight(Gdx.graphics.getHeight()/10 * 3);
 
 
-        skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale((float)0.1);
+
 
         this.buttonBack = new TextButton("Back", skin);
         this.buttonBack.setName("Back");
 
 
-        bottomContainer.add(creditLabel).padTop(Gdx.graphics.getHeight() / 10).prefWidth(Gdx.graphics.getWidth()).center();
-        bottomContainer.row().fillX().fillY();
+        bottomContainer.add(creditLabel).padTop(Gdx.graphics.getHeight() / 10).prefWidth(Gdx.graphics.getWidth()).colspan(3).padLeft(Gdx.graphics.getWidth() / 5).align();
+        bottomContainer.row().fillX();
         bottomContainer.add(placeholderLabel).prefWidth(Gdx.graphics.getWidth());
-        bottomContainer.add(buttonBack).prefWidth(Gdx.graphics.getHeight()/20 * 8).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
+        bottomContainer.add(buttonBack).prefWidth(Gdx.graphics.getHeight()/20 * 8).padTop(40).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
         bottomContainer.add(placeholderLabel).prefWidth(Gdx.graphics.getWidth());
 
         sprite = new Sprite(TextureManager.creditsBackground);
@@ -94,7 +107,7 @@ public class CreditsView implements Screen{
         buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenu(game, 0));
+                game.setScreen(new MainMenu(game, 100));
             }
         });
         Gdx.input.setInputProcessor(stage);
