@@ -2,6 +2,7 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.mygdx.game.model.Store;
 import com.mygdx.game.view.StoreView;
 import com.mygdx.game.model.Player;
 import java.util.ArrayList;
@@ -16,39 +17,41 @@ public class StoreController implements EventListener {
     private StoreView storeView;
 
     // model the controller wants to change/access
+    private Store storeModel;
     private Player playerModel;
 
     // array containing all the players
     private ArrayList<Player> players;
 
-    public StoreController(StoreView storeView, ArrayList<Player> players){
+    public StoreController(StoreView storeView, Store storeModel, ArrayList<Player> players){
         this.storeView = storeView;
+        this.storeModel = storeModel;
         this.players = players;
     }
 
     private void initiatePurchase() {
-        playerModel = storeView.getBuyingPlayer();
-        playerModel.buy(storeView.getShownAmmo(), 1);
-        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
+        playerModel = storeModel.getBuyingPlayer();
+        playerModel.buy(storeModel.getShownAmmo(), 1);
+        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
     }
 
 
     // needs a more specific name
     private void back() {
 
-        playerModel = storeView.getBuyingPlayer();
+        playerModel = storeModel.getBuyingPlayer();
 
 
         if (playerModel.equals(players.get(players.size()-1))){
             storeView.newRound();
         }
         else if (playerModel.equals(players.get(players.size()-2))){
-            storeView.setBuyingPlayer(players.get(players.size() - 1));
+            storeModel.setBuyingPlayer(players.get(players.size() - 1));
             cyclePlayersInStore();
             storeView.back.setText("New round");
         }
         else{
-            storeView.setBuyingPlayer(players.get(players.indexOf(playerModel) + 1));
+            storeModel.setBuyingPlayer(players.get(players.indexOf(playerModel) + 1));
             cyclePlayersInStore();
         }
 
@@ -71,8 +74,8 @@ public class StoreController implements EventListener {
     }
 
     public void cyclePlayersInStore() {
-        storeView.setShownAmmo(storeView.getInitialAmmo());
-        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeView.getNumberOfCurrentAmmo());
+        storeModel.setShownAmmo(storeView.getInitialAmmo());
+        storeView.setMoneyText("$" + playerModel.getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
         storeView.txtCurrentPlayer.setText("Player " + (playerModel.getPlayerNumber()));
     }
 }

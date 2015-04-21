@@ -16,13 +16,13 @@ public class Store {
     private static Store storeInstance;
 
     // Maps name of the Ammunition to the actual object
-    private static  HashMap<String, Ammunition> allAmmunition;
+    private  HashMap<String, Ammunition> allAmmunition;
 
     // Maps name of the Ammunition to the store prices
-    private static HashMap<String, Integer> ammunitionPrices;
+    private HashMap<String, Integer> ammunitionPrices;
 
     // Maps the name of the upgrade to the store prices
-    private static HashMap<String, Integer> upgradePrices;
+    private HashMap<String, Integer> upgradePrices;
 
     private Player buyingPlayer;
     private String shownAmmo;
@@ -91,6 +91,9 @@ public class Store {
         return -1;
     }
 
+    public String getNumberOfCurrentAmmo(){
+        return "" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo);
+    }
 
     public String getShownAmmo() {
         return shownAmmo;

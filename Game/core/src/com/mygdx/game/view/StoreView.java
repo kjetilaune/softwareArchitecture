@@ -33,7 +33,7 @@ public class StoreView implements Screen{
     private MyGdxGame game;
     private Game gameInstance;
     private GameView gameView;
-    private Store store;
+    private Store storeModel;
     private Player buyingPlayer;
 
     private ArrayList<Player> players;
@@ -66,13 +66,13 @@ public class StoreView implements Screen{
         this.game = game;
         this.gameView = gameView;
         this.gameInstance = gameInstance;
-        this.store = gameInstance.getStore();
+        this.storeModel = gameInstance.getStore();
         this.players = gameInstance.getPlayers();
-        this.buyingPlayer = store.getBuyingPlayer();
-        this.shownAmmo = store.getShownAmmo();
+        this.buyingPlayer = storeModel.getBuyingPlayer();
+        this.shownAmmo = storeModel.getShownAmmo();
 
         ammoForPurchase = new ArrayList<String>();
-        ammoForPurchase.addAll(store.getAmmunitionPrices().keySet());
+        ammoForPurchase.addAll(storeModel.getAmmunitionPrices().keySet());
         Collections.reverse(ammoForPurchase);
         
         //GUI
@@ -90,11 +90,11 @@ public class StoreView implements Screen{
         stage.addActor(bottomContainer);
 
         container.setWidth(stage.getWidth());
-        container.setHeight(stage.getHeight()/10 * 2);
+        container.setHeight(stage.getHeight() / 10 * 2);
         ammoContainer.setWidth(stage.getWidth());
-        ammoContainer.setHeight(stage.getHeight()/10 * 5);
+        ammoContainer.setHeight(stage.getHeight() / 10 * 5);
         bottomContainer.setWidth(stage.getWidth());
-        bottomContainer.setHeight(stage.getHeight()/10 * 3);
+        bottomContainer.setHeight(stage.getHeight() / 10 * 3);
 
         container.setDebug(false);
         ammoContainer.setDebug(false);
@@ -129,7 +129,7 @@ public class StoreView implements Screen{
         txtCurrentPlayer.setFontScale(2);
         txtMoney = new Label("$" + buyingPlayer.getScore() + "\n " + txtAmmo, skin);
         currentAmmoSprite = getCurrentSprite();
-        infoLabel = new Label("Name of Ammo: " + shownAmmo + "\nPrice: " + store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + store.getAmmunition(shownAmmo).getInitialDamage(), skin);
+        infoLabel = new Label("Name of Ammo: " + shownAmmo + "\nPrice: " + storeModel.getAmmunitionPrice(shownAmmo) + "\nDamage: " + storeModel.getAmmunition(shownAmmo).getInitialDamage(), skin);
 
 
         /*
@@ -172,8 +172,8 @@ public class StoreView implements Screen{
 
     public void show (){
 
-        back.addListener(new StoreController(this, players));
-        buy.addListener(new StoreController(this, players));
+        back.addListener(new StoreController(this, storeModel, players));
+        buy.addListener(new StoreController(this, storeModel, players));
 
         buy.addListener(new ClickListener(){
            @Override
@@ -198,7 +198,7 @@ public class StoreView implements Screen{
                 else{
                     shownAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(shownAmmo) - 1);
                 }
-                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + store.getAmmunition(shownAmmo).getInitialDamage());
+                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + storeModel.getAmmunitionPrice(shownAmmo) + "\nDamage: " + storeModel.getAmmunition(shownAmmo).getInitialDamage());
             }
         });
 
@@ -211,7 +211,7 @@ public class StoreView implements Screen{
                 else{
                     shownAmmo = ammoForPurchase.get(ammoForPurchase.indexOf(shownAmmo) + 1);
                 }
-                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + store.getAmmunition(shownAmmo).getInitialDamage());
+                infoLabel.setText("Name of Ammo: " + shownAmmo + "\nPrice: " + storeModel.getAmmunitionPrice(shownAmmo) + "\nDamage: " + storeModel.getAmmunition(shownAmmo).getInitialDamage());
             }
         });
 
@@ -227,15 +227,15 @@ public class StoreView implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        buyingPlayer = store.getBuyingPlayer();
-        shownAmmo = store.getShownAmmo();
+        buyingPlayer = storeModel.getBuyingPlayer();
+        shownAmmo = storeModel.getShownAmmo();
 
         currentAmmoSprite = getCurrentSprite();
         currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
 
         txtAmmo = ("" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo));
         this.moneyLabel.setText("Available Money: \n" + "Number of current ammo: ");
-        setMoneyText("$" + buyingPlayer.getScore() + "\n " + getNumberOfCurrentAmmo());
+        setMoneyText("$" + buyingPlayer.getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
 
         batch.begin();
         sprite.draw(batch);
@@ -248,10 +248,6 @@ public class StoreView implements Screen{
 
     public void setMoneyText(String s){
         this.txtMoney.setText(s);
-    }
-
-    public String getNumberOfCurrentAmmo(){
-        return "" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo);
     }
 
     public void resize (int width, int height){}
