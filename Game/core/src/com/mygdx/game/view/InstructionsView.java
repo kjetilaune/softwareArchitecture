@@ -81,11 +81,11 @@ public class InstructionsView implements Screen {
 
         batch.begin();
         font.setScale(1.2f);
-        font.draw(batch, "Move your tank with the arrows to the left or the right.", 250, stage.getHeight() - 390);
-        font.draw(batch, "Change the angle of the barrel by pressing the screen.", 250, stage.getHeight() - 470);
-        font.draw(batch, "Toggle your ammo with the 'Change Ammo' button.", 250, stage.getHeight() - 550);
-        font.draw(batch, "Fire when you're ready.", 250, stage.getHeight() - 630);
-        font.draw(batch, "After each round you can buy new ammo and upgrades.", 250, stage.getHeight() - 710);
+        font.draw(batch, "Move your tank with the arrows to the left or the right.", 250, Gdx.graphics.getHeight() - 390);
+        font.draw(batch, "Change the angle of the barrel by pressing the screen.", 250, Gdx.graphics.getHeight() - 470);
+        font.draw(batch, "Toggle your ammo with the 'Change Ammo' button.", 250, Gdx.graphics.getHeight() - 550);
+        font.draw(batch, "Fire when you're ready.", 250, Gdx.graphics.getHeight() - 630);
+        font.draw(batch, "After each round you can buy new ammo and upgrades.", 250, Gdx.graphics.getHeight() - 710);
         batch.end();
 
         stage.act();
@@ -105,9 +105,9 @@ public class InstructionsView implements Screen {
 
 
 
-        table.add(title).padBottom(stage.getHeight() - 200).row();
+        table.add(title).padBottom(Gdx.graphics.getHeight() - 200).row();
         table.add(buttonMainMenu).size(500, 120).padBottom(20).row();
-        table.setPosition(stage.getWidth()/2,stage.getHeight() - 400);
+        table.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight() - 400);
         table.setFillParent(false);
         stage.addActor(table);
 

@@ -89,12 +89,12 @@ public class StoreView implements Screen{
         stage.addActor(ammoContainer);
         stage.addActor(bottomContainer);
 
-        container.setWidth(stage.getWidth());
-        container.setHeight(stage.getHeight() / 10 * 2);
-        ammoContainer.setWidth(stage.getWidth());
-        ammoContainer.setHeight(stage.getHeight() / 10 * 5);
-        bottomContainer.setWidth(stage.getWidth());
-        bottomContainer.setHeight(stage.getHeight() / 10 * 3);
+        container.setWidth(Gdx.graphics.getWidth());
+        container.setHeight(Gdx.graphics.getHeight() / 10 * 2);
+        ammoContainer.setWidth(Gdx.graphics.getWidth());
+        ammoContainer.setHeight(Gdx.graphics.getHeight() / 10 * 5);
+        bottomContainer.setWidth(Gdx.graphics.getWidth());
+        bottomContainer.setHeight(Gdx.graphics.getHeight() / 10 * 3);
 
         container.setDebug(false);
         ammoContainer.setDebug(false);
@@ -133,40 +133,40 @@ public class StoreView implements Screen{
 
 
         /*
-        container.add(placeholderLabel).prefHeight(stage.getHeight()/10 * 2).prefWidth(stage.getWidth());
-        container.add(moneyLabel).expand().padTop(stage.getHeight()/10).top().right();
-        container.add(txtMoney).top().padTop(stage.getHeight()/10);
+        container.add(placeholderLabel).prefHeight(Gdx.graphics.getHeight()/10 * 2).prefWidth(Gdx.graphics.getWidth());
+        container.add(moneyLabel).expand().padTop(Gdx.graphics.getHeight()/10).top().right();
+        container.add(txtMoney).top().padTop(Gdx.graphics.getHeight()/10);
         container.row().fillX();
-        ammoContainer.add(arrowLeft).prefHeight(stage.getHeight()/10 * 5).left().maxWidth(stage.getWidth()/20).padLeft(stage.getWidth()/10).padTop(stage.getHeight()/5);
-        ammoContainer.add(placeholderLabel).prefWidth(stage.getWidth());
-        ammoContainer.add(arrowRight).right().maxWidth(stage.getWidth()/20).padRight(stage.getWidth()/10).padTop(stage.getHeight()/5);
+        ammoContainer.add(arrowLeft).prefHeight(Gdx.graphics.getHeight()/10 * 5).left().maxWidth(Gdx.graphics.getWidth()/20).padLeft(Gdx.graphics.getWidth()/10).padTop(Gdx.graphics.getHeight()/5);
+        ammoContainer.add(placeholderLabel).prefWidth(Gdx.graphics.getWidth());
+        ammoContainer.add(arrowRight).right().maxWidth(Gdx.graphics.getWidth()/20).padRight(Gdx.graphics.getWidth()/10).padTop(Gdx.graphics.getHeight()/5);
         ammoContainer.row();
-        bottomContainer.add(back).prefHeight(stage.getHeight()/10 * 3).bottom();
+        bottomContainer.add(back).prefHeight(Gdx.graphics.getHeight()/10 * 3).bottom();
         */
 
-        container.add(placeholderLabel).prefWidth(stage.getWidth());
-        container.add(moneyLabel).expand().padTop(stage.getHeight()/10).top().right();
-        container.add(txtMoney).top().padTop(stage.getHeight()/10).padRight(stage.getWidth()/10);
+        container.add(placeholderLabel).prefWidth(Gdx.graphics.getWidth());
+        container.add(moneyLabel).expand().padTop(Gdx.graphics.getHeight()/10).top().right();
+        container.add(txtMoney).top().padTop(Gdx.graphics.getHeight()/10).padRight(Gdx.graphics.getWidth()/10);
         container.row().fillX();
 
-        ammoContainer.add(arrowLeft).left().height(stage.getHeight()/8).width(stage.getWidth()/16).padLeft(stage.getWidth() / 10);
-        ammoContainer.add(infoLabel).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5).padLeft(stage.getWidth()/20*7).right();
-        ammoContainer.add(arrowRight).right().height(stage.getHeight()/8).width(stage.getWidth()/16).padRight(stage.getWidth() / 10);
+        ammoContainer.add(arrowLeft).left().height(Gdx.graphics.getHeight()/8).width(Gdx.graphics.getWidth()/16).padLeft(Gdx.graphics.getWidth() / 10);
+        ammoContainer.add(infoLabel).prefWidth(Gdx.graphics.getWidth()).prefHeight(Gdx.graphics.getHeight() / 10 * 5).padLeft(Gdx.graphics.getWidth()/20*7).right();
+        ammoContainer.add(arrowRight).right().height(Gdx.graphics.getHeight()/8).width(Gdx.graphics.getWidth()/16).padRight(Gdx.graphics.getWidth() / 10);
 
         bottomContainer.row();
-        bottomContainer.add(currentPlayerLabel).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight() / 10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
+        bottomContainer.add(currentPlayerLabel).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight() / 10 * 1).bottom().padTop(Gdx.graphics.getHeight() / 10 * 7);
         bottomContainer.row();
-        bottomContainer.add(txtCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 3).padLeft(stage.getWidth()/20).bottom();
+        bottomContainer.add(txtCurrentPlayer).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight()/10 * 3).padLeft(Gdx.graphics.getWidth()/20).bottom();
 
-        bottomContainer.add(undo).prefWidth(stage.getWidth()/ 20 * 4);
-        bottomContainer.add(buy).prefWidth(stage.getWidth() / 20 * 4);
-        bottomContainer.add(back).prefWidth(stage.getWidth()/20 * 4).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(undo).prefWidth(Gdx.graphics.getWidth()/ 20 * 4);
+        bottomContainer.add(buy).prefWidth(Gdx.graphics.getWidth() / 20 * 4);
+        bottomContainer.add(back).prefWidth(Gdx.graphics.getWidth()/20 * 4).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
 
         sprite = new Sprite(TextureManager.storeBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         currentAmmoSprite.setSize(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/3);
-        currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
+        currentAmmoSprite.setPosition(Gdx.graphics.getWidth()/20 * 4, Gdx.graphics.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
 
 
         batch = new SpriteBatch();
@@ -235,7 +235,7 @@ public class StoreView implements Screen{
 
         currentAmmoSprite = getCurrentSprite();
         currentAmmoSprite.setSize(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/3);
-        currentAmmoSprite.setPosition(stage.getWidth()/20 * 4, stage.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
+        currentAmmoSprite.setPosition(Gdx.graphics.getWidth()/20 * 4, Gdx.graphics.getHeight()/10 * 5 - currentAmmoSprite.getHeight()/2);
 
         txtAmmo = ("" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo));
         this.moneyLabel.setText("Available Money: \n" + "Number of current ammo: ");

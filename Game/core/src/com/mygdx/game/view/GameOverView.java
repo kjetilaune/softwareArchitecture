@@ -102,9 +102,9 @@ public class GameOverView implements Screen {
 
 
         tableBottom.row();
-        tableBottom.add(labelCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
+        tableBottom.add(labelCurrentPlayer).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight()/10 * 1).bottom().padTop(Gdx.graphics.getHeight() / 10 * 7);
         tableBottom.row();
-        tableBottom.add(buttonMainMenu).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        tableBottom.add(buttonMainMenu).prefWidth(Gdx.graphics.getWidth()/20 * 8).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
 
 
         if (winners.size() == 1) {

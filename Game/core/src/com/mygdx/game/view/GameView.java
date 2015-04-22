@@ -389,7 +389,7 @@ public class GameView implements Screen, Observer{
 
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                     shapeRenderer.setColor(0, 0, 0, 1);
-                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, stage.getHeight() / 40 + 2);
+                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, Gdx.graphics.getHeight() / 40 + 2);
                     shapeRenderer.end();
 
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -404,7 +404,7 @@ public class GameView implements Screen, Observer{
                         shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
                     }
                     // draw health
-                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), stage.getHeight() / 40);
+                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), Gdx.graphics.getHeight() / 40);
                     shapeRenderer.end();
                     batch.begin();
                     font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
@@ -435,13 +435,13 @@ public class GameView implements Screen, Observer{
         //Fire power outline box
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(labelHealthLeft.getWidth()+labelFuelLeft.getWidth()+labelPower.getWidth()+(44*Gdx.graphics.getWidth()/200), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), 202, stage.getHeight()/30 + 2);
+        shapeRenderer.rect(labelHealthLeft.getWidth()+labelFuelLeft.getWidth()+labelPower.getWidth()+(44*Gdx.graphics.getWidth()/200), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), 202, Gdx.graphics.getHeight()/30 + 2);
         shapeRenderer.end();
 
         //Fire power fluctuator
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
-        shapeRenderer.rect(labelHealthLeft.getWidth()+labelFuelLeft.getWidth()+labelPower.getWidth()+(44*Gdx.graphics.getWidth()/200), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
+        shapeRenderer.rect(labelHealthLeft.getWidth()+labelFuelLeft.getWidth()+labelPower.getWidth()+(44*Gdx.graphics.getWidth()/200), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), currentPlayer.getVehicle().getPower() * 2, Gdx.graphics.getHeight()/30);
         //shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
         shapeRenderer.end();
 

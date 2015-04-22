@@ -120,13 +120,13 @@ public class RoundOverView implements Screen{
             labelsTeams.add(new Label(winners.get(i).getTeam().getName(), skin));
             labelsTeams.get(i).setFontScale(2);
         }
-        teamContainer.add(labelPlaceholder).prefWidth(stage.getWidth()).prefHeight(stage.getHeight() / 10 * 5);
+        teamContainer.add(labelPlaceholder).prefWidth(Gdx.graphics.getWidth()).prefHeight(Gdx.graphics.getHeight() / 10 * 5);
 
 
         bottomContainer.row();
-        bottomContainer.add(labelCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7);
+        bottomContainer.add(labelCurrentPlayer).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight()/10 * 1).bottom().padTop(Gdx.graphics.getHeight() / 10 * 7);
         bottomContainer.row();
-        bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(buttonNext).prefWidth(Gdx.graphics.getWidth()/20 * 8).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
 
         sprite = new Sprite(TextureManager.endBackground);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
