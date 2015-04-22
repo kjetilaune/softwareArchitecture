@@ -36,14 +36,14 @@ public class GameOverView implements Screen {
 
     private Skin skin;
 
-    private ArrayList<Label> labelsTeams, labelsPlayers;
-    private Label labelCurrentPlayer, labelPlaceholder;
+    private ArrayList<Label> labelsTeams;
+    private Label labelCurrentPlayer;
 
     private ArrayList<Sprite> teamSprites;
 
     private TextButton buttonMainMenu;
 
-    private Sprite titleSprite, bg, tieSprite;
+    private Sprite bg, tieSprite;
 
     private ArrayList<Player> winners;
 
@@ -59,13 +59,10 @@ public class GameOverView implements Screen {
         gameInstance.changeRound();
 
         this.winners = gameInstance.getGameWinners();
-        System.out.println("number of winners: " + winners.size());
-        //System.out.println("winners: " + gameInstance.getRoundWinners());
         teamSprites = new ArrayList<Sprite>();
 
         for (Player p : winners) {
             teamSprites.add(p.getTeam().getVehicleSprite());
-            System.out.println( "Winner: player " + p.getPlayerNumber());
         }
 
 
@@ -122,7 +119,6 @@ public class GameOverView implements Screen {
 
         bg = new Sprite(TextureManager.gameOverBackground);
         bg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        //table.add(statistics).top().fillX();
 
 
         winningMusic = Gdx.audio.newMusic(Gdx.files.internal("Music/winningMusic.mp3"));
@@ -138,14 +134,6 @@ public class GameOverView implements Screen {
                 game.setScreen(new MainMenu(game, 100));
             }
         });
-/*
-        tableTop.top();
-        tableTop.add(txtWinningPlayer).fillX().padBottom(Gdx.graphics.getHeight()/3);
-        tableTop.add(txtWinningTeam).fillX();
-
-        tableBottom.bottom();
-        tableBottom.add(buttonMainMenu).fillX().padBottom(Gdx.graphics.getHeight()/10);
-*/
 
         winningMusic.play();
 
