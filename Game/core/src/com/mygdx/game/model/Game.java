@@ -312,4 +312,8 @@ public class Game {
 
     public Store getStore() { return store; }
 
+    public GameSettings getSettings() {
+        return settings;
+    }
+
 }

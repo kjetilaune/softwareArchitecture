@@ -42,6 +42,7 @@ public class GameOverView implements Screen {
     private ArrayList<Sprite> teamSprites;
 
     private TextButton buttonMainMenu;
+    private TextButton buttonRematch;
 
     private Sprite bg, tieSprite;
 
@@ -82,6 +83,7 @@ public class GameOverView implements Screen {
         skin.getFont("font").scale(1);
 
         buttonMainMenu = new TextButton("Main Menu", skin);
+        buttonRematch = new TextButton("Rematch", skin);
 
         if (winners.size() == 1) {
             labelCurrentPlayer = new Label("Player " + winners.get(0).getPlayerNumber() + " won the game!", skin);
@@ -105,6 +107,7 @@ public class GameOverView implements Screen {
         tableBottom.add(labelCurrentPlayer).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight()/10 * 1).bottom().padTop(Gdx.graphics.getHeight() / 10 * 7);
         tableBottom.row();
         tableBottom.add(buttonMainMenu).prefWidth(Gdx.graphics.getWidth()/20 * 8).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
+        tableBottom.add(buttonRematch).prefWidth(Gdx.graphics.getWidth()/20 * 8).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
 
 
         if (winners.size() == 1) {
@@ -112,7 +115,7 @@ public class GameOverView implements Screen {
         }
         else {
             tieSprite = new Sprite(TextureManager.tie);
-            tieSprite.setPosition(Gdx.graphics.getWidth()/20 * 6, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
+            tieSprite.setPosition(Gdx.graphics.getWidth() / 20 * 6, Gdx.graphics.getHeight() / 10 * 5 - teamSprites.get(0).getHeight() / 2);
         }
 
         batch = new SpriteBatch();
@@ -132,6 +135,14 @@ public class GameOverView implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 winningMusic.stop();
                 game.setScreen(new MainMenu(game, 100));
+            }
+        });
+
+        buttonRematch.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                winningMusic.stop();
+                game.setScreen(new GameView(game, new Game(gameInstance.getSettings())));
             }
         });
 
