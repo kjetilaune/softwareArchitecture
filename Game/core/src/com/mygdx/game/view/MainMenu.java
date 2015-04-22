@@ -53,7 +53,8 @@ public class MainMenu implements Screen {
         table = new Table();
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale(1);
+
+        skin.get("default", TextButton.TextButtonStyle.class).font.setScale(2f);
 
         foodFrenzy = SoundManager.foodFrenzy;
         //introSong = Gdx.audio.newMusic(Gdx.files.internal("Music/introSong.mp3"));
