@@ -72,6 +72,7 @@ public class SettingsView implements Screen {
         stage.addActor(container);
         container.setFillParent(true);
 
+
         //Makes a scroll pane to support scrolling
         scroll = new ScrollPane(table);
 
@@ -109,8 +110,8 @@ public class SettingsView implements Screen {
         txtNumberOfTurns = new Label("" + numberOfTurns, skin);
         txtDifficulty = new Label("" + difficulty, skin);
 
-        buttonMainMenu = new TextButton("Main Menu", skin);
-        buttonMainMenu.setName("MainMenu");
+        buttonMainMenu = new TextButton("Back", skin);
+        buttonMainMenu.setName("Back");
         buttonNext = new TextButton("Next", skin);
         buttonNext.setName("Next");
 
@@ -124,25 +125,24 @@ public class SettingsView implements Screen {
 
         table.add(labelNumberOfRounds).padRight((int)(Gdx.graphics.getHeight()/10.8));
         table.add(arrowLeftRounds);
-        table.add(txtNumberOfRounds).width((int)(Gdx.graphics.getHeight()/10.8));
+        table.add(txtNumberOfRounds).colspan(2).center();
         table.add(arrowRightRounds);
         table.row().padTop(Gdx.graphics.getHeight()/36);
 
         table.add(labelNumberOfTurns);
         table.add(arrowLeftTurns);
-        table.add(txtNumberOfTurns).width((int)(Gdx.graphics.getHeight()/10.8));
+        table.add(txtNumberOfTurns).colspan(2).center();
         table.add(arrowRightTurns);
         table.row().padTop(Gdx.graphics.getHeight()/36);
 
         table.add(labelDifficulty);
         table.add(arrowLeftDifficulty);
-        table.add(txtDifficulty).width((int)(Gdx.graphics.getHeight()/1.8)).padLeft(Gdx.graphics.getHeight()/27);
+        table.add(txtDifficulty).colspan(2).center();
         table.add(arrowRightDifficulty);
         table.row().padTop(Gdx.graphics.getHeight()/27);
 
         table.add(buttonMainMenu).size((int)(Gdx.graphics.getHeight()/2.7), Gdx.graphics.getHeight()/9).padBottom(5);
         table.add(buttonNext).size((int)(Gdx.graphics.getHeight()/2.7), Gdx.graphics.getHeight()/9).padLeft(Gdx.graphics.getHeight()/18).padBottom(Gdx.graphics.getHeight()/216).colspan(3).row();
-
         settingsSprite = new Sprite(TextureManager.settingsBackground);
         settingsSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch = new SpriteBatch();
@@ -178,6 +178,7 @@ public class SettingsView implements Screen {
 
 
         buttonNext.addListener(new SettingsController(this));
+
 
 
         arrowLeftRounds.addListener(new ClickListener() {
@@ -235,6 +236,7 @@ public class SettingsView implements Screen {
                 }
                 else if (Integer.parseInt(numberOfTurns) == 20){
                     numberOfTurns = "Unlimited";
+                    table.getCell(txtNumberOfTurns).center();
                 }
                 else {
                     numberOfTurns = Integer.toString(Integer.parseInt(numberOfTurns) + 5);
