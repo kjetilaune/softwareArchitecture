@@ -56,13 +56,16 @@ public class GameOverView implements Screen {
 
         this.game = game;
         this.gameInstance = gameInstance;
+        gameInstance.changeRound();
 
         this.winners = gameInstance.getGameWinners();
+        System.out.println("number of winners: " + winners.size());
         //System.out.println("winners: " + gameInstance.getRoundWinners());
         teamSprites = new ArrayList<Sprite>();
 
         for (Player p : winners) {
             teamSprites.add(p.getTeam().getVehicleSprite());
+            System.out.println( "Winner: player " + p.getPlayerNumber());
         }
 
 
@@ -162,7 +165,6 @@ public class GameOverView implements Screen {
         if (winners.size() == 1) {
             teamSprites.get(0).draw(batch);
         }
-
         else{
             tieSprite.draw(batch);
         }

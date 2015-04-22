@@ -103,7 +103,11 @@ public class Game {
     // If there are no more rounds, the game should be finished.
     public void changeRound() {
 
-        for (Player p : getRoundWinners()) {
+        /*for (Player p : getRoundWinners()) {
+            p.setRoundsWon(p.getRoundsWon() + 1);
+        }*/
+
+        for (Player p : playersAlive) {
             p.setRoundsWon(p.getRoundsWon() + 1);
         }
 
@@ -138,6 +142,7 @@ public class Game {
     // returns the winner of the current round if there is a winner, and null if there is not a winner
     public ArrayList<Player> getRoundWinners() {
 
+
         if (playersAlive.size() == 1 && playersDead.size() > 0) {
             return new ArrayList<Player>(Arrays.asList(playersAlive.get(0)));
         }
@@ -170,6 +175,7 @@ public class Game {
 
         }
         else {
+            System.out.println("more than 1 round");
             return getPlayersMaxRoundsWon();
         }
 
@@ -221,6 +227,7 @@ public class Game {
 
         for (Player p : players) {
             if (p.getRoundsWon() == maxRoundsWon) {
+                System.out.println("Player " + p.getPlayerNumber() + " wins with " + maxRoundsWon + " rounds won");
                 winners.add(p);
             }
         }
