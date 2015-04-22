@@ -10,9 +10,9 @@ public class TextureManager {
 
     // SWEETS TEXTURES
     // vehicle
-    public static Texture tankSweets = new Texture(Gdx.files.internal("objects/vehicles/Tank_Sweets.png"));
+    public static Texture vehicleSweets = new Texture(Gdx.files.internal("objects/vehicles/Tank_Sweets.png"));
     public static Texture barrelSweets = new Texture(Gdx.files.internal("objects/vehicles/Barrel_Sweets.png"));
-    public static Texture largeTankSweets = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_sweets.png"));
+    public static Texture largeVehicleSweets = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_sweets.png"));
     // ammo
     public static Texture yummyGrenadeSweets = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Sweets_0.png"));
     public static Texture flavourRocketSweets = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Sweets_1.png"));
@@ -29,9 +29,9 @@ public class TextureManager {
 
     // FAST FOOD TEXTURES
     // vehicle
-    public static Texture tankFastfood = new Texture(Gdx.files.internal("objects/vehicles/Tank_Fastfood.png"));
+    public static Texture vehicleFastfood = new Texture(Gdx.files.internal("objects/vehicles/Tank_Fastfood.png"));
     public static Texture barrelFastfood = new Texture(Gdx.files.internal("objects/vehicles/Barrel_Fastfood.png"));
-    public static Texture largeTankFastfood = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_fastfood.png"));
+    public static Texture largeVehicleFastfood = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_fastfood.png"));
     // ammo
     public static Texture yummyGrenadeFastfood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Fastfood_0.png"));
     public static Texture flavourRocketFastfood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Fastfood_1.png"));
@@ -48,9 +48,9 @@ public class TextureManager {
 
     // VEGAN TEXTURES
     // vehicle
-    public static Texture tankVegan = new Texture(Gdx.files.internal("objects/vehicles/Tank_Vegan.png"));
+    public static Texture vehicleVegan = new Texture(Gdx.files.internal("objects/vehicles/Tank_Vegan.png"));
     public static Texture barrelVegan = new Texture(Gdx.files.internal("objects/vehicles/Barrel_Vegan.png"));
-    public static Texture largeTankVegan = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_vegan.png"));
+    public static Texture largeVehicleVegan = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_vegan.png"));
     // ammo
     public static Texture yummyGrenadeVegan = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Vegan_0.png"));
     public static Texture flavourRocketVegan = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Vegan_1.png"));
@@ -67,9 +67,9 @@ public class TextureManager {
 
     // SEAFOOD TEXTURES
     // vehicle
-    public static Texture tankSeafood = new Texture(Gdx.files.internal("objects/vehicles/Tank_Seafood.png"));
+    public static Texture vehicleSeafood = new Texture(Gdx.files.internal("objects/vehicles/Tank_Seafood.png"));
     public static Texture barrelSeafood = new Texture(Gdx.files.internal("objects/vehicles/Barrel_Seafood.png"));
-    public static Texture largeTankSeafood = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_seafood.png"));
+    public static Texture largeVehicleSeafood = new Texture(Gdx.files.internal("objects/vehicles/Big_tank_seafood.png"));
     // ammo
     public static Texture yummyGrenadeSeafood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Seafood_0.png"));
     public static Texture flavourRocketSeafood = new Texture(Gdx.files.internal("objects/bullets/small/Bullet_Seafood_1.png"));
