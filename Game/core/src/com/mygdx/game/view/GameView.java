@@ -395,7 +395,8 @@ public class GameView implements Screen, Observer{
 
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                     shapeRenderer.setColor(0, 0, 0, 1);
-                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, Gdx.graphics.getHeight() / 40 + 2);
+                    shapeRenderer.rect(p.getVehicle().getHealthPosition().x, p.getVehicle().getHealthPosition().y, 0, 0, 102, ((float)Gdx.graphics.getHeight()) / 40 + 2, 1, 1, p.getVehicle().getRotation() );
+                    //shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, Gdx.graphics.getHeight() / 40 + 2);
                     shapeRenderer.end();
 
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -410,10 +411,12 @@ public class GameView implements Screen, Observer{
                         shapeRenderer.setColor(193.f / 255, 255.f / 255, 139.f / 255, 1);
                     }
                     // draw health
-                    shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), Gdx.graphics.getHeight() / 40);
+
+
+                    shapeRenderer.rect(p.getVehicle().getHealthPosition().x, p.getVehicle().getHealthPosition().y, 0, 0, p.getVehicle().getHealth(), ((float)Gdx.graphics.getHeight()) / 40, 1, 1, p.getVehicle().getRotation() );
+                    //shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), Gdx.graphics.getHeight() / 40);
                     shapeRenderer.end();
                     batch.begin();
-                    font.draw(batch, Integer.toString(p.getVehicle().getHealth()), p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight());
 
                 }
             }
