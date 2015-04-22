@@ -54,7 +54,7 @@ public class MainMenu implements Screen {
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
 
-        skin.get("default", TextButton.TextButtonStyle.class).font.setScale(2f);
+        skin.get("default", TextButton.TextButtonStyle.class).font.setScale((float)(Gdx.graphics.getHeight())/540);
 
         foodFrenzy = SoundManager.foodFrenzy;
         //introSong = Gdx.audio.newMusic(Gdx.files.internal("Music/introSong.mp3"));
@@ -155,10 +155,10 @@ public class MainMenu implements Screen {
 
 
         table.add(title).padBottom(40).row();
-        table.add(buttonNewGame).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/12)).padBottom(20).row();
+        table.add(buttonNewGame).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/9)).padBottom(20).row();
         //table.add(buttonSettings).size(300, 120).padBottom(20).row();
-        table.add(buttonAbout).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/12)).padBottom(20).row();
-        table.add(buttonCredits).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/12)).padBottom(20).row();
+        table.add(buttonAbout).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/9)).padBottom(20).row();
+        table.add(buttonCredits).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/9)).padBottom(20).row();
 
         table.setFillParent(true);
         stage.addActor(table);

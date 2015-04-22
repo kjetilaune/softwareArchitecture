@@ -47,11 +47,11 @@ public class InstructionsView implements Screen {
         table = new Table();
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").setScale((float)(Gdx.graphics.getHeight()) / 1080);
+        skin.getFont("font").setScale((float)(Gdx.graphics.getHeight()) / 540);
 
 
 
-        font = new BitmapFont(Gdx.files.internal("font/rav.fnt"), Gdx.files.internal("font/rav.png"), false);
+        font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"), Gdx.files.internal("font/fireBold.png"), false);
         batch = new SpriteBatch();
 
         title = new Label("About", skin);

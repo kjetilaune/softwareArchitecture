@@ -149,7 +149,7 @@ public class GameView implements Screen, Observer{
         buttonMainMenu = new TextButton("To Main Menu", menuSkin);
         fireSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
         fireBSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
-        fireBSkin.getFont("font").setScale(2.0f);
+        fireBSkin.getFont("font").setScale((float)(Gdx.graphics.getHeight())/540);
         fireSkin.getFont("font").scale((float)(Gdx.graphics.getHeight())/1080);
         fireSkin.getFont("font").scale((float)(Gdx.graphics.getHeight())/540);
 
