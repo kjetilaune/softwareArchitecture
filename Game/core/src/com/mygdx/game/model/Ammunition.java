@@ -43,7 +43,7 @@ public abstract class Ammunition extends GameObject {
     }
 
     public String getInfoText() {
-        return String.format("Name: %s\nInitial damage: %d\nBlast radius: %d\nPrice: %d", getName(), getInitialDamage(), getBlastRadius(), Store.getAmmunition(getName()));
+        return String.format("Name: %s\nInitial damage: %d\nBlast radius: %d\nPrice: %d", getName(), getInitialDamage(), getBlastRadius(), Store.getAmmunitionPrice(getName()));
     }
 
 }
