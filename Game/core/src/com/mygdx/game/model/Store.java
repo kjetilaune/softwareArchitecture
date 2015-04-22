@@ -6,6 +6,7 @@ import com.mygdx.game.model.AmmoTypes.YummyGrenade;
 import com.mygdx.game.model.AmmoTypes.Instastuffed;
 import com.mygdx.game.model.AmmoTypes.TastyMissile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -26,6 +27,8 @@ public class Store {
 
     private Player buyingPlayer;
     private String shownAmmo;
+
+    private ArrayList<String> undoStack;
 
     private final String INITIALAMMO = "TastyMissile";
 
@@ -52,6 +55,8 @@ public class Store {
         upgradePrices.put("Fuel", 500);
 
         shownAmmo = INITIALAMMO;
+
+        undoStack = new ArrayList<String>();
 
     }
 
@@ -93,6 +98,31 @@ public class Store {
         return -1;
     }
 
+    public void resetUndoStack() {
+        undoStack.clear();
+    }
+
+    public boolean isUndoStackEmpty() {
+        return undoStack.isEmpty();
+    }
+
+    public void addToUndoStack(String ammoName) {
+        // undoStack can be increased by changing number in if-clause
+        if (undoStack.size() >= 5) {
+            undoStack.remove(0);
+        }
+        undoStack.add(ammoName);
+    }
+
+    public void undoLastPurchase() {
+        if (!undoStack.isEmpty()) {
+            String ammoToRemove = undoStack.remove(undoStack.size() - 1);
+            if (buyingPlayer.getInventory().decreaseAmmo(ammoToRemove, 1)) {
+                buyingPlayer.setScore(buyingPlayer.getScore() + Store.getAmmunitionPrice(ammoToRemove));
+            }
+        }
+    }
+
     public String getNumberOfCurrentAmmo(){
         return "" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo);
     }
@@ -113,6 +143,7 @@ public class Store {
 
     public void setBuyingPlayer(Player buyingPlayer) {
         this.buyingPlayer = buyingPlayer;
+        resetUndoStack();
     }
 
 }

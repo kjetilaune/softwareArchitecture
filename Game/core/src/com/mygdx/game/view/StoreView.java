@@ -129,7 +129,7 @@ public class StoreView implements Screen{
         txtCurrentPlayer.setFontScale(2);
         txtMoney = new Label("$" + buyingPlayer.getScore() + "\n " + txtAmmo, skin);
         currentAmmoSprite = getCurrentSprite();
-        infoLabel = new Label("Name of Ammo: " + shownAmmo + "\nPrice: " + Store.getAmmunitionPrice(shownAmmo) + "\nDamage: " + Store.getAmmunition(shownAmmo).getInitialDamage(), skin);
+        infoLabel = new Label(Store.getAmmunition(shownAmmo).getInfoText(), skin);
 
 
         /*
@@ -183,13 +183,6 @@ public class StoreView implements Screen{
            public void clicked(InputEvent event, float x, float y){
                 undo.setVisible(true);
            }
-        });
-
-        undo.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                undo.setVisible(false);
-            }
         });
 
         arrowLeft.addListener(new ClickListener() {
@@ -276,6 +269,10 @@ public class StoreView implements Screen{
         gameView.changeRound();
         gameView.dispose();
         game.setScreen(new GameView(game, gameInstance));
+    }
+
+    public void hideUndo(){
+        undo.setVisible(false);
     }
 
 }

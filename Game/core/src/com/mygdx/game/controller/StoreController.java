@@ -30,11 +30,15 @@ public class StoreController implements EventListener {
 
     private void initiatePurchase() {
         storeModel.getBuyingPlayer().buy(storeModel.getShownAmmo(), 1);
+        storeModel.addToUndoStack(storeModel.getShownAmmo());
         storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
     }
 
     private void undoPurchase(){
-        storeModel.getBuyingPlayer().buy(storeModel.getShownAmmo(), -1);
+        storeModel.undoLastPurchase();
+        if (storeModel.isUndoStackEmpty()) {
+            storeView.hideUndo();
+        }
         storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
     }
 
@@ -54,6 +58,10 @@ public class StoreController implements EventListener {
         else{
             storeModel.setBuyingPlayer(players.get(players.indexOf(storeModel.getBuyingPlayer()) + 1));
             cyclePlayersInStore();
+        }
+
+        if (storeModel.isUndoStackEmpty()) {
+            storeView.hideUndo();
         }
 
     }
