@@ -69,5 +69,6 @@ public class TextureManager {
     public static Texture endBackground = new Texture(Gdx.files.internal("backgrounds/Food-Frenzy-Endofround.png"));
     public static Texture gameOverBackground = new Texture(Gdx.files.internal("backgrounds/Food-Frenzy-Gameover.png"));
 
+    public static Texture tie = new Texture(Gdx.files.internal("design/Draw.png"));
 
 }

@@ -43,7 +43,7 @@ public class GameOverView implements Screen {
 
     private TextButton buttonMainMenu;
 
-    private Sprite titleSprite, bg;
+    private Sprite titleSprite, bg, tieSprite;
 
     private ArrayList<Player> winners;
 
@@ -111,10 +111,8 @@ public class GameOverView implements Screen {
             teamSprites.get(0).setPosition(Gdx.graphics.getWidth()/20 * 6, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
         }
         else {
-            teamSprites.get(0).setScale(0.5f);
-            teamSprites.get(0).setPosition(Gdx.graphics.getWidth()/20 * 3, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
-            teamSprites.get(1).setScale(0.5f);
-            teamSprites.get(1).setPosition(Gdx.graphics.getWidth()/20 * 9, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(1).getHeight()/2);
+            tieSprite = new Sprite(TextureManager.tie);
+            tieSprite.setPosition(Gdx.graphics.getWidth()/20 * 6, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
         }
 
         batch = new SpriteBatch();
@@ -161,10 +159,12 @@ public class GameOverView implements Screen {
 
         batch.begin();
         bg.draw(batch);
-        teamSprites.get(0).draw(batch);
+        if (winners.size() == 1) {
+            teamSprites.get(0).draw(batch);
+        }
 
-        if (winners.size() != 1) {
-            teamSprites.get(1).draw(batch);
+        else{
+            tieSprite.draw(batch);
         }
 
         batch.end();
