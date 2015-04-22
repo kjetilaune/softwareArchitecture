@@ -139,9 +139,9 @@ public class StoreView implements Screen{
         ammoContainer.add(arrowRight).right().height(Gdx.graphics.getHeight()/8).width(Gdx.graphics.getWidth()/16).padRight(Gdx.graphics.getWidth() / 10);
 
         bottomContainer.row();
-        bottomContainer.add(currentPlayerLabel).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight() / 10 * 1).bottom().padTop(Gdx.graphics.getHeight() / 10 * 7);
+        bottomContainer.add(currentPlayerLabel).colspan(3).bottom().padTop((float)(Gdx.graphics.getHeight()) / 10 * 7).padLeft((float)(Gdx.graphics.getHeight())/10);
         bottomContainer.row();
-        bottomContainer.add(txtCurrentPlayer).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight()/10 * 3).padLeft(Gdx.graphics.getWidth()/20).bottom();
+        bottomContainer.add(txtCurrentPlayer).colspan(3).padLeft(Gdx.graphics.getWidth()/15).bottom();
 
         bottomContainer.add(undo).prefWidth(Gdx.graphics.getWidth()/ 20 * 4).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
         bottomContainer.add(buy).prefWidth(Gdx.graphics.getWidth() / 20 * 4);
