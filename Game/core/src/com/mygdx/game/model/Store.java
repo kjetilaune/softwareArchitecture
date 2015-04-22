@@ -30,8 +30,6 @@ public class Store {
 
     private ArrayList<String> undoStack;
 
-    private final String INITIALAMMO = "FlavourRocket";
-
     public Store() {
         allAmmunition = new HashMap<String, Ammunition>();
         ammunitionPrices = new HashMap<String, Integer>();
@@ -54,7 +52,7 @@ public class Store {
         upgradePrices.put("Health", 1500);
         upgradePrices.put("Fuel", 500);
 
-        shownAmmo = INITIALAMMO;
+        shownAmmo = "FlavourRocket";
 
         undoStack = new ArrayList<String>();
 
@@ -127,13 +125,12 @@ public class Store {
         return "" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo);
     }
 
-    public String getInitialAmmo() { return INITIALAMMO; }
-
     public String getShownAmmo() {
         return shownAmmo;
     }
 
     public void setShownAmmo(String shownAmmo) {
+        System.out.println("Shown ammo is " + shownAmmo);
         this.shownAmmo = shownAmmo;
     }
 

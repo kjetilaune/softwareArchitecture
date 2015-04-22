@@ -52,7 +52,7 @@ public class StoreView implements Screen{
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
 
-    private Label currentPlayerLabel, moneyLabel, priceLabel, txtPrice, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
+    private Label currentPlayerLabel, moneyLabel, txtCurrentPlayer, txtMoney, placeholderLabel, infoLabel;
     private TextButton back;
     private TextButton buy;
     private TextButton undo;
@@ -121,28 +121,13 @@ public class StoreView implements Screen{
 
         placeholderLabel = new Label("", skin);
         currentPlayerLabel = new Label("Current Player:", skin);
-        priceLabel = new Label("Price: ", skin);
         moneyLabel = new Label("Available Money: " + "Number of current ammo: ", skin);
         txtAmmo = "" + buyingPlayer.getInventory().getAmmoLeft(shownAmmo);
-        txtPrice = new Label("", skin);
         txtCurrentPlayer = new Label("Player 1", skin);
         txtCurrentPlayer.setFontScale(2);
         txtMoney = new Label("$" + buyingPlayer.getScore() + "\n " + txtAmmo, skin);
         currentAmmoSprite = getCurrentSprite();
         infoLabel = new Label(Store.getAmmunition(shownAmmo).getInfoText(), skin);
-
-
-        /*
-        container.add(placeholderLabel).prefHeight(Gdx.graphics.getHeight()/10 * 2).prefWidth(Gdx.graphics.getWidth());
-        container.add(moneyLabel).expand().padTop(Gdx.graphics.getHeight()/10).top().right();
-        container.add(txtMoney).top().padTop(Gdx.graphics.getHeight()/10);
-        container.row().fillX();
-        ammoContainer.add(arrowLeft).prefHeight(Gdx.graphics.getHeight()/10 * 5).left().maxWidth(Gdx.graphics.getWidth()/20).padLeft(Gdx.graphics.getWidth()/10).padTop(Gdx.graphics.getHeight()/5);
-        ammoContainer.add(placeholderLabel).prefWidth(Gdx.graphics.getWidth());
-        ammoContainer.add(arrowRight).right().maxWidth(Gdx.graphics.getWidth()/20).padRight(Gdx.graphics.getWidth()/10).padTop(Gdx.graphics.getHeight()/5);
-        ammoContainer.row();
-        bottomContainer.add(back).prefHeight(Gdx.graphics.getHeight()/10 * 3).bottom();
-        */
 
         container.add(placeholderLabel).prefWidth(Gdx.graphics.getWidth());
         container.add(moneyLabel).expand().padTop(Gdx.graphics.getHeight()/10).top().right();
@@ -158,7 +143,7 @@ public class StoreView implements Screen{
         bottomContainer.row();
         bottomContainer.add(txtCurrentPlayer).prefWidth(Gdx.graphics.getWidth()/20 * 7).prefHeight(Gdx.graphics.getHeight()/10 * 3).padLeft(Gdx.graphics.getWidth()/20).bottom();
 
-        bottomContainer.add(undo).prefWidth(Gdx.graphics.getWidth()/ 20 * 4);
+        bottomContainer.add(undo).prefWidth(Gdx.graphics.getWidth()/ 20 * 4).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
         bottomContainer.add(buy).prefWidth(Gdx.graphics.getWidth() / 20 * 4);
         bottomContainer.add(back).prefWidth(Gdx.graphics.getWidth()/20 * 4).padLeft(Gdx.graphics.getWidth() / 20).padRight(Gdx.graphics.getWidth() / 20);
 
@@ -178,13 +163,6 @@ public class StoreView implements Screen{
         buy.addListener(new StoreController(this, storeModel, players));
         undo.addListener(new StoreController(this, storeModel, players));
 
-        buy.addListener(new ClickListener(){
-           @Override
-           public void clicked(InputEvent event, float x, float y){
-                undo.setVisible(true);
-           }
-        });
-
         arrowLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -194,6 +172,7 @@ public class StoreView implements Screen{
                 else{
                     storeModel.setShownAmmo(ammoForPurchase.get(ammoForPurchase.indexOf(storeModel.getShownAmmo()) - 1));
                 }
+                shownAmmo = storeModel.getShownAmmo();
                 infoLabel.setText(Store.getAmmunition(shownAmmo).getInfoText());
             }
         });
@@ -201,12 +180,13 @@ public class StoreView implements Screen{
         arrowRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (ammoForPurchase.indexOf(storeModel.getShownAmmo()) == ammoForPurchase.size()-1){
+                if (ammoForPurchase.indexOf(storeModel.getShownAmmo()) == ammoForPurchase.size() - 1){
                     storeModel.setShownAmmo(ammoForPurchase.get(0));
                 }
                 else{
                     storeModel.setShownAmmo(ammoForPurchase.get(ammoForPurchase.indexOf(storeModel.getShownAmmo()) + 1));
                 }
+                shownAmmo = storeModel.getShownAmmo();
                 infoLabel.setText(Store.getAmmunition(shownAmmo).getInfoText());
             }
         });
@@ -270,6 +250,8 @@ public class StoreView implements Screen{
         gameView.dispose();
         game.setScreen(new GameView(game, gameInstance));
     }
+
+    public void showUndo() { undo.setVisible(true); }
 
     public void hideUndo(){
         undo.setVisible(false);

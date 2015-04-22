@@ -29,8 +29,10 @@ public class StoreController implements EventListener {
     }
 
     private void initiatePurchase() {
-        storeModel.getBuyingPlayer().buy(storeModel.getShownAmmo(), 1);
-        storeModel.addToUndoStack(storeModel.getShownAmmo());
+        if (storeModel.getBuyingPlayer().buy(storeModel.getShownAmmo(), 1)) {
+            storeModel.addToUndoStack(storeModel.getShownAmmo());
+            storeView.showUndo();
+        }
         storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
     }
 
@@ -87,7 +89,6 @@ public class StoreController implements EventListener {
     }
 
     public void cyclePlayersInStore() {
-        storeModel.setShownAmmo(storeModel.getInitialAmmo());
         storeView.setMoneyText("$" + storeModel.getBuyingPlayer().getScore() + "\n " + storeModel.getNumberOfCurrentAmmo());
         storeView.setCurrentPlayerText("Player " + (storeModel.getBuyingPlayer().getPlayerNumber()));
     }

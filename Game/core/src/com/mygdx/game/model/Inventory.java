@@ -91,7 +91,7 @@ public class Inventory {
             // if ammo is 0, remove from inventory
             ammunitions.remove(ammoIndex);
             ammoAmount.remove(ammoIndex);
-            return false;
+            return true;
         }
 
         ammoAmount.set(ammoIndex, currentAmount - amount);
