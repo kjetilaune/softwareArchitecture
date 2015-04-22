@@ -30,7 +30,7 @@ public class Store {
 
     private ArrayList<String> undoStack;
 
-    private final String INITIALAMMO = "TastyMissile";
+    private final String INITIALAMMO = "FlavourRocket";
 
     public Store() {
         allAmmunition = new HashMap<String, Ammunition>();
@@ -45,8 +45,8 @@ public class Store {
         allAmmunition.put("Instastuffed", new Instastuffed());
 
         // adds all ammunition available for purchase
-        /*ammunitionPrices.put("FlavourRocket", 100);
-        ammunitionPrices.put("DeliBomb", 250);*/
+        ammunitionPrices.put("FlavourRocket", 100);
+        ammunitionPrices.put("DeliBomb", 250);
         ammunitionPrices.put("TastyMissile", 500);
         ammunitionPrices.put("Instastuffed", 1000);
 

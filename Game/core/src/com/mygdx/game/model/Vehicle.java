@@ -17,7 +17,7 @@ public abstract class Vehicle extends GameObject {
     private Barrel barrel;
 
     public Vehicle(Team team, Environment environment, Vector2 position) {
-        super(team.getTankTexture());
+        super(team.getVehicleTexture());
         super.setPosition(position);
         super.setRotation(environment.getAngle(getPosition().x, getPosition().x + getRelativeWidth(), getRelativeWidth()));
 
