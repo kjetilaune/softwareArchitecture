@@ -140,6 +140,21 @@ public class TeamView implements Screen{
 
     }
 
+    public void setNextTeamSprite(){
+        if (currentTeamNumber < teams.length - 1){
+            //this.currentTeam = teams[currentTeamNumber+1];
+            currentTeamNumber++;
+            currentPlayerNumber++;
+        }
+        else{
+            currentTeamNumber = 0;
+            currentPlayerNumber++;
+            //this.currentTeam = teams[0];
+        }
+        currentTeam = teams[currentTeamNumber];
+
+    }
+
     public boolean isLastPlayer(){
         return currentPlayerNumber == numberOfPlayers;
     }
