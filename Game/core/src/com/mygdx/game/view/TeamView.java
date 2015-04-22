@@ -53,8 +53,9 @@ public class TeamView implements Screen{
     private Skin arrowRightSkin;
 
     private Label title, labelCurrentPlayer, labelCurrentTeam, labelPlaceholder;
-    private TextButton buttonNext;
+    private TextButton buttonStartGame;
     private TextButton buttonSettings;
+    private TextButton buttonNewPlayer;
     private ImageButton arrowLeft, arrowRight;
 
     private Sprite settingsSprite, currentTeamSprite;
@@ -63,11 +64,12 @@ public class TeamView implements Screen{
     private SettingsController settingsController;
 
     public TeamView(MyGdxGame game, SettingsController settingsController){
+
         this.game = game;
         this.settingsController = settingsController;
         this.settingsController.setTeamView(this);
 
-        numberOfPlayers = 2;
+        numberOfPlayers = 1;
         currentPlayerNumber = 0;
         currentTeamNumber = 0;
 
@@ -107,11 +109,14 @@ public class TeamView implements Screen{
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
         skin.getFont("font").scale((float)0.1);
 
-        this.buttonNext = new TextButton("Next Player", skin);
-        this.buttonNext.setName("NewGame");
+        buttonStartGame = new TextButton("Start Game", skin);
+        buttonStartGame.setName("StartGame");
 
-        this.buttonSettings = new TextButton("Back to Settings", skin);
-        this.buttonSettings.setName("Settings");
+        buttonSettings = new TextButton("Back to Settings", skin);
+        buttonSettings.setName("Settings");
+
+        buttonNewPlayer = new TextButton("New Player", skin);
+        buttonNewPlayer.setName("NewPlayer");
 
         labelPlaceholder = new Label("", skin);
         labelCurrentPlayer = new Label("Player " + (currentPlayerNumber+1), skin);
@@ -126,10 +131,11 @@ public class TeamView implements Screen{
         teamContainer.add(arrowRight).right().maxWidth(stage.getWidth() / 20).padRight(stage.getWidth() / 10);
 
         bottomContainer.row();
-        bottomContainer.add(labelCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7).colspan(2);
+        bottomContainer.add(labelCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7).colspan(3);
         bottomContainer.row();
         bottomContainer.add(buttonSettings).prefWidth(stage.getWidth()/20*6).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
-        bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 6).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(buttonStartGame).prefWidth(stage.getWidth()/20 * 6).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(buttonNewPlayer).prefWidth(stage.getWidth()/20 * 6).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
         currentTeamSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentTeamSprite.getHeight()/2);
 
@@ -160,7 +166,7 @@ public class TeamView implements Screen{
     }
 
     public void setNextButtonText(String s){
-        this.buttonNext.setText(s);
+        this.buttonStartGame.setText(s);
     }
 
     public void show (){
@@ -173,7 +179,9 @@ public class TeamView implements Screen{
 
         });*/
 
-        buttonNext.addListener(settingsController);
+        buttonStartGame.addListener(settingsController);
+
+        buttonNewPlayer.addListener(settingsController);
 
         //back.addListener(new StoreController(this, gameView));
 
@@ -231,6 +239,18 @@ public class TeamView implements Screen{
 
         labelCurrentTeam.setText(currentTeam.getName());
         labelCurrentPlayer.setText("Player " + (currentPlayerNumber+1));
+
+        // can not start a game with only one player
+        if (numberOfPlayers == 1) {
+            buttonStartGame.setVisible(false);
+        }
+        else {
+            buttonStartGame.setVisible(true);
+        }
+        // maximum number of players is 4
+        if (numberOfPlayers == 4) {
+            buttonNewPlayer.setVisible(false);
+        }
 
         batch.begin();
         settingsSprite.draw(batch);

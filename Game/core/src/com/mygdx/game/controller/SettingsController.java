@@ -41,19 +41,20 @@ public class SettingsController implements EventListener {
         view.game.setScreen(new TeamView(view.game, this));
     }
 
+    private void newPlayer() {
+        teamView.teamsChosen.add(teamView.currentTeam);
+        teamView.setNextTeamSprite();
+        teamView.numberOfPlayers += 1;
+        settings.setNofPlayers(teamView.numberOfPlayers);
+    }
+
     private void newGame() {
 
         settings.setNofPlayers(teamView.numberOfPlayers);
         teamView.teamsChosen.add(teamView.currentTeam);
         teamView.setNextTeamSprite();
-        //teamView.currentPlayerNumber ++;
-        if (teamView.currentPlayerNumber == teamView.numberOfPlayers-1){
-            teamView.setNextButtonText("Start Game");
-        }
-        if (teamView.isLastPlayer()) {
-            settings.setTeams(teamView.teamsChosen);
-            view.game.setScreen(new GameView(view.game, new Game(settings)));
-        }
+        settings.setTeams(teamView.teamsChosen);
+        view.game.setScreen(new GameView(view.game, new Game(settings)));
 
     }
 
@@ -64,8 +65,12 @@ public class SettingsController implements EventListener {
                 next();
                 return true;
             }
-            else if(event.getListenerActor().getName().equals("NewGame")) {
+            else if(event.getListenerActor().getName().equals("StartGame")) {
                 newGame();
+                return true;
+            }
+            else if(event.getListenerActor().getName().equals("NewPlayer")) {
+                newPlayer();
                 return true;
             }
         }

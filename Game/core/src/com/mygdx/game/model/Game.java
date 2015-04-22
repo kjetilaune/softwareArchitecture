@@ -44,7 +44,9 @@ public class Game {
         playersDead = new ArrayList<Player>();
 
         for (int i = 0 ; i < settings.getTeams().size() ; i ++) {
-            players.add(new Player(settings.getTeams().get(i), environment, getStartPosition(i), i+1));
+            Vector2 position = getStartPosition(i);
+            players.add(new Player(settings.getTeams().get(i), environment, position, i+1));
+            players.get(i).getVehicle().setPosition(position);
             playersAlive.add(players.get(i));
         }
 
@@ -185,13 +187,38 @@ public class Game {
     // should randomize this, so players are placed "randomly" on the environment
     private Vector2 getStartPosition(int no) {
 
+        int r = random.nextInt(Gdx.graphics.getWidth());
+
         if (no == 0) {
+            return new Vector2(r, environment.getGroundHeight(r));
+        }
+
+        boolean tooClose = true;
+
+        while (tooClose) {
+            tooClose = false;
+            r = random.nextInt(Gdx.graphics.getWidth());
+
+            for (int i = 0 ; i < players.size() ; i++) {
+
+                if (Math.abs(r - players.get(i).getVehicle().getPosition().x) < 2*players.get(i).getVehicle().getTexture().getWidth()) {
+                    tooClose = true;
+                }
+
+            }
+
+        }
+
+        return new Vector2(r, environment.getGroundHeight(r));
+
+
+        /*if (no == 0) {
             return new Vector2(Gdx.graphics.getWidth()/6, environment.getGroundHeight(Gdx.graphics.getWidth()/6));
         }
         else if (no == 1) {
             return new Vector2(5 * Gdx.graphics.getWidth()/6 , environment.getGroundHeight(5 * Gdx.graphics.getWidth()/6));
-        }
-        return null;
+        }*/
+        //return null;
     }
 
     private ArrayList<Player> getPlayersMaxHealth() {
