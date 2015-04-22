@@ -194,7 +194,7 @@ public class StoreView implements Screen{
                 else{
                     storeModel.setShownAmmo(ammoForPurchase.get(ammoForPurchase.indexOf(storeModel.getShownAmmo()) - 1));
                 }
-                infoLabel.setText("Name of Ammo: " + storeModel.getShownAmmo() + "\nPrice: " + Store.getAmmunitionPrice(storeModel.getShownAmmo()) + "\nDamage: " + Store.getAmmunition(storeModel.getShownAmmo()).getInitialDamage());
+                infoLabel.setText(Store.getAmmunition(shownAmmo).getInfoText());
             }
         });
 
@@ -207,7 +207,7 @@ public class StoreView implements Screen{
                 else{
                     storeModel.setShownAmmo(ammoForPurchase.get(ammoForPurchase.indexOf(storeModel.getShownAmmo()) + 1));
                 }
-                infoLabel.setText("Name of Ammo: " + storeModel.getShownAmmo() + "\nPrice: " + Store.getAmmunitionPrice(storeModel.getShownAmmo()) + "\nDamage: " + Store.getAmmunition(storeModel.getShownAmmo()).getInitialDamage());
+                infoLabel.setText(Store.getAmmunition(shownAmmo).getInfoText());
             }
         });
 
