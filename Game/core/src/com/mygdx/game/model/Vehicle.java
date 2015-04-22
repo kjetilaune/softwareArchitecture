@@ -52,9 +52,13 @@ public abstract class Vehicle extends GameObject {
 
     public Vector2 getBarrelPosition() {
 
-        float tankLeftX = getPosition().x;
+        Vector2 initialCenter = new Vector2((2*getPosition().x+ getTexture().getWidth())/2, (2*getPosition().y + 5*getTexture().getHeight()/6));
+        Vector2 rotatedCenter = rotatePoint(getPosition(), initialCenter, getRotation());
+        return rotatedCenter;
+
+        /*float tankLeftX = getPosition().x;
         float tankLeftY = getPosition().y;
-        float barrelX = tankLeftX + getTexture().getWidth()/2;
+        float barrelX = tankLeftX;
         float barrelY = tankLeftY; //should fix this..
 
         float s = (float)Math.sin(getRotation() * Math.PI / 180);
@@ -72,8 +76,19 @@ public abstract class Vehicle extends GameObject {
         barrelX = xNewBarrel + tankLeftX;
         barrelY = yNewBarrel + tankLeftY;
 
-        return new Vector2(barrelX, barrelY);
+        return new Vector2(barrelX, barrelY);*/
     }
+
+
+    public Vector2 getCenter() {
+
+        Vector2 initialCenter = new Vector2((2*getPosition().x + getTexture().getWidth())/2, (2*getPosition().y + 5*getTexture().getHeight()/6)/2);
+        Vector2 rotatedCenter = rotatePoint(getPosition(), initialCenter, getRotation());
+
+
+        return null;
+    }
+
 
     public Barrel getBarrel() {
         return barrel;
