@@ -45,7 +45,8 @@ public class SettingsController implements EventListener {
 
         settings.setNofPlayers(teamView.numberOfPlayers);
         teamView.teamsChosen.add(teamView.currentTeam);
-        teamView.currentPlayerNumber ++;
+        teamView.setNextTeamSprite();
+        //teamView.currentPlayerNumber ++;
         if (teamView.currentPlayerNumber == teamView.numberOfPlayers-1){
             teamView.setNextButtonText("Start Game");
         }
