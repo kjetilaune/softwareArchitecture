@@ -50,43 +50,10 @@ public abstract class Vehicle extends GameObject {
 
     }
 
+    // get the position of the barrel according to the tank
     public Vector2 getBarrelPosition() {
-
-        Vector2 initialCenter = new Vector2((2*getPosition().x+ getTexture().getWidth())/2, (2*getPosition().y + 5*getTexture().getHeight()/6));
-        Vector2 rotatedCenter = rotatePoint(getPosition(), initialCenter, getRotation());
-        return rotatedCenter;
-
-        /*float tankLeftX = getPosition().x;
-        float tankLeftY = getPosition().y;
-        float barrelX = tankLeftX;
-        float barrelY = tankLeftY; //should fix this..
-
-        float s = (float)Math.sin(getRotation() * Math.PI / 180);
-        float c = (float)Math.cos(getRotation() * Math.PI / 180);
-
-        // translate point back to origin
-        barrelX -= tankLeftX;
-        barrelY -= tankLeftY;
-
-        // rotate point
-        float xNewBarrel = barrelX * c - barrelY * s;
-        float yNewBarrel = barrelX * s + barrelY * c;
-
-        // translate point back
-        barrelX = xNewBarrel + tankLeftX;
-        barrelY = yNewBarrel + tankLeftY;
-
-        return new Vector2(barrelX, barrelY);*/
-    }
-
-
-    public Vector2 getCenter() {
-
-        Vector2 initialCenter = new Vector2((2*getPosition().x + getTexture().getWidth())/2, (2*getPosition().y + 5*getTexture().getHeight()/6)/2);
-        Vector2 rotatedCenter = rotatePoint(getPosition(), initialCenter, getRotation());
-
-
-        return null;
+        Vector2 initialCenter = new Vector2((2*getPosition().x+ getTexture().getWidth())/2, (2*getPosition().y + getTexture().getHeight()/2)/2);
+        return  rotatePoint(getPosition(), initialCenter, getRotation());
     }
 
 
