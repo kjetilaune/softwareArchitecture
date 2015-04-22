@@ -72,6 +72,7 @@ public class GameView implements Screen, Observer{
     // for menu and buttons
     private Skin menuSkin;
     private Skin fireSkin;
+    private Skin fireBSkin;
 
     private Skin arrowLeftSkin;
     private Skin arrowRightSkin;
@@ -147,9 +148,14 @@ public class GameView implements Screen, Observer{
         menuSkin.getFont("font").scale((float)(Gdx.graphics.getHeight())/1080);
         buttonMainMenu = new TextButton("To Main Menu", menuSkin);
         fireSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
+        fireBSkin = new Skin(Gdx.files.internal("skins/fire.json"), new TextureAtlas(Gdx.files.internal("skins/fire.pack")));
+        fireBSkin.getFont("font").setScale(2.0f);
         fireSkin.getFont("font").scale((float)(Gdx.graphics.getHeight())/1080);
         fireSkin.getFont("font").scale((float)(Gdx.graphics.getHeight())/540);
-        buttonFire = new TextButton("Fire", fireSkin);
+
+        buttonFire = new TextButton("Fire", fireBSkin);
+
+
         buttonAmmo = new TextButton("Ammo", menuSkin);
         arrowLeftSkin = new Skin(Gdx.files.internal("skins/arrowLeft.json"), new TextureAtlas(Gdx.files.internal("skins/leftArrow.pack")));
         arrowLeft = new ImageButton(arrowLeftSkin);
@@ -162,6 +168,8 @@ public class GameView implements Screen, Observer{
 
         buttonExit = new TextButton("Pause", menuSkin);
         buttonExit.setName("Exit");
+
+
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
 
@@ -246,9 +254,7 @@ public class GameView implements Screen, Observer{
         arrowLeft.addListener(moveCtrl);
         arrowRight.addListener(moveCtrl);
 
-
         fireSkin.getFont("font").setScale(1.0f);
-
 
         labelRound = new Label(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()), fireSkin);
         labelRound.setFontScale((float)(Gdx.graphics.getHeight())/900);
@@ -298,15 +304,15 @@ public class GameView implements Screen, Observer{
         groupTop2.setFillParent(true);
 
         groupBottom.bottom();
-        groupBottom.add(buttonFire);
+        groupBottom.add(buttonFire).height(Gdx.graphics.getHeight()/6).width(Gdx.graphics.getHeight()/6);
 
         groupLeft.bottom().left();
-        groupLeft.add(arrowLeft).padLeft(2*padding).padBottom(2*padding).padRight(25).width(100).height(100);
-        groupLeft.add(arrowRight).padLeft(2*padding).padBottom(2 * padding).width(100).height(100);
+        groupLeft.add(arrowLeft).padLeft(4*padding).padBottom(4*padding).padRight(25).height(Gdx.graphics.getHeight()/8).width(Gdx.graphics.getWidth()/16);
+        groupLeft.add(arrowRight).padLeft(4*padding).padBottom(4 * padding).height(Gdx.graphics.getHeight()/8).width(Gdx.graphics.getWidth()/16);
 
         groupRight.bottom().right();
-        groupRight.add(buttonAmmo).padBottom(2*padding);
-        groupRight.add(buttonExit).padBottom(2*padding);
+        groupRight.add(buttonAmmo).padBottom(2*padding).padLeft(4*padding);
+        groupRight.add(buttonExit).padBottom(2*padding).padLeft(4*padding);
 
         groupBottom.setFillParent(true);
         groupRight.setFillParent(true);
