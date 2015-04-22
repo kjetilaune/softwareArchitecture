@@ -52,7 +52,6 @@ public class FireThread extends Thread {
 
         this.view = view;
         this.playerModel = gameModel.getCurrentPlayer();
-        this.players = gameModel.getPlayersAlive();
         this.vehicleModel = playerModel.getVehicle();
         this.ammoModel = playerModel.getChosenAmmo();
         this.environmentModel = gameModel.getEnvironment();
@@ -107,10 +106,6 @@ public class FireThread extends Thread {
                     view.setIsFiring(false);
                     vehicleModel.setPower(0.0f);
                     view.changePlayer();
-
-                    for (Player p : players) {
-                        p.getVehicle().fallDown();
-                    }
 
                     killThread();
                 }
