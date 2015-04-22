@@ -236,7 +236,6 @@ public class SettingsView implements Screen {
                 }
                 else if (Integer.parseInt(numberOfTurns) == 20){
                     numberOfTurns = "Unlimited";
-                    table.getCell(txtNumberOfTurns).center();
                 }
                 else {
                     numberOfTurns = Integer.toString(Integer.parseInt(numberOfTurns) + 5);

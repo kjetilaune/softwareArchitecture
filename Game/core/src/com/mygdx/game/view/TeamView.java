@@ -128,8 +128,8 @@ public class TeamView implements Screen{
         bottomContainer.row();
         bottomContainer.add(labelCurrentPlayer).prefWidth(stage.getWidth()/20 * 7).prefHeight(stage.getHeight()/10 * 1).bottom().padTop(stage.getHeight() / 10 * 7).colspan(2);
         bottomContainer.row();
-        bottomContainer.add(buttonSettings).prefWidth(stage.getWidth()/20*8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
-        bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 8).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(buttonSettings).prefWidth(stage.getWidth()/20*6).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
+        bottomContainer.add(buttonNext).prefWidth(stage.getWidth()/20 * 6).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
         currentTeamSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentTeamSprite.getHeight()/2);
 

@@ -154,10 +154,10 @@ public class MainMenu implements Screen {
 
 
         table.add(title).padBottom(40).row();
-        table.add(buttonNewGame).size(470, 120).padBottom(20).row();
+        table.add(buttonNewGame).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/12)).padBottom(20).row();
         //table.add(buttonSettings).size(300, 120).padBottom(20).row();
-        table.add(buttonAbout).size(470, 120).padBottom(20).row();
-        table.add(buttonCredits).size(470, 120).padBottom(20).row();
+        table.add(buttonAbout).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/12)).padBottom(20).row();
+        table.add(buttonCredits).size((int)(Gdx.graphics.getWidth()/2.8), (int)(Gdx.graphics.getHeight()/12)).padBottom(20).row();
 
         table.setFillParent(true);
         stage.addActor(table);
