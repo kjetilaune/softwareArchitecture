@@ -8,30 +8,38 @@ import com.mygdx.game.model.AudioVisualManagers.TextureManager;
  * Created by Jonathan on 12.03.2015.
  */
 public enum Team {
-    SWEETS("Team Sweets", TextureManager.tankSweets, TextureManager.barrelSweets, TextureManager.yummyGrenadeSweets, TextureManager.tastyMissileSweets, TextureManager.instastuffedSweets, TextureManager.storeYummyGrenadeSweets, TextureManager.storeTastyMissileSweets, TextureManager.storeInstastuffedSweets, TextureManager.largeTankSweets),
-    FAST_FOOD("Team Fast Food", TextureManager.tankFastfood, TextureManager.barrelFastfood, TextureManager.yummyGrenadeFastfood, TextureManager.tastyMissileFastfood, TextureManager.instastuffedFastfood, TextureManager.storeYummyGrenadeFastfood, TextureManager.storeTastyMissileFastfood, TextureManager.storeInstastuffedFastfood, TextureManager.largeTankFastfood),
-    VEGAN("Team Vegan", TextureManager.tankVegan, TextureManager.barrelVegan, TextureManager.yummyGrenadeVegan, TextureManager.tastyMissileVegan, TextureManager.instastuffedVegan, TextureManager.storeYummyGrenadeVegan, TextureManager.storeTastyMissileVegan, TextureManager.storeInstastuffedVegan, TextureManager.largeTankVegan),
-    SEAFOOD("Team Seafood", TextureManager.tankSeafood, TextureManager.barrelSeafood, TextureManager.yummyGrenadeSeafood, TextureManager.tastyMissileSeafood, TextureManager.instastuffedSeafood, TextureManager.storeYummyGrenadeSeafood, TextureManager.storeTastyMissileSeafood, TextureManager.storeInstastuffedSeafood, TextureManager.largeTankSeafood);
+    SWEETS("Team Sweets", TextureManager.vehicleSweets, TextureManager.barrelSweets, TextureManager.yummyGrenadeSweets, TextureManager.flavourRocketSweets, TextureManager.deliBombSweets, TextureManager.tastyMissileSweets, TextureManager.instastuffedSweets, TextureManager.storeYummyGrenadeSweets, TextureManager.storeFlavourRocketSweets, TextureManager.storeDeliBombSweets, TextureManager.storeTastyMissileSweets, TextureManager.storeInstastuffedSweets, TextureManager.largeVehicleSweets),
+    FAST_FOOD("Team Fast Food", TextureManager.vehicleFastfood, TextureManager.barrelFastfood, TextureManager.yummyGrenadeFastfood, TextureManager.flavourRocketFastfood, TextureManager.deliBombFastfood, TextureManager.tastyMissileFastfood, TextureManager.instastuffedFastfood, TextureManager.storeYummyGrenadeFastfood, TextureManager.storeFlavourRocketFastfood, TextureManager.storeDeliBombFastfood, TextureManager.storeTastyMissileFastfood, TextureManager.storeInstastuffedFastfood, TextureManager.largeVehicleFastfood),
+    VEGAN("Team Vegan", TextureManager.vehicleVegan, TextureManager.barrelVegan, TextureManager.yummyGrenadeVegan, TextureManager.flavourRocketVegan, TextureManager.deliBombVegan, TextureManager.tastyMissileVegan, TextureManager.instastuffedVegan, TextureManager.storeYummyGrenadeVegan, TextureManager.storeFlavourRocketVegan, TextureManager.storeDeliBombVegan, TextureManager.storeTastyMissileVegan, TextureManager.storeInstastuffedVegan, TextureManager.largeVehicleVegan),
+    SEAFOOD("Team Seafood", TextureManager.vehicleSeafood, TextureManager.barrelSeafood, TextureManager.yummyGrenadeSeafood, TextureManager.flavourRocketSeafood, TextureManager.deliBombSeafood, TextureManager.tastyMissileSeafood, TextureManager.instastuffedSeafood, TextureManager.storeYummyGrenadeSeafood, TextureManager.storeFlavourRocketSeafood, TextureManager.storeDeliBombSeafood, TextureManager.storeTastyMissileSeafood, TextureManager.storeInstastuffedSeafood, TextureManager.largeVehicleSeafood);
 
     private Texture vehicleTexture;
     private Texture barrelTexture;
     private Texture yummyGrenadeTexture;
+    private Texture flavourRocketTexture;
+    private Texture deliBombTexture;
     private Texture tastyMissileTexture;
     private Texture instastuffedTexture;
     private Sprite yummyGrenadeSprite;
+    private Sprite flavourRocketSprite;
+    private Sprite deliBombSprite;
     private Sprite tastyMissileSprite;
     private Sprite instastuffedSprite;
     private Sprite vehicleSprite;
     private String name;
 
-    private Team(String name, Texture tankTexture, Texture barrelTexture, Texture yummyGrenadeTexture, Texture TastyMissileTexture, Texture instastuffedTexture, Texture yummyGrenadeStoreTexture, Texture tastyMissileStoreTexture, Texture instastuffedStoreTexture, Texture largeTankTexture) {
+    private Team(String name, Texture vehicleTexture, Texture barrelTexture, Texture yummyGrenadeTexture, Texture flavourRocketTexture, Texture deliBombTexture, Texture tastyMissileTexture, Texture instastuffedTexture, Texture yummyGrenadeStoreTexture, Texture flavourRocketStoreTexture, Texture deliBombStoreTexture, Texture tastyMissileStoreTexture, Texture instastuffedStoreTexture, Texture largeTankTexture) {
         this.name = name;
-        this.vehicleTexture = tankTexture;
+        this.vehicleTexture = vehicleTexture;
         this.barrelTexture = barrelTexture;
         this.yummyGrenadeTexture = yummyGrenadeTexture;
-        this.tastyMissileTexture = TastyMissileTexture;
+        this.flavourRocketTexture = flavourRocketTexture;
+        this.deliBombTexture = deliBombTexture;
+        this.tastyMissileTexture = tastyMissileTexture;
         this.instastuffedTexture = instastuffedTexture;
         this.yummyGrenadeSprite = new Sprite(yummyGrenadeStoreTexture);
+        this.flavourRocketSprite = new Sprite(flavourRocketStoreTexture);
+        this.deliBombSprite = new Sprite(deliBombStoreTexture);
         this.tastyMissileSprite = new Sprite(tastyMissileStoreTexture);
         this.instastuffedSprite = new Sprite(instastuffedStoreTexture);
         this.vehicleSprite = new Sprite(largeTankTexture);
@@ -41,6 +49,12 @@ public enum Team {
 
         if (ammoName.equals("YummyGrenade")) {
             return yummyGrenadeTexture;
+        }
+        else if (ammoName.equals("FlavourRocket")) {
+            return flavourRocketTexture;
+        }
+        else if (ammoName.equals("DeliBomb")) {
+            return deliBombTexture;
         }
         else if (ammoName.equals("TastyMissile")) {
             return tastyMissileTexture;
@@ -57,6 +71,12 @@ public enum Team {
         if (ammoName.equals("YummyGrenade")) {
             return yummyGrenadeSprite;
         }
+        else if (ammoName.equals("FlavourRocket")) {
+            return flavourRocketSprite;
+        }
+        else if (ammoName.equals("DeliBomb")) {
+            return deliBombSprite;
+        }
         else if (ammoName.equals("TastyMissile")) {
             return tastyMissileSprite;
         }
@@ -72,7 +92,7 @@ public enum Team {
         return vehicleSprite;
     }
 
-    public Texture getTankTexture() {
+    public Texture getVehicleTexture() {
         return vehicleTexture;
     }
 
