@@ -13,6 +13,7 @@ public abstract class Vehicle extends GameObject {
     private int health;
     private int fuel;
     private float power;
+    private Environment environment;
 
     private Barrel barrel;
 
@@ -20,6 +21,8 @@ public abstract class Vehicle extends GameObject {
         super(team.getVehicleTexture());
         super.setPosition(position);
         super.setRotation(environment.getAngle(getPosition().x, getPosition().x + getRelativeWidth(), getRelativeWidth()));
+
+        this.environment = environment;
 
         barrel = new Barrel(team, getBarrelPosition(), 45);
         barrel.setRotation(getRotation());
@@ -56,11 +59,16 @@ public abstract class Vehicle extends GameObject {
         return  rotatePoint(getPosition(), initialCenter, getRotation());
     }
 
+
+    // get position of health bar
     public Vector2 getHealthPosition() {
-
-        Vector2 initial = new Vector2(getPosition().x, getPosition().y - getTexture().getHeight()/3);
+        Vector2 initial = new Vector2(getPosition().x + getTexture().getWidth()/6, getPosition().y - 3*getTexture().getHeight()/4);
         return rotatePoint(getPosition(), initial, getRotation());
+    }
 
+    // if the ground under the vehicle disappears, the vehicle should not float in the air, but fall down to the ground
+    public void fallDown(){
+        setPosition(new Vector2(getPosition().x, environment.getGroundHeight(getPosition().x)));
     }
 
 
