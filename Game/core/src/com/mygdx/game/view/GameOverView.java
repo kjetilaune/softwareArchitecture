@@ -80,7 +80,7 @@ public class GameOverView implements Screen {
         stage.addActor(tableBottom);
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale(1);
+        skin.getFont("font").scale((float)(Gdx.graphics.getHeight())/1080);
 
         buttonMainMenu = new TextButton("Main Menu", skin);
         buttonRematch = new TextButton("Rematch", skin);
@@ -99,7 +99,7 @@ public class GameOverView implements Screen {
 
         for (int i = 0 ; i < winners.size() ; i++) {
             labelsTeams.add(new Label(winners.get(i).getTeam().getName(), skin));
-            labelsTeams.get(i).setFontScale(2);
+            labelsTeams.get(i).setFontScale((float)(Gdx.graphics.getHeight())/540);
         }
 
 
@@ -112,9 +112,12 @@ public class GameOverView implements Screen {
 
         if (winners.size() == 1) {
             teamSprites.get(0).setPosition(Gdx.graphics.getWidth()/20 * 6, Gdx.graphics.getHeight()/10 * 5 - teamSprites.get(0).getHeight()/2);
+            teamSprites.get(0).setScale((float)(Gdx.graphics.getHeight())/1080);
+
         }
         else {
             tieSprite = new Sprite(TextureManager.tie);
+            tieSprite.setScale((float)(Gdx.graphics.getHeight())/1080);
             tieSprite.setPosition(Gdx.graphics.getWidth() / 20 * 6, Gdx.graphics.getHeight() / 10 * 5 - teamSprites.get(0).getHeight() / 2);
         }
 
@@ -162,9 +165,11 @@ public class GameOverView implements Screen {
         batch.begin();
         bg.draw(batch);
         if (winners.size() == 1) {
+            teamSprites.get(0).setScale((float)(Gdx.graphics.getHeight())/1080);
             teamSprites.get(0).draw(batch);
         }
         else{
+            tieSprite.setScale((float)(Gdx.graphics.getHeight())/1080);
             tieSprite.draw(batch);
         }
 

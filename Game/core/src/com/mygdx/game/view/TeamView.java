@@ -107,7 +107,7 @@ public class TeamView implements Screen{
         arrowRight.setName("arrowRight");
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale((float)0.1);
+        skin.getFont("font").scale((float)(Gdx.graphics.getHeight())/10800);
 
         buttonStartGame = new TextButton("Start Game", skin);
         buttonStartGame.setName("StartGame");
@@ -120,9 +120,9 @@ public class TeamView implements Screen{
 
         labelPlaceholder = new Label("", skin);
         labelCurrentPlayer = new Label("Player " + (currentPlayerNumber+1), skin);
-        labelCurrentPlayer.setFontScale(2);
+        labelCurrentPlayer.setFontScale((float)(Gdx.graphics.getHeight())/540);
         labelCurrentTeam = new Label(currentTeam.getName(), skin);
-        labelCurrentTeam.setFontScale(2);
+        labelCurrentTeam.setFontScale((float)(Gdx.graphics.getHeight())/540);
 
         currentTeamSprite = currentTeam.getVehicleSprite();
 
@@ -138,6 +138,8 @@ public class TeamView implements Screen{
         bottomContainer.add(buttonNewPlayer).prefWidth(stage.getWidth()/20 * 6).padLeft(stage.getWidth() / 20).padRight(stage.getWidth() / 20);
 
         currentTeamSprite.setPosition(stage.getWidth()/20 * 6, stage.getHeight()/10 * 5 - currentTeamSprite.getHeight()/2);
+        currentTeamSprite.setScale((float)(Gdx.graphics.getHeight())/1080);
+
 
         settingsSprite = new Sprite(TextureManager.settingsBackground);
         settingsSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -235,7 +237,7 @@ public class TeamView implements Screen{
         currentTeamSprite = currentTeam.getVehicleSprite();
 
         currentTeamSprite.setPosition(Gdx.graphics.getWidth()/2 - currentTeamSprite.getWidth()/2, Gdx.graphics.getHeight()/2 - currentTeamSprite.getHeight()/2);
-        //currentTeamSprite.setScale(5);
+        currentTeamSprite.setScale((float)(Gdx.graphics.getHeight())/1080);
 
         labelCurrentTeam.setText(currentTeam.getName());
         labelCurrentPlayer.setText("Player " + (currentPlayerNumber+1));
