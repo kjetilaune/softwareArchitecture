@@ -56,6 +56,13 @@ public abstract class Vehicle extends GameObject {
         return  rotatePoint(getPosition(), initialCenter, getRotation());
     }
 
+    public Vector2 getHealthPosition() {
+
+        Vector2 initial = new Vector2(getPosition().x, getPosition().y - getTexture().getHeight());
+        return rotatePoint(getPosition(), initial, getRotation());
+
+    }
+
 
     public Barrel getBarrel() {
         return barrel;
