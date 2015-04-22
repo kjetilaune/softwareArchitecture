@@ -341,16 +341,6 @@ public class GameView implements Screen, Observer{
     public void render(float delta) {
 
         // if the round is finished (either because there is only one player left, or there is no more turns left
-        /*if (gameInstance.getRoundWinner() != null) {
-            if (gameInstance.getRoundsLeft() == 0) {
-                game.setScreen(new GameOverView(game, gameInstance));
-                battleSong.stop();
-            } else {
-                game.setScreen(new RoundOverView(game, gameInstance.getRoundWinner(), gameInstance, this));
-                battleSong.stop();
-            }
-        }*/
-
         if (gameInstance.getRoundWinners() != null) {
             battleSong.stop();
             if (gameInstance.getRoundsLeft() == 0) {
@@ -396,7 +386,6 @@ public class GameView implements Screen, Observer{
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                     shapeRenderer.setColor(0, 0, 0, 1);
                     shapeRenderer.rect(p.getVehicle().getHealthPosition().x, p.getVehicle().getHealthPosition().y, 0, 0, 102, ((float)Gdx.graphics.getHeight()) / 40 + 2, 1, 1, p.getVehicle().getRotation() );
-                    //shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), 102, Gdx.graphics.getHeight() / 40 + 2);
                     shapeRenderer.end();
 
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -414,7 +403,6 @@ public class GameView implements Screen, Observer{
 
 
                     shapeRenderer.rect(p.getVehicle().getHealthPosition().x, p.getVehicle().getHealthPosition().y, 0, 0, p.getVehicle().getHealth(), ((float)Gdx.graphics.getHeight()) / 40, 1, 1, p.getVehicle().getRotation() );
-                    //shapeRenderer.rect(p.getVehicle().getPosition().x + p.getVehicle().getRelativeWidth() / 2, p.getVehicle().getPosition().y + p.getVehicle().getRelativeHeight(), p.getVehicle().getHealth(), Gdx.graphics.getHeight() / 40);
                     shapeRenderer.end();
                     batch.begin();
 
@@ -451,7 +439,6 @@ public class GameView implements Screen, Observer{
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(249.f / 255, 22.f / 255, 39.f / 255, 1);
         shapeRenderer.rect(labelHealthLeft.getWidth()+labelFuelLeft.getWidth()+labelPower.getWidth()+(44*Gdx.graphics.getWidth()/200), Gdx.graphics.getHeight() - (labelCurrentPlayer.getHeight() + (6*Gdx.graphics.getWidth()/200)), currentPlayer.getVehicle().getPower() * 2, Gdx.graphics.getHeight()/30);
-        //shapeRenderer.rect(stage.getWidth()/20 * 17, stage.getHeight() / 20 * 18, currentPlayer.getVehicle().getPower() * 2, stage.getHeight()/30);
         shapeRenderer.end();
 
         stage.act();
@@ -491,23 +478,35 @@ public class GameView implements Screen, Observer{
 
     private void updateTopMenu() {
 
-        /*labelRound.setColor(Color.BLACK);
-        labelCurrentPlayer.setColor(Color.BLACK);
-        labelTurn.setColor(Color.BLACK);
-        labelChosenAmmo.setColor(Color.BLACK);*/
-
         spriteChosenAmmo = currentPlayer.getTeam().getAmmunitionSprite(currentPlayer.getChosenAmmo().getName());
         spriteChosenAmmo.setPosition(labelHealthLeft.getWidth() + labelFuelLeft.getWidth() + labelPower.getWidth() + (3*Gdx.graphics.getWidth()/5), Gdx.graphics.getHeight()-spriteChosenAmmo.getHeight());
         spriteChosenAmmo.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
 
         labelRound.setText(String.format("Round %d out of %d", gameInstance.getCurrentRound(), gameInstance.getNumberOfRounds()));
         labelCurrentPlayer.setText("Player " + currentPlayer.getPlayerNumber());
-        labelTurn.setText("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()));
         labelChosenAmmo.setText("Ammo: " + currentPlayer.getChosenAmmo().getName());
         labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
         labelHealthLeft.setText("Health: " + (currentPlayer.getVehicle().getHealth() + currentPlayer.getHealthUpgrade()));
         labelFuelLeft.setText("Fuel: " + (currentPlayer.getFuelUpgrade() + currentPlayer.getVehicle().getFuel()));
         labelPower.setText("Power: ");
+
+        if (currentPlayer.getChosenAmmo().getName().equals("YummyGrenade")) {
+            labelLeftAmmo.setText("Ammo left: inf");
+        }
+        else {
+            labelLeftAmmo.setText("Ammo left: " + currentPlayer.getInventory().getAmmoLeft(currentPlayer.getChosenAmmo().getName()));
+        }
+
+        if (gameInstance.getNumberOfTurns() == -1) {
+            labelTurn.setText("Turns left: inf");
+        }
+        else {
+            labelTurn.setText("Turns left: " + (gameInstance.getNumberOfTurns() - currentPlayer.getTurnsTaken()));
+
+        }
+
+
+
 
     }
 
