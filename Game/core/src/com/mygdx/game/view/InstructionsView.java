@@ -47,7 +47,7 @@ public class InstructionsView implements Screen {
         table = new Table();
 
         skin = new Skin(Gdx.files.internal("skins/skin.json"), new TextureAtlas(Gdx.files.internal("skins/menuSkin.pack")));
-        skin.getFont("font").scale(1);
+        skin.getFont("font").setScale((float)(Gdx.graphics.getHeight()) / 1080);
 
 
 
@@ -80,12 +80,12 @@ public class InstructionsView implements Screen {
 
 
         batch.begin();
-        font.setScale(1.2f);
-        font.draw(batch, "Move your tank with the arrows to the left or the right.", 250, Gdx.graphics.getHeight() - 390);
-        font.draw(batch, "Change the angle of the barrel by pressing the screen.", 250, Gdx.graphics.getHeight() - 470);
-        font.draw(batch, "Toggle your ammo with the 'Change Ammo' button.", 250, Gdx.graphics.getHeight() - 550);
-        font.draw(batch, "Fire when you're ready.", 250, Gdx.graphics.getHeight() - 630);
-        font.draw(batch, "After each round you can buy new ammo and upgrades.", 250, Gdx.graphics.getHeight() - 710);
+        font.setScale((float)(Gdx.graphics.getHeight()) / 1080);
+        font.draw(batch, "Move your tank with the arrows to the left or the right.", Gdx.graphics.getWidth() / 20 * 2, Gdx.graphics.getHeight() / 20 * 14);
+        font.draw(batch, "Change the angle of the barrel by pressing the screen.", Gdx.graphics.getWidth() / 20 * 2, Gdx.graphics.getHeight() / 20 * 12);
+        font.draw(batch, "Toggle through your ammo by pressing the Ammo-button.", Gdx.graphics.getWidth() / 20 * 2, Gdx.graphics.getHeight() / 20 * 10);
+        font.draw(batch, "Hold the Fire-button to fluctuate power and release to fire.", Gdx.graphics.getWidth() / 20 * 2, Gdx.graphics.getHeight() / 20 * 8);
+        font.draw(batch, "After each round you can buy new ammo.", Gdx.graphics.getWidth() / 20 * 2, Gdx.graphics.getHeight() / 20 * 6);
         batch.end();
 
         stage.act();
@@ -105,9 +105,9 @@ public class InstructionsView implements Screen {
 
 
 
-        table.add(title).padBottom(Gdx.graphics.getHeight() - 200).row();
-        table.add(buttonMainMenu).size(500, 120).padBottom(20).row();
-        table.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight() - 400);
+
+        table.add(buttonMainMenu).size(500, 120);
+        table.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight() / 20 * 2);
         table.setFillParent(false);
         stage.addActor(table);
 

@@ -61,7 +61,7 @@ public class MainMenu implements Screen {
 
         buttonNewGame = new TextButton("New Game", skin);
         //buttonSettings = new TextButton("Settings", skin);
-        buttonAbout = new TextButton("About", skin);
+        buttonAbout = new TextButton("Instructions", skin);
         buttonCredits = new TextButton("Credits", skin);
 
         titleSprite = new Sprite(TextureManager.titleBackground);
