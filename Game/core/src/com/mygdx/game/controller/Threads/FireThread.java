@@ -30,9 +30,6 @@ public class FireThread extends Thread {
     private Ammunition ammoModel;
     private Environment environmentModel; // holds the environment to move according to
 
-    // list of players
-    private ArrayList<Player> players;
-
     // enables sound when firing bullets
     private Sound fire;
 
@@ -45,6 +42,9 @@ public class FireThread extends Thread {
     // the laws of physics to determine the trajectory of a bullet
     private BulletPhysics physics;
 
+    // list of players
+    private ArrayList<Player> players;
+
 
     public FireThread(GameView view, Game gameModel) {
         blinker = true;
@@ -52,6 +52,7 @@ public class FireThread extends Thread {
 
         this.view = view;
         this.playerModel = gameModel.getCurrentPlayer();
+        this.players = gameModel.getPlayersAlive();
         this.vehicleModel = playerModel.getVehicle();
         this.ammoModel = playerModel.getChosenAmmo();
         this.environmentModel = gameModel.getEnvironment();
@@ -106,6 +107,10 @@ public class FireThread extends Thread {
                     view.setIsFiring(false);
                     vehicleModel.setPower(0.0f);
                     view.changePlayer();
+
+                    for (Player p : players) {
+                        p.getVehicle().fallDown();
+                    }
 
                     killThread();
                 }

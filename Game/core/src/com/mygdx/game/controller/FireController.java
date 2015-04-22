@@ -21,9 +21,6 @@ public class FireController implements EventListener{
     // model the controller wants to change/access
     private Game gameModel;
 
-    // list of players
-    private ArrayList<Player> players;
-
     // the thread which handles the actual firing
     private FireThread fireThread;
 
@@ -33,7 +30,6 @@ public class FireController implements EventListener{
     public FireController(GameView view, Game gameModel){
         this.view = view;
         this.gameModel = gameModel;
-        this.players = gameModel.getPlayersAlive();
     }
 
     public boolean handle (Event event){
