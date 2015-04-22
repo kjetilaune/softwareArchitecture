@@ -160,7 +160,7 @@ public class GameView implements Screen, Observer{
         windowSkin = new Skin(Gdx.files.internal("skins/windowSkin.json"), new TextureAtlas(Gdx.files.internal("skins/windowPack.pack")));
 
 
-        buttonExit = new TextButton("Exit", menuSkin);
+        buttonExit = new TextButton("Pause", menuSkin);
         buttonExit.setName("Exit");
 
         font = new BitmapFont(Gdx.files.internal("font/fireBold.fnt"));
